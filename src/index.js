@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'semantic-ui-less/semantic.less';
+
 import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';

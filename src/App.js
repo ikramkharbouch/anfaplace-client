@@ -1,4 +1,5 @@
 import React from 'react';
+import { Icon, Button, Segment, Label } from 'semantic-ui-react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -19,6 +20,18 @@ function App() {
           Learn React
         </a>
       </header>
+      <Segment>
+        <p>Hello semantic-ui button with icon</p>
+        <Button as="div" labelPosition="right">
+          <Button color="red">
+            <Icon name="heart" />
+            Like
+          </Button>
+          <Label as="a" basic color="red" pointing="left">
+            2,048
+          </Label>
+        </Button>
+      </Segment>
     </div>
   );
 }
