@@ -1,0 +1,47 @@
+.bottom-nav{
+  border-radius: 80px;
+  height: 50px;
+  background-color: #1E1E48;
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+
+    li {
+      vertical-align: middle;
+      flex: 1;
+
+      svg {
+        vertical-align: middle;
+      }
+
+      span {
+        display: none;
+        vertical-align: middle;
+
+      }
+
+      &.active span {
+        display: inline;
+      }
+      &:nth-child(2){
+        display: flex;
+        justify-content: center;
+      }
+      &:last-child{
+        svg{
+          float:right;
+          margin-right: 14px;
+
+        }
+      }
+    }
+  }}
