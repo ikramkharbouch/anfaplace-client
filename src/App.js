@@ -23,7 +23,7 @@ function App() {
       <Segment>
         <p>Hello semantic-ui button with icon</p>
         <Button as="div" labelPosition="right">
-          <Button color="red">
+          <Button primary>
             <Icon name="heart" />
             Like
           </Button>
