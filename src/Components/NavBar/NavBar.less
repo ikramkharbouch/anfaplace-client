@@ -1,0 +1,35 @@
+.navBar{
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 22px 0 22px;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 5px rgb(3, 51, 71), 0 0 0 5px rgb(2, 52, 72);
+  }
+  40% {
+    box-shadow: 0 0 0 50px rgba(255, 0, 64, 0), 0 0 0 0 rgba(3, 75, 105,.7);
+  }
+  80% {
+    box-shadow: 0 0 0 50px rgba(255, 0, 64, 0), 0 0 0 20px rgba(255, 0, 64, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 64, 0), 0 0 0 20px rgba(255, 0, 64, 0);
+  }
+}
+
+.points{
+  background-color: #00A0E3;
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 42px;
+  position: relative;
+  animation: pulse 2s linear infinite;
+
+
+}
