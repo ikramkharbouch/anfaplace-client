@@ -5,6 +5,7 @@ import './App.css';
 
 import BrandsGrid from './Components/BrandsGrid';
 import Brand from './Screens/Brand';
+import Modal from './Components/Modal';
 
 const App = () => (
   <div className="App">
@@ -12,6 +13,7 @@ const App = () => (
       <Switch>
         <Route exact path="/brand" component={BrandsGrid} />
         <Route exact path="/brand/:id" component={Brand} />
+        <Route exact path="/modal" component={Modal} />
       </Switch>
     </Router>
   </div>
