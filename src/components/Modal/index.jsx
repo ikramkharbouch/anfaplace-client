@@ -7,6 +7,7 @@ import './Modal.less';
 
 
 const index = ({ children, open, setOpen }) => (
+
     <TransitionModal
         animation="scale"
         duration={350}
@@ -17,6 +18,7 @@ const index = ({ children, open, setOpen }) => (
         className='custom-modal'
     >
         <TransitionModal.Content >
+            <p>hello</p>
             {children}
         </TransitionModal.Content>
     </TransitionModal>
