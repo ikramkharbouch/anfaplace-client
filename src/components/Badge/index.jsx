@@ -7,7 +7,7 @@ const Badge = ({ title, color }) => <div className={`badge round-radius badge-${
 
 Badge.defaultProps = {
     title: `collection ${new Date().getFullYear()}`,
-    color: 'blue'
+    color: 'yellow'
 };
 
 Badge.propTypes = {

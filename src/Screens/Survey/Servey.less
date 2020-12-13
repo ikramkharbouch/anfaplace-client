@@ -1,0 +1,60 @@
+@import '../../config/styles/variables.less';
+
+.survey{
+
+    &-container{
+
+        min-height: 60vh;
+        display: flex;
+        flex-direction: column;
+
+
+    }
+
+    &-questions{
+
+
+        &-title{
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 500;
+            padding: 5%;
+            padding-top: 10%;
+            padding-bottom: 0;
+            text-transform: uppercase;
+        }
+
+        &-container{
+            padding-top: 10%;
+
+            > div:not(:last-child){
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+    &-header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 10px;
+
+    }
+
+    &-ratio{
+        opacity: 0.4;
+        font-size: 1.2rem;
+    }
+
+    &-action{
+        display: flex;
+        justify-content: center;
+        margin-top: auto;
+        padding-top: 5vh;
+        button{
+            max-width: 70%;
+        }
+    }
+
+
+}
