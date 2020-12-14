@@ -1,30 +1,60 @@
-import React, { useState } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
-
-import './App.css';
+import { Loader, Dimmer } from 'semantic-ui-react';
 
 import BrandsGrid from './Components/BrandsGrid';
 import Brand from './Screens/Brand';
-import Home from './Screens/Home';
-import Modal from './Components/Modal';
 import NavBar from './Components/NavBar';
 import BottomNav from './Components/BottomNav';
 import QRcode from './Screens/QRcode';
 import Tour from './Screens/Tour';
 
-const App = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  return (
-    <div className="App">
+import Home from './Screens/Home';
+/* import Modal from './Components/Modal';
+ */
+import './App.less';
+
+const Survey = lazy(() => import('./Screens/Survey'));
+const OfferDetails = lazy(() => import('./Screens/OfferDetails'));
+
+const App = () => (
+  <div className="App">
+    <NavBar />
+    <div className="app-container">
       <Router>
-        <NavBar />
         <Switch>
+          <Route exact path="/" component={Home} />
+
+          <Route exact path="/offer-details" component={Survey} />
           <Route path="/qrcode" component={QRcode} />
           <Route path="/tour" component={Tour} />
           <Route exact path="/brand" component={BrandsGrid} />
           <Route exact path="/brand/:id" component={Brand} />
-          <Route exact path="/modal">
+          <Route exact path="/survey">
+            <Suspense
+              fallback={
+                <Dimmer active>
+                  <Loader />
+                </Dimmer>
+              }
+            >
+              <Survey />
+            </Suspense>
+          </Route>
+          <Route exact path="/offer">
+            <Suspense
+              fallback={
+                <Dimmer active>
+                  {' '}
+                  <Loader />{' '}
+                </Dimmer>
+              }
+            >
+              <OfferDetails />
+            </Suspense>
+          </Route>
+
+          {/* <Route exact path="/modal">
             <Button onClick={() => setModalOpen(true)}>open Modal</Button>
             <Modal
               setOpen={(open) => {
@@ -32,12 +62,12 @@ const App = () => {
               }}
               open={modalOpen}
             />
-          </Route>
-          <Route exact path="/" component={Home} />
+          </Route> */}
         </Switch>
-        <BottomNav />
       </Router>
     </div>
-  );
-};
+    <BottomNav />
+  </div>
+);
+
 export default App;

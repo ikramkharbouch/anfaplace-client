@@ -1,0 +1,66 @@
+@import '../../config/styles/variables.less';
+
+.inner-content{
+    margin: 0;
+}
+
+.app-container{
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.offer-details{
+
+    
+
+    &-tags{
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 6px;
+
+        a{
+            margin-left: 10px;
+
+            .badge{
+                padding: 2px 15px;
+            }
+        }
+    }
+
+
+    &-header{
+        position: fixed;
+        z-index: 100;
+        left: 0;
+        padding: 5% 2%;
+        background-image: linear-gradient(180deg, rgba(0,0,52,1) 17%, rgba(0,0,52,1) 31%, rgba(0,0,52,0.10828081232492992) 100%);
+
+        
+        top: 9.5vh;
+
+        p{
+            text-align: right;
+            padding: 10px 6px;
+            margin: 0;
+        }
+
+        .back-btn{
+            align-items: flex-start;
+
+            .text{
+                text-align: right;
+                text-transform: uppercase;
+                font-weight: 600;
+                font-size: 18px;
+                line-height: 25px;
+            }
+        }
+    }
+
+    &-paralax{
+        padding-top: 10vh;
+
+    }
+
+   
+}

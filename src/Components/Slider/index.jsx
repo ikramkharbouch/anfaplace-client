@@ -11,7 +11,7 @@ import './Slider.less';
 const customBulletPagination = (swiper, current, total) => {
   const bullet = (index) =>
     `<span ${total === 1 ? 'style="background-color: #ffffff"' : ''} class="slider-bullet  ${
-      total > 1 && index === current ? 'current' : ''
+    total > 1 && index === current ? 'current' : ''
     }${index < current ? 'prev' : ''}"></span>`;
   let paginationHtml = '';
 
@@ -88,9 +88,9 @@ const Slider = ({
       autoplay={
         autoplay
           ? {
-              delay: autoplayDelay,
-              disableOnInteraction: false,
-            }
+            delay: autoplayDelay,
+            disableOnInteraction: false,
+          }
           : autoplay
       }
       pagination={
