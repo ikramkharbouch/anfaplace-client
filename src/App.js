@@ -10,6 +10,8 @@ import Home from './Screens/Home';
 import Modal from './Components/Modal';
 import NavBar from './Components/NavBar';
 import BottomNav from './Components/BottomNav';
+import QRcode from './Screens/QRcode';
+import Tour from './Screens/Tour';
 
 const App = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -18,13 +20,14 @@ const App = () => {
       <Router>
         <NavBar />
         <Switch>
+          <Route path="/qrcode" component={QRcode} />
+          <Route path="/tour" component={Tour} />
           <Route exact path="/brand" component={BrandsGrid} />
           <Route exact path="/brand/:id" component={Brand} />
           <Route exact path="/modal">
             <Button onClick={() => setModalOpen(true)}>open Modal</Button>
             <Modal
               setOpen={(open) => {
-                console.log('open', open);
                 setModalOpen(open);
               }}
               open={modalOpen}

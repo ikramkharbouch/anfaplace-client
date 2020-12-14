@@ -1,18 +1,15 @@
 @import '../../config/styles/variables.less';
 
 .brand-container{
-
-   
     width: 150px;
     height: 150px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: @blue;
+    background-color: rgba(255,255,255,0.2);
     border-radius: 50%;
     position: relative;
-
     .badge {
         position: absolute;
         top: 0;
@@ -23,12 +20,6 @@
     &:nth-child(odd){
         justify-self: flex-end;
     }
-
-
-
-    
-
-
     img{
         max-width: 100px;
     }

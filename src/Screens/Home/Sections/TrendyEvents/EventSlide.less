@@ -1,0 +1,41 @@
+@import '../../../../config/styles/variables';
+
+.event-slide{
+position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 222px;
+  width: 100%;
+  &:after{
+    .overlay-fade-effect('to top')
+  }
+
+
+  img{
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+
+  }
+  .details{
+    position: absolute;
+    height: 100%;
+    width: calc(~"100% - "32px);
+    padding: 0 21px 0 11px;
+    top:0;
+    left: 0;
+    z-index: 3;
+    .tags{
+      margin-top: 100px;
+      margin-bottom: 5px;
+    }
+    .description{
+      margin-bottom: 2px;
+    }
+
+  }
+
+}
