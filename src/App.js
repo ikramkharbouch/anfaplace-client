@@ -5,19 +5,21 @@ import './App.css';
 
 import BrandsGrid from './Components/BrandsGrid';
 import Brand from './Screens/Brand';
+import Home from './Screens/Home';
 import NavBar from './Components/NavBar';
 import BottomNav from './Components/BottomNav';
 
 const App = () => (
   <div className="App">
-    <NavBar />
     <Router>
+      <NavBar />
       <Switch>
         <Route exact path="/brand" component={BrandsGrid} />
         <Route exact path="/brand/:id" component={Brand} />
+        <Route exact path="/" component={Home} />
       </Switch>
+      <BottomNav />
     </Router>
-    <BottomNav />
   </div>
 );
 export default App;

@@ -1,11 +1,29 @@
 //colors
+@backgroundColor: #000034;
 @blue: #303189;
-@pink: #FC0043;
-@light-blue: #009EDD;
-@green: #00B23C;
-@yellow: #FFBE00;
-@black : #000;
-@white : #fff;
+@pink: #fc0043;
+@light-blue: #009edd;
+@green: #00b23c;
+@yellow: #ffbe00;
+@black: #000;
+@white: #fff;
 
 //font sizes
 @small-font-size: 10px;
+@big-font-size: 22px;
+
+.overlay-fade-effect(@direction:'to bottom'; @index:2;) {
+  content: '';
+  position: absolute;
+  height: 214px;
+  width: 100%;
+  & when (@direction=  'to bottom') {
+    top: 0;
+  }
+  & when (@direction='to top') {
+    bottom: 0;
+  }
+  left: 0;
+  z-index: 2;
+  background-image: linear-gradient(e(@direction), @backgroundColor, transparent);
+}

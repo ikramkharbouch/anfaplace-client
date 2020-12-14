@@ -1,0 +1,50 @@
+@import './../../../../config/styles/variables';
+.offerSlide {
+  position: relative;
+  height: 558px;
+  img {
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+  }
+  &:before {
+    .overlay-fade-effect();
+  }
+
+  &:after {
+    .overlay-fade-effect('to top');
+  }
+
+  .offer-details {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    text-align: center;
+
+    .offer-description {
+      margin-top: 320px;
+      font-size: @big-font-size;
+      font-weight: 900;
+      padding: 0 40px;
+    }
+    .offer-date {
+      display: block;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 45px;
+      svg{
+        margin-left: 8px;
+      }
+      &:active,&:hover,&:focus{
+        svg{
+          path{
+            fill: rgba(0, 0, 0, 0.8);
+          }
+        }
+      }
+    }
+  }
+}

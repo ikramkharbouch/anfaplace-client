@@ -9,14 +9,14 @@
 @verticalAlign: baseline;
 @verticalMargin: 0em;
 @horizontalMargin: @relative2px;
-@backgroundColor: #E8E8E8;
-@color: @mutedTextColor;
+@backgroundColor: #FFF;
+@color: @black;
 @backgroundImage: none;
 @verticalPadding: 0.5833em; /* medium is not @emSize custom value required */
 @horizontalPadding: 0.833em;
-@borderRadius: @absoluteBorderRadius;
+@borderRadius: 100px;
 @textTransform: none;
-@fontWeight: @bold;
+@fontWeight: @normal;
 @borderWidth: 1px;
 @border: 0px solid transparent;
 
