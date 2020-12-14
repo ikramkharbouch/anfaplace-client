@@ -1,34 +1,13 @@
 @import '../../config/styles/variables.less';
 
-.custom-modal{
-    background-color: @blue !important;
-
-    &.ui.modal > .close{
-        color: white;
+.custom-modal {
+  .close {
+    button {
+      background: transparent;
+      border: none;
     }
-   
-    .content{
-        background-color: @blue !important;
-        overflow-y: scroll;
-    }
-}
-
-.ui.dimmer{
-    background-color: rgba(0, 0, 0, 0.2) !important;
-}
-
-.d-flex{
-    display: flex;
-}
-
-.justify-content-end{
-    justify-content: flex-end;
-}
-
-.px-2{
-    padding: 0 2%;
-}
-
-.pt-10px{
-    padding-top: 10px;
+  }
+  .content {
+    overflow-y: scroll;
+  }
 }
