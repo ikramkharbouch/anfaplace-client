@@ -7,6 +7,9 @@ import Brand from './Screens/Brand';
 import NavBar from './Components/NavBar';
 import BottomNav from './Components/BottomNav';
 
+import Home from './Screens/Home';
+/* import Modal from './Components/Modal';
+ */
 import './App.less';
 
 const Survey = lazy(() => import('./Screens/Survey'));
@@ -18,14 +21,16 @@ const App = () => (
     <div className="app-container">
       <Router>
         <Switch>
+          <Route exact path="/" component={Home} />
+
+          <Route exact path="/offer-details" component={Survey} />
           <Route exact path="/brand" component={BrandsGrid} />
           <Route exact path="/brand/:id" component={Brand} />
           <Route exact path="/survey">
             <Suspense
               fallback={
                 <Dimmer active>
-                  {' '}
-                  <Loader />{' '}
+                  <Loader />
                 </Dimmer>
               }
             >
@@ -44,11 +49,22 @@ const App = () => (
               <OfferDetails />
             </Suspense>
           </Route>
-          <Route exact path="/offer-details" component={Survey} />
+
+          {/* <Route exact path="/modal">
+            <Button onClick={() => setModalOpen(true)}>open Modal</Button>
+            <Modal
+              setOpen={(open) => {
+                console.log('open', open);
+                setModalOpen(open);
+              }}
+              open={modalOpen}
+            />
+          </Route> */}
         </Switch>
       </Router>
     </div>
     <BottomNav />
   </div>
 );
+
 export default App;

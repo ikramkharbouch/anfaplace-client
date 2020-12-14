@@ -9,7 +9,7 @@
 /* Button */
 @verticalMargin: 0em;
 @horizontalMargin: 0.25em;
-@backgroundColor: #E0E1E2;
+@backgroundColor: #FFF;
 @backgroundImage: none;
 @background: @backgroundColor @backgroundImage;
 @lineHeight: 1em;
@@ -22,8 +22,8 @@
 @textTransform: none;
 @tapColor: transparent;
 @fontFamily: @pageFont;
-@fontWeight: @bold;
-@textColor: rgba(0, 0, 0, 0.6);
+@fontWeight: @normal;
+@textColor: #010034;
 @textShadow: none;
 @invertedTextShadow: @textShadow;
 @borderRadius: @defaultBorderRadius;
@@ -185,7 +185,7 @@
 
 
 /* Inverted */
-@invertedBorderSize: 2px;
+@invertedBorderSize: 1px;
 @invertedTextColor: @white;
 @invertedTextHoverColor: @hoverColor;
 @invertedGroupButtonOffset: 0px 0px 0px -(@invertedBorderSize);

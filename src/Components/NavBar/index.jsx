@@ -4,7 +4,11 @@ import './NavBar.less';
 import { ReactComponent as MenuIcon } from '../../assets/icons/menu.svg';
 import logoSmall from '../../assets/images/logo-small.png';
 
-const Points = ({ points }) => <buton className="points">{points}p</buton>;
+const Points = ({ points }) => (
+  <button type="button" className="points">
+    {points}p
+  </button>
+);
 
 Points.propTypes = {
   points: proptypes.number,
