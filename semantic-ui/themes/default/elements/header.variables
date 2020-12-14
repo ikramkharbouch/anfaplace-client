@@ -26,7 +26,7 @@
 @subHeadingFontSize: @relativeTiny;
 @subHeadingFontWeight: @bold;
 @subHeadingTextTransform: uppercase;
-@subHeadingColor: '';
+@subHeadingColor: #FFF;
 
 @smallSubHeadingSize: @relativeMini;
 @largeSubHeadingSize: @relativeSmall;
@@ -35,7 +35,7 @@
 /* Sub Header */
 @subHeaderMargin: 0em;
 @subHeaderLineHeight: 1.2em;
-@subHeaderColor: @mutedTextColor;
+@subHeaderColor: @white;
 
 /* Icon */
 @iconOpacity: 1;
