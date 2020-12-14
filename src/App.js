@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
-import './App.less';
+import { Loader, Dimmer } from 'semantic-ui-react';
 
 import BrandsGrid from './Components/BrandsGrid';
-import Survey from './Screens/Survey';
 import Brand from './Screens/Brand';
 import NavBar from './Components/NavBar';
 import BottomNav from './Components/BottomNav';
+
+import './App.less';
+
+const Survey = lazy(() => import('./Screens/Survey'));
+const OfferDetails = lazy(() => import('./Screens/OfferDetails'));
 
 const App = () => (
   <div className="App">
@@ -17,7 +20,31 @@ const App = () => (
         <Switch>
           <Route exact path="/brand" component={BrandsGrid} />
           <Route exact path="/brand/:id" component={Brand} />
-          <Route exact path="/survey" component={Survey} />
+          <Route exact path="/survey">
+            <Suspense
+              fallback={
+                <Dimmer active>
+                  {' '}
+                  <Loader />{' '}
+                </Dimmer>
+              }
+            >
+              <Survey />
+            </Suspense>
+          </Route>
+          <Route exact path="/offer">
+            <Suspense
+              fallback={
+                <Dimmer active>
+                  {' '}
+                  <Loader />{' '}
+                </Dimmer>
+              }
+            >
+              <OfferDetails />
+            </Suspense>
+          </Route>
+          <Route exact path="/offer-details" component={Survey} />
         </Switch>
       </Router>
     </div>
