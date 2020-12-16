@@ -8,11 +8,11 @@ import 'swiper/components/pagination/pagination.less';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import './Slider.less';
 
-const customBulletPagination = (swiper, current, total) => {
+const customBulletPagination = (swiper, current, total, autoplay) => {
 	const bullet = (index) =>
 		`<span ${total === 1 ? 'style="background-color: #ffffff"' : ''} class="slider-bullet  ${
 			total > 1 && index === current ? 'current' : ''
-		}${index < current ? 'prev' : ''}"></span>`;
+		}${index < current ? 'prev' : ''} ${!autoplay ? 'static' : ''}"></span>`;
 	let paginationHtml = '';
 
 	for (let i = 1; i <= total; i += 1) {
@@ -43,11 +43,11 @@ const Slider = ({
 	const handleTouch = (swiper, event) => {
 		if (event.type === 'touchstart') {
 			setT0SliderTouch(performance.now());
-			console.log('start');
-			console.log(document.querySelector(`#${id} .swiper-pagination .slider-bullet.current`));
-			document
-				.querySelector(`#${id} .swiper-pagination .slider-bullet.current`)
-				.classList.add('reset-progress');
+			if (pagination) {
+				document
+					.querySelector(`#${id} .swiper-pagination .slider-bullet.current`)
+					.classList.add('reset-progress');
+			}
 			swiper.autoplay.stop();
 		}
 		if (event.type === 'touchend') {
@@ -55,11 +55,11 @@ const Slider = ({
 				time: performance.now() - t0SliderTouch,
 				sliderIndex: swiper.activeIndex,
 			});
-			console.log('end');
-			console.log(document.querySelector(`#${id} .swiper-pagination .slider-bullet.current`));
-			document
-				.querySelector(`#${id} .swiper-pagination .slider-bullet.current`)
-				.classList.remove('reset-progress');
+			if (pagination) {
+				document
+					.querySelector(`#${id} .swiper-pagination .slider-bullet.current`)
+					.classList.remove('reset-progress');
+			}
 
 			swiper.autoplay.start();
 		}
@@ -106,7 +106,8 @@ const Slider = ({
 			pagination={
 				pagination && {
 					type: 'custom',
-					renderCustom: (swiper, current, total) => customBulletPagination(swiper, current, total),
+					renderCustom: (swiper, current, total) =>
+						customBulletPagination(swiper, current, total, autoplay),
 				}
 			}
 		>

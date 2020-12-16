@@ -49,9 +49,17 @@
 			&.reset-progress::before {
 				animation: none;
 			}
+			&.static::before{
+				animation: none;
+				width: 100%;
+
+			}
 		}
 		&.prev {
 			background-color: #ffffff;
+		}
+		&:last-child{
+			margin-right: 0;
 		}
 	}
 }

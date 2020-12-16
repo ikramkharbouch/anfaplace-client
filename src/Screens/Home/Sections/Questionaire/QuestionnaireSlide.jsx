@@ -2,8 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './QuestionnaireSlide.less';
-import { Button, Label } from 'semantic-ui-react';
-import { ReactComponent as GiftIcon } from 'src/assets/icons/gift.svg';
+import { Button, Icon, Label } from 'semantic-ui-react';
 import questionnaire from 'src/assets/images/temp/questionaire-bg.jpg';
 import { ReactComponent as ArrowIcon } from 'src/assets/icons/arrow.svg';
 
@@ -14,8 +13,9 @@ const QuestionnaireSlide = ({ points, brands, description }) => {
 			<img src={questionnaire} alt="questionnaire" />
 			<div className="details">
 				<Label className="point">
-					<GiftIcon />
-					{points}p
+					<Icon name="gift" size="small" />
+					{points}
+					{points < 999 && 'p'}
 				</Label>
 				<div className="tags">
 					{brands.map((brand) => (

@@ -12,9 +12,12 @@ const QRcode = () => {
 				setOpen={(isOpen) => openValidationModal(isOpen)}
 				open={validationModelIsOpen}
 			/>
-			<Header as="h2">Votre QR Code n’est pas actif</Header>
-			<p>Activer votre QR CODE et profiter des remises instantanées en magasin</p>
-			<Icon name="qrcode" />
+			<div className="content">
+				<Header as="h2">Votre QR Code n’est pas actif</Header>
+				<p>Activer votre QR CODE et profiter des remises instantanées en magasin</p>
+				<Icon name="qrcode" />
+			</div>
+
 			<Button circular className="activate" onClick={() => openValidationModal(true)}>
 				Activer
 			</Button>

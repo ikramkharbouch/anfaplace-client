@@ -1,8 +1,8 @@
 import * as React from 'react';
 import proptypes from 'prop-types';
 import './NavBar.less';
-import { ReactComponent as MenuIcon } from 'src/assets/icons/menu.svg';
 import logoSmall from 'src/assets/images/logo-small.png';
+import { Icon } from 'semantic-ui-react';
 
 const Points = ({ points }) => (
 	<button type="button" className="points">
@@ -18,7 +18,7 @@ Points.defaultProps = {
 };
 const NavBar = () => (
 	<header className="navBar">
-		<MenuIcon />
+		<Icon className="menu" name="bars" size="big" />
 		<img src={logoSmall} alt="apa" />
 		<Points />
 	</header>

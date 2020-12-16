@@ -9,7 +9,7 @@ import img from './1.jpg';
 
 const OfferDetails = () => (
 	<div className="offer-details">
-		<Parallax bgImage={img} blur={{ min: -1, max: 2 }} strength={200}>
+		<Parallax bgImage={img} strength={200}>
 			<div className="offer-details-header">
 				<BackButton text="LA NOUVELLE PLATEFORME ANFA PLACE IPSUM LOREM" />
 				<p>08 DÉC - 12 DÉC</p>

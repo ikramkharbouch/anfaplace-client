@@ -7,7 +7,7 @@ import Slider from 'src/Components/Slider';
 const Brands = () => (
 	<div className="brands">
 		<Header as="h3">Marques</Header>
-		<Slider id="brands">
+		<Slider id="brands" autoplay={false}>
 			<BrandsGrid />
 			<BrandsGrid />
 			<BrandsGrid />

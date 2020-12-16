@@ -9,10 +9,10 @@ const Shopping = () => (
 	<div className="shopping-screen">
 		<BackButton text="Shopping" />
 		<Slider
-			className="slider"
+			className="shopping-slider"
 			timeOnSliderEvent={(value) => console.log(value)}
 			timeToReachEndOfSlider={(value) => console.log(value)}
-			id="offers"
+			id="shopping"
 		>
 			<ShoppingSlide />
 			<ShoppingSlide />
