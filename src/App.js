@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Loader, Dimmer } from 'semantic-ui-react';
 
@@ -8,66 +8,61 @@ import NavBar from './Components/NavBar';
 import BottomNav from './Components/BottomNav';
 import QRcode from './Screens/QRcode';
 import Tour from './Screens/Tour';
-
 import Home from './Screens/Home';
-/* import Modal from './Components/Modal';
- */
+
 import './App.less';
+import SocialLogin from './Components/SocialLogin';
+import Interests from './Components/Interests';
 
 const Survey = lazy(() => import('./Screens/Survey'));
 const OfferDetails = lazy(() => import('./Screens/OfferDetails'));
 
-const App = () => (
-  <div className="App">
-    <NavBar />
+const App = () => {
+  // move this to context later
+  const [openSocial, setOpenSocial] = useState(false);
+
+  return (
     <div className="app-container">
       <Router>
-        <Switch>
-          <Route exact path="/" component={Home} />
-
-          <Route exact path="/offer-details" component={Survey} />
-          <Route path="/qrcode" component={QRcode} />
-          <Route path="/tour" component={Tour} />
-          <Route exact path="/brand" component={BrandsGrid} />
-          <Route exact path="/brand/:id" component={Brand} />
-          <Route exact path="/survey">
-            <Suspense
-              fallback={
-                <Dimmer active>
-                  <Loader />
-                </Dimmer>
-              }
-            >
-              <Survey />
-            </Suspense>
-          </Route>
-          <Route exact path="/offer">
-            <Suspense
-              fallback={
-                <Dimmer active>
-                  {' '}
-                  <Loader />{' '}
-                </Dimmer>
-              }
-            >
-              <OfferDetails />
-            </Suspense>
-          </Route>
-
-          {/* <Route exact path="/modal">
-            <Button onClick={() => setModalOpen(true)}>open Modal</Button>
-            <Modal
-              setOpen={(open) => {
-                setModalOpen(open);
-              }}
-              open={modalOpen}
-            />
-          </Route> */}
-        </Switch>
+        <NavBar />
+        <Interests modalClosedEvent={() => setOpenSocial(true)} />
+        {openSocial && <SocialLogin />}
+        <div className="screen">
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/offer-details" component={Survey} />
+            <Route path="/qrcode" component={QRcode} />
+            <Route path="/tour" component={Tour} />
+            <Route exact path="/brand" component={BrandsGrid} />
+            <Route exact path="/brand/:id" component={Brand} />
+            <Route exact path="/survey">
+              <Suspense
+                fallback={
+                  <Dimmer active>
+                    <Loader />
+                  </Dimmer>
+                }
+              >
+                <Survey />
+              </Suspense>
+            </Route>
+            <Route exact path="/offer">
+              <Suspense
+                fallback={
+                  <Dimmer active>
+                    <Loader />
+                  </Dimmer>
+                }
+              >
+                <OfferDetails />
+              </Suspense>
+            </Route>
+          </Switch>
+        </div>
+        <BottomNav />
       </Router>
     </div>
-    <BottomNav />
-  </div>
-);
+  );
+};
 
 export default App;

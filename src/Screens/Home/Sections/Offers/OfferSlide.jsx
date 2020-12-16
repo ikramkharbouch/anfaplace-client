@@ -1,22 +1,27 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './OfferSlide.less';
 import { Button } from 'semantic-ui-react';
 import { ReactComponent as ArrowIcon } from '../../../../assets/icons/arrow.svg';
 import sliderImage from '../../../../assets/images/temp/slider.jpg';
 
-const OfferSlide = ({ image, description, date }) => (
-  <div className="offerSlide">
-    <img src={image} alt="slider" />
-    <div className="offer-details">
-      <p className="offer-description">{description}</p>
-      <span className="offer-date">{date}</span>
-      <Button inverted>
-        En savoir plus <ArrowIcon />
-      </Button>
+const OfferSlide = ({ image, description, date }) => {
+  const history = useHistory();
+
+  return (
+    <div className="offerSlide">
+      <img src={image} alt="slider" />
+      <div className="offer-details">
+        <p className="offer-description">{description}</p>
+        <span className="offer-date">{date}</span>
+        <Button inverted onClick={() => history.push('/offer')}>
+          En savoir plus <ArrowIcon />
+        </Button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 OfferSlide.propTypes = {
   image: PropTypes.string,

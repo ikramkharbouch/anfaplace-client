@@ -16,12 +16,12 @@
 @padding: (@verticalPadding - @lineHeightOffset) @horizontalPadding;
 
 @textAlign: left;
-@background: @inputBackground;
+@background: rgba(255,255,255,.1);
 @borderWidth: 1px;
 @border: @borderWidth solid @borderColor;
 @boxShadow: none;
 
-@borderRadius: @defaultBorderRadius;
+@borderRadius: 100px;
 @transition:
   box-shadow @defaultDuration @defaultEasing,
   border-color @defaultDuration @defaultEasing
@@ -74,9 +74,9 @@
 @downBoxShadow: none;
 
 /* Focus */
-@focusBorderColor: @focusedFormBorderColor;
-@focusBackground: @background;
-@focusColor: @hoveredTextColor;
+@focusBorderColor: @white;
+@focusBackground: rgba(255,255,255,.4);
+@focusColor: @white;
 @focusBoxShadow: none;
 
 /* Error */

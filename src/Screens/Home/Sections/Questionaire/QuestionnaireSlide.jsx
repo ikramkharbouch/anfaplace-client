@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './QuestionnaireSlide.less';
 import { Button, Label } from 'semantic-ui-react';
@@ -6,26 +7,29 @@ import { ReactComponent as GiftIcon } from '../../../../assets/icons/gift.svg';
 import questionnaire from '../../../../assets/images/temp/questionaire-bg.jpg';
 import { ReactComponent as ArrowIcon } from '../../../../assets/icons/arrow.svg';
 
-const QuestionnaireSlide = ({ points, brands, description }) => (
-  <div className="questionnaire-slide">
-    <img src={questionnaire} alt="questionnaire" />
-    <div className="details">
-      <Label className="point">
-        <GiftIcon />
-        {points}p
-      </Label>
-      <div className="tags">
-        {brands.map((brand) => (
-          <Label>{brand}</Label>
-        ))}
+const QuestionnaireSlide = ({ points, brands, description }) => {
+  const history = useHistory();
+  return (
+    <div className="questionnaire-slide">
+      <img src={questionnaire} alt="questionnaire" />
+      <div className="details">
+        <Label className="point">
+          <GiftIcon />
+          {points}p
+        </Label>
+        <div className="tags">
+          {brands.map((brand) => (
+            <Label>{brand}</Label>
+          ))}
+        </div>
+        <p className="description">{description}</p>
+        <Button onClick={() => history.push('/survey')}>
+          Commencer <ArrowIcon />
+        </Button>
       </div>
-      <p className="description">{description}</p>
-      <Button>
-        Commencer <ArrowIcon />
-      </Button>
     </div>
-  </div>
-);
+  );
+};
 
 QuestionnaireSlide.propTypes = {
   points: PropTypes.number,

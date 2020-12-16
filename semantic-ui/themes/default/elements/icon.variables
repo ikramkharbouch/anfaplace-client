@@ -9,7 +9,6 @@
 @fontName: 'icons';
 @src:
   url("@{fontPath}/@{fontName}.eot?#iefix") format('embedded-opentype'),
-  url("@{fontPath}/@{fontName}.woff2") format('woff2'),
   url("@{fontPath}/@{fontName}.woff") format('woff'),
   url("@{fontPath}/@{fontName}.ttf") format('truetype'),
   url("@{fontPath}/@{fontName}.svg#icons") format('svg')
@@ -51,8 +50,8 @@
 /* Icon Variables */
 @opacity: 1;
 @width: @iconWidth;
-@height: 1em;
-@distanceFromText: 0.25rem;
+@height: 1.2em;
+@distanceFromText: 0.4rem;
 
 
 /* Variations */
@@ -87,7 +86,7 @@
 @mini: 0.4em;
 @tiny: 0.5em;
 @small: 0.75em;
-@medium: 1em;
+@medium: 1.2em;
 @large: 1.5em;
 @big: 2em;
 @huge: 4em;

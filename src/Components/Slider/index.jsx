@@ -11,7 +11,7 @@ import './Slider.less';
 const customBulletPagination = (swiper, current, total) => {
   const bullet = (index) =>
     `<span ${total === 1 ? 'style="background-color: #ffffff"' : ''} class="slider-bullet  ${
-    total > 1 && index === current ? 'current' : ''
+      total > 1 && index === current ? 'current' : ''
     }${index < current ? 'prev' : ''}"></span>`;
   let paginationHtml = '';
 
@@ -24,6 +24,7 @@ const customBulletPagination = (swiper, current, total) => {
 const Slider = ({
   className,
   slidersPerView,
+  slidesOffsetBefore,
   pagination,
   autoplay,
   autoplayDelay,
@@ -73,6 +74,7 @@ const Slider = ({
     <Swiper
       watchSlidesProgress
       className={className}
+      slidesOffsetBefore={slidesOffsetBefore}
       spaceBetween={20}
       slidesPerView={slidersPerView}
       onInit={handleInitSlide}
@@ -88,9 +90,9 @@ const Slider = ({
       autoplay={
         autoplay
           ? {
-            delay: autoplayDelay,
-            disableOnInteraction: false,
-          }
+              delay: autoplayDelay,
+              disableOnInteraction: false,
+            }
           : autoplay
       }
       pagination={
@@ -111,6 +113,7 @@ Slider.propTypes = {
   className: PropTypes.string,
   slidersPerView: PropTypes.number,
   pagination: PropTypes.bool,
+  slidesOffsetBefore: PropTypes.number,
   children: PropTypes.node,
   autoplay: PropTypes.bool,
   autoplayDelay: PropTypes.number,
@@ -120,6 +123,7 @@ Slider.propTypes = {
 Slider.defaultProps = {
   className: '',
   slidersPerView: 1,
+  slidesOffsetBefore: 0,
   pagination: true,
   children: [],
   autoplay: true,

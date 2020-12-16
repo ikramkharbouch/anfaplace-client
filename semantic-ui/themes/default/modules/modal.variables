@@ -5,7 +5,7 @@
 @background: #000034;
 @border: none;
 @zIndex: 1001;
-@borderRadius: @defaultBorderRadius;
+@borderRadius: 6px;
 @transformOrigin: 50% 25%;
 @boxShadow:
   1px 3px 3px 0px rgba(0, 0, 0, 0.2),
@@ -14,7 +14,7 @@
 
 /* Close Icon */
 @closeOpacity: 0.8;
-@closeSize: 1.25em;
+@closeSize: .9em;
 @closeColor: @white;
 
 @closeHitbox: 2.25rem;
@@ -38,8 +38,8 @@
 @headerBorder: 1px solid @borderColor;
 
 /* Content */
-@contentFontSize: 1em;
-@contentPadding: 1.5rem;
+@contentFontSize: unit((16/14),em);
+@contentPadding: 54px 30px;
 @contentLineHeight: 1.4;
 @contentBackground: #000034;
 
@@ -68,7 +68,7 @@
 
 /* Mobile Positions */
 @mobileHeaderPadding: 0.75rem 1rem;
-@mobileContentPadding: 1rem;
+@mobileContentPadding: 54px 30px;;
 @mobileImagePadding: 0rem 0rem 1rem;
 @mobileDescriptionPadding: 1rem 0rem ;
 @mobileButtonDistance: 1rem;
@@ -78,7 +78,7 @@
 @mobileCloseRight: 0.5rem;
 
 /* Responsive Widths */
-@mobileWidth: 95%;
+@mobileWidth: 92%;
 @tabletWidth: 88%;
 @computerWidth: 850px;
 @largeMonitorWidth: 900px;

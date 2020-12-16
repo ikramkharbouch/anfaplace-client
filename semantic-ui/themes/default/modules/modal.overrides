@@ -1,3 +1,9 @@
 /*******************************
          Theme Overrides
 *******************************/
+.ui.modal{
+overflow:hidden;
+}
+.ui.modal > .content{
+text-align:center;
+}

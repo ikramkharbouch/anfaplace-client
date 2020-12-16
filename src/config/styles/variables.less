@@ -12,10 +12,10 @@
 @small-font-size: 10px;
 @big-font-size: 22px;
 
-.overlay-fade-effect(@direction:'to bottom'; @index:2;) {
+.overlay-fade-effect(@direction:'to bottom'; @index:2;@height:214px) {
   content: '';
   position: absolute;
-  height: 214px;
+  height: @height;
   width: 100%;
   & when (@direction=  'to bottom') {
     top: 0;

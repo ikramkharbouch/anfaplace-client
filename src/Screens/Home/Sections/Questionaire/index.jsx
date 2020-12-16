@@ -10,7 +10,7 @@ const Questionnaire = () => (
       Questionnaires
       <Header.Subheader>Lorem ipsum dolor sit amet, consetetur sadipscing</Header.Subheader>
     </Header>
-    <Slider autoplay={false} pagination={false} slidersPerView={1.35}>
+    <Slider slidesOffsetBefore={20} autoplay={false} pagination={false} slidersPerView={1.42}>
       <QuestionnaireSlide />
       <QuestionnaireSlide />
       <QuestionnaireSlide />

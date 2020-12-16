@@ -34,3 +34,16 @@
 .dash:before  { content: '\e801'; }
 .plus:before { content: '\e802'; }
 */
+
+
+.ui.checkbox.check-btn{
+display:block;
+padding: 15px 10px;
+border-radius: 6px;
+transition: all 0.1s;
+background-color: rgba(255,255,255,0.15)
+
+}
+.ui.checkbox.check-btn.checked{
+ background-color:#009edd;
+ }

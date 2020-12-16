@@ -8,7 +8,7 @@ import './TrendyEvents.less';
 const TrendyEvents = () => (
   <div className="trendy-events">
     <Header as="h3">ÉVÉNEMENTS TENDANCE</Header>
-    <Slider pagination={false} slidersPerView={1.35}>
+    <Slider slidesOffsetBefore={20} pagination={false} slidersPerView={1.42}>
       <EventSlide />
       <EventSlide />
       <EventSlide />
