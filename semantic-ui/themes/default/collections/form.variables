@@ -8,7 +8,7 @@
 
 /* Form */
 @gutterWidth: 1em;
-@rowDistance: 1em;
+@rowDistance: 0em;
 
 /* Text */
 @paragraphMargin: @rowDistance 0em;
@@ -57,7 +57,7 @@
 @textAreaLineHeight: 1.2857;
 @textAreaMinHeight: 8em;
 @textAreaMaxHeight: 24em;
-@textAreaBackground: @inputBackground;
+@textAreaBackground: transparent;
 @textAreaBorder: @inputBorder;
 @textAreaFontSize: @inputFontSize;
 @textAreaTransition: @inputTransition;
@@ -83,9 +83,9 @@
 @inputFocusPointerSize: 0px;
 
 /* Input Focus */
-@inputFocusBackground: @inputBackground;
+@inputFocusBackground: rgba(255,255,255,.4);
 @inputFocusBorderColor: @focusedFormBorderColor;
-@inputFocusColor: @selectedTextColor;
+@inputFocusColor: #fff;
 @inputFocusBoxShadow: @inputFocusPointerSize 0em 0em 0em @selectedBorderColor inset;
 @inputFocusBorderRadius: @inputBorderRadius;
 
