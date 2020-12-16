@@ -6,13 +6,13 @@ import TrendyEvents from './Sections/TrendyEvents';
 import Brands from './Sections/Brands';
 
 const Home = () => (
-  <div>
-    <Navigation />
-    <Offers />
-    <TrendyEvents />
-    <Questionnaire />
-    <Brands />
-  </div>
+	<div>
+		<Navigation />
+		<Offers />
+		<TrendyEvents />
+		<Questionnaire />
+		<Brands />
+	</div>
 );
 
 export default Home;

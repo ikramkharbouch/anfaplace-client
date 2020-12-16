@@ -1,62 +1,60 @@
-@import '../../../../config/styles/variables';
+@import 'src/config/styles/variables';
 .questionnaire-slide {
-  border-radius: 6px;
-  overflow: hidden;
-  position: relative;
-  height: 250px;
-  width: 100%;
-  img {
-    height: 100%;
-    width: 100%;
-  }
-  .details {
-    position: absolute;
-    height: 100%;
-    width:  calc(~"100% - " 48px);
-    top: 0;
-    left: 0;
-    z-index: 3;
-    text-align: left;
-    padding: 0 24px;
-    .point {
-      position: absolute;
-      right: 18px;
-      top: 10px;
-      background-color: @backgroundColor;
-      color: @white;
-      svg {
-        margin-right: 4px;
-      }
-    }
-    .tags{
-      margin-top: 100px;
-      margin-bottom: 14px;
-
-    }
-    .description {
-      width: 100%;
-      font-size: 13px;
-      display: -webkit-box;
-      overflow : hidden;
-      text-overflow: ellipsis;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-
-    }
-    button {
-      padding-left:20px ;
-      padding-right: 12px;
-      svg {
-        vertical-align: middle;
-        margin-left: 4px;
-        width: 16px;
-        path {
-          fill: @backgroundColor;
-        }
-      }
-    }
-  }
-  &:after {
-    .overlay-fade-effect('to top');
-  }
+	border-radius: 6px;
+	overflow: hidden;
+	position: relative;
+	height: 250px;
+	width: 100%;
+	img {
+		height: 100%;
+		width: 100%;
+	}
+	.details {
+		position: absolute;
+		height: 100%;
+		width: calc(~'100% - ' 48px);
+		top: 0;
+		left: 0;
+		z-index: 3;
+		text-align: left;
+		padding: 0 24px;
+		.point {
+			position: absolute;
+			right: 18px;
+			top: 10px;
+			background-color: @backgroundColor;
+			color: @white;
+			svg {
+				margin-right: 4px;
+			}
+		}
+		.tags {
+			margin-top: 100px;
+			margin-bottom: 14px;
+		}
+		.description {
+			width: 100%;
+			font-size: 13px;
+			display: -webkit-box;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+		}
+		button {
+			padding-left: 20px;
+			padding-right: 12px;
+			svg {
+				vertical-align: middle;
+				margin-left: 4px;
+				width: 16px;
+				path {
+					fill: @backgroundColor;
+				}
+			}
+		}
+	}
+	&:after {
+		.overlay-fade-effect('to top');
+	}
 }

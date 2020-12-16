@@ -5,28 +5,28 @@ import { Icon } from 'semantic-ui-react';
 import './BottomNav.less';
 
 const BottomNav = () => (
-  <nav className="bottom-nav">
-    <ul>
-      <li>
-        <NavLink exact to="/">
-          <Icon name="home" />
-          <span className="label">Accueil</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink exact to="/tour">
-          <Icon name="search" />
-          <span className="label">Parcourir</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink exact to="/qrcode">
-          <Icon name="qrcode" />
-          <span className="label">QRcode</span>
-        </NavLink>
-      </li>
-    </ul>
-  </nav>
+	<nav className="bottom-nav">
+		<ul>
+			<li>
+				<NavLink exact to="/">
+					<Icon name="home" />
+					<span className="label">Accueil</span>
+				</NavLink>
+			</li>
+			<li>
+				<NavLink exact to="/tour">
+					<Icon name="search" />
+					<span className="label">Parcourir</span>
+				</NavLink>
+			</li>
+			<li>
+				<NavLink exact to="/qrcode">
+					<Icon name="qrcode" />
+					<span className="label">QRcode</span>
+				</NavLink>
+			</li>
+		</ul>
+	</nav>
 );
 
 export default BottomNav;

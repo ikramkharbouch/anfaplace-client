@@ -1,71 +1,69 @@
-@import '../../config/styles/variables.less';
+@import 'src/config/styles/variables.less';
 
 .inner-content {
-  margin: 0;
+	margin: 0;
 }
 
 .app-container {
-  padding-right: 0;
-  padding-left: 0;
+	padding-right: 0;
+	padding-left: 0;
 }
 
 .offer-details {
+	&-tags {
+		display: flex;
+		justify-content: flex-end;
+		padding: 0 6px;
 
-  &-tags {
-    display: flex;
-    justify-content: flex-end;
-    padding: 0 6px;
+		a {
+			margin-left: 10px;
 
-    a {
-      margin-left: 10px;
+			.badge {
+				padding: 2px 15px;
+			}
+		}
+	}
+	&-header {
+		position: absolute;
+		z-index: 100;
+		left: 0;
+		top: 0;
+		padding: 0px 18px 30px 18px;
+		.overlay-fade-effect('to bottom');
 
-      .badge {
-        padding: 2px 15px;
-      }
-    }
-  }
-  &-header {
-    position: absolute;
-    z-index: 100;
-    left: 0;
-    top: 0;
-    padding: 0px 18px 30px 18px ;
-    .overlay-fade-effect('to bottom');
+		p {
+			text-align: right;
+			padding: 10px 6px;
+			margin: 0;
+		}
 
-    p {
-      text-align: right;
-      padding: 10px 6px;
-      margin: 0;
-    }
+		.back-btn {
+			align-items: flex-start;
 
-    .back-btn {
-      align-items: flex-start;
-
-      .text {
-        text-align: right;
-        text-transform: uppercase;
-        font-weight: 900;
-        font-size: 18px;
-        line-height: 25px;
-      }
-    }
-  }
-  &-paralax {
-    padding-top: 10vh;
-  }
-  .parallax-content{
-    height: 480px;
-    position: relative;
-    &::after{
-    .overlay-fade-effect('to top',@height: 222.44px)
-  }
-  }
-  .description{
-    position: relative;
-    bottom: 94px;
-    padding: 42px;
-    z-index: 2;
-    font-weight: 300;
-  }
-
+			.text {
+				text-align: right;
+				text-transform: uppercase;
+				font-weight: 900;
+				font-size: 18px;
+				line-height: 25px;
+			}
+		}
+	}
+	&-paralax {
+		padding-top: 10vh;
+	}
+	.parallax-content {
+		height: 480px;
+		position: relative;
+		&::after {
+			.overlay-fade-effect('to top',@height: 222.44px);
+		}
+	}
+	.description {
+		position: relative;
+		bottom: 94px;
+		padding: 42px;
+		z-index: 2;
+		font-weight: 300;
+	}
 }
