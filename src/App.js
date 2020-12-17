@@ -1,9 +1,12 @@
 import React, { lazy, Suspense, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Loader, Dimmer } from 'semantic-ui-react';
+import SocialLogin from 'src/Components/SocialLogin';
+import Interests from 'src/Components/Interests';
 import Shopping from 'src/Screens/Shopping';
 import Restauration from 'src/Screens/Restauration';
 import Entertainment from 'src/Screens/Entertainment';
+import ScrollToTop from 'src/utils/ScrollToTop';
 import BrandsGrid from './Components/BrandsGrid';
 import Brand from './Screens/Brand';
 import NavBar from './Components/NavBar';
@@ -13,8 +16,6 @@ import Tour from './Screens/Tour';
 import Home from './Screens/Home';
 
 import './App.less';
-import SocialLogin from './Components/SocialLogin';
-import Interests from './Components/Interests';
 
 const Survey = lazy(() => import('./Screens/Survey'));
 const OfferDetails = lazy(() => import('./Screens/OfferDetails'));
@@ -26,6 +27,7 @@ const App = () => {
 	return (
 		<div className="app-container">
 			<Router>
+				<ScrollToTop />
 				<NavBar />
 				<Interests modalClosedEvent={() => setOpenSocial(true)} />
 				{openSocial && <SocialLogin />}
