@@ -10,6 +10,7 @@ import './VerificationModal.less';
 
 const CustomInputNumber = ({ name, width, min, max, defaultValue, formatter }) => (
 	<Form.Field
+		type="number"
 		name={name}
 		width={width}
 		inline
@@ -17,6 +18,7 @@ const CustomInputNumber = ({ name, width, min, max, defaultValue, formatter }) =
 		max={max}
 		defaultValue={defaultValue}
 		formatter={formatter}
+		onChange={() => console.log('hello')}
 		control={InputNumber}
 	/>
 );
@@ -27,6 +29,7 @@ CustomInputNumber.propTypes = {
 	min: PropTypes.number,
 	max: PropTypes.number,
 	defaultValue: PropTypes.number,
+	// onChange: PropTypes.func.isRequired,
 	formatter: PropTypes.func,
 	// value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	// onChange: PropTypes.func.isRequired,
@@ -55,7 +58,7 @@ const ConfirmationTel = ({ confirm }) => (
 					defaultValue={212}
 					formatter={(value) => `+${value.substr(0, 3)}`}
 					onChange={() => {
-						document.getElementById('dig-2').focus();
+						console.log('hello');
 					}}
 				/>
 
@@ -82,7 +85,7 @@ const ConfirmationTel = ({ confirm }) => (
 ConfirmationTel.propTypes = {
 	confirm: PropTypes.func.isRequired,
 };
-const PinVerification = () => {
+const PinVerification = ({ verifiedEvent }) => {
 	const formatter = (value) => `${value.toString().substr(0, 1)}`;
 	return (
 		<>
@@ -104,7 +107,7 @@ const PinVerification = () => {
 				</Form.Group>
 
 				<Form.Field>
-					<Button circular className="continue">
+					<Button circular onClick={() => verifiedEvent(true)} className="continue">
 						Continuer
 					</Button>
 				</Form.Field>
@@ -116,19 +119,24 @@ const PinVerification = () => {
 	);
 };
 
-const VerificationModal = ({ open, setOpen }) => {
+PinVerification.propTypes = {
+	verifiedEvent: PropTypes.func.isRequired,
+};
+
+const VerificationModal = ({ open, setOpen, validatedEvent }) => {
 	const [verifyPin, setVerifyPin] = useState(false);
 
 	return (
 		<Modal open={open} setOpen={setOpen}>
 			{!verifyPin && <ConfirmationTel confirm={() => setVerifyPin(true)} />}
-			{verifyPin && <PinVerification />}
+			{verifyPin && <PinVerification verifiedEvent={validatedEvent} />}
 		</Modal>
 	);
 };
 VerificationModal.propTypes = {
 	open: PropTypes.func.isRequired,
 	setOpen: PropTypes.func.isRequired,
+	validatedEvent: PropTypes.func.isRequired,
 };
 
 export default VerificationModal;

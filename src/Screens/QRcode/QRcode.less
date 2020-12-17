@@ -1,3 +1,5 @@
+@import 'src/config/styles/variables';
+
 .qrcode-screen {
 	padding: 20px;
 	text-align: center;
@@ -10,15 +12,7 @@
 		p {
 			font-size: 16px;
 		}
-		i.icon,
-		i.icons {
-			font-size: 158px;
-			height: 158px;
-			line-height: initial;
-			margin: 32px auto 0 auto;
-			color: rgba(255, 255, 255, 0.4);
-			display: block;
-		}
+
 	}
 
 	.activate {
@@ -30,3 +24,69 @@
 		height: 45px;
 	}
 }
+i.icon.qrcode.big,
+i.icons.big {
+	font-size: 158px;
+	height: 158px;
+	line-height: initial;
+	margin: 32px auto 0 auto;
+	color: rgba(255, 255, 255, 0.4);
+	display: block;
+}
+.qrcode-section{
+
+	&-text{
+		font-size: 25px;
+		text-transform: uppercase;
+		font-weight: 600;
+		letter-spacing: 1px;
+		padding-top: 10%;
+		color: @light-blue;
+
+	}
+
+	&-img{
+		width: 100%;
+		max-width: 250px;
+		height: 250px;
+		overflow: hidden;
+
+		svg{
+			width: 100%;
+			height: 100%;
+			transform: scale(2);
+		}
+	}
+
+	&-header{
+		padding-bottom: 5%;
+
+	}
+
+	&-title{
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		h3{
+			font-size: 20px;
+			text-transform: uppercase;
+			font-weight: 500;
+			padding: 10% 0;
+		}
+
+
+		img{
+			width: 30%;
+		}
+	}
+
+	&-body{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+	}
+}
+
