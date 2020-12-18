@@ -1,0 +1,123 @@
+@import 'src/config/styles/variables.less';
+
+.inner-content {
+	margin: 0;
+}
+
+.app-container {
+	padding-right: 0;
+	padding-left: 0;
+}
+
+.offer-details {
+	&-tags {
+		display: flex;
+		justify-content: flex-end;
+		padding: 0 6px;
+
+		a {
+			margin-left: 10px;
+
+			.badge {
+				padding: 2px 15px;
+			}
+		}
+	}
+	&-header {
+		
+		padding: 0px 18px 15px 18px;
+        //.overlay-fade-effect('to bottom');
+        background-color: @backgroundColor;
+        width: 100%;
+
+		p {
+			text-align: right;
+			padding: 10px 6px;
+			margin: 0;
+		}
+
+		.back-btn {
+			align-items: flex-start;
+
+			.text {
+				text-align: right;
+				text-transform: uppercase;
+				font-weight: 900;
+				font-size: 18px;
+				line-height: 25px;
+			}
+		}
+	}
+	&-paralax {
+		padding-top: 10vh;
+	}
+	.parallax-content {
+		height: 50vh;
+		position: relative;
+		&::after {
+			.overlay-fade-effect('to top',@height: 222.44px);
+        }
+        
+        img{
+            position: absolute;
+    bottom: 15vh;
+    z-index: 100;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+        }
+	}
+	.description {
+		position: relative;
+		bottom: 94px;
+		padding: 5% 4%;
+		z-index: 2;
+		font-weight: 300;
+	}
+}
+
+.toggle .menu > a{
+    flex: 1 !important;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 400 !important;
+}
+
+.toggle .menu > a:not(.active){
+    color: @grey !important;
+}
+.toggle .menu > a:not(.active){
+    border-bottom: 2px solid @grey !important;
+}
+
+.ui.secondary.pointing.menu .active.item , .ui.secondary.pointing.menu .active.item:hover{
+    border-color: @white !important;
+    color: @white   !important;
+}
+
+.ui.tab.active, .ui.tab.open{
+    background: transparent;
+}
+
+.brand-tab-actions{
+    display: flex;
+    gap: 5%;
+    padding-top: 5%;
+
+    > *{
+        flex: 1;
+    }
+}
+
+.brand-tab-block:not(:last-child) {
+    padding-bottom: 5%;
+}
+
+.brand-tab-infos{
+    
+}
+
+.app-container .screen{
+    padding-top: 30px !important;
+}

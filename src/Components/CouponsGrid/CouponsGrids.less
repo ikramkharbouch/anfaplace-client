@@ -1,22 +1,51 @@
-
 @import '../../config/styles/variables.less';
 .coupons-list{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8% 5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8% 5%;
 
+    .coupon-brand{
+        display: flex;
+       
+    }
+
+    .coupon-brand:nth-child(odd){
+        justify-content: flex-end;
+       
+    }
+
+    .coupon-brand:nth-child(even){
+        justify-content: flex-start;
+       
+    }
 }
 
 .app-small-title{
-  font-size: 18px;
-  font-weight: 400;
-  text-transform: uppercase;
-  text-align: center;
-  margin: 0;
-  padding-bottom: 8%;
+    font-size: 18px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+    padding-bottom: 8%;
+}
+
+
+.app-medium-title{
+    font-size: 18px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+    padding-bottom: 8%;
+    text-align: right;
+    padding-top: 15px;
+}
+
+.text-white-blue{
+    color: @white-blue;
 }
 
 .coupons-list .badge{
-  font-size: 16px;
-  letter-spacing: 0.5px;
+    font-size: 16px;
+    letter-spacing: 0.5px;
 }

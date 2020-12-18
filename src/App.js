@@ -7,8 +7,7 @@ import Shopping from 'src/Screens/Shopping';
 import Restauration from 'src/Screens/Restauration';
 import Entertainment from 'src/Screens/Entertainment';
 import ScrollToTop from 'src/utils/ScrollToTop';
-import BrandsGrid from './Components/BrandsGrid';
-import Brand from './Screens/Brand';
+import Brand from './Screens/Brand/index';
 import NavBar from './Components/NavBar';
 import BottomNav from './Components/BottomNav';
 import QRcode from './Screens/QRcode';
@@ -19,6 +18,7 @@ import './App.less';
 
 const Survey = lazy(() => import('./Screens/Survey'));
 const OfferDetails = lazy(() => import('./Screens/OfferDetails'));
+const Shops = lazy(() => import('src/Screens/Brands/index.jsx'));
 
 const App = () => {
 	// move this to context later
@@ -37,8 +37,7 @@ const App = () => {
 						<Route exact path="/offer-details" component={Survey} />
 						<Route path="/qrcode" component={QRcode} />
 						<Route path="/tour" component={Tour} />
-						<Route exact path="/brand" component={BrandsGrid} />
-						<Route exact path="/brand/:id" component={Brand} />
+						<Route exact path="/brands/:id" component={Brand} />
 						<Route exact path="/survey">
 							<Suspense
 								fallback={
@@ -59,6 +58,17 @@ const App = () => {
 								}
 							>
 								<OfferDetails />
+							</Suspense>
+						</Route>
+						<Route exact path="/brands">
+							<Suspense
+								fallback={
+									<Dimmer active>
+										<Loader />
+									</Dimmer>
+								}
+							>
+								<Shops />
 							</Suspense>
 						</Route>
 						<Route exact path="/shopping" component={Shopping} />

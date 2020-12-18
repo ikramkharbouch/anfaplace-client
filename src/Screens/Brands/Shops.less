@@ -1,0 +1,51 @@
+@import '../../config/styles/variables.less';
+
+.shops-screen{
+    
+    &-container{
+        padding: 4% 3%;
+    }
+
+    &-content{
+        padding-top: 12%;
+    }
+
+    &-header{
+
+        .header-filter-group{
+            display: flex;
+            justify-content: space-between;
+
+            button{
+                padding-left: 0;
+            }
+        }
+
+        .header-checkbox-group{
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 3%;
+
+            .promo-checkbox{
+                text-transform: uppercase;
+                font-size: 18px;
+                padding: 13px 15px;
+                background: @light-blue;
+                border-radius: 20px;
+               
+                label{
+                    color:  @white-blue !important;
+                }
+            }
+        }
+
+        .filter{
+            width: 100%;
+            
+            input{
+                padding-top: 13px !important;
+                padding-bottom: 13px !important;
+            }
+        }
+    }
+}
