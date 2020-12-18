@@ -11,7 +11,7 @@
 	justify-content: space-between;
 	padding: 10px 22px 10px 22px;
 	width: 100%;
-	z-index: 100;
+	z-index: 950;
 	i.big.icon.menu, i.big.icons.menu {
 		height: initial;
 		margin: 0;
@@ -46,3 +46,42 @@
 	border: none;
 	color: white;
 }
+
+.bg-light-blue{
+	background-color: @backgroundColor;
+    height: 60px;
+    width: 60px;
+    position: fixed;
+    top: 5px;
+    left: 22px ;
+    border-radius: 50%;
+    z-index: 900;
+}
+
+.app-medium-title{
+    font-size: 18px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+    padding-bottom: 8%;
+    text-align: right;
+    padding-top: 15px;
+}
+
+
+.coupon-menu-container{
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	z-index: 930;
+	top: 0;
+	left: 0;
+	overflow-y: scroll;
+	padding-top: 15vh;
+  
+	> div{
+	  width: 100%;
+	}
+  
+  }
