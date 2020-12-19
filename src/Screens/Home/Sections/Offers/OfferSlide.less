@@ -1,12 +1,16 @@
 @import 'src/config/styles/variables';
 .offerSlide {
 	position: relative;
-	height: calc(~"85vh - 82px");
+	overflow: hidden;
+
+	@media only screen and (min-height: 812px) {
+		height: calc(~"85vh - 92px");
+
+	}
 	img {
 		position: absolute;
 		z-index: 1;
 		height: 100%;
-		width: 100%;
 	}
 	&:before {
 		.overlay-fade-effect();

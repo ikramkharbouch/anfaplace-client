@@ -1,4 +1,5 @@
 @import 'src/config/styles/variables.less';
+@import 'semantic-ui/themes/default/globals/site.variables';
 
 .inner-content {
 	margin: 0;
@@ -9,7 +10,8 @@
 	padding-left: 0;
 }
 
-.offer-details {
+.brand-details {
+	position: relative;
 	&-tags {
 		display: flex;
 		justify-content: flex-end;
@@ -23,101 +25,60 @@
 			}
 		}
 	}
-	&-header {
-		
-		padding: 0px 18px 15px 18px;
-        //.overlay-fade-effect('to bottom');
-        background-color: @backgroundColor;
-        width: 100%;
 
-		p {
-			text-align: right;
-			padding: 10px 6px;
-			margin: 0;
-		}
-
-		.back-btn {
-			align-items: flex-start;
-
-			.text {
-				text-align: right;
-				text-transform: uppercase;
-				font-weight: 900;
-				font-size: 18px;
-				line-height: 25px;
-			}
-		}
+	.back-btn {
+		position: absolute;
+		z-index: 2;
 	}
+
 	&-paralax {
 		padding-top: 10vh;
 	}
 	.parallax-content {
-		height: 50vh;
+		height: 55vh;
 		position: relative;
+		&::before {
+			.overlay-fade-effect('to bottom',@height: 100px);
+		}
 		&::after {
 			.overlay-fade-effect('to top',@height: 222.44px);
-        }
-        
-        img{
-            position: absolute;
-    bottom: 15vh;
-    z-index: 100;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40%;
-        }
+		}
+
+		img {
+			position: absolute;
+			bottom: 44px;
+			z-index: 100;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 40%;
+		}
 	}
 	.description {
-		position: relative;
-		bottom: 94px;
-		padding: 5% 4%;
-		z-index: 2;
-		font-weight: 300;
+		padding: 0 20px;
 	}
-}
 
-.toggle .menu > a{
-    flex: 1 !important;
-    display: flex;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: 400 !important;
-}
+	.phone-number{
+		margin-top: 12px;
+	}
 
-.toggle .menu > a:not(.active){
-    color: @grey !important;
-}
-.toggle .menu > a:not(.active){
-    border-bottom: 2px solid @grey !important;
-}
-
-.ui.secondary.pointing.menu .active.item , .ui.secondary.pointing.menu .active.item:hover{
-    border-color: @white !important;
-    color: @white   !important;
-}
-
-.ui.tab.active, .ui.tab.open{
-    background: transparent;
-}
-
-.brand-tab-actions{
-    display: flex;
-    gap: 5%;
-    padding-top: 5%;
-
-    > *{
-        flex: 1;
-    }
-}
-
-.brand-tab-block:not(:last-child) {
-    padding-bottom: 5%;
-}
-
-.brand-tab-infos{
-    
-}
-
-.app-container .screen{
-    padding-top: 30px !important;
+	.brand-tab-actions {
+		margin-top: 24px;
+		.ui.grid > .row > .column {
+			padding: 0;
+			&:first-child {
+				padding-right: 7.5px;
+			}
+			&:last-child {
+				padding-left: 7.5px;
+			}
+			button {
+				display: flex;
+				align-items: center;
+				font-size: 10px;
+				width: 100%;
+				padding: 14px 0 14px 8px;
+				border-color: @grey;
+			}
+		}
+	}
 }

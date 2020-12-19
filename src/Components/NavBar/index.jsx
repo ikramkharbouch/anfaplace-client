@@ -22,23 +22,23 @@ Points.defaultProps = {
 };
 
 const variants = {
-	start: { scale: 50, transition: { duration: 0.8 } },
-	// You can do whatever you want here, if you just want it to stop completely use `rotate: 0`
-	reverse: { scale: 1, transition: { duration: 0.9 } }
+	start: { scale: 2000, transition: { duration: 0.8 } },
+	reverse: { scale: 1, transition: { duration: 0.9 } },
 };
 
 const NavBar = () => {
-
 	const [isMenuOpen, setOpen] = useState(false);
 
-	const setOverflowHidden = useCallback(selector => {
-		if (isMenuOpen) {
-			document.querySelector(selector).style.overflow = 'hidden';
-			return;
-		}
-		document.querySelector(selector).style.overflow = 'unset';
-
-	}, [isMenuOpen]);
+	const setOverflowHidden = useCallback(
+		(selector) => {
+			if (isMenuOpen) {
+				document.querySelector(selector).style.overflow = 'hidden';
+				return;
+			}
+			document.querySelector(selector).style.overflow = 'unset';
+		},
+		[isMenuOpen]
+	);
 
 	setOverflowHidden('body');
 
@@ -46,24 +46,29 @@ const NavBar = () => {
 		<>
 			<header className="navBar">
 				<MenuIcon clicked={setOpen} />
-				{
-					!isMenuOpen &&
+				{!isMenuOpen && (
 					<>
 						<img src={logoSmall} alt="apa" />
 						<Points />
 					</>
-				}
+				)}
 
-				{isMenuOpen && <h2 className='app-medium-title'> Vous avez <span className='text-white-blue'> 50 points  </span> </h2>}
-
+				{isMenuOpen && (
+					<h2 className="app-medium-title">
+						Vous avez <span className="text-white-blue"> 50 points </span>{' '}
+					</h2>
+				)}
 			</header>
-			<motion.div className='bg-light-blue' variants={variants} animate={isMenuOpen ? 'start' : 'reverse'} />
+			<motion.div
+				className="bg-light-blue"
+				variants={variants}
+				animate={isMenuOpen ? 'start' : 'reverse'}
+			/>
 			<div className="coupon-menu-container">
 				<Coupon menuOpen={isMenuOpen} />
 			</div>
 		</>
 	);
-
-}
+};
 
 export default NavBar;

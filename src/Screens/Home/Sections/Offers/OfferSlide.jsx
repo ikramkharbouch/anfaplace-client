@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './OfferSlide.less';
@@ -8,9 +8,12 @@ import sliderImage from 'src/assets/images/temp/slider.jpg';
 
 const OfferSlide = ({ image, description, date }) => {
 	const history = useHistory();
-
+	const offerSlide = createRef();
+	useEffect(() => {
+		offerSlide.current.style.height = `${window.innerHeight - 94}px`;
+	});
 	return (
-		<div className="offerSlide">
+		<div ref={offerSlide} className="offerSlide">
 			<img src={image} alt="slider" />
 			<div className="offer-details">
 				<p className="offer-description">{description}</p>

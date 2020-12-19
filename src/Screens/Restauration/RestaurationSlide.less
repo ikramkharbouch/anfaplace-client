@@ -2,11 +2,11 @@
 .restaurationSlide {
   position: relative;
   height: 558px;
+  overflow: hidden;
   img {
     position: absolute;
     z-index: 1;
     height: 100%;
-    width: 100%;
   }
   &:before {
     .overlay-fade-effect();
@@ -21,7 +21,7 @@
     width: 100%;
     z-index: 4;
     text-align: center;
-    bottom: 52px;
+    bottom: 80px;
 
     .restauration-description {
       font-size: @big-font-size;

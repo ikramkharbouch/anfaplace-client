@@ -11,7 +11,7 @@ import './Slider.less';
 const customBulletPagination = (swiper, current, total, autoplay) => {
 	const bullet = (index) =>
 		`<span ${total === 1 ? 'style="background-color: #ffffff"' : ''} class="slider-bullet  ${
-			total > 1 && index === current ? 'current' : ''
+			index === current ? 'current' : ''
 		}${index < current ? 'prev' : ''} ${!autoplay ? 'static' : ''}"></span>`;
 	let paginationHtml = '';
 
@@ -25,6 +25,8 @@ const Slider = ({
 	id,
 	className,
 	slidersPerView,
+	slidesPerColumn,
+	slidesPerGroup,
 	slidesOffsetBefore,
 	pagination,
 	autoplay,
@@ -48,7 +50,9 @@ const Slider = ({
 					.querySelector(`#${id} .swiper-pagination .slider-bullet.current`)
 					.classList.add('reset-progress');
 			}
-			swiper.autoplay.stop();
+			if (autoplay) {
+				swiper.autoplay.stop();
+			}
 		}
 		if (event.type === 'touchend') {
 			timeOnSliderEvent({
@@ -60,8 +64,9 @@ const Slider = ({
 					.querySelector(`#${id} .swiper-pagination .slider-bullet.current`)
 					.classList.remove('reset-progress');
 			}
-
-			swiper.autoplay.start();
+			if (autoplay) {
+				swiper.autoplay.start();
+			}
 		}
 	};
 
@@ -83,6 +88,9 @@ const Slider = ({
 			className={className}
 			slidesOffsetBefore={slidesOffsetBefore}
 			spaceBetween={20}
+			slidesPerColumn={slidesPerColumn}
+			slidesPerColumnFill="row"
+			slidesPerGroup={slidesPerGroup}
 			preventClicks
 			slidesPerView={slidersPerView}
 			onInit={handleInitSlide}
@@ -122,6 +130,9 @@ Slider.propTypes = {
 	id: PropTypes.string,
 	className: PropTypes.string,
 	slidersPerView: PropTypes.number,
+	slidesPerColumn: PropTypes.number,
+	slidesPerGroup: PropTypes.number,
+
 	pagination: PropTypes.bool,
 	slidesOffsetBefore: PropTypes.number,
 	children: PropTypes.node,
@@ -134,6 +145,8 @@ Slider.defaultProps = {
 	id: '',
 	className: '',
 	slidersPerView: 1,
+	slidesPerColumn: 1,
+	slidesPerGroup: 1,
 	slidesOffsetBefore: 0,
 	pagination: true,
 	children: [],

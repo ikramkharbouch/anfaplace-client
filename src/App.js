@@ -7,6 +7,7 @@ import Shopping from 'src/Screens/Shopping';
 import Restauration from 'src/Screens/Restauration';
 import Entertainment from 'src/Screens/Entertainment';
 import ScrollToTop from 'src/utils/ScrollToTop';
+import Coupon from 'src/Screens/Coupon';
 import Brand from './Screens/Brand/index';
 import NavBar from './Components/NavBar';
 import BottomNav from './Components/BottomNav';
@@ -23,21 +24,20 @@ const Shops = lazy(() => import('src/Screens/Brands/index.jsx'));
 const App = () => {
 	// move this to context later
 	const [openSocial, setOpenSocial] = useState(false);
-
 	return (
 		<div className="app-container">
 			<Router>
 				<ScrollToTop />
 				<NavBar />
 				<Interests modalClosedEvent={() => setOpenSocial(true)} />
-				{openSocial && <SocialLogin />}
+				<SocialLogin openSocial={openSocial} />
 				<div className="screen">
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/offer-details" component={Survey} />
 						<Route path="/qrcode" component={QRcode} />
 						<Route path="/tour" component={Tour} />
-						<Route exact path="/brands/:id" component={Brand} />
+						<Route exact path="/brand/:id" component={Brand} />
 						<Route exact path="/survey">
 							<Suspense
 								fallback={
@@ -74,6 +74,7 @@ const App = () => {
 						<Route exact path="/shopping" component={Shopping} />
 						<Route exact path="/restauration" component={Restauration} />
 						<Route exact path="/entertainment" component={Entertainment} />
+						<Route exact path="/coupon/:id" component={Coupon} />
 					</Switch>
 				</div>
 				<BottomNav />

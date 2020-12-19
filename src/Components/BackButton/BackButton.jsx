@@ -22,7 +22,7 @@ BackButton.propTypes = {
 
 BackButton.defaultProps = {
 	// icon: 'arrow left',
-	text: 'Retour',
+	text: '',
 };
 
 export default BackButton;

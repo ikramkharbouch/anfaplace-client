@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 import Badgbe from '../Badge';
 
-
 import './brand.less';
 
 const Brand = ({ badgeColor, badgeText, brandImg, brandName, withBadge, brandLink }) => (
@@ -12,7 +11,7 @@ const Brand = ({ badgeColor, badgeText, brandImg, brandName, withBadge, brandLin
 		{withBadge && <Badgbe color={badgeColor} title={badgeText} />}
 		<img src={brandImg} alt={brandName} />
 	</Link>
-)
+);
 
 Brand.propTypes = {
 	badgeColor: PropTypes.string.isRequired,
@@ -20,8 +19,7 @@ Brand.propTypes = {
 	brandName: PropTypes.string.isRequired,
 	brandImg: PropTypes.string.isRequired,
 	withBadge: PropTypes.bool.isRequired,
-	brandLink: PropTypes.number.isRequired,
+	brandLink: PropTypes.string.isRequired,
 };
-
 
 export default Brand;
