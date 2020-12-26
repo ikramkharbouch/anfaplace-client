@@ -1,0 +1,48 @@
+@import 'src/config/styles/variables';
+.entertainment-slide {
+	height: 438px;
+	position: relative;
+	img {
+		width: 100%;
+	}
+	.details {
+		padding: 0 16px;
+		width: 100%;
+		position: absolute;
+		text-align: center;
+		bottom: 32px;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 3;
+		p {
+			width: 60%;
+			margin-left:  auto;
+			margin-right:  auto;
+		}
+		.actions {
+			display: flex;
+			padding: 20px;
+			button {
+				padding: 14px 0;
+				font-size: 10px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				&:first-child {
+					margin-right: 8px;
+				}
+				&:last-child {
+					margin-left: 8px;
+				}
+			}
+		}
+	}
+
+	&:before {
+		.overlay-fade-effect('to bottom',@height: 148px);
+	}
+	&:after {
+		.overlay-fade-effect('to top',@height:148px );
+	}
+
+}

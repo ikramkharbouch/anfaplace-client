@@ -1,14 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Checkbox, Input } from 'semantic-ui-react';
+import { KafkaTimeSpentOnSelectingInterest } from 'src/utils/kafka/KafkaEvents';
 import ScrollArea from 'react-scrollbar';
 
 import Modal from '../Modal';
 import './Intersts.less';
 
+const interests = [
+	{ id: 1, label: 'Vetements homme' },
+	{ id: 1, label: 'Vetement femme' },
+	{ id: 2, label: 'Chaussures homme' },
+	{ id: 3, label: 'Chassures femmes' },
+	{ id: 4, label: 'Maquillage/Parfumerie' },
+	{ id: 5, label: 'Food' },
+	{ id: 1, label: 'Maison / Décoration' },
+	{ id: 6, label: 'Sport Enfants' },
+];
+
 const Interests = ({ modalClosedEvent }) => {
 	const interestsIgnoredOnce = JSON.parse(localStorage.getItem('interestsIgnoredOnce')) || false;
 	const [open, setOpen] = useState(false);
+	const [t0, setT0] = useState(0);
+	const handleCheck = (event, data) => {
+		if (data.checked) {
+			const timeSpentOnSelectingInterest = new KafkaTimeSpentOnSelectingInterest(
+				'123456',
+				data.id,
+				performance.now() - t0
+			);
+			timeSpentOnSelectingInterest.emitEvent();
+		}
+
+		setT0(performance.now());
+
+		console.log({ data, t0 });
+	};
 	const scrollbarStyle = {
 		height: 180,
 		width: '95%',
@@ -18,6 +45,7 @@ const Interests = ({ modalClosedEvent }) => {
 		// giving a better feel when opening the modal
 		setTimeout(() => {
 			setOpen(!interestsIgnoredOnce);
+			setT0(performance.now());
 		}, 200);
 	}, [interestsIgnoredOnce]);
 	return (
@@ -51,30 +79,9 @@ const Interests = ({ modalClosedEvent }) => {
 				}}
 				horizontal={false}
 			>
-				<Checkbox label="Vetements homme" />
-				<Checkbox label="Vetement femme" />
-				<Checkbox label="Chaussures homme" />
-				<Checkbox label="Chassures femmes" />
-				<Checkbox label="Maquillage/Parfumerie" />
-				<Checkbox label="Food" />
-				<Checkbox label="Maison / Décoration" />
-				<Checkbox label="Sport Enfants" />
-				<Checkbox label="Vetements homme" />
-				<Checkbox label="Vetement femme" />
-				<Checkbox label="Chaussures homme" />
-				<Checkbox label="Chassures femmes" />
-				<Checkbox label="Maquillage/Parfumerie" />
-				<Checkbox label="Food" />
-				<Checkbox label="Maison / Décoration" />
-				<Checkbox label="Sport Enfants" />
-				<Checkbox label="Vetements homme" />
-				<Checkbox label="Vetement femme" />
-				<Checkbox label="Chaussures homme" />
-				<Checkbox label="Chassures femmes" />
-				<Checkbox label="Maquillage/Parfumerie" />
-				<Checkbox label="Food" />
-				<Checkbox label="Maison / Décoration" />
-				<Checkbox label="Sport Enfants" />
+				{interests.map((interest) => (
+					<Checkbox id={interest.id} label={interest.label} onChange={handleCheck} />
+				))}
 			</ScrollArea>
 			<div className="actions">
 				<Button

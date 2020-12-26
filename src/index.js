@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './utils/initApp';
 import 'semantic-ui-less/semantic.less';
 import './utils/disable-context-menu';
 import './index.css';

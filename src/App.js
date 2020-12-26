@@ -1,4 +1,5 @@
 import React, { lazy, Suspense, useState } from 'react';
+
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Loader, Dimmer } from 'semantic-ui-react';
 import SocialLogin from 'src/Components/SocialLogin';

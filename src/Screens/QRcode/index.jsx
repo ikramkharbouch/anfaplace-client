@@ -18,7 +18,7 @@ const PhoneValidated = () => (
 				<Icon className="big" name="qrcode" />
 			</div>
 
-			<p className="qrcode-section-text"> 350 points </p>
+			<span className="qrcode-points"> 350 points </span>
 		</div>
 	</div>
 );

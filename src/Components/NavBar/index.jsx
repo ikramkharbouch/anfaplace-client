@@ -45,7 +45,7 @@ const NavBar = () => {
 	return (
 		<>
 			<header className="navBar">
-				<MenuIcon clicked={setOpen} />
+				<MenuIcon openMenu={setOpen} isMenuOpen={isMenuOpen} />
 				{!isMenuOpen && (
 					<>
 						<img src={logoSmall} alt="apa" />
@@ -65,7 +65,7 @@ const NavBar = () => {
 				animate={isMenuOpen ? 'start' : 'reverse'}
 			/>
 			<div className="coupon-menu-container">
-				<Coupon menuOpen={isMenuOpen} />
+				<Coupon menuOpen={isMenuOpen} closeMenu={() => setOpen(false)} />
 			</div>
 		</>
 	);

@@ -4,8 +4,8 @@ import Slider from 'src/Components/Slider';
 import QuestionnaireSlide from './QuestionnaireSlide';
 import './Questionnaire.less';
 
-const Questionnaire = () => (
-	<div className="questionnaire">
+const Questionnaire = React.forwardRef((props, ref) => (
+	<div className="questionnaire" ref={ref}>
 		<Header as="h3">
 			Questionnaires
 			<Header.Subheader>Lorem ipsum dolor sit amet, consetetur sadipscing</Header.Subheader>
@@ -22,6 +22,6 @@ const Questionnaire = () => (
 			<QuestionnaireSlide />
 		</Slider>
 	</div>
-);
+));
 
 export default Questionnaire;

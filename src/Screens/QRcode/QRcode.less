@@ -1,4 +1,5 @@
 @import 'src/config/styles/variables';
+@import 'semantic-ui/themes/default/globals/site.variables';
 
 .qrcode-screen {
 	padding: 20px;
@@ -86,6 +87,22 @@ i.icons.big {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		i.icon.qrcode.big, i.icons.big{
+			color: @white;
+		}
+		.qrcode-points{
+		width: 204px;
+			height: 45px;
+			background-color: rgba(255,255,255,.2);
+			border-radius: 80px;
+			color: @lightBlue;
+			line-height: 45px;
+			text-align: center;
+			font-size: 25px;
+			font-weight: 900;
+
+		}
+
 
 	}
 }

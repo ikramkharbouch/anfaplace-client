@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './MenuIcon.less';
 
-const MenuIcon = ({ clicked }) => {
-	const [isMenuOpen, setMenuOpen] = useState(false);
-
+const MenuIcon = ({ openMenu, isMenuOpen }) => {
 	const handleClick = () => {
-		setMenuOpen((prev) => !prev);
-		clicked(!isMenuOpen);
+		openMenu(!isMenuOpen);
 	};
 
 	return (
@@ -24,7 +21,8 @@ const MenuIcon = ({ clicked }) => {
 };
 
 MenuIcon.propTypes = {
-	clicked: PropTypes.func.isRequired,
+	openMenu: PropTypes.func.isRequired,
+	isMenuOpen: PropTypes.bool.isRequired,
 };
 
 export default MenuIcon;

@@ -5,6 +5,7 @@ import './OfferSlide.less';
 import { Button } from 'semantic-ui-react';
 import { ReactComponent as ArrowIcon } from 'src/assets/icons/arrow.svg';
 import sliderImage from 'src/assets/images/temp/slider.jpg';
+import Image from 'src/Components/Image/index';
 
 const OfferSlide = ({ image, description, date }) => {
 	const history = useHistory();
@@ -14,7 +15,7 @@ const OfferSlide = ({ image, description, date }) => {
 	});
 	return (
 		<div ref={offerSlide} className="offerSlide">
-			<img src={image} alt="slider" />
+			<Image src={image} />
 			<div className="offer-details">
 				<p className="offer-description">{description}</p>
 				<span className="offer-date">{date}</span>

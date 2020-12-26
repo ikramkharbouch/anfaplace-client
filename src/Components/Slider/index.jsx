@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import SwiperCore, { Pagination, Autoplay } from 'swiper';
+import { KafkaTimeSpentOnSlide, KafkaHeldSlide } from 'src/utils/kafka/KafkaEvents';
 
 // Import Swiper styles
 import 'swiper/swiper.less';
@@ -31,6 +32,7 @@ const Slider = ({
 	pagination,
 	autoplay,
 	autoplayDelay,
+	onInit,
 	timeOnSliderEvent,
 	timeToReachEndOfSlider,
 	children,
@@ -40,11 +42,15 @@ const Slider = ({
 
 	const handleInitSlide = () => {
 		setT0InitSlider(performance.now());
+		onInit();
 	};
 
 	const handleTouch = (swiper, event) => {
 		if (event.type === 'touchstart') {
 			setT0SliderTouch(performance.now());
+			const heldSlide = new KafkaHeldSlide('123456', id, swiper.slides[swiper.activeIndex].id);
+			heldSlide.emitEvent();
+
 			if (pagination) {
 				document
 					.querySelector(`#${id} .swiper-pagination .slider-bullet.current`)
@@ -59,6 +65,13 @@ const Slider = ({
 				time: performance.now() - t0SliderTouch,
 				sliderIndex: swiper.activeIndex,
 			});
+			const timeSpentOnSlide = new KafkaTimeSpentOnSlide(
+				'123456',
+				performance.now() - t0SliderTouch,
+				id,
+				swiper.slides[swiper.activeIndex].id
+			);
+			timeSpentOnSlide.emitEvent();
 			if (pagination) {
 				document
 					.querySelector(`#${id} .swiper-pagination .slider-bullet.current`)
@@ -97,6 +110,7 @@ const Slider = ({
 			onReachEnd={handleReachEnd}
 			onTouchStart={handleTouch}
 			onTouchEnd={handleTouch}
+			onSliderMove={() => console.log('ok')}
 			// onSlideChangeTransitionStart={() =>
 			//   document.getElementsByClassName('slider-bullet current')[0].classList.remove('progress')
 			// }
@@ -138,6 +152,7 @@ Slider.propTypes = {
 	children: PropTypes.node,
 	autoplay: PropTypes.bool,
 	autoplayDelay: PropTypes.number,
+	onInit: PropTypes.func,
 	timeOnSliderEvent: PropTypes.func,
 	timeToReachEndOfSlider: PropTypes.func,
 };
@@ -152,6 +167,7 @@ Slider.defaultProps = {
 	children: [],
 	autoplay: true,
 	autoplayDelay: 2000,
+	onInit() {},
 	timeOnSliderEvent() {
 		return { timeOnSlider: 0, sliderIndex: 0 };
 	},

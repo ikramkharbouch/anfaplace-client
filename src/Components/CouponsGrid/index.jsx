@@ -1,12 +1,15 @@
 import React, { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap_white.css';
 
 import Brand from '../Brand';
 import beautyLogo from '../../assets/images/brands/Logo-beauty-succes.svg';
 
 import './CouponsGrids.less';
 
-const index = ({ menuOpen }) => {
+const CouponsGrid = ({ menuOpen, closeMenu }) => {
 	const initialState = [
 		{
 			id: 1,
@@ -63,8 +66,8 @@ const index = ({ menuOpen }) => {
 	const [coupons] = useState(initialState);
 
 	const variants = {
-		start: { opacity: 1, transition: { duration: 0.4, delay: 0.4 } },
-		reverse: { opacity: 0, transition: { duration: 0.3 } },
+		start: { opacity: 1, transition: { duration: 0.2, delay: 0.4 } },
+		reverse: { opacity: 0, transition: { duration: 0.2 } },
 	};
 
 	const handleStart = () => {
@@ -73,7 +76,6 @@ const index = ({ menuOpen }) => {
 	};
 
 	const handleComplete = () => {
-		console.log('complete');
 		if (!menuOpen) {
 			couponContainer.current.style.display = 'none';
 			couponContainer.current.parentNode.style.display = 'none';
@@ -93,20 +95,40 @@ const index = ({ menuOpen }) => {
 		>
 			<div className="coupons-section-container">
 				<h3 className="app-small-title"> Coupons disponibles </h3>
+
 				{coupons.length && (
 					<div className="coupons-list">
-						{coupons.map((coupon) => (
-							<motion.div className="coupon-brand">
-								<Brand
-									key={coupon.id}
-									withBadge={coupon.withBadge}
-									badgeColor={coupon.badgeColor}
-									badgeText={coupon.badgeText}
-									brandLink={`/coupon/${coupon.id}`}
-									brandImg={coupon.brandImg}
-								/>
-							</motion.div>
-						))}
+						{coupons.map((coupon) =>
+							coupon.badgeColor === 'red' ? (
+								<Tooltip
+									className="tooltip"
+									placement="left"
+									trigger={['click']}
+									overlay={<span>Petit message tooltip</span>}
+								>
+									<motion.div className="coupon-brand">
+										<Brand
+											key={coupon.id}
+											withBadge={coupon.withBadge}
+											badgeColor={coupon.badgeColor}
+											badgeText={coupon.badgeText}
+											brandImg={coupon.brandImg}
+										/>
+									</motion.div>
+								</Tooltip>
+							) : (
+								<motion.div onClick={closeMenu} className="coupon-brand">
+									<Brand
+										key={coupon.id}
+										withBadge={coupon.withBadge}
+										badgeColor={coupon.badgeColor}
+										badgeText={coupon.badgeText}
+										brandLink={`/coupon/${coupon.id}`}
+										brandImg={coupon.brandImg}
+									/>
+								</motion.div>
+							)
+						)}
 					</div>
 				)}
 				{!coupons.length && (
@@ -117,4 +139,9 @@ const index = ({ menuOpen }) => {
 	);
 };
 
-export default index;
+CouponsGrid.propTypes = {
+	menuOpen: PropTypes.bool.isRequired,
+	closeMenu: PropTypes.func.isRequired,
+};
+
+export default CouponsGrid;
