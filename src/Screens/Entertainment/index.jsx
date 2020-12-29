@@ -8,8 +8,8 @@ import './Entertainment.less';
 
 const Entertainment = () => (
 	<div className="entertainment-screen">
-		<BackButton text="Entertainment" />
-		<InView threshold={0.82}>
+		<BackButton text="Divertissement " />
+		<InView threshold={0.75}>
 			{({ inView, ref }) => (
 				<div ref={ref} className="slider-with-overlay">
 					{!inView && <div className="overlay" />}
@@ -22,7 +22,7 @@ const Entertainment = () => (
 				</div>
 			)}
 		</InView>
-		<InView threshold={0.82}>
+		<InView threshold={0.75}>
 			{({ inView, ref }) => (
 				<div ref={ref} className="slider-with-overlay">
 					{!inView && <div className="overlay" />}
@@ -35,7 +35,7 @@ const Entertainment = () => (
 				</div>
 			)}
 		</InView>
-		<InView threshold={0.82}>
+		<InView threshold={0.75}>
 			{({ inView, ref }) => (
 				<div ref={ref} className="slider-with-overlay">
 					{!inView && <div className="overlay" />}
@@ -48,7 +48,7 @@ const Entertainment = () => (
 				</div>
 			)}
 		</InView>
-		<InView threshold={0.82}>
+		<InView threshold={0.75}>
 			{({ inView, ref }) => (
 				<div ref={ref} className="slider-with-overlay">
 					{!inView && <div className="overlay" />}

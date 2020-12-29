@@ -1,3 +1,10 @@
 /*******************************
          Theme Overrides
 *******************************/
+/*--- Blue ---*/
+.ui.blue.labels .label,
+.ui.blue.label {
+  background-color: @lightBlue !important;
+  border-color: @lightBlue !important;
+  color: @blueTextColor !important;
+}

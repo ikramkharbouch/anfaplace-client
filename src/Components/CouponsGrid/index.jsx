@@ -54,7 +54,7 @@ const CouponsGrid = ({ menuOpen, closeMenu }) => {
 		{
 			id: 6,
 			withBadge: true,
-			badgeColor: 'green',
+			badgeColor: 'red',
 			badgeText: '100p',
 			brandLink: 1,
 			brandImg: beautyLogo,

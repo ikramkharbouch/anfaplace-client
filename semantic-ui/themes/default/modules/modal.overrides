@@ -7,3 +7,6 @@ overflow:hidden;
 .ui.modal > .content{
 text-align:center;
 }
+.ui.modal > .actions .button.primary {
+background:@green;
+}

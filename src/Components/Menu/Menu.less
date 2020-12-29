@@ -1,0 +1,32 @@
+@import 'src/config/styles/variables';
+.container {
+	img {
+	}
+	.image {
+		position: relative;
+		&:after {
+			.overlay-fade-effect('to top',@height: 60vh );
+		}
+	}
+	nav {
+		position: relative;
+		bottom: 200px;
+		z-index: 10;
+		padding: 0 20px;
+
+		height: 40vh;
+		ul {
+          height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			li {
+				font-size: 2rem;
+				line-height: 2rem;
+				&.sign-out {
+					opacity: 0.6;
+				}
+			}
+		}
+	}
+}

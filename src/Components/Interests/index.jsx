@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Checkbox, Input } from 'semantic-ui-react';
 import { KafkaTimeSpentOnSelectingInterest } from 'src/utils/kafka/KafkaEvents';
 import ScrollArea from 'react-scrollbar';
+import { AuthContext } from 'src/utils/AuthContext';
 
 import Modal from '../Modal';
 import './Intersts.less';
@@ -22,6 +23,8 @@ const Interests = ({ modalClosedEvent }) => {
 	const interestsIgnoredOnce = JSON.parse(localStorage.getItem('interestsIgnoredOnce')) || false;
 	const [open, setOpen] = useState(false);
 	const [t0, setT0] = useState(0);
+	const { user } = useContext(AuthContext);
+
 	const handleCheck = (event, data) => {
 		if (data.checked) {
 			const timeSpentOnSelectingInterest = new KafkaTimeSpentOnSelectingInterest(
@@ -53,7 +56,7 @@ const Interests = ({ modalClosedEvent }) => {
 			open={open}
 			setOpen={(isOpen) => {
 				setOpen(isOpen);
-				modalClosedEvent();
+				modalClosedEvent(user == null);
 			}}
 		>
 			<p>Pour une meilleure expérience client, créer votre liste d’intérêt.</p>
@@ -89,7 +92,7 @@ const Interests = ({ modalClosedEvent }) => {
 					onClick={() => {
 						setOpen(false);
 						localStorage.setItem('interestsIgnoredOnce', 'true');
-						modalClosedEvent();
+						modalClosedEvent(user == null);
 					}}
 				>
 					Plus tard
@@ -98,7 +101,8 @@ const Interests = ({ modalClosedEvent }) => {
 					circular
 					onClick={() => {
 						setOpen(false);
-						modalClosedEvent();
+						modalClosedEvent(user == null);
+						localStorage.setItem('interests-confirmed', 'true');
 					}}
 				>
 					Confirmer

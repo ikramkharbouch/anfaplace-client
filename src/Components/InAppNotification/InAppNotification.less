@@ -1,0 +1,32 @@
+@import "semantic-ui/themes/default/globals/site.variables";
+@keyframes slideInNotification {
+  from {
+    top: -200px;
+  }
+  to{
+    top: 0;
+  }
+
+}
+
+
+.in-app-notification.ui.dimmer {
+  background-color: rgba(30, 30, 72, 0.41)!important;
+  backdrop-filter: blur(1.6px);
+  .notification-container{
+    position: absolute;
+    top: 0px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height:64px ;
+    background-color: @lightBlue;
+    animation: slideInNotification .25s ease;
+    h4.ui.header{
+      font-weight: 400;
+      margin: 0;
+    }
+  }
+}

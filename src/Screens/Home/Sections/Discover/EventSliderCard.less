@@ -1,0 +1,50 @@
+@import "semantic-ui/themes/default/globals/site.variables";
+@import "src/config/styles/variables";
+.event-slider-card{
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  &:before{
+  .overlay-fade-effect('to right',@height: 100% )
+
+}
+  img{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+
+
+  }
+
+  .details{
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    padding: 18px 10px;
+    width: calc(~"100% - " 20px);
+  .title h5{
+    margin-top: 6px;
+      font-weight: 500;
+      font-size: 13px;
+      padding: 0 8px;
+      text-transform: uppercase;
+    }
+    .ui.label{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      .cutout{
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        background-color:@blue ;
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+    }
+  }
+
+
+}

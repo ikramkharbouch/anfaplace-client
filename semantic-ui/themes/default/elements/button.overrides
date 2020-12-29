@@ -1,3 +1,10 @@
 /*******************************
          Theme Overrides
 *******************************/
+.ui.blue.buttons .button,
+.ui.blue.button {
+  background-color: @lightBlue;
+  color: @blueTextColor;
+  text-shadow: @blueTextShadow;
+  background-image: @coloredBackgroundImage;
+}

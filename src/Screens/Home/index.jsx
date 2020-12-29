@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { KafkaTimeBetweenEventsAndQuestionnaire } from 'src/utils/kafka/KafkaEvents';
+// import VisitesList from 'src/Screens/Home/Sections/VisitesList';
+// import Discover from 'src/Screens/Home/Sections/Discover';
 import Navigation from './Components/Navigation';
 import Offers from './Sections/Offers';
 import Questionnaire from './Sections/Questionaire';
@@ -13,7 +15,6 @@ const Home = () => {
 	const [ref, questionnaireInView] = useInView({
 		threshold: 1,
 	});
-	console.log(questionnaireInView);
 	useEffect(() => {
 		if (!reachedQuestionnaireOnce && questionnaireInView) {
 			const TimeBetweenEventsAndQuestionnaire = new KafkaTimeBetweenEventsAndQuestionnaire(
@@ -31,7 +32,9 @@ const Home = () => {
 			<Offers />
 			<TrendyEvents c={() => setT0(performance.now())} />
 			<Questionnaire ref={ref} />
+			{/* <Discover /> */}
 			<Brands />
+			{/* <VisitesList /> */}
 		</>
 	);
 };

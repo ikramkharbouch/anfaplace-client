@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button } from 'semantic-ui-react';
-import InputNumber from 'rc-input-number';
+import NumberFormat from 'react-number-format';
 
 import { Link } from 'react-router-dom';
 
@@ -10,70 +10,62 @@ import './VerificationModal.less';
 
 const CustomInputNumber = ({
 	id,
-	prefixCls,
+	prefix,
 	width,
-	min,
-	max,
 	defaultValue,
 	autoFocus,
-	formatter,
 	onChange,
 	onBackSpace,
 	value,
+	format,
 }) => (
 	<Form.Field
 		id={id}
 		autoComplete="off"
-		type="number"
-		prefixCls={prefixCls}
+		prefix={prefix}
 		width={width}
+		format={format}
 		autoFocus={autoFocus}
 		onKeyDown={(event) => {
 			const { keyCode, target } = event;
-			if (keyCode === 109 || keyCode === 110 || keyCode === 107) {
-				event.preventDefault();
-			}
 			if (keyCode === 8 && !target.value) {
+				console.log('key down pin===>', keyCode);
 				event.preventDefault();
 				onBackSpace();
 			}
 		}}
-		onChange={onChange}
+		onValueChange={(values) => {
+			console.log(values);
+			onChange(values.formattedValue);
+		}}
 		value={value}
 		inline
-		min={min}
-		max={max}
 		defaultValue={defaultValue}
-		formatter={formatter}
-		pattern="[0-9]*"
-		inputMode="numeric"
-		step={1}
-		control={InputNumber}
+		decimalSeparator={null}
+		allowNegative={false}
+		thousandSeparator={false}
+		control={NumberFormat}
 	/>
 );
 
 CustomInputNumber.propTypes = {
 	id: PropTypes.string,
-	prefixCls: PropTypes.string,
+	prefix: PropTypes.string,
 	width: PropTypes.number,
-	min: PropTypes.number,
-	max: PropTypes.number,
 	defaultValue: PropTypes.number,
 	autoFocus: PropTypes.bool,
 	onChange: PropTypes.func,
 	onBackSpace: PropTypes.func,
-	formatter: PropTypes.func,
 	value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+	format: PropTypes.string,
 };
 CustomInputNumber.defaultProps = {
 	id: '',
-	prefixCls: '',
+	prefix: '',
 	width: null,
-	min: -Number.MAX_SAFE_INTEGER,
-	max: Number.MAX_SAFE_INTEGER,
 	defaultValue: null,
 	autoFocus: false,
-	formatter: (value) => value,
+	format: '',
 	onChange: (value) => value,
 	onBackSpace: () => {},
 	value: undefined,
@@ -87,33 +79,28 @@ const ConfirmationTel = ({ confirm }) => {
 			<p>Valider votre numéro de téléphone et commencer à collecter des points Anfapoints</p>
 
 			<Form onSubmit={confirm} className="verification-form">
-				<Form.Group width={16} unstackable>
+				<Form.Group widths={16} inline unstackable>
 					<CustomInputNumber
-						prefixCls="plus"
 						name="country-code"
 						autoFocus
-						width={4}
-						min={1}
-						max={999}
+						width={5}
 						defaultValue={212}
-						formatter={(value) => value.substr(0, 3)}
+						format="+###"
 						value={phoneNumber.countryCode}
 						onChange={(value) => {
 							setPhoneNumber({ ...phoneNumber, countryCode: value });
 						}}
 					/>
 
-					<Form.Field width={12} type="number" inline>
-						<CustomInputNumber
-							width={16}
-							autoFocus
-							formatter={(value) => value.substr(0, 10)}
-							value={phoneNumber.number}
-							onChange={(value) => {
-								setPhoneNumber({ ...phoneNumber, number: value });
-							}}
-						/>
-					</Form.Field>
+					<CustomInputNumber
+						width={11}
+						autoFocus
+						format="# ## ## ## ##"
+						value={phoneNumber.number}
+						onChange={(value) => {
+							setPhoneNumber({ ...phoneNumber, number: value });
+						}}
+					/>
 				</Form.Group>
 				<Link to="/" className="tos">
 					Politique de confidentialité
@@ -131,7 +118,6 @@ ConfirmationTel.propTypes = {
 	confirm: PropTypes.func.isRequired,
 };
 const PinVerification = ({ verifiedEvent }) => {
-	const formatter = (value) => (value ? `${value.toString().substr(0, 1)}` : null);
 	const [pin, setPin] = useState({
 		'digit-1': null,
 		'digit-2': null,
@@ -139,7 +125,6 @@ const PinVerification = ({ verifiedEvent }) => {
 		'digit-4': null,
 	});
 	const handleOnChange = (value, pinDigit) => {
-		console.log(value);
 		setPin({ ...pin, [`digit-${pinDigit}`]: value });
 		if (value && pinDigit !== 4) {
 			document.getElementById(`digit-${pinDigit}`).blur();
@@ -147,6 +132,7 @@ const PinVerification = ({ verifiedEvent }) => {
 			document.getElementById(`digit-${pinDigit + 1}`).focus();
 		}
 	};
+
 	const handleBackSpace = (pinDigit) => {
 		if (!pin[`digit-${pinDigit}`]) {
 			document.getElementById(`digit-${pinDigit}`).blur();
@@ -159,16 +145,16 @@ const PinVerification = ({ verifiedEvent }) => {
 		<>
 			<p>Vérification de votre numéro de téléphone</p>
 			<Form className="pin-verification">
-				<Form.Group className="digits" unstackable widths={16}>
+				<Form.Group className="digits" unstackable inline widths={16}>
 					<CustomInputNumber
 						id="digit-1"
 						onChange={(value) => {
 							handleOnChange(value, 1);
 						}}
 						width={4}
-						formatter={formatter}
 						autoFocus
 						value={pin['digit-1']}
+						format="#"
 					/>
 					<CustomInputNumber
 						id="digit-2"
@@ -179,8 +165,8 @@ const PinVerification = ({ verifiedEvent }) => {
 						onBackSpace={() => {
 							handleBackSpace(2);
 						}}
-						formatter={formatter}
 						value={pin['digit-2']}
+						format="#"
 					/>
 					<CustomInputNumber
 						id="digit-3"
@@ -191,8 +177,8 @@ const PinVerification = ({ verifiedEvent }) => {
 						onChange={(value) => {
 							handleOnChange(value, 3);
 						}}
-						formatter={formatter}
 						value={pin['digit-3']}
+						format="#"
 					/>
 					<CustomInputNumber
 						id="digit-4"
@@ -203,8 +189,8 @@ const PinVerification = ({ verifiedEvent }) => {
 						onBackSpace={() => {
 							handleBackSpace(4);
 						}}
-						formatter={formatter}
 						value={pin['digit-4']}
+						format="#"
 					/>
 				</Form.Group>
 

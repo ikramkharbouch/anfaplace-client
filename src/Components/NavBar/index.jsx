@@ -5,8 +5,10 @@ import './NavBar.less';
 
 import logoSmall from 'src/assets/images/logo-small.png';
 
+import Menu from 'src/Components/Menu';
+import { Header } from 'semantic-ui-react';
 import MenuIcon from '../MenuIcon';
-import Coupon from '../CouponsGrid';
+// import Coupon from '../CouponsGrid';
 
 const Points = ({ points }) => (
 	<button type="button" className="points">
@@ -44,8 +46,11 @@ const NavBar = () => {
 
 	return (
 		<>
-			<header className="navBar">
-				<MenuIcon openMenu={setOpen} isMenuOpen={isMenuOpen} />
+			<header className={`navBar ${isMenuOpen ? 'open' : ''}`}>
+				<div className="nave-bar-menu" style={{ display: 'flex' }}>
+					<MenuIcon openMenu={setOpen} isMenuOpen={isMenuOpen} />
+					{isMenuOpen && <Header as="h3">MENU</Header>}
+				</div>
 				{!isMenuOpen && (
 					<>
 						<img src={logoSmall} alt="apa" />
@@ -53,19 +58,21 @@ const NavBar = () => {
 					</>
 				)}
 
-				{isMenuOpen && (
-					<h2 className="app-medium-title">
-						Vous avez <span className="text-white-blue"> 50 points </span>{' '}
-					</h2>
-				)}
+				{/* {isMenuOpen && ( */}
+				{/*	<h2 className="app-medium-title"> */}
+				{/*		Vous avez <span className="text-white-blue"> 50 points </span>{' '} */}
+				{/*	</h2> */}
+				{/* )} */}
 			</header>
 			<motion.div
 				className="bg-light-blue"
 				variants={variants}
 				animate={isMenuOpen ? 'start' : 'reverse'}
 			/>
-			<div className="coupon-menu-container">
-				<Coupon menuOpen={isMenuOpen} closeMenu={() => setOpen(false)} />
+
+			<div className="menu-container" style={{ zIndex: isMenuOpen ? 930 : -1 }}>
+				<Menu menuOpen={isMenuOpen} />
+				{/* <Coupon menuOpen={isMenuOpen} closeMenu={() => setOpen(false)} /> */}
 			</div>
 		</>
 	);

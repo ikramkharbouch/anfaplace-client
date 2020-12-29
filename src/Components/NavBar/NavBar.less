@@ -12,6 +12,19 @@
 	padding: 16px 22px 10px 22px;
 	width: 100%;
 	z-index: 950;
+	&.open{
+		background-color: transparent;
+		backdrop-filter: none;
+	}
+	.nave-bar-menu{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		.ui.header{
+			margin: 0 0 12px 0;
+			font-weight: 400;
+		}
+	}
 }
 
 @keyframes pulse {
@@ -63,16 +76,14 @@
 }
 
 
-.coupon-menu-container{
+.menu-container{
 	position: fixed;
 	width: 100vw;
 	height: 100vh;
-	z-index: 930;
+	z-index: -1;
 	top: 0;
 	left: 0;
-	overflow-y: scroll;
-	padding-top: 15vh;
-  
+
 	> div{
 	  width: 100%;
 	}
