@@ -1,16 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import store from 'src/store';
 import './utils/initApp';
 import 'semantic-ui-less/semantic.less';
 import './utils/disable-context-menu';
 import './index.css';
+import { actions } from 'src/store/brand/actions';
+
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
+store.dispatch({ type: actions.FETCH_ALL_BRANDS });
 ReactDOM.render(
 	<React.StrictMode>
-		<App />
+		<Provider store={store}>
+			<App />
+		</Provider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

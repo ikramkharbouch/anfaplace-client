@@ -1,29 +1,34 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const useDataApi = ({ url, method, data }) => {
-	const [dataState, setDataState] = useState({ data: [], isFetching: false, success: false });
+const useDataApi = ({ url, method = 'get', data }) => {
+	const [dataState, setDataState] = useState({
+		data: [],
+		isFetching: true,
+		success: false,
+		error: null,
+	});
 	const baseURL = process.env.REACT_APP_API_URL;
 
 	useEffect(() => {
 		const fetchDataFromApi = async () => {
 			try {
-				setDataState({ ...dataState, isFetching: true });
-				const response = axios.request({
+				setDataState({ ...dataState });
+				const response = await axios.request({
 					baseURL,
 					url,
 					method,
 					data,
 				});
-
+				console.log('run api call', baseURL);
 				setDataState({
 					...dataState,
 					data: response.data,
+					success: response.data.success,
 					isFetching: false,
 				});
 			} catch (e) {
-				console.log(e);
-				setDataState({ ...dataState, isFetching: false, success: false });
+				setDataState({ ...dataState, isFetching: false, success: false, error: e });
 			}
 		};
 		fetchDataFromApi();

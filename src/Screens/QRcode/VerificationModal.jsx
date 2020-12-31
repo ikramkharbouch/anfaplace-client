@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button } from 'semantic-ui-react';
-import NumberFormat from 'react-number-format';
+import { FormattedInput } from '@buttercup/react-formatted-input';
 
 import { Link } from 'react-router-dom';
 
@@ -10,9 +10,8 @@ import './VerificationModal.less';
 
 const CustomInputNumber = ({
 	id,
-	prefix,
+
 	width,
-	defaultValue,
 	autoFocus,
 	onChange,
 	onBackSpace,
@@ -22,7 +21,7 @@ const CustomInputNumber = ({
 	<Form.Field
 		id={id}
 		autoComplete="off"
-		prefix={prefix}
+		type="tel"
 		width={width}
 		format={format}
 		autoFocus={autoFocus}
@@ -34,25 +33,21 @@ const CustomInputNumber = ({
 				onBackSpace();
 			}
 		}}
-		onValueChange={(values) => {
-			console.log(values);
-			onChange(values.formattedValue);
+		onChange={(formattedValue, raw) => {
+			onChange(raw);
 		}}
 		value={value}
 		inline
-		defaultValue={defaultValue}
 		decimalSeparator={null}
 		allowNegative={false}
 		thousandSeparator={false}
-		control={NumberFormat}
+		control={FormattedInput}
 	/>
 );
 
 CustomInputNumber.propTypes = {
 	id: PropTypes.string,
-	prefix: PropTypes.string,
 	width: PropTypes.number,
-	defaultValue: PropTypes.number,
 	autoFocus: PropTypes.bool,
 	onChange: PropTypes.func,
 	onBackSpace: PropTypes.func,
@@ -61,9 +56,7 @@ CustomInputNumber.propTypes = {
 };
 CustomInputNumber.defaultProps = {
 	id: '',
-	prefix: '',
 	width: null,
-	defaultValue: null,
 	autoFocus: false,
 	format: '',
 	onChange: (value) => value,
@@ -72,8 +65,9 @@ CustomInputNumber.defaultProps = {
 };
 
 const ConfirmationTel = ({ confirm }) => {
-	const [phoneNumber, setPhoneNumber] = useState({ countryCode: undefined, number: undefined });
-
+	const [phoneNumber, setPhoneNumber] = useState({ countryCode: '212', number: undefined });
+	const formatCountryCode = [{ exactly: '+' }, { char: /\d/, repeat: 3 }];
+	const formatNumber = [{ char: /\d/, repeat: 9 }];
 	return (
 		<>
 			<p>Valider votre numéro de téléphone et commencer à collecter des points Anfapoints</p>
@@ -84,8 +78,7 @@ const ConfirmationTel = ({ confirm }) => {
 						name="country-code"
 						autoFocus
 						width={5}
-						defaultValue={212}
-						format="+###"
+						format={formatCountryCode}
 						value={phoneNumber.countryCode}
 						onChange={(value) => {
 							setPhoneNumber({ ...phoneNumber, countryCode: value });
@@ -95,7 +88,7 @@ const ConfirmationTel = ({ confirm }) => {
 					<CustomInputNumber
 						width={11}
 						autoFocus
-						format="# ## ## ## ##"
+						format={formatNumber}
 						value={phoneNumber.number}
 						onChange={(value) => {
 							setPhoneNumber({ ...phoneNumber, number: value });
@@ -119,10 +112,10 @@ ConfirmationTel.propTypes = {
 };
 const PinVerification = ({ verifiedEvent }) => {
 	const [pin, setPin] = useState({
-		'digit-1': null,
-		'digit-2': null,
-		'digit-3': null,
-		'digit-4': null,
+		'digit-1': undefined,
+		'digit-2': undefined,
+		'digit-3': undefined,
+		'digit-4': undefined,
 	});
 	const handleOnChange = (value, pinDigit) => {
 		setPin({ ...pin, [`digit-${pinDigit}`]: value });
@@ -140,6 +133,7 @@ const PinVerification = ({ verifiedEvent }) => {
 			document.getElementById(`digit-${pinDigit - 1}`).focus();
 		}
 	};
+	const format = [{ char: /\d/, repeat: 1 }];
 
 	return (
 		<>
@@ -154,7 +148,7 @@ const PinVerification = ({ verifiedEvent }) => {
 						width={4}
 						autoFocus
 						value={pin['digit-1']}
-						format="#"
+						format={format}
 					/>
 					<CustomInputNumber
 						id="digit-2"
@@ -166,7 +160,7 @@ const PinVerification = ({ verifiedEvent }) => {
 							handleBackSpace(2);
 						}}
 						value={pin['digit-2']}
-						format="#"
+						format={format}
 					/>
 					<CustomInputNumber
 						id="digit-3"
@@ -178,7 +172,7 @@ const PinVerification = ({ verifiedEvent }) => {
 							handleOnChange(value, 3);
 						}}
 						value={pin['digit-3']}
-						format="#"
+						format={format}
 					/>
 					<CustomInputNumber
 						id="digit-4"
@@ -190,7 +184,7 @@ const PinVerification = ({ verifiedEvent }) => {
 							handleBackSpace(4);
 						}}
 						value={pin['digit-4']}
-						format="#"
+						format={format}
 					/>
 				</Form.Group>
 

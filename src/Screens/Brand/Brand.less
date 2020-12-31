@@ -12,6 +12,12 @@
 
 .brand-details {
 	position: relative;
+	.empty-slider{
+		height: 50vh;
+	}
+	#brand-details{
+		height: 50vh;
+	}
 	&-tags {
 		display: flex;
 		justify-content: flex-end;
@@ -30,34 +36,37 @@
 		position: absolute;
 		z-index: 2;
 	}
-
-	&-paralax {
-		padding-top: 10vh;
-	}
-	.parallax-content {
-		height: 55vh;
-		position: relative;
-		&::before {
-			.overlay-fade-effect('to bottom',@height: 100px);
+	.slide-brand {
+		height: 100%;
+		.slider-image {
+			height: 100%;
+			width: 100%;
 		}
+		&::before {
+			 .overlay-fade-effect('to bottom',@height: 100px);
+		 }
 		&::after {
 			.overlay-fade-effect('to top',@height: 222.44px);
 		}
-
+	}
+	.brand-image {
+		bottom: 80px;
+		position: relative;
+		height: 100px;
 		img {
 			position: absolute;
 			bottom: 44px;
 			z-index: 100;
 			left: 50%;
 			transform: translateX(-50%);
-			width: 40%;
+			height: 60px;
 		}
 	}
 	.description {
 		padding: 0 20px;
 	}
 
-	.phone-number{
+	.phone-number {
 		margin-top: 12px;
 	}
 

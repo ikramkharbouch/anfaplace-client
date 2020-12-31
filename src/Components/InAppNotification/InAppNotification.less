@@ -10,23 +10,38 @@
 }
 
 
-.in-app-notification.ui.dimmer {
-  background-color: rgba(30, 30, 72, 0.41)!important;
-  backdrop-filter: blur(1.6px);
-  .notification-container{
-    position: absolute;
+
+  .notification-container {
+    position: fixed;
     top: 0px;
     left: 0;
+    z-index: 10000;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 20px;
     width: 100%;
-    min-height:64px ;
+    min-height: 64px;
     background-color: @lightBlue;
     animation: slideInNotification .25s ease;
-    h4.ui.header{
+    transition: all .25s ease;
+    &.slideUp{
+      top: -100px;
+    }
+    &.error{
+      background-color: @red;
+
+    }
+
+    h4.ui.header {
       font-weight: 400;
       margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .icon{
+        font-size: 1.6rem;
+        margin-right: 4px;
+      }
     }
   }
-}

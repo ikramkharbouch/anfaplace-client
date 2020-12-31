@@ -1,10 +1,10 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Proptypes from 'prop-types';
 import { Button, Dimmer, Loader } from 'semantic-ui-react';
 import { ReactComponent as GoogleIcon } from 'src/assets/icons/google.svg';
 import { ReactComponent as FacebookIcon } from 'src/assets/icons/facebook.svg';
 import { ReactComponent as UserIcon } from 'src/assets/icons/user.svg';
-import { withContext } from 'src/Components/InAppNotification';
+import { InAppNotificationContext } from 'src/Components/InAppNotification';
 import { firebaseApp } from 'src/utils/initApp';
 import firebase from 'firebase/app';
 import withFirebaseAuth from 'react-with-firebase-auth';
@@ -25,18 +25,12 @@ const createComponentWithAuth = withFirebaseAuth({
 	firebaseAppAuth,
 });
 
-const SocialLogin = ({
-	context: { setNotification },
-	signInWithGoogle,
-	signInWithFacebook,
-	signInAnonymously,
-	user,
-	loading,
-	error,
-}) => {
+const SocialLogin = ({ signInAnonymously, user, loading, error }) => {
 	const interestsIgnoredOnce = JSON.parse(localStorage.getItem('interestsIgnoredOnce')) || false;
 	const interestsConfirmed = JSON.parse(localStorage.getItem('interests-confirmed')) || false;
 	const { open, setOpen } = useContext(SocialModalContext);
+	const { setNotification } = useContext(InAppNotificationContext);
+	const [loadingSocial, setLoadingSocial] = useState(false);
 	useEffect(() => {
 		setTimeout(() => setOpen(interestsConfirmed && user == null), 200);
 	}, [user, interestsConfirmed]);
@@ -47,19 +41,45 @@ const SocialLogin = ({
 		setTimeout(() => setNotification({ show: true, type: 'didNotWinPoints' }), 800);
 	};
 	console.log(error);
+	const handleSignIn = (authProvider) => {
+		setLoadingSocial(true);
+		let provider;
+		if (authProvider === 'facebook') {
+			provider = new firebase.auth.FacebookAuthProvider();
+		}
+		if (authProvider === 'google') {
+			provider = new firebase.auth.GoogleAuthProvider();
+		}
+
+		firebase
+			.auth()
+			.signInWithPopup(provider)
+			.then((result) => {
+				if (result.additionalUserInfo.isNewUser) {
+					setNotification({ show: true, type: 'wonPoints' });
+				}
+				setLoadingSocial(false);
+			})
+			.catch((authError) => {
+				setNotification({ show: true, type: 'error', message: authError.message });
+				setLoadingSocial(false);
+			});
+	};
+
+	console.log(user);
 	return (
 		<Modal open={open} setOpen={setOpen}>
-			<Dimmer active={loading}>
+			<Dimmer active={loading || loadingSocial}>
 				<Loader />
 			</Dimmer>
 			<p className="social">
 				Connecter vous en utilisant les options ci-dessous et bénéficier de plusieurs avantages membre
 			</p>
-			<Button size="large" circular onClick={signInWithGoogle}>
+			<Button size="large" circular onClick={() => handleSignIn('google')}>
 				<GoogleIcon />
 				Connectez-vous avec Google
 			</Button>
-			<Button circular size="large" onClick={signInWithFacebook}>
+			<Button circular size="large" onClick={() => handleSignIn('facebook')}>
 				<FacebookIcon />
 				Connectez-vous avec Facebook
 			</Button>
@@ -81,18 +101,14 @@ SocialLogin.propTypes = {
 		notification: Proptypes.shape({ show: Proptypes.bool, type: Proptypes.string }),
 		setNotification: Proptypes.func,
 	}).isRequired,
-	signInWithGoogle: Proptypes.func,
-	signInWithFacebook: Proptypes.func,
 	signInAnonymously: Proptypes.func,
 	user: Proptypes.shape({}).isRequired,
 	loading: Proptypes.bool,
 	error: Proptypes.string,
 };
 SocialLogin.defaultProps = {
-	signInWithGoogle: () => {},
-	signInWithFacebook: () => {},
 	signInAnonymously: () => {},
 	loading: false,
 	error: '',
 };
-export default withContext(createComponentWithAuth(SocialLogin));
+export default createComponentWithAuth(SocialLogin);

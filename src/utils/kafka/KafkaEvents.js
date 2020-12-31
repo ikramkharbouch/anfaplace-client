@@ -66,7 +66,7 @@ class KafkaTimeSpentOnSlide extends KafkaBaseEvent {
 
 class KafkaHeldSlide extends KafkaBaseEvent {
 	constructor(userId, sliderId, imageId) {
-		super(userId);
+		super(userId, 'heldSlide');
 		this.sliderId = sliderId;
 		this.imageId = imageId;
 	}

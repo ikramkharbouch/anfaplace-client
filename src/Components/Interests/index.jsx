@@ -1,26 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, Checkbox, Input } from 'semantic-ui-react';
 import { KafkaTimeSpentOnSelectingInterest } from 'src/utils/kafka/KafkaEvents';
 import ScrollArea from 'react-scrollbar';
 import { AuthContext } from 'src/utils/AuthContext';
+import { setInterestsIgnoredOnce } from 'src/store/interests';
 
 import Modal from '../Modal';
 import './Intersts.less';
 
-const interests = [
-	{ id: 1, label: 'Vetements homme' },
-	{ id: 1, label: 'Vetement femme' },
-	{ id: 2, label: 'Chaussures homme' },
-	{ id: 3, label: 'Chassures femmes' },
-	{ id: 4, label: 'Maquillage/Parfumerie' },
-	{ id: 5, label: 'Food' },
-	{ id: 1, label: 'Maison / Décoration' },
-	{ id: 6, label: 'Sport Enfants' },
-];
-
 const Interests = ({ modalClosedEvent }) => {
-	const interestsIgnoredOnce = JSON.parse(localStorage.getItem('interestsIgnoredOnce')) || false;
+	const { interestsIgnoredOnce, list } = useSelector((state) => state.interests);
+	const dispatch = useDispatch();
 	const [open, setOpen] = useState(false);
 	const [t0, setT0] = useState(0);
 	const { user } = useContext(AuthContext);
@@ -82,7 +74,7 @@ const Interests = ({ modalClosedEvent }) => {
 				}}
 				horizontal={false}
 			>
-				{interests.map((interest) => (
+				{list.map((interest) => (
 					<Checkbox id={interest.id} label={interest.label} onChange={handleCheck} />
 				))}
 			</ScrollArea>
@@ -91,7 +83,7 @@ const Interests = ({ modalClosedEvent }) => {
 					className="later"
 					onClick={() => {
 						setOpen(false);
-						localStorage.setItem('interestsIgnoredOnce', 'true');
+						dispatch(setInterestsIgnoredOnce('true'));
 						modalClosedEvent(user == null);
 					}}
 				>

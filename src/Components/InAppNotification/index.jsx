@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Proptypes from 'prop-types';
 import { Icon, Header } from 'semantic-ui-react';
-import ReactCSSTransitionReplace from 'react-css-transition-replace';
-
 import './InAppNotification.less';
 
 export const InAppNotificationContext = React.createContext({
@@ -10,58 +8,82 @@ export const InAppNotificationContext = React.createContext({
 });
 
 const WonPoints = () => (
-	<Header as="h4" icon inverted>
-		<Icon name="gift" />
+	<Header as="h4" icon>
+		<Icon name="gift" size="mini" />
 		Vous avez gagner 50points à l’inscription
 	</Header>
 );
 const DidNotWinPoints = () => (
-	<Header as="h4" icon inverted>
-		compléter votre profil et gagner des points convertible en bons d’achat !
-	</Header>
+	<Header as="h4">compléter votre profil et gagner des points convertible en bons d’achat !</Header>
 );
 
-const NotificationSelector = ({ type }) => {
+const NotificationSelector = ({ type, message }) => {
 	switch (type) {
 		case 'wonPoints':
 			return <WonPoints />;
 		case 'didNotWinPoints':
 			return <DidNotWinPoints />;
+		case 'error':
+			return <Header as="h4">Une erreur est servenu :{message} </Header>;
 		default:
 			return <span> default notification </span>;
 	}
 };
 NotificationSelector.propTypes = {
 	type: Proptypes.string.isRequired,
+	message: Proptypes.string,
+};
+NotificationSelector.defaultProps = {
+	message: '',
 };
 
 // eslint-disable-next-line react/prop-types
 const InAppNotification = ({
 	context: {
-		notification: { show, type },
+		notification: { show, type, message },
 		setNotification,
 	},
-}) =>
-	show && (
-		<ReactCSSTransitionReplace
-			transitionName="cross-fade"
-			transitionEnterTimeout={1000}
-			transitionLeaveTimeout={1000}
-		>
-			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
+}) => {
+	const [slideUp, setSlideUp] = useState(false);
+
+	useEffect(() => {
+		setTimeout(() => {
+			if (show) {
+				setSlideUp(true);
+				setTimeout(() => {
+					setNotification({ show: false, type });
+				}, 300);
+			}
+		}, 5000);
+	}, [show]);
+
+	return (
+		show && (
+			// eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
 			<div
-				className="notification-container"
-				onClick={() => setNotification({ show: false, type })}
-				key={type}
+				className={`notification-container ${slideUp ? 'slideUp' : ''} ${
+					type === 'error' ? 'error' : ''
+				}`}
+				onClick={() => {
+					setSlideUp(true);
+					setTimeout(() => {
+						setNotification({ show: false, type });
+					}, 200);
+				}}
 			>
-				<NotificationSelector type={type} />
+				<NotificationSelector type={type} message={message} />
 			</div>
-		</ReactCSSTransitionReplace>
+		)
 	);
+};
 
 InAppNotification.propTypes = {
 	context: Proptypes.shape({
-		notification: Proptypes.shape({ show: Proptypes.bool, type: Proptypes.string }),
+		notification: Proptypes.shape({
+			show: Proptypes.bool,
+			type: Proptypes.string,
+			message: Proptypes.string,
+		}),
 		setNotification: Proptypes.func,
 	}).isRequired,
 };

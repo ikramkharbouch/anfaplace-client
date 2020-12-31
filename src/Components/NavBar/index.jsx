@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import proptypes from 'prop-types';
 import { motion } from 'framer-motion';
 import './NavBar.less';
@@ -28,9 +29,10 @@ const variants = {
 	reverse: { scale: 1, transition: { duration: 0.9 } },
 };
 
-const NavBar = () => {
+const NavBar = ({ scrollableMenuEvent }) => {
 	const [isMenuOpen, setOpen] = useState(false);
-
+	const { pathname } = useLocation();
+	const scrollableMenu = ['/shopping', '/restauration', '/entertainment'].includes(pathname);
 	const setOverflowHidden = useCallback(
 		(selector) => {
 			if (isMenuOpen) {
@@ -41,12 +43,15 @@ const NavBar = () => {
 		},
 		[isMenuOpen]
 	);
+	useEffect(() => {
+		scrollableMenuEvent(scrollableMenu);
+	}, [scrollableMenu]);
 
 	setOverflowHidden('body');
 
 	return (
 		<>
-			<header className={`navBar ${isMenuOpen ? 'open' : ''}`}>
+			<header className={`navBar ${isMenuOpen ? 'open' : ''} ${scrollableMenu ? 'scrollable' : ''}`}>
 				<div className="nave-bar-menu" style={{ display: 'flex' }}>
 					<MenuIcon openMenu={setOpen} isMenuOpen={isMenuOpen} />
 					{isMenuOpen && <Header as="h3">MENU</Header>}
@@ -76,6 +81,10 @@ const NavBar = () => {
 			</div>
 		</>
 	);
+};
+
+NavBar.propTypes = {
+	scrollableMenuEvent: proptypes.func.isRequired,
 };
 
 export default NavBar;

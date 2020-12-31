@@ -9,7 +9,7 @@ import Restauration from 'src/Screens/Restauration';
 import Entertainment from 'src/Screens/Entertainment';
 import ScrollToTop from 'src/utils/ScrollToTop';
 import Coupon from 'src/Screens/Coupon';
-import { InAppNotificationContext } from 'src/Components/InAppNotification';
+import InAppNotification, { InAppNotificationContext } from 'src/Components/InAppNotification';
 import { AuthProvider } from 'src/utils/AuthContext';
 
 import Brand from './Screens/Brand/index';
@@ -28,20 +28,22 @@ const Shops = lazy(() => import('src/Screens/Brands/index.jsx'));
 const App = () => {
 	// move this to context later
 	const [openSocial, setOpenSocial] = useState(false);
-	const [notification, setNotification] = useState({ show: false, type: 'wonPoints' });
+	const [notification, setNotification] = useState({ show: false, type: '', message: '' });
+	const [scrollableMenu, setScrollableMenu] = useState(false);
 	return (
 		<AuthProvider>
 			<div className="app-container">
 				<Router>
 					<ScrollToTop />
 					<InAppNotificationContext.Provider value={{ notification, setNotification }}>
+						<InAppNotification />
 						<SocialModalContext.Provider value={{ open: openSocial, setOpen: setOpenSocial }}>
 							<SocialLogin />
-							<NavBar />
+							<NavBar scrollableMenuEvent={setScrollableMenu} />
 						</SocialModalContext.Provider>
 					</InAppNotificationContext.Provider>
 					<Interests modalClosedEvent={(value) => setOpenSocial(value)} />
-					<div className="screen">
+					<div className={`screen ${scrollableMenu ? 'scrollable-menu' : ''}`}>
 						<Switch>
 							<Route exact path="/" component={Home} />
 							<Route exact path="/offer-details" component={Survey} />

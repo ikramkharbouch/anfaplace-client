@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import SwiperCore, { Pagination, Autoplay } from 'swiper';
 import { KafkaTimeSpentOnSlide, KafkaHeldSlide } from 'src/utils/kafka/KafkaEvents';
@@ -8,6 +8,7 @@ import 'swiper/swiper.less';
 import 'swiper/components/pagination/pagination.less';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import './Slider.less';
+import { Header, Icon } from 'semantic-ui-react';
 
 const customBulletPagination = (swiper, current, total, autoplay) => {
 	const bullet = (index) =>
@@ -39,16 +40,23 @@ const Slider = ({
 }) => {
 	const [t0InitSlider, setT0InitSlider] = useState(0);
 	const [t0SliderTouch, setT0SliderTouch] = useState(0);
+	const [swiperElement, setSwiper] = useState();
 
-	const handleInitSlide = () => {
+	const handleInitSlide = (swiper) => {
 		setT0InitSlider(performance.now());
 		onInit();
+		setSwiper(swiper);
 	};
 
 	const handleTouch = (swiper, event) => {
+		console.log('====>', swiper);
 		if (event.type === 'touchstart') {
 			setT0SliderTouch(performance.now());
-			const heldSlide = new KafkaHeldSlide('123456', id, swiper.slides[swiper.activeIndex].id);
+			const heldSlide = new KafkaHeldSlide(
+				'123456',
+				id,
+				swiper.slides[swiper.activeIndex].firstElementChild.id
+			);
 			heldSlide.emitEvent();
 
 			if (pagination) {
@@ -69,7 +77,7 @@ const Slider = ({
 				'123456',
 				performance.now() - t0SliderTouch,
 				id,
-				swiper.slides[swiper.activeIndex].id
+				swiper.slides[swiper.activeIndex].firstElementChild.id
 			);
 			timeSpentOnSlide.emitEvent();
 			if (pagination) {
@@ -93,8 +101,13 @@ const Slider = ({
 	if (autoplay) {
 		SwiperCore.use([Autoplay]);
 	}
+	useEffect(() => {
+		if (swiperElement) {
+			swiperElement.update();
+		}
+	}, [children]);
 
-	return (
+	return children.length ? (
 		<Swiper
 			id={id}
 			watchSlidesProgress
@@ -102,7 +115,7 @@ const Slider = ({
 			slidesOffsetBefore={slidesOffsetBefore}
 			spaceBetween={20}
 			slidesPerColumn={slidesPerColumn}
-			slidesPerColumnFill="row"
+			slidesPerColumnFill="column"
 			slidesPerGroup={slidesPerGroup}
 			preventClicks
 			slidesPerView={slidersPerView}
@@ -137,6 +150,12 @@ const Slider = ({
 				<SwiperSlide>{child}</SwiperSlide>
 			))}
 		</Swiper>
+	) : (
+		<div className="empty-slider">
+			<Header as="h1" icon>
+				<Icon name="image" /> No sliders{' '}
+			</Header>
+		</div>
 	);
 };
 export default Slider;

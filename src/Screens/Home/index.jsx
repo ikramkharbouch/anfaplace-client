@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import { useInView } from 'react-intersection-observer';
 import { KafkaTimeBetweenEventsAndQuestionnaire } from 'src/utils/kafka/KafkaEvents';
 // import VisitesList from 'src/Screens/Home/Sections/VisitesList';

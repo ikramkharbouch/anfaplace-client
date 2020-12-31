@@ -15,9 +15,7 @@ const OfferDetails = () => {
 	const [shareModalIsOpen, openShareModal] = useState(false);
 	const { user } = useContext(AuthContext);
 	const showParticipateButton = !!user && !user.isAnonymous;
-	const handleParticipateConfirm = () => {
-		console.log(user);
-	};
+	const handleParticipateConfirm = () => {};
 	return (
 		<div className="offer-details">
 			{showParticipateButton && (
