@@ -8,6 +8,43 @@
 	padding-right: 0;
 	padding-left: 0;
 }
+.participate-confirmation{
+	background-color: red;
+	.content{
+		min-height:455px ;
+		display: flex!important;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		h1.ui.header{
+			font-size: 1rem;
+			font-weight: 300;
+			padding: 0 30px;
+			text-align: center;
+		}
+		.points{
+			height: 50px;
+			width: 50px;
+			line-height: 50px;
+			margin: 0  auto 60px auto;
+			font-weight: 400;
+		}
+		.action{
+			width: 100%;
+			margin: 0 auto;
+			display: flex;align-items: center;
+			justify-content: space-between;
+			.cancel{
+				opacity: .5;font-weight: 300;
+			}
+			*{
+				flex: 1;
+			}
+		}
+	}
+
+
+}
 
 .offer-details {
 	.participate{
@@ -72,6 +109,7 @@
 			align-items: center;
 		}
 	}
+
 	&-paralax {
 		padding-top: 10vh;
 	}

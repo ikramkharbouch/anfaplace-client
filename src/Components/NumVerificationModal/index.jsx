@@ -1,29 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Form, Button } from 'semantic-ui-react';
 import { FormattedInput } from '@buttercup/react-formatted-input';
-
+import firebase from 'firebase/app';
 import { Link } from 'react-router-dom';
-
+import { AuthContext } from 'src/utils/AuthContext';
 import Modal from 'src/Components/Modal';
 import './VerificationModal.less';
+import { openNumberVerificationModal } from 'src/store/app';
 
-const CustomInputNumber = ({
-	id,
-
-	width,
-	autoFocus,
-	onChange,
-	onBackSpace,
-	value,
-	format,
-}) => (
+const CustomInputNumber = ({ id, width, autoFocus, onChange, onBackSpace, value, format }) => (
 	<Form.Field
 		id={id}
 		autoComplete="off"
 		type="tel"
 		width={width}
 		format={format}
+		required
 		autoFocus={autoFocus}
 		onKeyDown={(event) => {
 			const { keyCode, target } = event;
@@ -64,7 +58,7 @@ CustomInputNumber.defaultProps = {
 	value: undefined,
 };
 
-const ConfirmationTel = ({ confirm }) => {
+const ConfirmationTel = ({ confirm, verifying }) => {
 	const [phoneNumber, setPhoneNumber] = useState({ countryCode: '212', number: undefined });
 	const formatCountryCode = [{ exactly: '+' }, { char: /\d/, repeat: 3 }];
 	const formatNumber = [{ char: /\d/, repeat: 9 }];
@@ -72,7 +66,12 @@ const ConfirmationTel = ({ confirm }) => {
 		<>
 			<p>Valider votre numéro de téléphone et commencer à collecter des points Anfapoints</p>
 
-			<Form onSubmit={confirm} className="verification-form">
+			<Form
+				onSubmit={() => {
+					confirm(`+${phoneNumber.countryCode}${phoneNumber.number}`);
+				}}
+				className="verification-form"
+			>
 				<Form.Group widths={16} inline unstackable>
 					<CustomInputNumber
 						name="country-code"
@@ -98,9 +97,15 @@ const ConfirmationTel = ({ confirm }) => {
 				<Link to="/" className="tos">
 					Politique de confidentialité
 				</Link>
-				<Form.Checkbox label="Opt-in whatsapp +200 points" />
-				<Form.Checkbox label="Validation par SMS +100 points" />
-				<Form.Button className="confirmer" circular>
+				<Form.Checkbox checked label="Opt-in whatsapp +200 points" />
+				<Form.Checkbox checked label="Validation par SMS +100 points" />
+				<Form.Button
+					type="submit"
+					loading={verifying}
+					id="verify-number"
+					className="confirmer"
+					circular
+				>
 					Confirmer mon numéro
 				</Form.Button>
 			</Form>
@@ -109,8 +114,9 @@ const ConfirmationTel = ({ confirm }) => {
 };
 ConfirmationTel.propTypes = {
 	confirm: PropTypes.func.isRequired,
+	verifying: PropTypes.bool.isRequired,
 };
-const PinVerification = ({ verifiedEvent }) => {
+const PinVerification = ({ verifyPin }) => {
 	const [pin, setPin] = useState({
 		'digit-1': undefined,
 		'digit-2': undefined,
@@ -138,7 +144,10 @@ const PinVerification = ({ verifiedEvent }) => {
 	return (
 		<>
 			<p>Vérification de votre numéro de téléphone</p>
-			<Form className="pin-verification">
+			<Form
+				onSubmit={() => verifyPin(pin['digit-1'] + pin['digit-2'] + pin['digit-3'] + pin['digit-4'])}
+				className="pin-verification"
+			>
 				<Form.Group className="digits" unstackable inline widths={16}>
 					<CustomInputNumber
 						id="digit-1"
@@ -189,7 +198,7 @@ const PinVerification = ({ verifiedEvent }) => {
 				</Form.Group>
 
 				<Form.Field>
-					<Button circular onClick={() => verifiedEvent(true)} className="continue">
+					<Button circular type="submit" className="continue">
 						Continuer
 					</Button>
 				</Form.Field>
@@ -202,22 +211,96 @@ const PinVerification = ({ verifiedEvent }) => {
 };
 
 PinVerification.propTypes = {
-	verifiedEvent: PropTypes.func.isRequired,
+	verifyPin: PropTypes.func.isRequired,
 };
 
-const VerificationModal = ({ open, setOpen, validatedEvent }) => {
-	const [verifyPin, setVerifyPin] = useState(false);
+// eslint-disable-next-line no-unused-vars
 
+const VerificationModal = ({ validatedEvent }) => {
+	const [verifyPin, setVerifyPin] = useState(false);
+	const { user } = useContext(AuthContext);
+	const [verifyLoading, setVerifyLoading] = useState();
+	const [phoneNumber, setPhoneNumber] = useState();
+	const [recaptchaVerifier, setRecaptchaVerifier] = useState();
+	const [verificationId, setVerificationId] = useState();
+	const verifyPinHandeler = (verificationCode) => {
+		// Ask user for the verification code.
+		const cred = firebase.auth.PhoneAuthProvider.credential(verificationId, verificationCode);
+		const multiFactorAssertion = firebase.auth.PhoneMultiFactorGenerator.assertion(cred);
+		// Complete enrollment.
+		user.multiFactor.enroll(multiFactorAssertion, 'SMS-VERIFICATION').then((result) => {
+			console.log(result);
+			validatedEvent();
+		});
+	};
+	const open = useSelector((state) => state.app.numberVerificationModal.open);
+	const dispatch = useDispatch();
+	const setOpen = (value) => dispatch(openNumberVerificationModal(value));
+	const onSolvedRecaptcha = () => {
+		console.log(user);
+		user.multiFactor
+			.getSession()
+			.then((multiFactorSession) => {
+				console.log(multiFactorSession);
+				console.log(recaptchaVerifier);
+				// Specify the phone number and pass the MFA session.
+				const phoneInfoOptions = {
+					phoneNumber,
+					session: multiFactorSession,
+				};
+				const phoneAuthProvider = new firebase.auth.PhoneAuthProvider();
+				// Send SMS verification code.
+				phoneAuthProvider
+					.verifyPhoneNumber(phoneInfoOptions, recaptchaVerifier)
+					.then((result) => {
+						setVerificationId(result);
+						setVerifyPin(true);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			})
+			.catch((error) => console.log(error));
+	};
+	useEffect(() => {
+		if (user && !verifyPin && !recaptchaVerifier && phoneNumber) {
+			setRecaptchaVerifier(
+				new firebase.auth.RecaptchaVerifier('verify-number', {
+					size: 'invisible',
+					callback: (response) => {
+						console.log('--->', response);
+						// reCAPTCHA solved, you can proceed with phoneAuthProvider.verifyPhoneNumber(...).
+						try {
+							onSolvedRecaptcha();
+						} catch (e) {
+							console.log(e);
+						}
+					},
+				})
+			);
+		}
+		if (recaptchaVerifier) {
+			recaptchaVerifier.verify();
+		}
+	}, [verifyPin, recaptchaVerifier, user, phoneNumber]);
 	return (
 		<Modal className="pin" open={open} setOpen={setOpen}>
-			{!verifyPin && <ConfirmationTel confirm={() => setVerifyPin(true)} />}
-			{verifyPin && <PinVerification verifiedEvent={validatedEvent} />}
+			{!verifyPin && (
+				<ConfirmationTel
+					verifying={verifyLoading}
+					confirm={(value) => {
+						setPhoneNumber(() => {
+							setVerifyLoading(true);
+							return value;
+						});
+					}}
+				/>
+			)}
+			{verifyPin && <PinVerification verifyPin={verifyPinHandeler} />}
 		</Modal>
 	);
 };
 VerificationModal.propTypes = {
-	open: PropTypes.func.isRequired,
-	setOpen: PropTypes.func.isRequired,
 	validatedEvent: PropTypes.func.isRequired,
 };
 

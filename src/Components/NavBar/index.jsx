@@ -32,7 +32,7 @@ const variants = {
 const NavBar = ({ scrollableMenuEvent }) => {
 	const [isMenuOpen, setOpen] = useState(false);
 	const { pathname } = useLocation();
-	const scrollableMenu = ['/shopping', '/restauration', '/entertainment'].includes(pathname);
+	const scrollableMenu = ['/shopping', '/restauration'].includes(pathname);
 	const setOverflowHidden = useCallback(
 		(selector) => {
 			if (isMenuOpen) {

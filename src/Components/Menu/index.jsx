@@ -6,6 +6,8 @@ import { firebaseApp } from 'src/utils/initApp';
 import { AuthContext } from 'src/utils/AuthContext';
 import { SocialModalContext } from 'src/Components/SocialLogin';
 import './Menu.less';
+import { Button, Header, Icon } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
 
 const auth = firebaseApp.auth();
 
@@ -30,20 +32,55 @@ const Menu = ({ menuOpen }) => {
 			<div className="image">
 				<img src={bg} alt="menu-bg" />
 			</div>
+			{user && (
+				<Header className="greetings" as="h1">
+					Hello {user.displayName} !
+				</Header>
+			)}
 			<nav>
 				<ul>
-					<li>MA LIST DE VISITE</li>
-					<li>MES EVENEMENTS</li>
-					<li>MES MARQUES FAVORITES</li>
+					<li>
+						<NavLink exact to="/my-visited-list">
+							<Header as="h1">
+								<Header.Content>Ma list de visite</Header.Content>
+
+								<Icon name="verification-calendar-outline" />
+							</Header>
+						</NavLink>
+					</li>
+					<li>
+						<NavLink exact to="/my-events-list">
+							<Header as="h1">
+								<Header.Content>Ma liste évènements</Header.Content>
+
+								<Icon name="calendar-outline" />
+							</Header>
+						</NavLink>
+					</li>
+					<li>
+						<a href="tel:00000000000">
+							<Header as="h1">
+								<Header.Content>Appeler Anfa place Mall</Header.Content>
+
+								<Icon name="phone-outline" />
+							</Header>
+						</a>
+					</li>
 					{user && (
 						// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/click-events-have-key-events
-						<li className="sign-out" onClick={handleSignOut}>
-							SE DECONNECTER
+						<li className="action-button">
+							<Button circular onClick={handleSignOut} inverted>
+								Se déconnecter
+							</Button>
 						</li>
 					)}
 					{user == null && (
 						// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/click-events-have-key-events
-						<li onClick={handleSignIn}>SE CONNECTER</li>
+						<li className="action-button">
+							<Button circular onClick={handleSignIn}>
+								Se connecter
+							</Button>
+						</li>
 					)}
 				</ul>
 			</nav>

@@ -1,7 +1,7 @@
 @import 'src/config/styles/variables';
 .container {
 	img {
-		width:100%;
+		width: 100%;
 	}
 	.image {
 		position: relative;
@@ -9,21 +9,67 @@
 			.overlay-fade-effect('to top',@height: 60vh );
 		}
 	}
+	.greetings {
+		position: relative;
+		bottom: 260px;
+		text-align: center;
+		z-index: 4;
+		font-weight: 400;
+	}
 	nav {
 		position: relative;
 		bottom: 200px;
 		z-index: 10;
-		padding: 0 20px;
+		padding: 0 44px;
 
-		height: 40vh;
+		height: 35vh;
 		ul {
-          height: 100%;
+			height: 100%;
 			display: flex;
 			flex-direction: column;
-			justify-content: space-around;
 			li {
-				font-size: 2rem;
-				line-height: 2rem;
+
+				a {
+					border-radius: 15px;
+					height: 54px;
+					display: flex;
+					align-items: center;
+					padding: 0 10px;
+
+					&.active {
+						background-color: rgba(255, 255, 255, 0.2);
+					}
+				}
+				h1.ui.header {
+					flex: 1;
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					.content {
+						font-size: 20px;
+						line-height: 20px;
+						font-weight: 400;
+					}
+
+					.icon {
+						font-size: 1.6rem;
+						line-height: 1.6rem;
+					}
+				}
+				&.action-button {
+					position: absolute;
+					bottom: 20px;
+					width: 100%;
+					left: 50%;
+					transform: translateX(-50%);
+					button.ui.button {
+						display: block;
+						margin: 0 auto;
+						width: 80%;
+						padding: 16px 0;
+					}
+				}
+
 				&.sign-out {
 					opacity: 0.6;
 				}

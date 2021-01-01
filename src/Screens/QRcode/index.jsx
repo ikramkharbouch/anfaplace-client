@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Button, Header, Icon } from 'semantic-ui-react';
 import BackButton from 'src/Components/BackButton/BackButton';
 import './QRcode.less';
-import VerificationModal from './VerificationModal';
 
 const PhoneValidated = () => (
 	<div className="qrcode-section">
@@ -23,39 +21,22 @@ const PhoneValidated = () => (
 	</div>
 );
 
-const PhoneNotValidated = ({ phoneValidatedEvent }) => {
-	const [validationModelIsOpen, openValidationModal] = useState(false);
-
-	return (
-		<>
-			<VerificationModal
-				setOpen={(isOpen) => openValidationModal(isOpen)}
-				open={validationModelIsOpen}
-				validatedEvent={phoneValidatedEvent}
-			/>
-			<div className="qrcode-screen">
-				<div className="content">
-					<Header as="h2">Votre QR Code n’est pas actif</Header>
-					<p>Activer votre QR CODE et profiter des remises instantanées en magasin</p>
-					<Icon className="big" name="qrcode" />
-				</div>
-
-				<Button
-					circular
-					className="activate"
-					onClick={() => {
-						openValidationModal(true);
-					}}
-				>
-					Activer
-				</Button>
+const PhoneNotValidated = () => (
+	<>
+		<div className="qrcode-screen">
+			<div className="content">
+				<Header as="h2">Votre QR Code n’est pas actif</Header>
+				<p>Activer votre QR CODE et profiter des remises instantanées en magasin</p>
+				<Icon className="big" name="qrcode" />
 			</div>
-		</>
-	);
-};
-PhoneNotValidated.propTypes = {
-	phoneValidatedEvent: PropTypes.func.isRequired,
-};
+
+			<Button circular className="activate">
+				Activer
+			</Button>
+		</div>
+	</>
+);
+
 const QRcode = () => {
 	const [phoneNumberValidated, setValidatePhoneNumber] = useState(false);
 

@@ -1207,6 +1207,16 @@ i.icon.times.rectangle:before { content: "\f410"; }
 i.icon.write:before { content: "\f303"; }
 i.icon.youtube.play:before { content: "\f167"; }
 
+//custom icons
+i.icon.verification-calendar-outline:before {
+  content: "\61";
+}
+i.icon.calendar-outline:before {
+  content: "\62";
+}
+i.icon.phone-outline:before {
+  content: "\63";
+}
 
 
 /*******************************

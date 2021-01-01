@@ -29,12 +29,13 @@ mobileModelEvent.emitEvent();
 // });
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyDuxd1hmi9IqMb4dT8XN1LZ4QYfmHEq7gg',
-	authDomain: 'apa-hosting.firebaseapp.com',
-	projectId: 'apa-hosting',
-	storageBucket: 'apa-hosting.appspot.com',
-	messagingSenderId: '283349645922',
-	appId: '1:283349645922:web:dc55fe5fb4996f22fa2f3b',
+	apiKey: 'AIzaSyDH4vxFy0zUwbvynu-B5DwHbShrtNhikSY',
+	authDomain: 'apadev-af2f3.firebaseapp.com',
+	projectId: 'apadev-af2f3',
+	storageBucket: 'apadev-af2f3.appspot.com',
+	messagingSenderId: '40293498630',
+	appId: '1:40293498630:web:1dbad5802213c6ff022887',
+	measurementId: 'G-P1ZFJLS8RV',
 };
 
 // Initialize Firebase

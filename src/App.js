@@ -11,6 +11,9 @@ import ScrollToTop from 'src/utils/ScrollToTop';
 import Coupon from 'src/Screens/Coupon';
 import InAppNotification, { InAppNotificationContext } from 'src/Components/InAppNotification';
 import { AuthProvider } from 'src/utils/AuthContext';
+import MyVisitedList from 'src/Screens/MyVisitedList';
+import MyEventsList from 'src/Screens/MyEventsList';
+import VerificationModal from 'src/Components/NumVerificationModal';
 
 import Brand from './Screens/Brand/index';
 import NavBar from './Components/NavBar';
@@ -43,6 +46,7 @@ const App = () => {
 						</SocialModalContext.Provider>
 					</InAppNotificationContext.Provider>
 					<Interests modalClosedEvent={(value) => setOpenSocial(value)} />
+					<VerificationModal />
 					<div className={`screen ${scrollableMenu ? 'scrollable-menu' : ''}`}>
 						<Switch>
 							<Route exact path="/" component={Home} />
@@ -87,6 +91,8 @@ const App = () => {
 							<Route exact path="/restauration" component={Restauration} />
 							<Route exact path="/entertainment" component={Entertainment} />
 							<Route exact path="/coupon/:id" component={Coupon} />
+							<Route exact path="/my-visited-list" component={MyVisitedList} />
+							<Route exact path="/my-events-list" component={MyEventsList} />
 						</Switch>
 					</div>
 					<BottomNav />
