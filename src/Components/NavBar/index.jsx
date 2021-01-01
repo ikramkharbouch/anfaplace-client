@@ -8,24 +8,20 @@ import logoSmall from 'src/assets/images/logo-small.png';
 
 import Menu from 'src/Components/Menu';
 import { Header } from 'semantic-ui-react';
+import BackButton from 'src/Components/BackButton/BackButton';
+
 import MenuIcon from '../MenuIcon';
 // import Coupon from '../CouponsGrid';
 
-const Points = ({ points }) => {
-
-	const history = useHistory();
-
-	const handleClick = () => history.push('/couponList');
-
-	return (
-		<button type="button" className="points" onClick={handleClick} >
-			{points}p
-		</button>
-	)
-};
+const Points = ({ points, clicked }) => (
+	<button type="button" className="points" onClick={clicked} >
+		{points}p
+	</button>
+)
 
 Points.propTypes = {
 	points: proptypes.number,
+	clicked: proptypes.func.isRequired,
 };
 Points.defaultProps = {
 	points: 50,
@@ -37,8 +33,20 @@ const variants = {
 };
 
 const NavBar = ({ scrollableMenuEvent }) => {
+	const [currentURL, setCurrentURL] = useState('');
 	const [isMenuOpen, setOpen] = useState(false);
 	const { pathname } = useLocation();
+	const history = useHistory();
+	const handleButtonClick = () => {
+		if (!(history.location.pathname === '/couponList')) {
+			history.push('/couponList');
+		}
+	};
+
+	history.listen((data) => {
+		setCurrentURL(data.pathname);
+	})
+
 	const scrollableMenu = ['/shopping', '/restauration', '/entertainment'].includes(pathname);
 	const setOverflowHidden = useCallback(
 		(selector) => {
@@ -52,21 +60,27 @@ const NavBar = ({ scrollableMenuEvent }) => {
 	);
 	useEffect(() => {
 		scrollableMenuEvent(scrollableMenu);
-	}, [scrollableMenu]);
+	}, [scrollableMenu, pathname]);
 
 	setOverflowHidden('body');
 
 	return (
 		<>
 			<header className={`navBar ${isMenuOpen ? 'open' : ''} ${scrollableMenu ? 'scrollable' : ''}`}>
+				{currentURL.includes('couponList') && <BackButton />}
 				<div className="nave-bar-menu" style={{ display: 'flex' }}>
-					<MenuIcon openMenu={setOpen} isMenuOpen={isMenuOpen} />
-					{isMenuOpen && <Header as="h3">MENU</Header>}
+					{
+						!currentURL.includes('/couponList') && <>
+							<MenuIcon openMenu={setOpen} isMenuOpen={isMenuOpen} />
+							{isMenuOpen && <Header as="h3">MENU</Header>}
+						</>
+					}
+
 				</div>
 				{!isMenuOpen && (
 					<>
-						<img src={logoSmall} alt="apa" />
-						<Points />
+						{!currentURL.includes('/couponList') && <img src={logoSmall} alt="apa" />}
+						<Points clicked={handleButtonClick} />
 					</>
 				)}
 

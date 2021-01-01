@@ -67,12 +67,15 @@ const OfferDetails = () => {
 									className="slider-image"
 									src={arrayBufferToBase64(slider.content.data)}
 								/>
-								<div className="brand-image">
-									<img src={arrayBufferToBase64(marque.data.logo.data)} alt="brand" />
-								</div>
+
 							</div>
 						))}
+
 			</Slider>
+
+			<div className="brand-image">
+				<img src={arrayBufferToBase64(marque.data.logo.data)} alt="brand" />
+			</div>
 
 			<div className="content description">
 				<Tab
