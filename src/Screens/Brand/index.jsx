@@ -1,16 +1,20 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Button, Tab, Icon, Grid, Header } from 'semantic-ui-react';
+import { Button, Tab, Icon, Grid, Header, Divider } from 'semantic-ui-react';
 import BackButton from 'src/Components/BackButton/BackButton';
 import Slider from 'src/Components/Slider';
 import { arrayBufferToBase64 } from 'src/utils/utilsFunctions';
-
+import CouponCard from 'src/Components/CouponCard';
+import brandSrc from 'src/assets/images/brands/GO_Sport_logo.svg';
 import './Brand.less';
 import { useSelector } from 'react-redux';
 
+const initialState = [
+	{ id: 1, url: `/couponList/1`, img: brandSrc, amount: '50dh', date: `03/04/2021`, points: '50 points', title: 'Go sport', available: true, active: true },
+];
+
 const OfferDetails = () => {
 	const { id } = useParams();
-	console.log(id);
 	const marque = useSelector((state) => state.brand.all.find((item) => item.index === id));
 	const panes = [
 		{
@@ -52,33 +56,60 @@ const OfferDetails = () => {
 		},
 	];
 
+	const couponsPanes = [
+		{
+			menuItem: 'Coupon actif',
+			render: () => (
+				<div className="coupon-list__cards">
+					{initialState.map(el => (
+						<CouponCard key={el.id} url={el.url} img={el.img} amount={el.amount} date={el.date} points={el.points} available={el.available} title={el.title} active={el.active} couponInfos={el} />
+					))}
+				</div>
+			),
+		},
+
+	];
+
 	return (
 		<div className="brand-details">
 			<BackButton text="Marque" />
-
-			<Slider pagination={false} id="brand-details">
-				{marque &&
-					marque.data.slider_elements
-						.filter((slider) => slider.show)
-						.map((slider) => (
-							<div id={slider.id_element} key={slider.id_element} strength={60} className="slide-brand">
-								<img
-									alt={slider.titre}
-									className="slider-image"
-									src={arrayBufferToBase64(slider.content.data)}
-								/>
-								<div className="brand-image">
-									<img src={arrayBufferToBase64(marque.data.logo.data)} alt="brand" />
+			<div className="brand-slider-container">
+				<Slider pagination={false} id="brand-details">
+					{marque &&
+						marque.data.slider_elements
+							.filter((slider) => slider.show)
+							.map((slider) => (
+								<div id={slider.id_element} key={slider.id_element} strength={60} className="slide-brand">
+									<img
+										alt={slider.titre}
+										className="slider-image"
+										src={arrayBufferToBase64(slider.content.data)}
+									/>
 								</div>
-							</div>
-						))}
-			</Slider>
+							))}
+				</Slider>
+				<div className="brand-image">
+					<img src={arrayBufferToBase64(marque.data.logo.data)} alt="brand" />
+				</div>
+			</div>
+
 
 			<div className="content description">
 				<Tab
 					className="toggle"
 					menu={{ secondary: true, pointing: true, size: 'large', widths: 2 }}
 					panes={panes}
+				/>
+			</div>
+
+			<Divider hidden />
+
+
+			<div className="content description coupons">
+				<Tab
+					className="toggle"
+					menu={{ secondary: true, pointing: true, size: 'large', widths: 2 }}
+					panes={couponsPanes}
 				/>
 			</div>
 		</div>

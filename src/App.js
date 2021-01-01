@@ -27,6 +27,8 @@ import './App.less';
 const Survey = lazy(() => import('./Screens/Survey'));
 const OfferDetails = lazy(() => import('./Screens/OfferDetails'));
 const Shops = lazy(() => import('src/Screens/Brands/index.jsx'));
+const CouponList = lazy(() => import('src/Screens/CouponList'));
+const CouponListItem = lazy(() => import('src/Screens/CouponListItem'));
 
 const App = () => {
 	// move this to context later
@@ -85,6 +87,28 @@ const App = () => {
 									}
 								>
 									<Shops />
+								</Suspense>
+							</Route>
+							<Route exact path="/couponList">
+								<Suspense
+									fallback={
+										<Dimmer active>
+											<Loader />
+										</Dimmer>
+									}
+								>
+									<CouponList />
+								</Suspense>
+							</Route>
+							<Route exact path="/couponList/:id">
+								<Suspense
+									fallback={
+										<Dimmer active>
+											<Loader />
+										</Dimmer>
+									}
+								>
+									<CouponListItem />
 								</Suspense>
 							</Route>
 							<Route exact path="/shopping" component={Shopping} />

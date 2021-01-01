@@ -50,9 +50,11 @@
 		}
 	}
 	.brand-image {
-		bottom: 80px;
-		position: relative;
-		height: 100px;
+		bottom:0;
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		
 		img {
 			position: absolute;
 			bottom: 44px;
@@ -87,7 +89,26 @@
 				width: 100%;
 				padding: 14px 0 14px 8px;
 				border-color: @grey;
+				justify-content: center;
 			}
 		}
 	}
 }
+
+.brand-slider-container{
+	position: relative;
+}
+
+.content.description.coupons .ui.item.menu, .content.description.coupons  .ui.item.menu .item{
+	justify-content: flex-start;
+}
+
+.content.description.coupons {
+	padding-bottom: 10%;
+
+}
+
+.content.description.coupons .coupon-card__text{
+	font-size: 14px;
+}
+

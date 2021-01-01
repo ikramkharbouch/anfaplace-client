@@ -1,0 +1,79 @@
+.coupon-list-item{
+   
+
+    &__screen{
+        padding: 3%;
+        min-height: 85vh;
+        padding-top: 5%;
+        display: flex;
+        flex-direction: column;
+
+        .ui.button.btn{
+            max-width: 50%;
+            margin: 0 auto;
+        }
+    }
+
+    &__coupon{
+
+    }
+
+    &__title ,  &__text{
+        text-align: center;
+    }
+
+    &__title{
+        font-size: 20px;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin: 0;
+        padding-bottom: 20px;
+        margin-top: 10%;
+
+        &.not-available{
+            padding-top: 3%;
+        }
+    }
+
+    &__text{
+        font-weight: 300;
+        font-size: 16px;
+
+        &.not-available{
+            padding-bottom: 5%;
+        }
+    }
+
+    &__text + &__qrcodeIcon{
+        margin: 8% 0;
+    }
+
+    &__qrcodeIcon{
+        display: flex;
+        justify-content: center;
+
+        svg{
+            width: 70%;
+            height: 20%;
+            opacity: 0.3;
+        }
+
+        
+
+        &.active{
+            margin-top: auto;
+            margin-bottom: auto;
+
+            svg{
+                opacity: 1;
+            }
+        }
+    }
+
+    &__footer{
+
+        &-text{
+            text-align: center;
+        }
+    }
+}
