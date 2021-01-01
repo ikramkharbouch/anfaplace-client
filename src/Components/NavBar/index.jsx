@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import proptypes from 'prop-types';
 import { motion } from 'framer-motion';
 import './NavBar.less';
@@ -11,11 +11,18 @@ import { Header } from 'semantic-ui-react';
 import MenuIcon from '../MenuIcon';
 // import Coupon from '../CouponsGrid';
 
-const Points = ({ points }) => (
-	<button type="button" className="points">
-		{points}p
-	</button>
-);
+const Points = ({ points }) => {
+
+	const history = useHistory();
+
+	const handleClick = () => history.push('/couponList');
+
+	return (
+		<button type="button" className="points" onClick={handleClick} >
+			{points}p
+		</button>
+	)
+};
 
 Points.propTypes = {
 	points: proptypes.number,

@@ -1,0 +1,70 @@
+@import '../../config/styles/variables.less';
+
+.coupon-list{
+
+    &__screen{
+        padding: 3%;
+        min-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__title{
+        text-align: center;
+        font-size: 25px;
+        font-weight: 400;
+        margin: 0;
+        padding-bottom: 12%;
+        padding-top: 5%;
+    }
+
+    &__cards{
+
+        > a:not(:last-child){
+            margin-bottom: 7%;
+        }
+
+    }
+
+    &__footer{
+        margin-top: auto;
+        display: flex;
+        padding: 0 5%;
+
+        &-text{
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        
+
+            .dot{
+                margin-right: 5px;
+            }
+        }
+
+        p:not(:last-child){
+            margin: 0;
+            margin-right: 20px;
+        }
+    }
+}
+
+.dot{
+    display: block;
+    width: 15px;
+    height: 15px;
+   
+   
+
+    &.circle{
+        border-radius: 50%;
+    }
+
+    &.red{
+        background: @pink;
+    }
+
+    &.green{
+        background: @green;
+    }
+}

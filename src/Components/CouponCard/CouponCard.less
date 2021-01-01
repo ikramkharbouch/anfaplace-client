@@ -1,0 +1,57 @@
+@import '../../config/styles/variables.less';
+.coupon-card{
+
+    display: flex;
+    align-items: center;
+
+    &__img{
+
+        width: 60%;
+        height: auto;
+
+        &-container{
+            height: 90px;
+            width: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: @light-blue;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+    }
+
+    &__description{
+
+    }
+
+    &__title{
+        display: flex;
+        align-items: center;
+        padding-bottom: 8px;
+
+        h4{
+            margin: 0;
+            font-weight: 400;
+            font-size: 18px;
+            color: @light-gray;
+
+            margin-right: 8px;
+        }
+    }
+
+    &__text{
+        margin: 0;
+        letter-spacing: 0.5px;
+        font-weight: 300;
+        font-size: 15px;
+
+        strong{
+            font-weight: 700;
+        }
+
+        &-container{
+
+        }
+    }
+}
