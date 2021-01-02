@@ -1,34 +1,39 @@
 @import 'src/config/styles/variables';
 .container {
+	position: absolute;
+	height: 100%;
 	img {
 		width: 100%;
 	}
 	.image {
-		position: relative;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
 		&:after {
 			.overlay-fade-effect('to top',@height: 60vh );
 		}
 	}
 	.greetings {
 		position: relative;
-		bottom: 260px;
+		top: 44%;
 		text-align: center;
 		z-index: 4;
 		font-weight: 400;
 	}
 	nav {
-		position: relative;
-		bottom: 200px;
+		position: absolute;
+		top: 60%;
 		z-index: 10;
 		padding: 0 44px;
 
-		height: 35vh;
+		height: 38%;
+		width: 100%;
 		ul {
 			height: 100%;
 			display: flex;
 			flex-direction: column;
 			li {
-
 				a {
 					border-radius: 15px;
 					height: 54px;
@@ -58,7 +63,7 @@
 				}
 				&.action-button {
 					position: absolute;
-					bottom: 20px;
+					bottom: 0;
 					width: 100%;
 					left: 50%;
 					transform: translateX(-50%);

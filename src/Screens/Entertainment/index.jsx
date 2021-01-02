@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import Slider from 'src/Components/Slider';
 import EntertainmentSlide from 'src/Screens/Entertainment/EntertainmentSlide';
-import BackButton from 'src/Components/BackButton/BackButton';
 
 import './Entertainment.less';
 
@@ -11,7 +10,6 @@ const Entertainment = () => {
 
 	return (
 		<div className="entertainment-screen">
-			<BackButton text="Divertissement " />
 			<div onClick={() => setInView('1')} className="slider-with-overlay">
 				{inView !== '1' && <div className="overlay" />}
 				<Slider autoplay={inView === '1'} id="slider-entertainment">

@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Header, Icon } from 'semantic-ui-react';
-import BackButton from 'src/Components/BackButton/BackButton';
 import './QRcode.less';
 
 const PhoneValidated = () => (
 	<div className="qrcode-section">
-		<div className="qrcode-section-header">
-			<BackButton text="QR code" />
-		</div>
+		<div className="qrcode-section-header" />
 		<div className="qrcode-section-title">
 			<h3> Votre QR Code est activé </h3>
 		</div>

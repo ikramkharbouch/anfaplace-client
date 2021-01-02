@@ -220,7 +220,6 @@ const VerificationModal = ({ validatedEvent }) => {
 	const [verifyPin, setVerifyPin] = useState(false);
 	const { user } = useContext(AuthContext);
 	const [verifyLoading, setVerifyLoading] = useState();
-	const [phoneNumber, setPhoneNumber] = useState();
 	const [recaptchaVerifier, setRecaptchaVerifier] = useState();
 	const [verificationId, setVerificationId] = useState();
 	const verifyPinHandeler = (verificationCode) => {
@@ -236,66 +235,39 @@ const VerificationModal = ({ validatedEvent }) => {
 	const open = useSelector((state) => state.app.numberVerificationModal.open);
 	const dispatch = useDispatch();
 	const setOpen = (value) => dispatch(openNumberVerificationModal(value));
-	const onSolvedRecaptcha = () => {
-		console.log(user);
-		user.multiFactor
-			.getSession()
-			.then((multiFactorSession) => {
-				console.log(multiFactorSession);
-				console.log(recaptchaVerifier);
-				// Specify the phone number and pass the MFA session.
-				const phoneInfoOptions = {
-					phoneNumber,
-					session: multiFactorSession,
-				};
-				const phoneAuthProvider = new firebase.auth.PhoneAuthProvider();
-				// Send SMS verification code.
-				phoneAuthProvider
-					.verifyPhoneNumber(phoneInfoOptions, recaptchaVerifier)
-					.then((result) => {
-						setVerificationId(result);
-						setVerifyPin(true);
-					})
-					.catch((error) => {
-						console.log(error);
-					});
-			})
-			.catch((error) => console.log(error));
+	const handleNumberConfirmation = (Number) => {
+		setVerifyLoading(true);
+		user.multiFactor.getSession().then((multiFactorSession) => {
+			// Specify the phone number and pass the MFA session.
+			const phoneInfoOptions = {
+				phoneNumber: Number,
+				session: multiFactorSession,
+			};
+			const phoneAuthProvider = new firebase.auth.PhoneAuthProvider();
+			// Send SMS verification code.
+			phoneAuthProvider
+				.verifyPhoneNumber(phoneInfoOptions, recaptchaVerifier)
+				.then((result) => {
+					setVerificationId(result);
+					setVerifyPin(true);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		});
 	};
 	useEffect(() => {
-		if (user && !verifyPin && !recaptchaVerifier && phoneNumber) {
+		if (!verifyPin) {
 			setRecaptchaVerifier(
 				new firebase.auth.RecaptchaVerifier('verify-number', {
 					size: 'invisible',
-					callback: (response) => {
-						console.log('--->', response);
-						// reCAPTCHA solved, you can proceed with phoneAuthProvider.verifyPhoneNumber(...).
-						try {
-							onSolvedRecaptcha();
-						} catch (e) {
-							console.log(e);
-						}
-					},
 				})
 			);
 		}
-		if (recaptchaVerifier) {
-			recaptchaVerifier.verify();
-		}
-	}, [verifyPin, recaptchaVerifier, user, phoneNumber]);
+	}, [verifyPin]);
 	return (
 		<Modal className="pin" open={open} setOpen={setOpen}>
-			{!verifyPin && (
-				<ConfirmationTel
-					verifying={verifyLoading}
-					confirm={(value) => {
-						setPhoneNumber(() => {
-							setVerifyLoading(true);
-							return value;
-						});
-					}}
-				/>
-			)}
+			{!verifyPin && <ConfirmationTel verifying={verifyLoading} confirm={handleNumberConfirmation} />}
 			{verifyPin && <PinVerification verifyPin={verifyPinHandeler} />}
 		</Modal>
 	);

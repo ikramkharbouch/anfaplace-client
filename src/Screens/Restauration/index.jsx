@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import Slider from 'src/Components/Slider';
 import BrandsGrid from 'src/Components/BrandsGrid';
-import BackButton from 'src/Components/BackButton/BackButton';
 import RestaurationSlide from './ReastaurationSlide';
 import './Restauration.less';
 
@@ -16,7 +15,6 @@ const Restauration = () => {
 	const brandsRestauration = useSelector(selectBrandsRestauration);
 	return (
 		<div className="restauration-screen">
-			<BackButton text="restauration" />
 			<Slider
 				className="restauration-slider"
 				timeOnSliderEvent={(value) => console.log(value)}

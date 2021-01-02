@@ -34,7 +34,7 @@ const Menu = ({ menuOpen }) => {
 			</div>
 			{user && (
 				<Header className="greetings" as="h1">
-					Hello {user.displayName} !
+					Hello {user.displayName.split(' ')[0]} !
 				</Header>
 			)}
 			<nav>

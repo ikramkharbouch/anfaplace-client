@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Button, Tab, Icon, Grid, Header, Divider } from 'semantic-ui-react';
-import BackButton from 'src/Components/BackButton/BackButton';
 import Slider from 'src/Components/Slider';
 import { arrayBufferToBase64 } from 'src/utils/utilsFunctions';
 import CouponCard from 'src/Components/CouponCard';
@@ -10,7 +9,17 @@ import './Brand.less';
 import { useSelector } from 'react-redux';
 
 const initialState = [
-	{ id: 1, url: `/couponList/1`, img: brandSrc, amount: '50dh', date: `03/04/2021`, points: '50 points', title: 'Go sport', available: true, active: true },
+	{
+		id: 1,
+		url: `/coupon-list/1`,
+		img: brandSrc,
+		amount: '50dh',
+		date: `03/04/2021`,
+		points: '50 points',
+		title: 'Go sport',
+		available: true,
+		active: true,
+	},
 ];
 
 const OfferDetails = () => {
@@ -61,18 +70,27 @@ const OfferDetails = () => {
 			menuItem: 'Coupon actif',
 			render: () => (
 				<div className="coupon-list__cards">
-					{initialState.map(el => (
-						<CouponCard key={el.id} url={el.url} img={el.img} amount={el.amount} date={el.date} points={el.points} available={el.available} title={el.title} active={el.active} couponInfos={el} />
+					{initialState.map((el) => (
+						<CouponCard
+							key={el.id}
+							url={el.url}
+							img={el.img}
+							amount={el.amount}
+							date={el.date}
+							points={el.points}
+							available={el.available}
+							title={el.title}
+							active={el.active}
+							couponInfos={el}
+						/>
 					))}
 				</div>
 			),
 		},
-
 	];
 
 	return (
 		<div className="brand-details">
-			<BackButton text="Marque" />
 			<div className="brand-slider-container">
 				<Slider pagination={false} id="brand-details">
 					{marque &&
@@ -93,7 +111,6 @@ const OfferDetails = () => {
 				</div>
 			</div>
 
-
 			<div className="content description">
 				<Tab
 					className="toggle"
@@ -103,7 +120,6 @@ const OfferDetails = () => {
 			</div>
 
 			<Divider hidden />
-
 
 			<div className="content description coupons">
 				<Tab

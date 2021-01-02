@@ -1,9 +1,7 @@
 import React from 'react';
-import logo from 'src/assets/images/logo-small.png';
+import { ReactComponent as Logo } from 'src/assets/images/logo.svg';
 import './Loader.less';
 
-const Loader = () => <img className="loader-image" alt="loading" src={logo} />;
-
-Loader.propTypes = {};
+const Loader = () => <Logo className="loader-image" />;
 
 export default Loader;

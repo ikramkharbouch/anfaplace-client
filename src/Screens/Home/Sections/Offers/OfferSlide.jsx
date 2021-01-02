@@ -11,7 +11,7 @@ const OfferSlide = ({ image, description, date }) => {
 	const history = useHistory();
 	const offerSlide = createRef();
 	useEffect(() => {
-		offerSlide.current.style.height = `${window.innerHeight - 94}px`;
+		offerSlide.current.style.height = `${window.innerHeight}px`;
 	});
 	return (
 		<div ref={offerSlide} className="offerSlide">

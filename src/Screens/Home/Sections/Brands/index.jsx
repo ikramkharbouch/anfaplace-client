@@ -1,13 +1,15 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Header } from 'semantic-ui-react';
-import './Brands.less';
+import { Button, Header } from 'semantic-ui-react';
 import Slider from 'src/Components/Slider';
 import Brand from 'src/Components/Brand';
+import './Brands.less';
 
 const Brands = () => {
 	const brands = useSelector((state) => state.brand.all);
 	console.log(brands);
+	const history = useHistory();
 	return (
 		<div className="brands">
 			<Header as="h3">Marques</Header>
@@ -23,6 +25,9 @@ const Brands = () => {
 					</div>
 				))}
 			</Slider>
+			<Button onClick={() => history.push('/brands')} className="more" circular>
+				Découvrez tous les marques
+			</Button>
 		</div>
 	);
 };

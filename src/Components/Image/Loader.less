@@ -1,20 +1,23 @@
 @keyframes rotate {
   from{
-    transform: rotate(0deg);
+    transform: rotate(0deg) translate(-50%) ;
+
   }
   to{
-    transform: rotate(360deg);
+    transform: rotate(360deg) translate(-50%) ;
+
   }
 
 }
 .loader-image{
- animation: rotate 4s ease infinite;
+ animation: rotate 2s linear infinite;
   max-width: 50px;
   max-height: 50px;
   height: 50px;
   width: 50px;
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform-origin: 0;
+  transform: translate(-50%);
 }
