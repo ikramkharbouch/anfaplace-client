@@ -17,6 +17,8 @@ const Interests = ({ modalClosedEvent }) => {
 	const [t0, setT0] = useState(0);
 	const { user } = useContext(AuthContext);
 
+	const [interstList, setInterestList] = useState(list || []);
+
 	const handleCheck = (event, data) => {
 		if (data.checked) {
 			const timeSpentOnSelectingInterest = new KafkaTimeSpentOnSelectingInterest(
@@ -36,6 +38,15 @@ const Interests = ({ modalClosedEvent }) => {
 		width: '95%',
 		marginTop: 16,
 	};
+
+	const handleSearch = e => {
+		const array = list.filter(x => x.label.toLowerCase().includes(e.target.value.toLowerCase()));
+		setInterestList(array);
+
+	}
+
+
+
 	useEffect(() => {
 		// giving a better feel when opening the modal
 		setTimeout(() => {
@@ -43,6 +54,9 @@ const Interests = ({ modalClosedEvent }) => {
 			setT0(performance.now());
 		}, 200);
 	}, [interestsIgnoredOnce]);
+
+
+
 	return (
 		<Modal
 			open={open}
@@ -51,10 +65,12 @@ const Interests = ({ modalClosedEvent }) => {
 				modalClosedEvent(user == null);
 			}}
 		>
+
+			{console.log(interstList)}
 			<p>Pour une meilleure expérience client, créer votre liste d’intérêt.</p>
 			<h4>Vous pouvez configurer votre liste plus tard.</h4>
 
-			<Input className="filter" placeholder="Filter" icon="search" />
+			<Input className="filter" placeholder="Filter" icon="search" onChange={handleSearch} />
 
 			<ScrollArea
 				speed={0.8}
@@ -74,7 +90,7 @@ const Interests = ({ modalClosedEvent }) => {
 				}}
 				horizontal={false}
 			>
-				{list.map((interest) => (
+				{interstList.map((interest) => (
 					<Checkbox id={interest.id} label={interest.label} onChange={handleCheck} />
 				))}
 			</ScrollArea>

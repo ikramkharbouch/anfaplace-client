@@ -14,7 +14,7 @@ const auth = firebaseApp.auth();
 const Menu = ({ menuOpen }) => {
 	const variants = {
 		start: { opacity: 1, zIndex: 930, transition: { duration: 0.2, delay: 0.4 } },
-		reverse: { opacity: 0, transition: { duration: 0.2 } },
+		reverse: { opacity: 0, transition: { duration: 0.1 } },
 	};
 
 	const { user } = useContext(AuthContext);
