@@ -42,11 +42,8 @@ const OfferDetails = () => {
 					<div className="brand-tab-actions">
 						<Grid padded={false}>
 							<Grid.Row columns={16}>
-								<Grid.Column width={8}>
+								<Grid.Column width={16}>
 									<Button icon="plus" content="Ajouter à la liste des visites" size="mini" inverted />
-								</Grid.Column>
-								<Grid.Column width={8}>
-									<Button icon="heart" content="Ajouter aux favoris" size="mini" inverted />
 								</Grid.Column>
 							</Grid.Row>
 						</Grid>
@@ -58,8 +55,8 @@ const OfferDetails = () => {
 			menuItem: 'À propos',
 			render: () => (
 				<Tab.Pane attached={false}>
-					<Header as="h3">{marque.data.nom} :</Header>
-					<Header as="h5">{marque.data.description}</Header>
+					<Header as="h3">{marque.data.nom}</Header>
+					<Header as="p">{marque.data.description}</Header>
 				</Tab.Pane>
 			),
 		},
