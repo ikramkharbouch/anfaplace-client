@@ -4,7 +4,7 @@ import './EntertainmentSlide.less';
 import { ReactComponent as ArrowIcon } from 'src/assets/icons/arrow.svg';
 import Image from 'src/Components/Image/index';
 import sliderBg from 'src/assets/images/temp/entertainment-slider.jpg';
-import { Button, Header } from 'semantic-ui-react';
+import { Button, Header, Label } from 'semantic-ui-react';
 import ClampLines from 'react-clamp-lines';
 
 const EntertainmentSlide = () => {
@@ -13,6 +13,9 @@ const EntertainmentSlide = () => {
 		<div className="entertainment-slide">
 			<Image src={sliderBg} />
 			<div className="details">
+				<div className="tags">
+					<Label> Gymbo </Label>
+				</div>
 				<ClampLines
 					id="event"
 					text="Et ceci est un titre de description avec deux ou trois lignes ipsum lorem de 3 lignes pour …"

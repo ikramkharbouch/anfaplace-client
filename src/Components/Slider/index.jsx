@@ -107,7 +107,7 @@ const Slider = ({
 		}
 	}, [children]);
 
-	return children.length ? (
+	return React.Children.count(children) ? (
 		<Swiper
 			id={id}
 			watchSlidesProgress
@@ -153,7 +153,7 @@ const Slider = ({
 	) : (
 		<div className="empty-slider">
 			<Header as="h1" icon>
-				<Icon name="image" /> No sliders{' '}
+				<Icon name="image" /> No sliders
 			</Header>
 		</div>
 	);

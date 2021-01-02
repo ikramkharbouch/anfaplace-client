@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input, Checkbox } from 'semantic-ui-react';
-import BackButton from 'src/Components/BackButton/BackButton';
 import BrandsGrid from 'src/Components/BrandsGrid';
 
 import './Shops.less';
@@ -9,7 +8,6 @@ const Shops = () => (
 	<div className="shops-screen-container">
 		<div className="shops-screen-header">
 			<div className="header-filter-group">
-				<BackButton text=" " />
 				<Input className="filter" placeholder="Filter" icon="search" />
 			</div>
 			<div className="header-checkbox-group">

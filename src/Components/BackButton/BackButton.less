@@ -1,11 +1,18 @@
 .back-btn {
+	position: fixed;
+	z-index: 900;
+	top: 82px;
+	left: 28px;
 	color: white;
 	background-color: transparent;
 	border: none;
 	font-size: 1.2rem;
 	display: inline-flex;
 	align-items: center;
-	padding-left: 15px;
+	&.back-tour{
+		position: static;
+		padding: 0;
+	}
 	.text {
 		text-transform: capitalize;
 	}
