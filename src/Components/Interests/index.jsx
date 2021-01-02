@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Button, Checkbox, Input } from 'semantic-ui-react';
+import { Button, Input, Checkbox } from 'semantic-ui-react';
 import { KafkaTimeSpentOnSelectingInterest } from 'src/utils/kafka/KafkaEvents';
 import ScrollArea from 'react-scrollbar';
 import { AuthContext } from 'src/utils/AuthContext';
@@ -31,7 +31,6 @@ const Interests = ({ modalClosedEvent }) => {
 
 		setT0(performance.now());
 
-		console.log({ data, t0 });
 	};
 	const scrollbarStyle = {
 		height: 180,
@@ -40,9 +39,8 @@ const Interests = ({ modalClosedEvent }) => {
 	};
 
 	const handleSearch = e => {
-		const array = list.filter(x => x.label.toLowerCase().includes(e.target.value.toLowerCase()));
+		const array = list.filter(x => x.label.normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase().includes(e.target.value.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()));
 		setInterestList(array);
-
 	}
 
 
@@ -91,8 +89,10 @@ const Interests = ({ modalClosedEvent }) => {
 				horizontal={false}
 			>
 				{interstList.map((interest) => (
-					<Checkbox id={interest.id} label={interest.label} onChange={handleCheck} />
+					<Checkbox key={interest.label} id={interest.id} label={interest.label} handleCheck={handleCheck} />
 				))}
+
+				{interstList.length < 1 && <p> pas de résultat trouvé ! </p>}
 			</ScrollArea>
 			<div className="actions">
 				<Button

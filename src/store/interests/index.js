@@ -1,20 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const InterestList = ['Mode homme',
+	'Mode femme',
+	'Chaussures homme',
+	'Bébé / enfants / jouets ',
+	'Bijouterie et accessoires',
+	'Montres',
+	'Maquillage',
+	'Parfumerie',
+	'Maison et déco',
+	'Sport homme',
+	'Sport femme',
+	'High tech ',
+	'Restauration'
+].map((interest, index) => ({ id: index + 1, label: interest }));
+
 const brandSlice = createSlice({
 	name: 'interests',
 	initialState: {
 		interestsIgnoredOnce: JSON.parse(localStorage.getItem('interestsIgnoredOnce')) || false,
 
-		list: [
-			{ id: 1, label: 'Vetements homme' },
-			{ id: 1, label: 'Vetement femme' },
-			{ id: 2, label: 'Chaussures homme' },
-			{ id: 3, label: 'Chassures femmes' },
-			{ id: 4, label: 'Maquillage/Parfumerie' },
-			{ id: 5, label: 'Food' },
-			{ id: 1, label: 'Maison / Décoration' },
-			{ id: 6, label: 'Sport Enfants' },
-		],
+		list: InterestList,
 	},
 	reducers: {
 		setInterestsIgnoredOnce: (state, action) => {
@@ -22,7 +28,7 @@ const brandSlice = createSlice({
 			return { ...state, interestsIgnoredOnce: action.payload };
 		},
 		setGetInterests: (state, action) => ({ all: action.payload }),
-		setGetInterestsSuccess: () => {},
+		setGetInterestsSuccess: () => { },
 	},
 });
 
