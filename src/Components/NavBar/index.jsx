@@ -44,12 +44,13 @@ Points.defaultProps = {
 
 const variants = {
 	start: { scale: 2000, transition: { duration: 0.8 } },
-	reverse: { scale: 1, transition: { duration: 0.9 } },
+	reverse: { scale: 1, transition: { duration: 0.7 } },
 };
 
 const NavBar = () => {
 	const [currentURL, setCurrentURL] = useState('');
 	const [isMenuOpen, setOpen] = useState(false);
+	const [zIndex, setZindex] = useState(930);
 	const { pathname } = useLocation();
 	const history = useHistory();
 	const handleButtonClick = () => {
@@ -113,9 +114,10 @@ const NavBar = () => {
 				className="bg-light-blue"
 				variants={variants}
 				animate={isMenuOpen ? 'start' : 'reverse'}
+				onAnimationStart={() => isMenuOpen ? setZindex(930) : setTimeout(() => { setZindex(-1) }, 1000)}
 			/>
 
-			<div className="menu-container" style={{ zIndex: isMenuOpen ? 930 : -1 }}>
+			<div className="menu-container" style={{ zIndex: `${zIndex}` }}>
 				<Menu closeMenu={() => setOpen(false)} menuOpen={isMenuOpen} />
 			</div>
 		</>

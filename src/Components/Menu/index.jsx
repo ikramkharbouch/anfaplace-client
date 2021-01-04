@@ -13,9 +13,18 @@ const auth = firebaseApp.auth();
 
 const Menu = ({ menuOpen, closeMenu }) => {
 	const variants = {
-		start: { opacity: 1, zIndex: 930, transition: { duration: 0.2, delay: 0.4 } },
-		reverse: { opacity: 0, transition: { duration: 0.1 } },
+		start: { opacity: 1, zIndex: 930, transition: { duration: 0.2, delay: 0.4, staggerChildren: 0.2 } },
+		reverse: { opacity: 0, y: -50, transition: { duration: 0.3, delay: 0.2 } },
 	};
+
+	const listVariant = {
+		start: { opacity: 1, transition: { duration: 0.2, staggerChildren: 0.5, delay: 0.5 }, },
+		reverse: { opacity: 0, transition: { duration: 0.4, staggerChildren: 0.5, delay: 0.4 }, y: -20, },
+	};
+	const item = {
+		reverse: { opacity: 0, y: -50, },
+		start: { opacity: 1 }
+	}
 
 	const { user } = useContext(AuthContext);
 	const { setOpen } = useContext(SocialModalContext);
@@ -28,7 +37,7 @@ const Menu = ({ menuOpen, closeMenu }) => {
 	};
 
 	return (
-		<motion.div className="container" variants={variants} animate={menuOpen ? 'start' : 'reverse'}>
+		<motion.div className="container" variants={variants} animate={menuOpen ? 'start' : 'reverse'} >
 			<div className="image">
 				<img src={bg} alt="menu-bg" />
 			</div>
@@ -38,8 +47,8 @@ const Menu = ({ menuOpen, closeMenu }) => {
 				</Header>
 			)}
 			<nav>
-				<ul>
-					<li>
+				<motion.ul variants={listVariant} animate={menuOpen ? 'start' : 'reverse'}>
+					<motion.li variants={item} animate={menuOpen ? 'start' : 'reverse'}>
 						<NavLink onClick={closeMenu} exact to="/my-visited-list">
 							<Header as="h1">
 								<Header.Content>Ma list de visite</Header.Content>
@@ -47,8 +56,8 @@ const Menu = ({ menuOpen, closeMenu }) => {
 								<Icon name="verification-calendar-outline" />
 							</Header>
 						</NavLink>
-					</li>
-					<li>
+					</motion.li>
+					<motion.li variants={item} animate={menuOpen ? 'start' : 'reverse'}>
 						<NavLink onClick={closeMenu} exact to="/my-events-list">
 							<Header as="h1">
 								<Header.Content>Ma liste évènements</Header.Content>
@@ -56,8 +65,8 @@ const Menu = ({ menuOpen, closeMenu }) => {
 								<Icon name="calendar-outline" />
 							</Header>
 						</NavLink>
-					</li>
-					<li>
+					</motion.li>
+					<motion.li variants={item} animate={menuOpen ? 'start' : 'reverse'}>
 						<a href="tel:00000000000">
 							<Header as="h1">
 								<Header.Content>Appeler Anfa place Mall</Header.Content>
@@ -65,24 +74,24 @@ const Menu = ({ menuOpen, closeMenu }) => {
 								<Icon name="phone-outline" />
 							</Header>
 						</a>
-					</li>
+					</motion.li>
 					{user && (
 						// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/click-events-have-key-events
-						<li className="action-button">
+						<motion.li className="action-button" variants={item} animate={menuOpen ? 'start' : 'reverse'}>
 							<Button circular onClick={handleSignOut} inverted>
 								Se déconnecter
 							</Button>
-						</li>
+						</motion.li>
 					)}
 					{user == null && (
 						// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/click-events-have-key-events
-						<li className="action-button">
+						<motion.li className="action-button" variants={item} animate={menuOpen ? 'start' : 'reverse'}>
 							<Button circular onClick={handleSignIn}>
 								Se connecter
 							</Button>
-						</li>
+						</motion.li>
 					)}
-				</ul>
+				</motion.ul>
 			</nav>
 		</motion.div>
 	);
