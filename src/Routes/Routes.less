@@ -1,0 +1,73 @@
+.screen{
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+//new page entering, show it on top
+.pageSlider-enter.screen {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  opacity: 0;
+
+}
+.pageSlider-exit.screen {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  opacity: 0;
+}
+//LEFT transition transform -100% to the left
+.pageSlider-enter.left.screen {
+  right: -100%;
+}
+
+//old exit left direction
+.pageSlider-exit.left.screen {
+  right: 0;
+  position: fixed;
+}
+.pageSlider-enter.right.screen {
+  left: -100%;
+}
+.pageSlider-exit.right.screen {
+   left: 0
+}
+
+//old exit right direction
+
+//Enter is active (Page has finished transitioning) make it settle down
+.pageSlider-enter-active.left.screen {
+  right: 0;
+  opacity: 1;
+  transition:right 0.8s ease,opacity .4s ease;
+
+
+}
+
+
+.pageSlider-enter-active.right.screen {
+  left: 0;
+  opacity: 1;
+  transition:left 0.8s ease,opacity .4s ease;
+}
+
+
+.pageSlider-exit-active.right.screen {
+  left: -100%;
+  transition:all 1s ease;
+
+
+}
+.pageSlider-exit-active.left.screen {
+  right: -100%;
+  transition:all 1s ease;
+
+
+}
+
+
+.pageSlider-enter-done.screen{
+position: static;
+}

@@ -11,7 +11,7 @@ import { NavLink } from 'react-router-dom';
 
 const auth = firebaseApp.auth();
 
-const Menu = ({ menuOpen }) => {
+const Menu = ({ menuOpen, closeMenu }) => {
 	const variants = {
 		start: { opacity: 1, zIndex: 930, transition: { duration: 0.2, delay: 0.4 } },
 		reverse: { opacity: 0, transition: { duration: 0.1 } },
@@ -40,7 +40,7 @@ const Menu = ({ menuOpen }) => {
 			<nav>
 				<ul>
 					<li>
-						<NavLink exact to="/my-visited-list">
+						<NavLink onClick={closeMenu} exact to="/my-visited-list">
 							<Header as="h1">
 								<Header.Content>Ma list de visite</Header.Content>
 
@@ -49,7 +49,7 @@ const Menu = ({ menuOpen }) => {
 						</NavLink>
 					</li>
 					<li>
-						<NavLink exact to="/my-events-list">
+						<NavLink onClick={closeMenu} exact to="/my-events-list">
 							<Header as="h1">
 								<Header.Content>Ma liste évènements</Header.Content>
 
@@ -90,6 +90,7 @@ const Menu = ({ menuOpen }) => {
 
 Menu.propTypes = {
 	menuOpen: PropTypes.bool.isRequired,
+	closeMenu: PropTypes.func.isRequired,
 };
 
 export default Menu;

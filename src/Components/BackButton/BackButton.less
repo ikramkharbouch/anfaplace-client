@@ -1,7 +1,8 @@
 .back-btn {
+	
 	position: fixed;
 	z-index: 900;
-	top: 82px;
+	top: 88px;
 	left: 28px;
 	color: white;
 	background-color: transparent;
@@ -9,11 +10,23 @@
 	font-size: 1.2rem;
 	display: inline-flex;
 	align-items: center;
+	padding: 0;
 	&.back-tour{
 		position: static;
 		padding: 0;
 	}
 	.text {
 		text-transform: capitalize;
+	}
+	animation: back-btn-animation 1.4s ease;
+}
+
+@keyframes back-btn-animation {
+
+	from{
+		opacity: 0;
+	}
+	to{
+		opacity: 1;
 	}
 }

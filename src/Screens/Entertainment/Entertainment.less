@@ -1,9 +1,10 @@
 @import "src/config/styles/variables";
 .entertainment-screen{
   position: relative;
+  padding-bottom: 100px;
   .slider-with-overlay{
     position: relative;
-    height: 438px;
+    height: calc(~'50% - '76px);
     .overlay {
       top: 0;
       left: 0;
@@ -11,25 +12,19 @@
       height: 100%;
       width: 100%;
       z-index: 12;
-      &:before{
-        .overlay-fade-effect('to bottom',@height:100% );
-      }
-      &:after{
-        .overlay-fade-effect('to top',@height:100% );
-
-      }
+      background-color: rgba(30, 30, 72, .7);
     }
 
   }
   .back-btn{
     position: absolute;
     top: 0;
-    left: 0px;
+    left: 0;
     z-index: 2;
 
   }
   .swiper-pagination-custom{
-    bottom: 102px;
+    bottom: 112px;
 
 }
 

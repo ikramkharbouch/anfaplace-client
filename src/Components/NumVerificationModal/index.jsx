@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Form, Button } from 'semantic-ui-react';
@@ -256,17 +256,16 @@ const VerificationModal = ({ validatedEvent }) => {
 				});
 		});
 	};
-	useEffect(() => {
-		if (!verifyPin) {
-			setRecaptchaVerifier(
-				new firebase.auth.RecaptchaVerifier('verify-number', {
-					size: 'invisible',
-				})
-			);
-		}
-	}, [verifyPin]);
+
+	const handleModalMount = () => {
+		setRecaptchaVerifier(
+			new firebase.auth.RecaptchaVerifier('verify-number', {
+				size: 'invisible',
+			})
+		);
+	};
 	return (
-		<Modal className="pin" open={open} setOpen={setOpen}>
+		<Modal className="pin" onMount={handleModalMount} open={open} setOpen={setOpen}>
 			{!verifyPin && <ConfirmationTel verifying={verifyLoading} confirm={handleNumberConfirmation} />}
 			{verifyPin && <PinVerification verifyPin={verifyPinHandeler} />}
 		</Modal>

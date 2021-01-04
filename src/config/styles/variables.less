@@ -16,7 +16,7 @@
 @small-font-size: 10px;
 @big-font-size: 22px;
 
-.overlay-fade-effect(@direction:'to bottom'; @index:2;@height:214px) {
+.overlay-fade-effect(@direction:'to bottom'; @index:2;@height:214px;@backgroundColor:@backgroundColor) {
 	content: '';
 	position: absolute;
 	height: @height;
@@ -29,5 +29,5 @@
 	}
 	left: 0;
 	z-index: 2;
-	background-image: linear-gradient(e(@direction), @backgroundColor, transparent);
+	background-image: linear-gradient(e(@direction),@backgroundColor , transparent);
 }

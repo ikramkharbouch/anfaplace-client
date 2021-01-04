@@ -11,6 +11,8 @@ const backButtonText = {
 	tour: '',
 	brand: 'Marque',
 	qrcode: 'QR code',
+	'my-visited-list': 'Ma liste de visite ',
+	'my-events-list': 'Ma liste d’évènement ',
 };
 const BackButton = ({ path, className }) => {
 	const history = useHistory();

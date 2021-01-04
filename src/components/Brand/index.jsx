@@ -7,10 +7,13 @@ import Badgbe from '../Badge';
 
 import './brand.less';
 
-const Brand = ({ badgeColor, badgeText, brandImg, brandName, withBadge, brandId }) => (
+const Brand = ({ badgeColor, badgeText, brandImg, imageType, brandName, withBadge, brandId }) => (
 	<Link to={`/brand/${brandId}`} className="brand-container">
 		{withBadge && <Badgbe color={badgeColor} title={badgeText} />}
-		<img src={`${arrayBufferToBase64(brandImg)}`} alt={brandName} />
+		<img
+			src={`${imageType === 'Buffer' ? arrayBufferToBase64(brandImg) : brandImg}`}
+			alt={brandName}
+		/>
 	</Link>
 );
 
@@ -21,6 +24,10 @@ Brand.propTypes = {
 	brandImg: PropTypes.string.isRequired,
 	withBadge: PropTypes.bool.isRequired,
 	brandId: PropTypes.string.isRequired,
+	imageType: PropTypes.string,
+};
+Brand.defaultProps = {
+	imageType: 'Buffer',
 };
 
 export default Brand;

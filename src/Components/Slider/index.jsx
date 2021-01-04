@@ -10,6 +10,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import './Slider.less';
 import { Header, Icon } from 'semantic-ui-react';
 
+SwiperCore.use([Pagination]);
+
+SwiperCore.use([Autoplay]);
+
 const customBulletPagination = (swiper, current, total, autoplay) => {
 	const bullet = (index) =>
 		`<span ${total === 1 ? 'style="background-color: #ffffff"' : ''} class="slider-bullet  ${
@@ -49,7 +53,6 @@ const Slider = ({
 	};
 
 	const handleTouch = (swiper, event) => {
-		console.log('====>', swiper);
 		if (event.type === 'touchstart') {
 			setT0SliderTouch(performance.now());
 			const heldSlide = new KafkaHeldSlide(
@@ -95,17 +98,16 @@ const Slider = ({
 		timeToReachEndOfSlider({ time: performance.now() - t0InitSlider });
 	};
 
-	if (pagination) {
-		SwiperCore.use([Pagination]);
-	}
-	if (autoplay) {
-		SwiperCore.use([Autoplay]);
-	}
 	useEffect(() => {
 		if (swiperElement) {
+			if (autoplay) {
+				swiperElement.autoplay.start();
+			} else {
+				swiperElement.autoplay.stop();
+			}
 			swiperElement.update();
 		}
-	}, [children]);
+	}, [children, autoplay]);
 
 	return React.Children.count(children) ? (
 		<Swiper

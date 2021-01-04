@@ -4,7 +4,7 @@ const brandSlice = createSlice({
 	name: 'app',
 	initialState: {
 		socialAuth: { open: false },
-		numberVerificationModal: { open: true },
+		numberVerificationModal: { open: false },
 	},
 	reducers: {
 		openSocialAuth: (state, action) => ({ ...state, socialAuth: { open: action.payload } }),

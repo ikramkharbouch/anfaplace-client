@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button, Header } from 'semantic-ui-react';
 
 import Slider from 'src/Components/Slider';
-import EventSlide from './EventSlide';
+import EventCard from '../../../../Components/EventCard';
 import './TrendyEvents.less';
 
 const TrendyEvents = ({ sliderLoaded }) => (
@@ -17,10 +17,10 @@ const TrendyEvents = ({ sliderLoaded }) => (
 			pagination={false}
 			slidersPerView={1.42}
 		>
-			<EventSlide />
-			<EventSlide />
-			<EventSlide />
-			<EventSlide />
+			<EventCard />
+			<EventCard />
+			<EventCard />
+			<EventCard />
 		</Slider>
 		<Button className="more" circular>
 			Voir tous les événements

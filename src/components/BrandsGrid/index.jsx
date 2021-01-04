@@ -13,6 +13,7 @@ const BrandsGrid = ({ brands }) => (
 				brandImg={brand.data.logo.data}
 				brandName={brand.data.titre}
 				brandId={brand.index}
+				imageType={brand.data.logo.type}
 			/>
 		))}
 	</div>
@@ -25,6 +26,7 @@ BrandsGrid.propTypes = {
 			brandImg: PropTypes.string.isRequired,
 			badgeText: PropTypes.string,
 			badgeColor: PropTypes.string,
+			imageType: PropTypes.string,
 		})
 	),
 };

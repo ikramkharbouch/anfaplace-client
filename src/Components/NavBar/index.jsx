@@ -90,7 +90,6 @@ const NavBar = () => {
 	return (
 		<>
 			<header ref={navBarRef} className={`navBar ${isMenuOpen ? 'open' : ''} `}>
-				{currentURL.includes('coupon-list') && <BackButton />}
 				<div className="nave-bar-menu" style={{ display: 'flex' }}>
 					{!currentURL.includes('/coupon-list') && (
 						<>
@@ -117,7 +116,7 @@ const NavBar = () => {
 			/>
 
 			<div className="menu-container" style={{ zIndex: isMenuOpen ? 930 : -1 }}>
-				<Menu menuOpen={isMenuOpen} />
+				<Menu closeMenu={() => setOpen(false)} menuOpen={isMenuOpen} />
 			</div>
 		</>
 	);
