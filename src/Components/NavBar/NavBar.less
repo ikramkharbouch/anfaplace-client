@@ -8,9 +8,10 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	flex-wrap: wrap;
 	padding: 15px;
 	width: 100%;
-	z-index: 950;
+	z-index: 1000;
 	&.open{
 		background-color: transparent;
 		backdrop-filter: none;
@@ -28,10 +29,12 @@
 
 }
 .navigation {
-	position: fixed;
-	z-index: 900;
+
+	min-width: 300px;
 	width: 100%;
-	top:88px;
+    display: flex;
+	justify-content: space-around;
+	padding-top: 3%;
 	 ul {
 		 display: flex;
 		 align-items: center;
@@ -94,7 +97,7 @@
     top: 36px;
     left: 48px ;
     border-radius: 50%;
-    z-index: 900;
+    z-index: 950;
 }
 
 .app-medium-title{

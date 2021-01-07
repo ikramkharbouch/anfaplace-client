@@ -21,6 +21,7 @@ const OfferDetails = lazy(() => import('../Screens/OfferDetails'));
 const Shops = lazy(() => import('src/Screens/Brands'));
 const CouponList = lazy(() => import('src/Screens/CouponList'));
 const CouponListItem = lazy(() => import('src/Screens/CouponListItem'));
+const EntertainmentDetails = lazy(() => import('src/Screens/Entertainment/EntertainmentDetails'));
 
 const Routes = () => {
 	const location = useLocation();
@@ -53,7 +54,7 @@ const Routes = () => {
 				<div
 					className={`screen ${stickToTop ? 'stick-to-top' : ''}  ${
 						getPathDepth(pathname) - prevDepth >= 0 ? 'left' : 'right'
-					}`}
+						}`}
 				>
 					<ScrollToTop />
 
@@ -123,6 +124,17 @@ const Routes = () => {
 						<Route exact path="/restauration" component={Restauration} />
 						<Route exact path="/entertainment" component={Entertainment} />
 						<Route exact path="/events" component={Entertainment} />
+						<Route exact path="/events/:id">
+							<Suspense
+								fallback={
+									<Dimmer active>
+										<Loader />
+									</Dimmer>
+								}
+							>
+								<EntertainmentDetails />
+							</Suspense>
+						</Route>
 						<Route exact path="/coupon/:id" component={Coupon} />
 						<Route exact path="/my-visited-list" component={MyVisitedList} />
 						<Route exact path="/my-events-list" component={MyEventsList} />

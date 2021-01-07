@@ -1,0 +1,133 @@
+@import 'src/config/styles/variables.less';
+
+.inner-content {
+	margin: 0;
+}
+
+.app-container {
+	padding-right: 0;
+	padding-left: 0;
+}
+.participate-confirmation{
+	background-color: red;
+	.content{
+		min-height:455px ;
+		display: flex!important;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		h1.ui.header{
+			font-size: 1rem;
+			font-weight: 300;
+			padding: 0 30px;
+			text-align: center;
+		}
+		.points{
+			height: 50px;
+			width: 50px;
+			line-height: 50px;
+			margin: 0  auto 60px auto;
+			font-weight: 400;
+		}
+		.action{
+			width: 100%;
+			margin: 0 auto;
+			display: flex;align-items: center;
+			justify-content: space-between;
+			.cancel{
+				opacity: .5;font-weight: 300;
+			}
+			*{
+				flex: 1;
+			}
+		}
+	}
+
+
+}
+
+.offer-details {
+	.participate{
+		position: fixed;
+		bottom: 10px;
+		left:50%;
+		transform: translateX(-50%);
+		z-index: 10;
+		display: flex;
+		align-items: center;
+		width: 240px;
+		justify-content: center;
+	}
+	&-tags {
+		display: flex;
+		justify-content: flex-end;
+        padding: 0 6px;
+        flex-wrap: wrap;
+
+		a {
+            margin-left: 10px;
+            margin-top: 10px;
+
+			.badge {
+				padding: 2px 15px;
+			}
+		}
+	}
+	&-header {
+		position: absolute;
+		z-index: 100;
+		left: 0;
+		top: 0;
+		padding: 0px 18px 30px 18px;
+		.overlay-fade-effect('to bottom');
+
+		p {
+			text-align: right;
+            padding: 10px 6px;
+            padding-bottom: 0;
+			margin: 0;
+		}
+
+		.back-btn {
+			align-items: flex-start;
+
+			.text {
+				text-align: right;
+				text-transform: uppercase;
+				font-weight: 900;
+				font-size: 18px;
+				line-height: 25px;
+			}
+		}
+	}
+	.share-button {
+		margin-top: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		.ui.label{
+			padding-left: 20px;
+			padding-right: 20px;
+			display: flex;
+			align-items: center;
+		}
+	}
+
+	&-paralax {
+		padding-top: 10vh;
+	}
+	.parallax-content {
+		height: 480px;
+		position: relative;
+		&::after {
+			.overlay-fade-effect('to top',@height: 222.44px);
+		}
+	}
+	.description {
+		position: relative;
+		bottom: 94px;
+		padding: 42px;
+		z-index: 2;
+		font-weight: 300;
+	}
+}
