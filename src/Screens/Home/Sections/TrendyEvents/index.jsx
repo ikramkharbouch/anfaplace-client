@@ -22,7 +22,7 @@ const TrendyEvents = ({ sliderLoaded }) => {
 				pagination={false}
 				slidersPerView={1.42}
 			>
-				{events.slice(5).map((event) => (
+				{events.slice(0, 5).map((event) => (
 					<EventCard event={event} />
 				))}
 			</Slider>
