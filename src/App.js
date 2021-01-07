@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { BrowserRouter as Router } from 'react-router-dom';
-import SocialLogin from 'src/Components/SocialLogin';
 import Interests from 'src/Components/Interests';
 import InAppNotification from 'src/Components/InAppNotification';
 import { AuthProvider } from 'src/utils/AuthContext';
+import PhoneAuthModal from 'src/Components/numberAuth';
 
 import VerificationModal from 'src/Components/NumVerificationModal';
 import Routes from './Routes';
@@ -20,7 +20,7 @@ const App = () => (
 		<div className="app-container">
 			<Router>
 				<InAppNotification />
-				<SocialLogin />
+				<PhoneAuthModal />
 				<NavBar />
 				<Interests />
 				<VerificationModal />

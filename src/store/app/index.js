@@ -5,9 +5,10 @@ const brandSlice = createSlice({
 	initialState: {
 		socialAuth: { open: false, withEmail: false },
 		numberVerificationModal: { open: false },
-		phoneAuth: { open: false },
+		phoneAuth: { open: true },
 		notification: { show: false, type: 'wonPoints' },
 	},
+
 	reducers: {
 		openSocialAuth: (state, action) => ({
 			...state,
@@ -21,6 +22,11 @@ const brandSlice = createSlice({
 		setNotification: (state, action) => ({ ...state, notification: action.payload }),
 	},
 });
-export const { openSocialAuth, openNumberVerificationModal, setNotification } = brandSlice.actions;
+export const {
+	openSocialAuth,
+	openNumberVerificationModal,
+	setNotification,
+	openPhoneAuth,
+} = brandSlice.actions;
 
 export default brandSlice.reducer;

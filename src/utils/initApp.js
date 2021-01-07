@@ -7,7 +7,7 @@ import {
 	KafkaPhoneModel,
 } from 'src/utils/kafka/KafkaEvents';
 import store from 'src/store';
-import { openSocialAuth } from 'src/store/app';
+import { openPhoneAuth } from 'src/store/app';
 import { setUser } from '../store/user/index';
 
 let deviceUID = localStorage.getItem('device-uid');
@@ -54,12 +54,11 @@ firebase.auth().onAuthStateChanged((user) => {
 				multiFactor: { enrolledFactors: user.multiFactor.enrolledFactors },
 			})
 		);
-		store.dispatch(openSocialAuth({ open: false, withEmail: false }));
 	} else {
 		// User is signed out
 		// ...
 		store.dispatch(setUser(user));
-		store.dispatch(openSocialAuth({ open: true, withEmail: false }));
+		store.dispatch(openPhoneAuth({ open: true }));
 	}
 });
 // Initialize Firebase
