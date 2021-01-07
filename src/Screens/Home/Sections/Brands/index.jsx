@@ -14,7 +14,9 @@ const Brands = () => {
 		<div className="brands">
 			<Header as="h3">Marques</Header>
 
-			<Slider id="brands" autoplay={false} slidesPerGroup={2} slidesPerColumn={2} slidersPerView={2}>
+
+
+			<Slider id="brands" autoplay={false} slidesPerGroup={2} slidesPerColumn={2} slidersPerView={4}>
 				{brands.map((marque) => (
 					<div key={marque.index} id={marque.index} className="brand-slider-container">
 						<Brand brandImg={marque.data.logo.data} brandName="swatch" brandId={marque.index} />

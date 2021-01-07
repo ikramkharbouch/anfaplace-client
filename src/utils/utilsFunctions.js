@@ -18,3 +18,5 @@ export const fetchDataFromAPI = ({ url, method, data }) => {
 		data,
 	});
 };
+
+export const removeTags = (html) => html.replace(/<[^>]+>/g, '');

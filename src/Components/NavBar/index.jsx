@@ -43,13 +43,14 @@ Points.defaultProps = {
 };
 
 const variants = {
-	start: { scale: 2000, transition: { duration: 0.8 } },
+	start: { scale: 3000, transition: { duration: 0.8 } },
 	reverse: { scale: 1, transition: { duration: 0.7 } },
 };
 
 const NavBar = () => {
 	const [currentURL, setCurrentURL] = useState('');
 	const [isMenuOpen, setOpen] = useState(false);
+	const [showMenu, setShowMenu] = useState(false);
 	const [zIndex, setZindex] = useState(930);
 	const { pathname } = useLocation();
 	const history = useHistory();
@@ -99,14 +100,16 @@ const NavBar = () => {
 						</>
 					)}
 				</div>
-				{!isMenuOpen && (
+				{showMenu && (
 					<>
 						{!currentURL.includes('/coupon-list') && <Logo height={33} />}
 						<Points clicked={handleButtonClick} />
 					</>
 				)}
+				{(pathname === '/' && showMenu) && <HomeNavigation />}
+
+
 			</header>
-			{pathname === '/' && <HomeNavigation />}
 			{dontShowBackButton && (
 				<BackButton className={pathname.split('/')[1]} path={pathname.split('/')[1]} />
 			)}
@@ -116,10 +119,8 @@ const NavBar = () => {
 				animate={isMenuOpen ? 'start' : 'reverse'}
 				onAnimationStart={() =>
 					isMenuOpen
-						? setZindex(930)
-						: setTimeout(() => {
-								setZindex(-1);
-						  }, 1000)
+						? (setZindex(980), setShowMenu(false))
+						: setTimeout(() => { setZindex(-1); setShowMenu(true) }, 700)
 				}
 			/>
 
