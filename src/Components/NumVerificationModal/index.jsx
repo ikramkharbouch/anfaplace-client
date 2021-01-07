@@ -64,7 +64,9 @@ const ConfirmationTel = ({ confirm, verifying }) => {
 	const formatNumber = [{ char: /\d/, repeat: 9 }];
 	return (
 		<>
-			<p>Valider votre numéro de téléphone et commencer à collecter des points Anfapoints</p>
+			<p className="activate">
+				Valider votre numéro de téléphone et commencer à collecter des points Anfapoints
+			</p>
 
 			<Form
 				onSubmit={() => {
@@ -122,10 +124,12 @@ const PinVerification = ({ verifyPin }) => {
 		'digit-2': undefined,
 		'digit-3': undefined,
 		'digit-4': undefined,
+		'digit-5': undefined,
+		'digit-6': undefined,
 	});
 	const handleOnChange = (value, pinDigit) => {
 		setPin({ ...pin, [`digit-${pinDigit}`]: value });
-		if (value && pinDigit !== 4) {
+		if (value && pinDigit !== 6) {
 			document.getElementById(`digit-${pinDigit}`).blur();
 
 			document.getElementById(`digit-${pinDigit + 1}`).focus();
@@ -145,7 +149,16 @@ const PinVerification = ({ verifyPin }) => {
 		<>
 			<p>Vérification de votre numéro de téléphone</p>
 			<Form
-				onSubmit={() => verifyPin(pin['digit-1'] + pin['digit-2'] + pin['digit-3'] + pin['digit-4'])}
+				onSubmit={() =>
+					verifyPin(
+						pin['digit-1'] +
+							pin['digit-2'] +
+							pin['digit-3'] +
+							pin['digit-4'] +
+							pin['digit-5'] +
+							pin['digit-6']
+					)
+				}
 				className="pin-verification"
 			>
 				<Form.Group className="digits" unstackable inline widths={16}>
@@ -154,14 +167,14 @@ const PinVerification = ({ verifyPin }) => {
 						onChange={(value) => {
 							handleOnChange(value, 1);
 						}}
-						width={4}
+						width={2}
 						autoFocus
 						value={pin['digit-1']}
 						format={format}
 					/>
 					<CustomInputNumber
 						id="digit-2"
-						width={4}
+						width={2}
 						onChange={(value) => {
 							handleOnChange(value, 2);
 						}}
@@ -173,7 +186,7 @@ const PinVerification = ({ verifyPin }) => {
 					/>
 					<CustomInputNumber
 						id="digit-3"
-						width={4}
+						width={2}
 						onBackSpace={() => {
 							handleBackSpace(3);
 						}}
@@ -185,7 +198,7 @@ const PinVerification = ({ verifyPin }) => {
 					/>
 					<CustomInputNumber
 						id="digit-4"
-						width={4}
+						width={2}
 						onChange={(value) => {
 							handleOnChange(value, 4);
 						}}
@@ -193,6 +206,30 @@ const PinVerification = ({ verifyPin }) => {
 							handleBackSpace(4);
 						}}
 						value={pin['digit-4']}
+						format={format}
+					/>
+					<CustomInputNumber
+						id="digit-5"
+						width={2}
+						onChange={(value) => {
+							handleOnChange(value, 5);
+						}}
+						onBackSpace={() => {
+							handleBackSpace(5);
+						}}
+						value={pin['digit-5']}
+						format={format}
+					/>
+					<CustomInputNumber
+						id="digit-6"
+						width={2}
+						onChange={(value) => {
+							handleOnChange(value, 6);
+						}}
+						onBackSpace={() => {
+							handleBackSpace(6);
+						}}
+						value={pin['digit-6']}
 						format={format}
 					/>
 				</Form.Group>

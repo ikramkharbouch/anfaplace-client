@@ -1,43 +1,47 @@
 import React, { useContext } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import bg from 'src/assets/images/menu-bg.jpg';
-import { firebaseApp } from 'src/utils/initApp';
+import firebaseApp from 'src/utils/initApp';
 import { AuthContext } from 'src/utils/AuthContext';
-import { SocialModalContext } from 'src/Components/SocialLogin';
 import './Menu.less';
 import { Button, Header, Icon } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
+import { openSocialAuth } from 'src/store/app';
 
 const auth = firebaseApp.auth();
 
 const Menu = ({ menuOpen, closeMenu }) => {
 	const variants = {
-		start: { opacity: 1, zIndex: 930, transition: { duration: 0.2, delay: 0.4, staggerChildren: 0.2 } },
+		start: {
+			opacity: 1,
+			zIndex: 930,
+			transition: { duration: 0.2, delay: 0.4, staggerChildren: 0.2 },
+		},
 		reverse: { opacity: 0, y: -50, transition: { duration: 0.3, delay: 0.2 } },
 	};
 
 	const listVariant = {
-		start: { opacity: 1, transition: { duration: 0.2, staggerChildren: 0.5, delay: 0.5 }, },
-		reverse: { opacity: 0, transition: { duration: 0.4, staggerChildren: 0.5, delay: 0.4 }, y: -20, },
+		start: { opacity: 1, transition: { duration: 0.2, staggerChildren: 0.5, delay: 0.5 } },
+		reverse: { opacity: 0, transition: { duration: 0.4, staggerChildren: 0.5, delay: 0.4 }, y: -20 },
 	};
 	const item = {
-		reverse: { opacity: 0, y: -50, },
-		start: { opacity: 1 }
-	}
+		reverse: { opacity: 0, y: -50 },
+		start: { opacity: 1 },
+	};
 
 	const { user } = useContext(AuthContext);
-	const { setOpen } = useContext(SocialModalContext);
-
+	const dispatch = useDispatch();
 	const handleSignOut = () => {
 		auth.signOut().then(() => console.log('signed-out'));
 	};
 	const handleSignIn = () => {
-		setOpen(true);
+		dispatch(openSocialAuth({ open: true, withEmail: false }));
 	};
 
 	return (
-		<motion.div className="container" variants={variants} animate={menuOpen ? 'start' : 'reverse'} >
+		<motion.div className="container" variants={variants} animate={menuOpen ? 'start' : 'reverse'}>
 			<div className="image">
 				<img src={bg} alt="menu-bg" />
 			</div>

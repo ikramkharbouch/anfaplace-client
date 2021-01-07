@@ -87,7 +87,7 @@ const NavBar = () => {
 		return () => window.removeEventListener('scroll', onScroll);
 	}, []);
 	setOverflowHidden('body');
-	const dontShowBackButton = !['/', '/tour'].includes(pathname);
+	const dontShowBackButton = !['/', '/tour', '/all-brands'].includes(pathname);
 	return (
 		<>
 			<header ref={navBarRef} className={`navBar ${isMenuOpen ? 'open' : ''} `}>
@@ -114,7 +114,13 @@ const NavBar = () => {
 				className="bg-light-blue"
 				variants={variants}
 				animate={isMenuOpen ? 'start' : 'reverse'}
-				onAnimationStart={() => isMenuOpen ? setZindex(930) : setTimeout(() => { setZindex(-1) }, 1000)}
+				onAnimationStart={() =>
+					isMenuOpen
+						? setZindex(930)
+						: setTimeout(() => {
+								setZindex(-1);
+						  }, 1000)
+				}
 			/>
 
 			<div className="menu-container" style={{ zIndex: `${zIndex}` }}>

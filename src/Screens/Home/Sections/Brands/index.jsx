@@ -17,15 +17,11 @@ const Brands = () => {
 			<Slider id="brands" autoplay={false} slidesPerGroup={2} slidesPerColumn={2} slidersPerView={2}>
 				{brands.map((marque) => (
 					<div key={marque.index} id={marque.index} className="brand-slider-container">
-						<Brand
-							brandImg={marque.data.logo.data}
-							brandName="swatch"
-							brandLink={`/brand/${marque.index}`}
-						/>
+						<Brand brandImg={marque.data.logo.data} brandName="swatch" brandId={marque.index} />
 					</div>
 				))}
 			</Slider>
-			<Button onClick={() => history.push('/brands')} className="more" circular>
+			<Button onClick={() => history.push('/all-brands')} className="more" circular>
 				Découvrez tous les marques
 			</Button>
 		</div>

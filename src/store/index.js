@@ -2,18 +2,17 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import { combineReducers } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { takeEvery } from 'redux-saga/effects';
-import { actions } from 'src/store/brand/actions';
+import rootSaga from 'src/store/rootSaga';
+
 import app from './app';
+import user from './user';
 import interests from './interests';
 import brand from './brand';
-import { fetchAllBrandSaga } from './brand/saga';
+import event from './event';
 
 const devMode = process.env.NODE_ENV === 'development';
-function* saga() {
-	yield takeEvery(actions.FETCH_ALL_BRANDS, fetchAllBrandSaga);
-}
-const reducer = combineReducers({ brand, app, interests });
+
+const reducer = combineReducers({ app, user, brand, interests, event });
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -28,7 +27,7 @@ const store = configureStore({
 	devTools: devMode,
 	middleware,
 });
-sagaMiddleware.run(saga);
+sagaMiddleware.run(rootSaga);
 
 export default store;
 

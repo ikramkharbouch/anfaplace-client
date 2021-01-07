@@ -3,17 +3,23 @@
 
 
 	.content {
-		padding-left: 32px !important;
-		padding-right: 32px !important;
+		padding-left: 12px !important;
+		padding-right: 12px !important;
 		min-height: 433px;
 		background-color: rgba(30,30, 72, 0.5) !important;
 
 		p {
-			width: 98%;
+			width: 90%;
+			margin: 0 auto;
+			display: block;
+			&.activate{
+				margin-bottom: 28px;
+			}
 		}
 	}
 }
 .verification-form.ui.form {
+	padding: 0 20px;
 	text-align: left;
 	.plus {
 		position: absolute;
@@ -29,6 +35,12 @@
 			margin-right: -12px;
 		}
 	}
+	.inline.required.eleven.wide.field{
+		&:last-child{
+			padding: 0;
+		}
+	}
+
 	.ui.left.icon.input {
 		input {
 			padding-left: 25px !important;
@@ -70,21 +82,30 @@
 
 	}
 	.digits {
-		width: 95%;
-		margin: 0 auto;
-		input {
-			height: 56px;
-			font-size: 35px !important;
-			padding: 0 !important;
-			text-align: center;
-			border: none !important;
-			background-color: #000034!important;
+		width: 100%;
+		margin: 50px auto 0 auto !important;
+		.inline.required.two.wide.field{
+			padding: 0 ;
+			margin: 0 .5rem 0 0;
+			width: 14.8%!important;
+			&:last-child{
+				margin: 0;
+			}
+			input {
+				height: 56px;
+				font-size: 35px !important;
+				padding: 0 !important;
+				text-align: center;
+				border: none !important;
+				background-color: #000034!important;
+			}
 		}
+
 	}
 	.continue {
 		width: 262px;
 		height: 45px;
-		margin-top: 130px;
+		margin-top: 80px;
 		margin-bottom: 18px;
 	}
 

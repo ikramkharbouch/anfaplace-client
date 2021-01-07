@@ -6,13 +6,16 @@ import './utils/initApp';
 import 'semantic-ui-less/semantic.less';
 import './utils/disable-context-menu';
 import './index.css';
-import { actions } from 'src/store/brand/actions';
+import brandAction from 'src/store/brand/actions';
+import eventAction from 'src/store/event/actions';
 
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
-store.dispatch({ type: actions.FETCH_ALL_BRANDS });
+store.dispatch({ type: brandAction.FETCH_ALL_BRANDS });
+store.dispatch({ type: eventAction.FETCH_ALL_EVENTS });
+
 ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>

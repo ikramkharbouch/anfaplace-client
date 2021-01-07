@@ -18,6 +18,7 @@ module.exports = {
 	rules: {
 		'prettier/prettier': 'warn',
 		'react/jsx-filename-extension': 'off',
+		eqeqeq: [2, 'allow-null'],
 	},
 	overrides: [
 		{

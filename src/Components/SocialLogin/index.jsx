@@ -1,75 +1,37 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Proptypes from 'prop-types';
 import { Button, Dimmer, Loader } from 'semantic-ui-react';
 import { ReactComponent as GoogleIcon } from 'src/assets/icons/google.svg';
 import { ReactComponent as FacebookIcon } from 'src/assets/icons/facebook.svg';
 import { ReactComponent as UserIcon } from 'src/assets/icons/user.svg';
-import { InAppNotificationContext } from 'src/Components/InAppNotification';
-import { firebaseApp } from 'src/utils/initApp';
-import firebase from 'firebase/app';
-import withFirebaseAuth from 'react-with-firebase-auth';
+import { openSocialAuth } from 'src/store/app';
+import userActions from 'src/store/user/actions';
 
 import Modal from '../Modal';
 import './SocialLogin.less';
 
 export const SocialModalContext = React.createContext({ open: false, setOpen: () => {} });
 
-const firebaseAppAuth = firebaseApp.auth();
-const providers = {
-	googleProvider: new firebase.auth.GoogleAuthProvider(),
-	facebookProvider: new firebase.auth.FacebookAuthProvider(),
-};
-
-const createComponentWithAuth = withFirebaseAuth({
-	providers,
-	firebaseAppAuth,
-});
-
-const SocialLogin = ({ signInAnonymously, user, loading, error }) => {
+const SocialLogin = () => {
 	const interestsIgnoredOnce = JSON.parse(localStorage.getItem('interestsIgnoredOnce')) || false;
-	const interestsConfirmed = JSON.parse(localStorage.getItem('interests-confirmed')) || false;
-	const { open, setOpen } = useContext(SocialModalContext);
-	const { setNotification } = useContext(InAppNotificationContext);
-	const [loadingSocial, setLoadingSocial] = useState(false);
-	useEffect(() => {
-		setTimeout(() => setOpen(interestsConfirmed && user == null), 200);
-	}, [user, interestsConfirmed]);
 
-	const handleContinueAsGuest = () => {
-		setOpen(false);
-		signInAnonymously();
-		setTimeout(() => setNotification({ show: true, type: 'didNotWinPoints' }), 800);
-	};
-	console.log(error);
-	const handleSignIn = (authProvider) => {
-		setLoadingSocial(true);
-		let provider;
-		if (authProvider === 'facebook') {
-			provider = new firebase.auth.FacebookAuthProvider();
-		}
-		if (authProvider === 'google') {
-			provider = new firebase.auth.GoogleAuthProvider();
-		}
+	const { open, withEmail } = useSelector((state) => state.app.socialAuth);
+	const dispatch = useDispatch();
+	const handleContinueAsGuest = () => {};
 
-		firebase
-			.auth()
-			.signInWithPopup(provider)
-			.then((result) => {
-				if (result.additionalUserInfo.isNewUser) {
-					setNotification({ show: true, type: 'wonPoints' });
-				}
-				setLoadingSocial(false);
-			})
-			.catch((authError) => {
-				setNotification({ show: true, type: 'error', message: authError.message });
-				setLoadingSocial(false);
-			});
+	const handleSignIn = (provider) => {
+		dispatch({ type: userActions.LOG_IN_WITH_PROVIDER, payload: provider });
 	};
 
-	console.log(user);
 	return (
-		<Modal open={open} setOpen={setOpen}>
-			<Dimmer active={loading || loadingSocial}>
+		<Modal
+			open={open}
+			setOpen={(value) => {
+				dispatch(openSocialAuth(value));
+			}}
+		>
+			<Dimmer>
 				<Loader />
 			</Dimmer>
 			<p className="social">
@@ -83,12 +45,23 @@ const SocialLogin = ({ signInAnonymously, user, loading, error }) => {
 				<FacebookIcon />
 				Connectez-vous avec Facebook
 			</Button>
-			<Button onClick={handleContinueAsGuest} circular size="large" className="as-guest">
-				<UserIcon />
-				Continuer en tant qu’invité
-			</Button>
+			{/* {withEmail ? ( */}
+			{/*	<> */}
+			{/*		<Divider horizontal inverted> */}
+			{/*			ou */}
+			{/*		</Divider> */}
+			{/*		<Input placeholder="Email" icon="arrow right" iconPosition="right" /> */}
+			{/*	</> */}
+			{/* ) : ( */}
+			{!withEmail && (
+				<Button onClick={handleContinueAsGuest} circular size="large" className="as-guest">
+					<UserIcon />
+					Continuer en tant qu’invité
+				</Button>
+			)}
+			{/* )} */}
 			{!interestsIgnoredOnce && (
-				<Button onClick={() => setOpen(false)} className="next-time">
+				<Button onClick={() => dispatch(openSocialAuth(false))} className="next-time">
 					Plus tard
 				</Button>
 			)}
@@ -101,14 +74,6 @@ SocialLogin.propTypes = {
 		notification: Proptypes.shape({ show: Proptypes.bool, type: Proptypes.string }),
 		setNotification: Proptypes.func,
 	}).isRequired,
-	signInAnonymously: Proptypes.func,
-	user: Proptypes.shape({}).isRequired,
-	loading: Proptypes.bool,
-	error: Proptypes.string,
 };
-SocialLogin.defaultProps = {
-	signInAnonymously: () => {},
-	loading: false,
-	error: '',
-};
-export default createComponentWithAuth(SocialLogin);
+SocialLogin.defaultProps = {};
+export default SocialLogin;

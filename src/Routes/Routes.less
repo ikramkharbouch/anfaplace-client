@@ -11,58 +11,74 @@
   top: 0;
   opacity: 0;
 
+
 }
 .pageSlider-exit.screen {
   position: fixed;
   top: 0;
   z-index: 1;
   opacity: 0;
+  transition:left 0.8s ease,opacity 2s ease;
+
 }
 //LEFT transition transform -100% to the left
 .pageSlider-enter.left.screen {
   right: -100%;
+  opacity: 0;
 }
 
 //old exit left direction
 .pageSlider-exit.left.screen {
   right: 0;
-  position: fixed;
+  opacity: 0;
 }
 .pageSlider-enter.right.screen {
+  transition:left 0.8s ease,opacity 2s ease;
   left: -100%;
+  opacity: 0;
 }
 .pageSlider-exit.right.screen {
-   left: 0
+  transition:left 0.8s ease,opacity 2s ease;
+
+  left: 0;
+  opacity: 0;
+
 }
 
 //old exit right direction
 
 //Enter is active (Page has finished transitioning) make it settle down
 .pageSlider-enter-active.left.screen {
+  transition:right 0.8s ease,opacity 2s ease;
+
   right: 0;
   opacity: 1;
-  transition:right 0.8s ease,opacity .4s ease;
+
 
 
 }
 
 
 .pageSlider-enter-active.right.screen {
+  transition:left 0.8s ease,opacity 2s ease;
+
   left: 0;
   opacity: 1;
-  transition:left 0.8s ease,opacity .4s ease;
 }
 
 
 .pageSlider-exit-active.right.screen {
+  transition:left 0.8s ease,opacity 2s ease;
   left: -100%;
-  transition:all 1s ease;
+  opacity: 0;
 
 
 }
 .pageSlider-exit-active.left.screen {
+  transition:right 0.8s ease,opacity 2s ease;
   right: -100%;
-  transition:all 1s ease;
+  opacity: 0;
+
 
 
 }

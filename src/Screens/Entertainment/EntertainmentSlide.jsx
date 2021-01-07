@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import './EntertainmentSlide.less';
 import { ReactComponent as ArrowIcon } from 'src/assets/icons/arrow.svg';
-import Image from 'src/Components/Image/index';
 import sliderBg from 'src/assets/images/temp/entertainment-slider.jpg';
 import { Button, Label } from 'semantic-ui-react';
 import ClampLines from 'react-clamp-lines';
@@ -12,7 +11,7 @@ const EntertainmentSlide = ({ count }) => {
 	const history = useHistory();
 	return (
 		<div className={`entertainment-slide ${count === 1 ? 'first-slide' : ''}`}>
-			<Image src={sliderBg} />
+			<img src={sliderBg} alt="slide" />
 			<div className="details">
 				<div className="tags">
 					<Label> Gymbo </Label>

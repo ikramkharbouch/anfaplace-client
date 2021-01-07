@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Button, Input, Checkbox } from 'semantic-ui-react';
 import { KafkaTimeSpentOnSelectingInterest } from 'src/utils/kafka/KafkaEvents';
 import ScrollArea from 'react-scrollbar';
@@ -10,7 +9,7 @@ import { setInterestsIgnoredOnce } from 'src/store/interests';
 import Modal from '../Modal';
 import './Intersts.less';
 
-const Interests = ({ modalClosedEvent }) => {
+const Interests = () => {
 	const { interestsIgnoredOnce, list } = useSelector((state) => state.interests);
 	const dispatch = useDispatch();
 	const [open, setOpen] = useState(false);
@@ -30,7 +29,6 @@ const Interests = ({ modalClosedEvent }) => {
 		}
 
 		setT0(performance.now());
-
 	};
 	const scrollbarStyle = {
 		height: 180,
@@ -38,32 +36,39 @@ const Interests = ({ modalClosedEvent }) => {
 		marginTop: 16,
 	};
 
-	const handleSearch = e => {
-		const array = list.filter(x => x.label.normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase().includes(e.target.value.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()));
+	const handleSearch = (e) => {
+		const array = list.filter((x) =>
+			x.label
+				.normalize('NFD')
+				.replace(/[\u0300-\u036f]/g, '')
+				.trim()
+				.toLowerCase()
+				.includes(
+					e.target.value
+						.trim()
+						.normalize('NFD')
+						.replace(/[\u0300-\u036f]/g, '')
+						.toLowerCase()
+				)
+		);
 		setInterestList(array);
-	}
-
-
+	};
 
 	useEffect(() => {
 		// giving a better feel when opening the modal
 		setTimeout(() => {
-			setOpen(!interestsIgnoredOnce);
+			setOpen(!user || !interestsIgnoredOnce);
 			setT0(performance.now());
 		}, 200);
-	}, [interestsIgnoredOnce]);
-
-
+	}, [user, interestsIgnoredOnce]);
 
 	return (
 		<Modal
 			open={open}
 			setOpen={(isOpen) => {
 				setOpen(isOpen);
-				modalClosedEvent(user == null);
 			}}
 		>
-
 			{console.log(interstList)}
 			<p>Pour une meilleure expérience client, créer votre liste d’intérêt.</p>
 			<h4>Vous pouvez configurer votre liste plus tard.</h4>
@@ -89,7 +94,12 @@ const Interests = ({ modalClosedEvent }) => {
 				horizontal={false}
 			>
 				{interstList.map((interest) => (
-					<Checkbox key={interest.label} id={interest.id} label={interest.label} handleCheck={handleCheck} />
+					<Checkbox
+						key={interest.label}
+						id={interest.id}
+						label={interest.label}
+						handleCheck={handleCheck}
+					/>
 				))}
 
 				{interstList.length < 1 && <p> pas de résultat trouvé ! </p>}
@@ -100,7 +110,6 @@ const Interests = ({ modalClosedEvent }) => {
 					onClick={() => {
 						setOpen(false);
 						dispatch(setInterestsIgnoredOnce('true'));
-						modalClosedEvent(user == null);
 					}}
 				>
 					Plus tard
@@ -109,7 +118,6 @@ const Interests = ({ modalClosedEvent }) => {
 					circular
 					onClick={() => {
 						setOpen(false);
-						modalClosedEvent(user == null);
 						localStorage.setItem('interests-confirmed', 'true');
 					}}
 				>
@@ -119,8 +127,6 @@ const Interests = ({ modalClosedEvent }) => {
 		</Modal>
 	);
 };
-Interests.propTypes = {
-	modalClosedEvent: PropTypes.func.isRequired,
-};
+Interests.propTypes = {};
 
 export default Interests;

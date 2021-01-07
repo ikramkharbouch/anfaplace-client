@@ -6,6 +6,9 @@ import {
 	// KafkaGPSEnabled,
 	KafkaPhoneModel,
 } from 'src/utils/kafka/KafkaEvents';
+import store from 'src/store';
+import { openSocialAuth } from 'src/store/app';
+import { setUser } from '../store/user/index';
 
 let deviceUID = localStorage.getItem('device-uid');
 
@@ -37,7 +40,28 @@ const firebaseConfig = {
 	appId: '1:40293498630:web:1dbad5802213c6ff022887',
 	measurementId: 'G-P1ZFJLS8RV',
 };
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
+firebase.auth().onAuthStateChanged((user) => {
+	if (user) {
+		// User is signed in, see docs for a list of available properties
+		// https://firebase.google.com/docs/reference/js/firebase.User
+		// ...
+		store.dispatch(
+			setUser({
+				displayName: user.displayName,
+				isAnonymous: user.isAnonymous,
+				multiFactor: { enrolledFactors: user.multiFactor.enrolledFactors },
+			})
+		);
+		store.dispatch(openSocialAuth({ open: false, withEmail: false }));
+	} else {
+		// User is signed out
+		// ...
+		store.dispatch(setUser(user));
+		store.dispatch(openSocialAuth({ open: true, withEmail: false }));
+	}
+});
 // Initialize Firebase
 // eslint-disable-next-line import/prefer-default-export
-export const firebaseApp = firebase.initializeApp(firebaseConfig);
+export default firebaseApp;

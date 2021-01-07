@@ -6,9 +6,9 @@ const brandSlice = createSlice({
 		list: [],
 	},
 	reducers: {
-		getEventsSuccess: (state, action) => ({ all: action.payload }),
+		setAllEventsSuccess: (state, action) => ({ list: action.payload }),
 	},
 });
-export const { setAllBrandsSuccess } = brandSlice.actions;
+export const { setAllEventsSuccess } = brandSlice.actions;
 
 export default brandSlice.reducer;

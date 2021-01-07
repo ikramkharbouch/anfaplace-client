@@ -13,9 +13,9 @@ const Entertainment = () => (
 					{!inView && <div className="overlay" />}
 					<Slider autoplay={inView} id="slider-entertainment">
 						<EntertainmentSlide count={1} />
-						{/* <EntertainmentSlide count={1} /> */}
-						{/* <EntertainmentSlide count={1} /> */}
-						{/* <EntertainmentSlide count={1} /> */}
+						{/* <EntertainmentSlide count={.6} /> */}
+						{/* <EntertainmentSlide count={.6} /> */}
+						{/* <EntertainmentSlide count={.6} /> */}
 					</Slider>
 				</div>
 			)}

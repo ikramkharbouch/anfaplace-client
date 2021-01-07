@@ -6,7 +6,8 @@ import { arrayBufferToBase64 } from 'src/utils/utilsFunctions';
 import CouponCard from 'src/Components/CouponCard';
 import brandSrc from 'src/assets/images/brands/GO_Sport_logo.svg';
 import './Brand.less';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { openSocialAuth } from 'src/store/app';
 
 const initialState = [
 	{
@@ -25,6 +26,14 @@ const initialState = [
 const OfferDetails = () => {
 	const { id } = useParams();
 	const marque = useSelector((state) => state.brand.all.find((item) => item.index === id));
+	const user = useSelector((state) => state.user.currentUser);
+	const dispatch = useDispatch();
+
+	const handleAddToFav = () => {
+		if (!user) {
+			dispatch(openSocialAuth(true));
+		}
+	};
 	const panes = [
 		{
 			menuItem: 'Détails du magasin',
@@ -43,7 +52,13 @@ const OfferDetails = () => {
 						<Grid padded={false}>
 							<Grid.Row columns={16}>
 								<Grid.Column width={16}>
-									<Button icon="plus" content="Ajouter à la liste des visites" size="mini" inverted />
+									<Button
+										icon="plus"
+										onClick={handleAddToFav}
+										content="Ajouter à la liste des visites"
+										size="mini"
+										inverted
+									/>
 								</Grid.Column>
 							</Grid.Row>
 						</Grid>

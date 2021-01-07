@@ -8,7 +8,7 @@ const BottomNav = () => {
 	const pathName = useLocation().pathname;
 	console.log(pathName);
 	return (
-		['/', '/tour', '/entertainment', '/qrcode'].includes(pathName) && (
+		['/', '/tour', '/entertainment', '/qrcode', '/events'].includes(pathName) && (
 			<nav className="bottom-nav">
 				<ul>
 					<li>

@@ -133,12 +133,12 @@ const Slider = ({
 			//   document.getElementsByClassName('slider-bullet current')[0].classList.add('progress')
 			// }
 			autoplay={
-				autoplay
+				autoplay && React.Children.count(children) > 1
 					? {
 							delay: autoplayDelay,
 							disableOnInteraction: false,
 					  }
-					: autoplay
+					: false
 			}
 			pagination={
 				pagination && {

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Proptypes from 'prop-types';
 import { Icon, Header } from 'semantic-ui-react';
 import './InAppNotification.less';
+import { setNotification } from 'src/store/app';
 
 export const InAppNotificationContext = React.createContext({
 	notification: { show: false, type: '' },
@@ -38,20 +40,16 @@ NotificationSelector.defaultProps = {
 };
 
 // eslint-disable-next-line react/prop-types
-const InAppNotification = ({
-	context: {
-		notification: { show, type, message },
-		setNotification,
-	},
-}) => {
+const InAppNotification = () => {
 	const [slideUp, setSlideUp] = useState(false);
-
+	const { show, type, message } = useSelector((state) => state.app.notification);
+	const dispatch = useDispatch();
 	useEffect(() => {
 		setTimeout(() => {
 			if (show) {
 				setSlideUp(true);
 				setTimeout(() => {
-					setNotification({ show: false, type });
+					dispatch(setNotification({ show: false, type }));
 				}, 300);
 			}
 		}, 5000);

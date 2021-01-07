@@ -1,23 +1,34 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Parallax } from 'react-parallax';
 import { Link } from 'react-router-dom';
 import { Label, Icon, Button, Header } from 'semantic-ui-react';
 import BackButton from 'src/Components/BackButton/BackButton';
 import SocialSharing from 'src/Components/SocialSharing';
-import { AuthContext } from 'src/utils/AuthContext';
 
 import './OfferDetails.less';
 
 import Modal from 'src/Components/Modal';
+import { openNumberVerificationModal, openSocialAuth } from 'src/store/app';
 import img from './1.jpg';
 
 const OfferDetails = () => {
 	const [openConfirm, setOpenConfirm] = useState(false);
+	const [confirmationProgress, setConfirmationInProgress] = useState(false);
+	const [successParticipate, setSuccessParticipate] = useState();
 	const [shareModalIsOpen, openShareModal] = useState(false);
-	const { user } = useContext(AuthContext);
-	console.log(user);
+	const user = useSelector((state) => state.user.currentUser);
+	const dispatch = useDispatch();
 	const isEligibleToActivate = !!user && !user.isAnonymous;
 	// const handleParticipateConfirm = () => {};
+	const handleConfirmParticipation = () => {
+		setSuccessParticipate(true);
+	};
+	useEffect(() => {
+		if (user && confirmationProgress) {
+			setOpenConfirm(true);
+		}
+	}, [user]);
 	return (
 		<div className="offer-details">
 			<Button
@@ -30,22 +41,54 @@ const OfferDetails = () => {
 			/>
 
 			<Modal className="participate-confirmation" open={openConfirm} setOpen={setOpenConfirm}>
-				{!isEligibleToActivate ? (
-					<>
-						<Header as="h1">
-							Activer votre compte <br /> et gagner 50 points en participant à cet évènement
-						</Header>
-						<div className="action">
-							<Button circular> Activer mon compte</Button>
-						</div>
-					</>
+				{/* eslint-disable-next-line no-nested-ternary */}
+				{!successParticipate ? (
+					!isEligibleToActivate ? (
+						<>
+							<Header as="h1">
+								Activer votre compte <br /> et gagner 50 points en participant à cet évènement
+							</Header>
+							<div className="action">
+								<Button
+									circular
+									onClick={() => {
+										setConfirmationInProgress(true);
+										setOpenConfirm(false);
+										if (user) {
+											dispatch(openNumberVerificationModal(true));
+										} else {
+											dispatch(openSocialAuth({ open: true, withEmail: true }));
+										}
+									}}
+								>
+									Activer mon compte
+								</Button>
+							</div>
+						</>
+					) : (
+						<>
+							<Header as="h1">Confirmer votre participation à cet évènement et gagner</Header>
+							<div className="points"> +500p</div>
+
+							<div className="action">
+								{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
+								<span className="cancel" onClick={() => setOpenConfirm(false)}>
+									Annuler
+								</span>
+								<Button onClick={handleConfirmParticipation} circular>
+									Confirmer
+								</Button>
+							</div>
+						</>
+					)
 				) : (
 					<>
-						<Header as="h1">Confirmer votre participation à cet évènement et gagner</Header>
+						<Header as="h1">Merci pour votre participation Vous avez gagné</Header>
 						<div className="points"> +500p</div>
 
 						<div className="action">
-							<span className="cancel">Annuler</span> <Button circular>Confirmer</Button>
+							{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
+							<Header as="h1">à très bientôt </Header>
 						</div>
 					</>
 				)}

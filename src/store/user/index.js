@@ -2,12 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const brandSlice = createSlice({
 	name: 'user',
-	initialState: {},
+	initialState: { currentUser: undefined, loadingUser: true, loginIn: false },
 	reducers: {
-		setAllBrandsSuccess: (state, action) => ({ all: action.payload }),
-		setBrandSuccess: () => {},
+		setUser: (state, action) => ({ ...state, currentUser: action.payload }),
 	},
 });
-export const { setAllBrandsSuccess } = brandSlice.actions;
+export const { setUser } = brandSlice.actions;
 
 export default brandSlice.reducer;

@@ -3,17 +3,22 @@ import { createSlice } from '@reduxjs/toolkit';
 const brandSlice = createSlice({
 	name: 'app',
 	initialState: {
-		socialAuth: { open: false },
+		socialAuth: { open: false, withEmail: false },
 		numberVerificationModal: { open: false },
+		notification: { show: false, type: 'wonPoints' },
 	},
 	reducers: {
-		openSocialAuth: (state, action) => ({ ...state, socialAuth: { open: action.payload } }),
+		openSocialAuth: (state, action) => ({
+			...state,
+			socialAuth: action.payload,
+		}),
 		openNumberVerificationModal: (state, action) => ({
 			...state,
 			numberVerificationModal: { open: action.payload },
 		}),
+		setNotification: (state, action) => ({ ...state, notification: action.payload }),
 	},
 });
-export const { openNumberVerificationModal } = brandSlice.actions;
+export const { openSocialAuth, openNumberVerificationModal, setNotification } = brandSlice.actions;
 
 export default brandSlice.reducer;

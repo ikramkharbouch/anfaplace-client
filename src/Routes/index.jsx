@@ -14,6 +14,7 @@ import MyEventsList from 'src/Screens/MyEventsList';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import './Routes.less';
+import ScrollToTop from 'src/utils/ScrollToTop';
 
 const Survey = lazy(() => import('../Screens/Survey'));
 const OfferDetails = lazy(() => import('../Screens/OfferDetails'));
@@ -24,7 +25,7 @@ const CouponListItem = lazy(() => import('src/Screens/CouponListItem'));
 const Routes = () => {
 	const location = useLocation();
 	const { pathname } = location;
-	const timeout = 800;
+	const timeout = 2000;
 	const currentKey = pathname.split('/')[1] || '/';
 	const getPathDepth = (pathName) => {
 		let pathArr = pathName.split('/');
@@ -54,11 +55,14 @@ const Routes = () => {
 						getPathDepth(pathname) - prevDepth >= 0 ? 'left' : 'right'
 					}`}
 				>
+					<ScrollToTop />
+
 					<Switch location={location}>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/offer-details" component={Survey} />
 						<Route path="/qrcode" component={QRcode} />
 						<Route path="/tour" component={Tour} />
+						<Route path="/all-brands" component={Tour} />
 						<Route exact path="/brand/:id" component={Brand} />
 						<Route exact path="/survey">
 							<Suspense
@@ -118,6 +122,7 @@ const Routes = () => {
 						<Route exact path="/shopping" component={Shopping} />
 						<Route exact path="/restauration" component={Restauration} />
 						<Route exact path="/entertainment" component={Entertainment} />
+						<Route exact path="/events" component={Entertainment} />
 						<Route exact path="/coupon/:id" component={Coupon} />
 						<Route exact path="/my-visited-list" component={MyVisitedList} />
 						<Route exact path="/my-events-list" component={MyEventsList} />
