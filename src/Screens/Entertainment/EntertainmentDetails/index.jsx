@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { Parallax } from 'react-parallax';
 import { Link, useHistory } from 'react-router-dom';
@@ -12,7 +13,7 @@ import Modal from 'src/Components/Modal';
 import { openNumberVerificationModal, openSocialAuth } from 'src/store/app';
 // import img from './1.jpg';
 
-const OfferDetails = () => {
+const EntertainmentDetails = () => {
 
     const history = useHistory();
 
@@ -109,7 +110,13 @@ const OfferDetails = () => {
                     <BackButton text={titre} />
                     <Divider hidden />
                     <Divider hidden />
-                    <p> {debutTime} - {finTime}</p>
+                    <p>
+
+                        {dayjs(debutTime, 'DD/MM/YYYY').format('D MMM')} -{' '}
+                        {dayjs(finTime, 'DD/MM/YYYY').format('D MMM')}
+
+
+                    </p>
                     <div className="offer-details-tags">
                         {
                             Tags.map(tag => (
@@ -137,4 +144,4 @@ const OfferDetails = () => {
     );
 };
 
-export default OfferDetails;
+export default EntertainmentDetails;

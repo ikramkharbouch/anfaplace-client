@@ -43,7 +43,7 @@ Points.defaultProps = {
 };
 
 const variants = {
-	start: { scale: 2000, transition: { duration: 0.8 } },
+	start: { scale: 3000, transition: { duration: 0.8 } },
 	reverse: { scale: 1, transition: { duration: 0.7 } },
 };
 
