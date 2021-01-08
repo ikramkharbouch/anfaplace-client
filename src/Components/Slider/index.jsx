@@ -117,7 +117,7 @@ const Slider = ({
 			slidesOffsetBefore={slidesOffsetBefore}
 			spaceBetween={20}
 			slidesPerColumn={slidesPerColumn}
-			slidesPerColumnFill="column"
+			slidesPerColumnFill="row"
 			slidesPerGroup={slidesPerGroup}
 			preventClicks
 			slidesPerView={slidersPerView}

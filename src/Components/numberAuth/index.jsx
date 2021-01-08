@@ -6,7 +6,7 @@ import { Form, Button } from 'semantic-ui-react';
 import { FormattedInput } from '@buttercup/react-formatted-input';
 import firebase from 'firebase/app';
 import { Link } from 'react-router-dom';
-import { openPhoneAuth } from 'src/store/app';
+import { openPhoneAuth, setNotification } from 'src/store/app';
 import Modal from 'src/Components/Modal';
 import './VerificationModal.less';
 
@@ -99,7 +99,9 @@ const AuthTel = ({ confirm, verifying }) => {
 				<Link to="/" className="tos">
 					Politique de confidentialité
 				</Link>
+				{/*
 				<Form.Checkbox checked label="Opt-in whatsapp +200 points" />
+*/}
 				<Form.Checkbox checked label="Validation par SMS +100 points" />
 				<Form.Button
 					type="submit"
@@ -118,7 +120,7 @@ AuthTel.propTypes = {
 	confirm: PropTypes.func.isRequired,
 	verifying: PropTypes.bool.isRequired,
 };
-const PinVerification = ({ verifyPin }) => {
+const PinVerification = ({ loading, verifyPin }) => {
 	const [pin, setPin] = useState({
 		'digit-1': undefined,
 		'digit-2': undefined,
@@ -235,7 +237,7 @@ const PinVerification = ({ verifyPin }) => {
 				</Form.Group>
 
 				<Form.Field>
-					<Button circular type="submit" className="continue">
+					<Button loading={loading} circular type="submit" className="continue">
 						Continuer
 					</Button>
 				</Form.Field>
@@ -249,6 +251,7 @@ const PinVerification = ({ verifyPin }) => {
 
 PinVerification.propTypes = {
 	verifyPin: PropTypes.func.isRequired,
+	loading: PropTypes.bool.isRequired,
 };
 
 // eslint-disable-next-line no-unused-vars
@@ -256,54 +259,28 @@ PinVerification.propTypes = {
 const phoneAuthOpenModalSelector = createSelector(
 	(state) => state.app.phoneAuth.open,
 	(state) => state.interests.open,
-	(openPhoneAuthModal, openInterests) => {
+	(state) => state.user.currentUser,
+	(openPhoneAuthModal, openInterests, user) => {
 		if (openInterests) {
 			return false;
 		}
-		return openPhoneAuthModal;
+		if (!user && openPhoneAuthModal) {
+			return true;
+		}
+		return false;
 	}
 );
 
 const PhoneAuthModal = ({ validatedEvent }) => {
 	const [verifyPin, setVerifyPin] = useState(false);
-	const user = useSelector((state) => state.user.currentUser);
 	const [verifyLoading, setVerifyLoading] = useState();
 	const [recaptchaVerifier, setRecaptchaVerifier] = useState();
-	const [verificationId, setVerificationId] = useState();
-	const verifyPinHandeler = (verificationCode) => {
-		// Ask user for the verification code.
-		const cred = firebase.auth.PhoneAuthProvider.credential(verificationId, verificationCode);
-		const multiFactorAssertion = firebase.auth.PhoneMultiFactorGenerator.assertion(cred);
-		// Complete enrollment.
-		user.multiFactor.enroll(multiFactorAssertion, 'SMS-VERIFICATION').then((result) => {
-			console.log(result);
-			validatedEvent();
-		});
-	};
+	const [confirmation, setConfirmation] = useState();
+	const [loadingPinConf, setLoadingPinConf] = useState(false);
+
 	const open = useSelector(phoneAuthOpenModalSelector);
 	const dispatch = useDispatch();
 	const setOpen = (value) => dispatch(openPhoneAuth(value));
-	const handleNumberConfirmation = (Number) => {
-		setVerifyLoading(true);
-		user.multiFactor.getSession().then((multiFactorSession) => {
-			// Specify the phone number and pass the MFA session.
-			const phoneInfoOptions = {
-				phoneNumber: Number,
-				session: multiFactorSession,
-			};
-			const phoneAuthProvider = new firebase.auth.PhoneAuthProvider();
-			// Send SMS verification code.
-			phoneAuthProvider
-				.verifyPhoneNumber(phoneInfoOptions, recaptchaVerifier)
-				.then((result) => {
-					setVerificationId(result);
-					setVerifyPin(true);
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-		});
-	};
 
 	const handleModalMount = () => {
 		setRecaptchaVerifier(
@@ -312,10 +289,45 @@ const PhoneAuthModal = ({ validatedEvent }) => {
 			})
 		);
 	};
+
+	const handleNumberConfirmation = (Number) => {
+		setVerifyLoading(true);
+		firebase
+			.auth()
+			.signInWithPhoneNumber(Number, recaptchaVerifier)
+			.then((confirmationResult) => {
+				setConfirmation(confirmationResult);
+				setVerifyPin(true);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	};
+	const verifyPinHandeler = (verificationCode) => {
+		setLoadingPinConf(true);
+
+		confirmation
+			.confirm(verificationCode)
+			.then((result) => {
+				validatedEvent();
+				setLoadingPinConf(false);
+				if (result.additionalUserInfo.isNewUser) {
+					dispatch(setNotification({ show: true, type: 'wonPoints' }));
+				}
+			})
+			.catch((error) => {
+				setLoadingPinConf(false);
+				console.log(error);
+				// User couldn't sign in (bad verification code?)
+				// ...
+				// handle errors
+			});
+	};
+
 	return (
 		<Modal className="pin" onMount={handleModalMount} open={open} setOpen={setOpen}>
 			{!verifyPin && <AuthTel verifying={verifyLoading} confirm={handleNumberConfirmation} />}
-			{verifyPin && <PinVerification verifyPin={verifyPinHandeler} />}
+			{verifyPin && <PinVerification loading={loadingPinConf} verifyPin={verifyPinHandeler} />}
 		</Modal>
 	);
 };

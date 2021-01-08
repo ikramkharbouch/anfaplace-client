@@ -9,7 +9,7 @@ import SocialSharing from 'src/Components/SocialSharing';
 import './OfferDetails.less';
 
 import Modal from 'src/Components/Modal';
-import { openNumberVerificationModal, openSocialAuth } from 'src/store/app';
+import { openPhoneAuth } from 'src/store/app';
 import img from './1.jpg';
 
 const OfferDetails = () => {
@@ -19,7 +19,7 @@ const OfferDetails = () => {
 	const [shareModalIsOpen, openShareModal] = useState(false);
 	const user = useSelector((state) => state.user.currentUser);
 	const dispatch = useDispatch();
-	const isEligibleToActivate = !!user && !user.isAnonymous;
+	const isEligibleToActivate = !!user;
 	// const handleParticipateConfirm = () => {};
 	const handleConfirmParticipation = () => {
 		setSuccessParticipate(true);
@@ -54,10 +54,8 @@ const OfferDetails = () => {
 									onClick={() => {
 										setConfirmationInProgress(true);
 										setOpenConfirm(false);
-										if (user) {
-											dispatch(openNumberVerificationModal(true));
-										} else {
-											dispatch(openSocialAuth({ open: true, withEmail: true }));
+										if (!user) {
+											dispatch(openPhoneAuth(true));
 										}
 									}}
 								>

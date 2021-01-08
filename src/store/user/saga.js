@@ -13,7 +13,6 @@ export function* logInWithProvider({ payload: authProvider }) {
 			if (authProvider === 'google') {
 				provider = new firebase.auth.GoogleAuthProvider();
 			}
-
 			firebase
 				.auth()
 				.signInWithPopup(provider)

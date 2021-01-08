@@ -1,14 +1,13 @@
-import React, { useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import bg from 'src/assets/images/menu-bg.jpg';
 import firebaseApp from 'src/utils/initApp';
-import { AuthContext } from 'src/utils/AuthContext';
 import './Menu.less';
 import { Button, Header, Icon } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
-import { openSocialAuth } from 'src/store/app';
+import { openPhoneAuth } from 'src/store/app';
 
 const auth = firebaseApp.auth();
 
@@ -30,14 +29,15 @@ const Menu = ({ menuOpen, closeMenu }) => {
 		reverse: { opacity: 0, y: -50 },
 		start: { opacity: 1 },
 	};
-
-	const { user } = useContext(AuthContext);
+	const user = useSelector((state) => state.user.currentUser);
+	const [logOutLoading, setLogOutLoading] = useState(false);
 	const dispatch = useDispatch();
 	const handleSignOut = () => {
-		auth.signOut().then(() => console.log('signed-out'));
+		setLogOutLoading(true);
+		auth.signOut().then(() => setLogOutLoading(false));
 	};
 	const handleSignIn = () => {
-		dispatch(openSocialAuth({ open: true, withEmail: false }));
+		dispatch(openPhoneAuth(true));
 	};
 
 	return (
@@ -47,7 +47,7 @@ const Menu = ({ menuOpen, closeMenu }) => {
 			</div>
 			{user && (
 				<Header className="greetings" as="h1">
-					Hello {user.displayName.split(' ')[0]} !
+					Hello {user.displayName} !
 				</Header>
 			)}
 			<nav>
@@ -82,7 +82,7 @@ const Menu = ({ menuOpen, closeMenu }) => {
 					{user && (
 						// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/click-events-have-key-events
 						<motion.li className="action-button" variants={item} animate={menuOpen ? 'start' : 'reverse'}>
-							<Button circular onClick={handleSignOut} inverted>
+							<Button loading={logOutLoading} circular onClick={handleSignOut} inverted>
 								Se déconnecter
 							</Button>
 						</motion.li>

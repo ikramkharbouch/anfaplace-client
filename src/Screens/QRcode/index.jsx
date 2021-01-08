@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Header, Icon } from 'semantic-ui-react';
 import './QRcode.less';
-import { openNumberVerificationModal, openSocialAuth } from 'src/store/app';
+import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
 
 const PhoneValidated = () => (
 	<div className="qrcode-section">
@@ -46,7 +46,7 @@ const PhoneNotValidated = () => {
 								dispatch(openNumberVerificationModal(true));
 							}
 						} else {
-							dispatch(openSocialAuth({ open: true, withEmail: true }));
+							dispatch(openPhoneAuth(true));
 						}
 					}}
 					circular

@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Input, Checkbox } from 'semantic-ui-react';
 import { KafkaTimeSpentOnSelectingInterest } from 'src/utils/kafka/KafkaEvents';
 import ScrollArea from 'react-scrollbar';
-import { AuthContext } from 'src/utils/AuthContext';
 import { setInterestsIgnoredOnce, openModal } from 'src/store/interests';
 import Modal from '../Modal';
 import './Intersts.less';
@@ -14,8 +13,7 @@ const Interests = () => {
 	const open = useSelector((state) => state.interests.open);
 	const setOpen = (value) => dispatch(openModal(value));
 	const [t0, setT0] = useState(0);
-	const { user } = useContext(AuthContext);
-
+	const user = useSelector((state) => state.user.currentUser);
 	const [interstList, setInterestList] = useState(list || []);
 
 	const handleCheck = (event, data) => {

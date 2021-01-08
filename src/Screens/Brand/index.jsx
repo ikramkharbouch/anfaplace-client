@@ -7,7 +7,7 @@ import CouponCard from 'src/Components/CouponCard';
 import brandSrc from 'src/assets/images/brands/GO_Sport_logo.svg';
 import './Brand.less';
 import { useSelector, useDispatch } from 'react-redux';
-import { openSocialAuth } from 'src/store/app';
+import { openPhoneAuth } from 'src/store/app';
 
 const initialState = [
 	{
@@ -31,7 +31,7 @@ const OfferDetails = () => {
 
 	const handleAddToFav = () => {
 		if (!user) {
-			dispatch(openSocialAuth(true));
+			dispatch(openPhoneAuth(true));
 		}
 	};
 	const panes = [

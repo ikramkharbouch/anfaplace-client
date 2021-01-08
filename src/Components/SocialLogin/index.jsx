@@ -5,7 +5,7 @@ import { Button, Dimmer, Loader } from 'semantic-ui-react';
 import { ReactComponent as GoogleIcon } from 'src/assets/icons/google.svg';
 import { ReactComponent as FacebookIcon } from 'src/assets/icons/facebook.svg';
 import { ReactComponent as UserIcon } from 'src/assets/icons/user.svg';
-import { openSocialAuth } from 'src/store/app';
+import { openPhoneAuth } from 'src/store/app';
 import userActions from 'src/store/user/actions';
 
 import Modal from '../Modal';
@@ -28,7 +28,7 @@ const SocialLogin = () => {
 		<Modal
 			open={open}
 			setOpen={(value) => {
-				dispatch(openSocialAuth(value));
+				dispatch(openPhoneAuth(value));
 			}}
 		>
 			<Dimmer>
@@ -61,7 +61,7 @@ const SocialLogin = () => {
 			)}
 			{/* )} */}
 			{!interestsIgnoredOnce && (
-				<Button onClick={() => dispatch(openSocialAuth(false))} className="next-time">
+				<Button onClick={() => dispatch(openPhoneAuth(false))} className="next-time">
 					Plus tard
 				</Button>
 			)}

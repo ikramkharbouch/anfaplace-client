@@ -8,8 +8,9 @@ import ClampLines from 'react-clamp-lines';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { arrayBufferToBase64 } from 'src/utils/utilsFunctions';
+import 'dayjs/locale/fr';
 
-require('dayjs/locale/fr');
+dayjs.locale('fr');
 
 dayjs.extend(customParseFormat);
 
