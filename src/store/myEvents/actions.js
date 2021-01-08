@@ -1,0 +1,6 @@
+const actions = {
+	ADD_EVENT_TO_FAV: 'ADD_EVENT_TO_FAV',
+	ADD_EVENT_TO_FAV_SUCCESS: 'ADD_EVENT_TO_FAV_SUCCESS',
+	ADD_EVENT_TO_FAV_FAIL: 'ADD_EVENT_TO_FAV_FAIL',
+};
+export default actions;

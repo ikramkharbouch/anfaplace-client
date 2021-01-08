@@ -258,20 +258,20 @@ PinVerification.propTypes = {
 
 const phoneAuthOpenModalSelector = createSelector(
 	(state) => state.app.phoneAuth.open,
-	(state) => state.interests.open,
+	(state) => state.interests.open && !state.interests.interestsConfirmed,
 	(state) => state.user.currentUser,
 	(openPhoneAuthModal, openInterests, user) => {
 		if (openInterests) {
 			return false;
 		}
 		if (!user && openPhoneAuthModal) {
-			return true;
+			return openPhoneAuthModal;
 		}
 		return false;
 	}
 );
 
-const PhoneAuthModal = ({ validatedEvent }) => {
+const PhoneAuthModal = () => {
 	const [verifyPin, setVerifyPin] = useState(false);
 	const [verifyLoading, setVerifyLoading] = useState();
 	const [recaptchaVerifier, setRecaptchaVerifier] = useState();
@@ -309,8 +309,8 @@ const PhoneAuthModal = ({ validatedEvent }) => {
 		confirmation
 			.confirm(verificationCode)
 			.then((result) => {
-				validatedEvent();
 				setLoadingPinConf(false);
+				console.log('user', result);
 				if (result.additionalUserInfo.isNewUser) {
 					dispatch(setNotification({ show: true, type: 'wonPoints' }));
 				}
@@ -318,6 +318,10 @@ const PhoneAuthModal = ({ validatedEvent }) => {
 			.catch((error) => {
 				setLoadingPinConf(false);
 				console.log(error);
+				dispatch(
+					setNotification({ show: true, type: 'error', message: 'Le code de confirmation est invalide' })
+				);
+
 				// User couldn't sign in (bad verification code?)
 				// ...
 				// handle errors
@@ -330,9 +334,6 @@ const PhoneAuthModal = ({ validatedEvent }) => {
 			{verifyPin && <PinVerification loading={loadingPinConf} verifyPin={verifyPinHandeler} />}
 		</Modal>
 	);
-};
-PhoneAuthModal.propTypes = {
-	validatedEvent: PropTypes.func.isRequired,
 };
 
 export default PhoneAuthModal;
