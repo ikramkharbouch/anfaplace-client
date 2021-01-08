@@ -13,18 +13,24 @@ const brandsSelector = createSelector(
 		brands.filter((brand) =>
 			filter
 				? brand.data.nom
-						.toLowerCase()
-						.split(' ')
-						.join('')
-						.includes(filter.split(' ').join('').toLowerCase())
+					.toLowerCase()
+					.split(' ')
+					.join('')
+					.includes(filter.split(' ').join('').toLowerCase())
 				: true
 		)
 );
 
 const Tour = () => {
 	const [filterValue, setFilterValue] = useState();
+	const [promo, setPromo] = useState(false)
 
 	const brands = useSelector((state) => brandsSelector(state, filterValue));
+
+	const handleClick = (e, data) => {
+		setPromo(data.checked);
+	}
+
 	return (
 		<div className="tour">
 			<div className="search-bar">
@@ -39,10 +45,10 @@ const Tour = () => {
 				/>
 			</div>
 
-			<Checkbox className="in-promotion" label="En Promo" />
+			<Checkbox className="in-promotion" label="En Promo" onClick={handleClick} />
 			<div style={{ clear: 'both' }} />
 
-			<BrandsGrid brands={brands} />
+			<BrandsGrid brands={brands} promo={promo} />
 		</div>
 	);
 };
