@@ -1,0 +1,5 @@
+const actions = {
+	FETCH_ALL_ARTICLES: 'FETCH_ALL_ARTICLES',
+	FETCH_ALL_BRANDS_FAILED: 'FETCH_ALL_ARTICLES_FAILED',
+};
+export default actions;
