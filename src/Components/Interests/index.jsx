@@ -1,22 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Input, Checkbox } from 'semantic-ui-react';
+import { createSelector } from 'reselect';
+import { Button, Input, Checkbox, Dimmer, Loader } from 'semantic-ui-react';
 import { KafkaTimeSpentOnSelectingInterest } from 'src/utils/kafka/KafkaEvents';
 import ScrollArea from 'react-scrollbar';
-import { setInterestsIgnoredOnce, openModal } from 'src/store/interests';
+import {
+	setInterestsIgnoredOnce,
+	openModal,
+	setInterestsConfirmed,
+	checkInterest,
+} from 'src/store/interests';
 import Modal from '../Modal';
 import './Intersts.less';
 
+const interestsSelector = createSelector(
+	(state) => state.interests.list,
+	(_, filter) => filter,
+	(interests, filter) =>
+		interests.filter((interest) =>
+			interest.data.nomInteret
+				.normalize('NFD')
+				.replace(/[\u0300-\u036f]/g, '')
+				.trim()
+				.toLowerCase()
+				.includes(
+					filter
+						.trim()
+						.normalize('NFD')
+						.replace(/[\u0300-\u036f]/g, '')
+						.toLowerCase()
+				)
+		)
+);
+
 const Interests = () => {
-	const { interestsIgnoredOnce, list } = useSelector((state) => state.interests);
+	const { interestsIgnoredOnce, loading } = useSelector((state) => state.interests);
 	const dispatch = useDispatch();
-	const open = useSelector((state) => state.interests.open);
+	const [filter, setFilter] = useState('');
+	const list = useSelector((state) => interestsSelector(state, filter));
+	const open = useSelector((state) => state.interests.open && !state.interests.interestsConfirmed);
 	const setOpen = (value) => dispatch(openModal(value));
 	const [t0, setT0] = useState(0);
 	const user = useSelector((state) => state.user.currentUser);
-	const [interstList, setInterestList] = useState(list || []);
 
 	const handleCheck = (event, data) => {
+		console.log(data);
 		if (data.checked) {
 			const timeSpentOnSelectingInterest = new KafkaTimeSpentOnSelectingInterest(
 				'123456',
@@ -25,6 +53,7 @@ const Interests = () => {
 			);
 			timeSpentOnSelectingInterest.emitEvent();
 		}
+		dispatch(checkInterest(data));
 
 		setT0(performance.now());
 	};
@@ -34,28 +63,9 @@ const Interests = () => {
 		marginTop: 16,
 	};
 
-	const handleSearch = (e) => {
-		const array = list.filter((x) =>
-			x.label
-				.normalize('NFD')
-				.replace(/[\u0300-\u036f]/g, '')
-				.trim()
-				.toLowerCase()
-				.includes(
-					e.target.value
-						.trim()
-						.normalize('NFD')
-						.replace(/[\u0300-\u036f]/g, '')
-						.toLowerCase()
-				)
-		);
-		setInterestList(array);
-	};
-
 	useEffect(() => {
 		// giving a better feel when opening the modal
 		setTimeout(() => {
-			setOpen(!user || !interestsIgnoredOnce);
 			setT0(performance.now());
 		}, 200);
 	}, [user, interestsIgnoredOnce]);
@@ -67,11 +77,19 @@ const Interests = () => {
 				setOpen(isOpen);
 			}}
 		>
-			{console.log(interstList)}
+			<Dimmer active={loading}>
+				<Loader />
+			</Dimmer>
 			<p>Pour une meilleure expérience client, créer votre liste d’intérêt.</p>
 			<h4>Vous pouvez configurer votre liste plus tard.</h4>
 
-			<Input className="filter" placeholder="Filter" icon="search" onChange={handleSearch} />
+			<Input
+				className="filter"
+				placeholder="Filter"
+				icon="search"
+				value={filter}
+				onChange={({ target: { value } }) => setFilter(value)}
+			/>
 
 			<ScrollArea
 				speed={0.8}
@@ -91,16 +109,16 @@ const Interests = () => {
 				}}
 				horizontal={false}
 			>
-				{interstList.map((interest) => (
+				{list.map((interest) => (
 					<Checkbox
-						key={interest.label}
-						id={interest.id}
-						label={interest.label}
-						handleCheck={handleCheck}
+						key={interest.index}
+						id={interest.index}
+						label={interest.data.nomInteret}
+						onChange={handleCheck}
 					/>
 				))}
 
-				{interstList.length < 1 && <p> pas de résultat trouvé ! </p>}
+				{list.length < 1 && <p> pas de résultat trouvé ! </p>}
 			</ScrollArea>
 			<div className="actions">
 				<Button
@@ -116,7 +134,7 @@ const Interests = () => {
 					circular
 					onClick={() => {
 						setOpen(false);
-						localStorage.setItem('interests-confirmed', 'true');
+						dispatch(setInterestsConfirmed(true));
 					}}
 				>
 					Confirmer

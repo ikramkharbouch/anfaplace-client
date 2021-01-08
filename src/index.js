@@ -8,6 +8,7 @@ import './utils/disable-context-menu';
 import './index.css';
 import brandAction from 'src/store/brand/actions';
 import eventAction from 'src/store/event/actions';
+import interestsAction from 'src/store/interests/actions';
 
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
@@ -15,6 +16,7 @@ import reportWebVitals from './reportWebVitals';
 
 store.dispatch({ type: brandAction.FETCH_ALL_BRANDS });
 store.dispatch({ type: eventAction.FETCH_ALL_EVENTS });
+store.dispatch({ type: interestsAction.FETCH_INTERESTS });
 
 ReactDOM.render(
 	<React.StrictMode>
