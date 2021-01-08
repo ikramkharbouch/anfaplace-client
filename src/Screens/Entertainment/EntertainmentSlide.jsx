@@ -43,7 +43,9 @@ const EntertainmentSlide = ({ count, event, image }) => {
 							tags: event.tag,
 							image: arrayBufferToBase64(image),
 							contenuBoody: event.contenu_body,
-							titre: event.titre
+							titre: event.titre,
+							slider_elements: event.slider_elements
+
 						}
 					})}>
 						En savoir plus <ArrowIcon />
@@ -62,6 +64,14 @@ EntertainmentSlide.propTypes = {
 		debut_time: PropTypes.string.isRequired,
 		fin_time: PropTypes.string.isRequired,
 		titre: PropTypes.string.isRequired,
+		slider_elements: PropTypes.arrayOf({
+			titre: PropTypes.string,
+			show: PropTypes.bool,
+			id_element: PropTypes.string,
+			content: PropTypes.arrayOf({
+				data: PropTypes.number,
+			})
+		})
 	}),
 	image: PropTypes.arrayOf(PropTypes.number).isRequired,
 };

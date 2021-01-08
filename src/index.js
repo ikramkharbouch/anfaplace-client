@@ -9,6 +9,7 @@ import './index.css';
 import brandAction from 'src/store/brand/actions';
 import eventAction from 'src/store/event/actions';
 import interestsAction from 'src/store/interests/actions';
+import acticlesAction from 'src/store/articles/actions';
 
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
@@ -16,6 +17,7 @@ import reportWebVitals from './reportWebVitals';
 
 store.dispatch({ type: brandAction.FETCH_ALL_BRANDS });
 store.dispatch({ type: eventAction.FETCH_ALL_EVENTS });
+store.dispatch({ type: acticlesAction.FETCH_ALL_ARTICLES });
 store.dispatch({ type: interestsAction.FETCH_INTERESTS });
 
 ReactDOM.render(

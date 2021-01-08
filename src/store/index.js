@@ -9,10 +9,12 @@ import user from './user';
 import interests from './interests';
 import brand from './brand';
 import event from './event';
+import articles from './articles';
 
 const devMode = process.env.NODE_ENV === 'development';
 
-const reducer = combineReducers({ app, user, brand, interests, event });
+
+const reducer = combineReducers({ app, user, brand, interests, event , articles });
 
 const sagaMiddleware = createSagaMiddleware();
 

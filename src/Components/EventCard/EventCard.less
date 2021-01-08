@@ -18,26 +18,59 @@
 		width: 100%;
 		position: absolute;
 		z-index: 1;
+		object-fit: cover;
 	}
 	.details {
-		position: absolute;
 		height: 100%;
 		width: calc(~'100% - ' 32px);
 		padding: 0 21px 0 11px;
+		display: flex;
+		flex-direction: column;
+		position: absolute;
 		top: 0;
 		left: 0;
-		z-index: 3;
+		z-index: 10;
+		justify-content: space-around;
+
+		.point{
+			background-color: @backgroundColor;
+			color: @white;
+			max-width: 50px;
+			margin-left: auto;
+		}
+
+		.clamp-lines.title{
+			min-height: 60px ;
+		}
+		
 		.tags {
-			margin-top: 100px;
-			margin-bottom: 6px;
+			margin-bottom: 3%;
+
+			.ui.label{
+				margin-top: 8px;
+			}
 		}
 		.description {
-			margin-bottom: 2px;
+			margin-bottom: 4%;
+			text-transform: uppercase;
 		}
 		.date{
-			position: absolute;
-			bottom: 20px;
 			font-weight: 900;
+			margin-bottom: 5%;
 		}
 	}
+}
+
+
+.d-flex {
+	display: flex;
+}
+
+.flex-column {
+	flex-direction: column;
+}
+
+
+.justify-content-between{
+	justify-content: space-between;
 }
