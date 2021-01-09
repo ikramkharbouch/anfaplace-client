@@ -106,7 +106,7 @@ const OfferDetails = () => {
 			<div className="brand-slider-container">
 				<Slider pagination={false} id="brand-details">
 					{marque &&
-						marque.data.slider_elements
+						marque?.data?.slider_elements
 							.filter((slider) => slider.show)
 							.map((slider) => (
 								<div id={slider.id_element} key={slider.id_element} strength={60} className="slide-brand">
