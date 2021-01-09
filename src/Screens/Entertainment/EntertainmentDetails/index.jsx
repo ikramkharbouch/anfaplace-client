@@ -122,7 +122,7 @@ const EntertainmentDetails = () => {
                     id="offers"
                 >
                     {
-                        slider_elements.map(x => <img src={arrayBufferToBase64(x.content.data)} alt="" />)
+                        slider_elements.map(x => <img src={arrayBufferToBase64(x.content.data)} alt="" style={{ height: '60vh', objectFit: 'cover', width: '100%' }} />)
                     }
 
                 </Slider>

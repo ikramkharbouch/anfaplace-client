@@ -16,7 +16,7 @@ dayjs.extend(customParseFormat);
 
 const EventCard = ({ event }) => {
 	const history = useHistory();
-	console.log(event)
+	console.log('event', event)
 	const { tag } = event.data;
 	const Tags = typeof tag === 'string' ? JSON.parse(tag) : tag;
 
@@ -30,7 +30,8 @@ const EventCard = ({ event }) => {
 				tags: event.data.tag,
 				image: arrayBufferToBase64(event.data.slider_elements[0]?.content.data),
 				contenuBoody: event.data.contenu_body,
-				titre: event.data.titre
+				titre: event.data.titre,
+				slider_elements: event.data.slider_elements
 			}
 		})
 	}
@@ -90,6 +91,7 @@ EventCard.propTypes = {
 			image: PropTypes.string,
 		}),
 	}),
+
 };
 EventCard.defaultProps = {
 	event: {

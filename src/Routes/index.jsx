@@ -17,7 +17,8 @@ import './Routes.less';
 import ScrollToTop from 'src/utils/ScrollToTop';
 
 const Survey = lazy(() => import('../Screens/Survey'));
-const OfferDetails = lazy(() => import('../Screens/OfferDetails'));
+// const OfferDetails = lazy(() => import('../Screens/OfferDetails'));
+const Article = lazy(() => import('../Screens/Articles/index'));
 const Shops = lazy(() => import('src/Screens/Brands'));
 const CouponList = lazy(() => import('src/Screens/CouponList'));
 const CouponListItem = lazy(() => import('src/Screens/CouponListItem'));
@@ -65,7 +66,7 @@ const Routes = () => {
 						<Route path="/tour" component={Tour} />
 						<Route path="/all-brands" component={Tour} />
 						<Route exact path="/brand/:id" component={Brand} />
-						<Route exact path="/survey">
+						<Route exact path="/survey/:id">
 							<Suspense
 								fallback={
 									<Dimmer active>
@@ -76,7 +77,7 @@ const Routes = () => {
 								<Survey />
 							</Suspense>
 						</Route>
-						<Route exact path="/offer">
+						<Route exact path="/article/:id">
 							<Suspense
 								fallback={
 									<Dimmer active>
@@ -84,7 +85,7 @@ const Routes = () => {
 									</Dimmer>
 								}
 							>
-								<OfferDetails />
+								<Article />
 							</Suspense>
 						</Route>
 						<Route exact path="/brands">

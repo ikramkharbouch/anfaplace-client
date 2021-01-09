@@ -1,34 +1,48 @@
 import React, { useState, useEffect } from 'react';
+import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { Parallax } from 'react-parallax';
-import { Link } from 'react-router-dom';
-import { Label, Icon, Button, Header } from 'semantic-ui-react';
+import { useHistory } from 'react-router-dom';
+import { Label, Icon, Button, Header, Divider } from 'semantic-ui-react';
+import { arrayBufferToBase64 } from 'src/utils/utilsFunctions';
+import Slider from 'src/Components/Slider';
 import BackButton from 'src/Components/BackButton/BackButton';
 import SocialSharing from 'src/Components/SocialSharing';
-
 import './OfferDetails.less';
-
 import Modal from 'src/Components/Modal';
-import { openPhoneAuth } from 'src/store/app';
-import img from './1.jpg';
+import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
+// import img from './1.jpg';
+// import defaultImage from './1.jpg';
 
-const OfferDetails = () => {
+
+const Articles = () => {
+	const history = useHistory();
+
+	// eslint-disable-next-line prettier/prettier
+	// eslint-disable-next-line camelcase
+	const { contenuBoody, debutTime, finTime, image, tags, titre, slider_elements } = history.location.state;
+
+	console.log({ contenuBoody, debutTime, finTime, image, tags, titre }, history.location.state);
+
+
 	const [openConfirm, setOpenConfirm] = useState(false);
 	const [confirmationProgress, setConfirmationInProgress] = useState(false);
 	const [successParticipate, setSuccessParticipate] = useState();
 	const [shareModalIsOpen, openShareModal] = useState(false);
 	const user = useSelector((state) => state.user.currentUser);
 	const dispatch = useDispatch();
-	const isEligibleToActivate = !!user;
+	const isEligibleToActivate = !!user && !user.isAnonymous;
 	// const handleParticipateConfirm = () => {};
 	const handleConfirmParticipation = () => {
 		setSuccessParticipate(true);
 	};
+
 	useEffect(() => {
 		if (user && confirmationProgress) {
 			setOpenConfirm(true);
 		}
 	}, [user]);
+
 	return (
 		<div className="offer-details">
 			<Button
@@ -54,8 +68,10 @@ const OfferDetails = () => {
 									onClick={() => {
 										setConfirmationInProgress(true);
 										setOpenConfirm(false);
-										if (!user) {
-											dispatch(openPhoneAuth(true));
+										if (user) {
+											dispatch(openNumberVerificationModal(true));
+										} else {
+											dispatch(openPhoneAuth({ open: true, withEmail: true }));
 										}
 									}}
 								>
@@ -64,45 +80,58 @@ const OfferDetails = () => {
 							</div>
 						</>
 					) : (
+							<>
+								<Header as="h1">Confirmer votre participation à cet évènement et gagner</Header>
+								<div className="points"> +500p</div>
+
+								<div className="action">
+									{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
+									<span className="cancel" onClick={() => setOpenConfirm(false)}>
+										Annuler
+								</span>
+									<Button onClick={handleConfirmParticipation} circular>
+										Confirmer
+								</Button>
+								</div>
+							</>
+						)
+				) : (
 						<>
-							<Header as="h1">Confirmer votre participation à cet évènement et gagner</Header>
+							<Header as="h1">Merci pour votre participation Vous avez gagné</Header>
 							<div className="points"> +500p</div>
 
 							<div className="action">
 								{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-								<span className="cancel" onClick={() => setOpenConfirm(false)}>
-									Annuler
-								</span>
-								<Button onClick={handleConfirmParticipation} circular>
-									Confirmer
-								</Button>
+								<Header as="h1">à très bientôt </Header>
 							</div>
 						</>
-					)
-				) : (
-					<>
-						<Header as="h1">Merci pour votre participation Vous avez gagné</Header>
-						<div className="points"> +500p</div>
-
-						<div className="action">
-							{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-							<Header as="h1">à très bientôt </Header>
-						</div>
-					</>
-				)}
+					)}
 			</Modal>
 			<SocialSharing open={shareModalIsOpen} setOpen={openShareModal} />
-			<Parallax bgImage={img} strength={200}>
+			<Parallax strength={200}>
+
+				<Slider
+					className="slider"
+					timeOnSliderEvent={(value) => console.log(value)}
+					timeToReachEndOfSlider={(value) => console.log(value)}
+					id="offers"
+				>
+					{
+						slider_elements.map(x => <img src={arrayBufferToBase64(x.content.data)} alt="" style={{ height: '60vh', objectFit: 'cover', width: '100%' }} />)
+					}
+
+				</Slider>
+
 				<div className="offer-details-header">
-					<BackButton text="LA NOUVELLE PLATEFORME ANFA PLACE IPSUM LOREM" />
-					<p>08 DÉC - 12 DÉC</p>
+					<BackButton text={titre} />
+					<Divider hidden />
+					<Divider hidden />
+					<p>
+						{dayjs(debutTime, 'DD/MM/YYYY').format('D MMM')} -{' '}
+						{dayjs(finTime, 'DD/MM/YYYY').format('D MMM')}
+					</p>
 					<div className="offer-details-tags">
-						<Link to="/">
-							<Label color="white">Tag</Label>
-						</Link>
-						<Link to="/">
-							<Label>Tag</Label>
-						</Link>
+						hello
 					</div>
 					<div className="share-button">
 						<Label onClick={() => openShareModal(true)} icon color="blue">
@@ -113,26 +142,9 @@ const OfferDetails = () => {
 				</div>
 				<div className="parallax-content" />
 			</Parallax>
-			<p className="description">
-				ICI TEXTE DETAIL DE L’OFFRE IPSUM LOREM DOLOR S’IL YA DES DETAILS MERHBA IPSUMO LOREM DOLOR
-				DETAIL
-				<br />
-				<br />
-				ICI TEXTE DETAIL DE L’OFFRE IPSUM LOREM DOLOR S’IL YA DES DETAILS MERHBA IPSUMO LOREM DOLOR
-				DETAIL
-				<br />
-				<br />
-				ICI TEXTE DETAIL DE L’OFFRE IPSUM LOREM DOLOR S’IL YA DES DETAILS MERHBA IPSUMO LOREM DOLOR
-				DETAILICI TEXTE DETAIL DE L’OFFRE IPSUM LOREM DOLOR S’IL YA DES DETAILS MERHBA IPSUMO LOREM
-				DOLOR DETAIL
-				<br />
-				<br />
-				ICI TEXTE DETAIL DE L’OFFRE IPSUM LOREM DOLOR S’IL YA DES DETAILS MERHBA IPSUMO LOREM DOLOR
-				DETAILICI TEXTE DETAIL DE L’OFFRE IPSUM LOREM DOLOR S’IL YA DES DETAILS MERHBA IPSUMO LOREM
-				DOLOR DETAIL
-			</p>
+			<div className="description" dangerouslySetInnerHTML={{ __html: contenuBoody }} />
 		</div>
 	);
 };
 
-export default OfferDetails;
+export default Articles;

@@ -6,11 +6,11 @@ import { Button, Icon, Label } from 'semantic-ui-react';
 import questionnaire from 'src/assets/images/temp/questionaire-bg.jpg';
 import { ReactComponent as ArrowIcon } from 'src/assets/icons/arrow.svg';
 
-const QuestionnaireSlide = ({ points, brands, description }) => {
+const QuestionnaireSlide = ({ points, brands, description, image, id }) => {
 	const history = useHistory();
 	return (
 		<div className="questionnaire-slide">
-			<img src={questionnaire} alt="questionnaire" />
+			<img src={image} alt="questionnaire" />
 			<div className="details">
 				<Label className="point">
 					<Icon name="gift" size="small" />
@@ -23,7 +23,7 @@ const QuestionnaireSlide = ({ points, brands, description }) => {
 					))}
 				</div>
 				<p className="description">{description}</p>
-				<Button onClick={() => history.push('/survey')}>
+				<Button onClick={() => history.push(`/survey/${id}`)}>
 					Commencer <ArrowIcon />
 				</Button>
 			</div>
@@ -35,12 +35,15 @@ QuestionnaireSlide.propTypes = {
 	points: PropTypes.number,
 	brands: PropTypes.arrayOf(PropTypes.string),
 	description: PropTypes.string,
+	image: PropTypes.string,
+	id: PropTypes.string.isRequired,
 };
 
 QuestionnaireSlide.defaultProps = {
 	points: 100,
 	brands: ['Mcdo'],
 	description: 'Titre de QUESTIONNAIRE sur 2 lignes et coupe la ligne ici blalalalalallala',
+	image: questionnaire,
 };
 
 export default QuestionnaireSlide;

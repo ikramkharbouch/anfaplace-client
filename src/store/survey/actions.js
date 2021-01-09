@@ -1,0 +1,5 @@
+const actions = {
+	FETCH_ALL_QUESTIONS: 'FETCH_ALL_QUESTIONS',
+	FETCH_ALL_QUESTIONS_FAILED: 'FETCH_ALL_QUESTIONS_FAILED',
+};
+export default actions;

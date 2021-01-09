@@ -45,7 +45,6 @@ const EntertainmentSlide = ({ count, event, image }) => {
 							contenuBoody: event.contenu_body,
 							titre: event.titre,
 							slider_elements: event.slider_elements
-
 						}
 					})}>
 						En savoir plus <ArrowIcon />

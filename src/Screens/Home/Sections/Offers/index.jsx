@@ -40,7 +40,9 @@ const Offers = () => {
 					{offers.map(article => <OfferSlide
 						date={`${dayjs(article.debut_time, 'DD/MM/YYYY').format('D MMM')} - ${dayjs(article.fin_time, 'DD/MM/YYYY').format('D MMM')}`}
 						key={article.id} image={article.banniere}
-						description={removeTags(article.contenu_body)} />)}
+						description={removeTags(article.contenu_body)}
+						article={article}
+					/>)}
 
 				</Slider>
 			}
