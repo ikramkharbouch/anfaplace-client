@@ -3,6 +3,8 @@ import Slider from 'src/Components/Slider';
 import EntertainmentSlide from 'src/Screens/Entertainment/EntertainmentSlide';
 import { InView } from 'react-intersection-observer';
 import { useSelector } from 'react-redux';
+import logoAnfa from 'src/assets/images/logo-small.png';
+
 
 
 import './Entertainment.less';
@@ -24,7 +26,7 @@ const Entertainment = () => {
 
 
 	return (
-		<div className="entertainment-screen">
+		<div className={`entertainment-screen ${eventData.length < 1 && 'loading'}`}>
 
 			{eventData.map((evt) => (
 				<InView threshold={1} key={evt.id}>
@@ -43,6 +45,8 @@ const Entertainment = () => {
 					)}
 				</InView>
 			))}
+
+			{eventData.length < 1 && <> <img src={logoAnfa} className='rotate-img' alt="Anfa logo" /> <p> En cours de chargement... </p> </>}
 
 
 		</div>

@@ -106,8 +106,7 @@ const OfferDetails = () => {
 			<div className="brand-slider-container">
 				<Slider pagination={false} id="brand-details">
 					{marque &&
-						marque?.data?.slider_elements
-							.filter((slider) => slider.show)
+						marque?.data?.slider_elements?.filter((slider) => slider.show)
 							.map((slider) => (
 								<div id={slider.id_element} key={slider.id_element} strength={60} className="slide-brand">
 									<img
@@ -119,7 +118,7 @@ const OfferDetails = () => {
 							))}
 				</Slider>
 				<div className="brand-image">
-					<img src={arrayBufferToBase64(marque.data.logo.data)} alt="brand" />
+					<img src={arrayBufferToBase64(marque.data.logo.data) === "data:image/jpeg;base64," ? marque.data.logo : arrayBufferToBase64(marque.data.logo.data)} alt="brand" />
 				</div>
 			</div>
 

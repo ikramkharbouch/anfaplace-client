@@ -9,7 +9,7 @@ import { logInWithProvider } from 'src/store/user/saga';
 import { fetchAllEvent } from 'src/store/event/saga';
 import { fetchInterests } from 'src/store/interests/saga';
 import { fetchAllArticles } from 'src/store/articles/saga';
-import { fetchAllQuestions } from 'src/store/survey/saga';
+// import { fetchAllQuestions } from 'src/store/survey/saga';
 
 
 
@@ -20,7 +20,7 @@ function* rootSaga() {
 		takeEvery(eventActions.FETCH_ALL_EVENTS, fetchAllEvent),
 		takeEvery(articlesActions.FETCH_ALL_ARTICLES, fetchAllArticles),
 		takeEvery(interestsAction.FETCH_INTERESTS, fetchInterests),
-		takeEvery(fetchAllQuestions.FETCH_ALL_QUESTIONS, fetchAllQuestions),
+		// takeEvery(fetchAllQuestions.FETCH_ALL_QUESTIONS, fetchAllQuestions),
 	]);
 }
 

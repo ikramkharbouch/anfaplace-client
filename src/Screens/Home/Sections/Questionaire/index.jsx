@@ -16,6 +16,7 @@ const Questionnaire = React.forwardRef((props, ref) => {
 		try {
 			const response = await fetchDataFromAPI({ url: 'getListQuestionnaire' });
 			const { data } = response;
+			console.log(data)
 			if (data.success) {
 				setQuestions(data.lists.map(x => ({
 					id: x.index,
@@ -50,12 +51,12 @@ const Questionnaire = React.forwardRef((props, ref) => {
 				slidersPerView={1.42}
 			>
 				{
-					questions.map(({ id, points, description, marque, visuel: { data } }) => <QuestionnaireSlide
+					questions.map(({ id, points, description, marque, visuel }) => <QuestionnaireSlide
 						key={id}
 						points={points}
 						description={description}
 						brands={[marque]}
-						image={arrayBufferToBase64(data)}
+						image={arrayBufferToBase64(visuel.data) === 'data:image/jpeg;base64,' ? visuel : arrayBufferToBase64(visuel.data)}
 					/>)
 				}
 

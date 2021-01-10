@@ -9,7 +9,7 @@ import { arrayBufferToBase64 } from 'src/utils/utilsFunctions';
 
 import Slider from 'src/Components/Slider';
 
-import BackButton from 'src/Components/BackButton/BackButton';
+// import BackButton from 'src/Components/BackButton/BackButton';
 import SocialSharing from 'src/Components/SocialSharing';
 
 
@@ -122,15 +122,14 @@ const EntertainmentDetails = () => {
                     id="offers"
                 >
                     {
-                        slider_elements.map(x => <img src={arrayBufferToBase64(x.content.data)} alt="" style={{ height: '60vh', objectFit: 'cover', width: '100%' }} />)
+                        slider_elements.map(x => <img src={arrayBufferToBase64(x.content.data)} alt="" style={{ height: '50vh', objectFit: 'cover', width: '100%' }} />)
                     }
 
                 </Slider>
 
                 <div className="offer-details-header">
-                    <BackButton text={titre} />
                     <Divider hidden />
-                    <Divider hidden />
+                    <Header as="h3"> {titre} </Header>
                     <p>
                         {dayjs(debutTime, 'DD/MM/YYYY').format('D MMM')} -{' '}
                         {dayjs(finTime, 'DD/MM/YYYY').format('D MMM')}
