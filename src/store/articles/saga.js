@@ -6,14 +6,25 @@ import { setAllArticlesSuccess } from './index';
 // eslint-disable-next-line import/prefer-default-export
 export function* fetchAllArticles() {
 	try {
+
 		const result = yield call(() => API({ url: 'getAllArticles' }));
+
+		/* yield put(setAllArticlesSuccess(result.data.lists.map(x => ({
+			id: x.id,
+			...x.data,
+			banniere: arrayBufferToBase64(x.data.banniere.data) === 'data:image/jpeg;base64,' ? x.data.banniere : arrayBufferToBase64(x.data.banniere.data)
+		})))); */
+
+
+
+		// const result = yield call(() => API({ url: 'getAllArticles' }));
 
 		yield put(
 			setAllArticlesSuccess(
 				result.data.lists.map((x) => ({
 					id: x.id,
 					...x.data,
-					banniere: arrayBufferToBase64(x.data.banniere.data),
+					banniere: arrayBufferToBase64(x.data.banniere.data) === 'data:image/jpeg;base64,' ? x.data.banniere : arrayBufferToBase64(x.data.banniere.data)
 				}))
 			)
 		);

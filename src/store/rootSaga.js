@@ -14,6 +14,9 @@ import { logInWithProvider } from 'src/store/user/saga';
 import { fetchAllEvent } from 'src/store/event/saga';
 import { fetchInterests, setInterests } from 'src/store/interests/saga';
 import { fetchAllArticles } from 'src/store/articles/saga';
+// import { fetchAllQuestions } from 'src/store/survey/saga';
+
+
 import { setInterestsConfirmed } from 'src/store/interests';
 import { fetchQuestionnaire } from 'src/store/survey/saga';
 import { fetchMyVisitedList } from 'src/store/myVisitedList/saga';
@@ -27,6 +30,7 @@ function* rootSaga() {
 		takeEvery(eventActions.FETCH_ALL_EVENTS, fetchAllEvent),
 		takeEvery(articlesActions.FETCH_ALL_ARTICLES, fetchAllArticles),
 		takeEvery(interestsAction.FETCH_INTERESTS, fetchInterests),
+		// takeEvery(fetchAllQuestions.FETCH_ALL_QUESTIONS, fetchAllQuestions),
 		takeEvery(surveyAction.FETCH_ALL_QUESTIONNAIRES, fetchQuestionnaire),
 		takeEvery(myVisitedListActions.FETCH_MY_VISITED_LIST, fetchMyVisitedList),
 		takeEvery(brandActions.FETCH_BRAND_BY_NAME, fetchBrandByName),

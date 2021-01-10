@@ -87,6 +87,14 @@
             padding-bottom: 0;
 			margin: 0;
 		}
+		
+		h3{
+			text-align: right;
+			padding-left: 30px;
+			margin: 0 !important;
+			padding-right: 6px !important;
+			text-transform: uppercase !important;
+		}
 
 		.back-btn {
 			align-items: flex-start;
@@ -119,7 +127,7 @@
 	.parallax-content {
 		position: relative;
 		&::after {
-			.overlay-fade-effect('to top',@height: 222.44px);
+			.overlay-fade-effect('to top',@height: 250px);
 		}
 	}
 	.description {
@@ -139,6 +147,7 @@
     }
 
     .fallback-img{
-        width: 100%;
+		width: auto;
+		height: 45vh;
     }
 }
