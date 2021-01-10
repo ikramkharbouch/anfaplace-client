@@ -11,7 +11,7 @@ const useDataApi = ({ url, method = 'get', data }) => {
 	const baseURL = process.env.REACT_APP_API_URL;
 
 	useEffect(() => {
-		const fetchDataFromApi = async () => {
+		const API = async () => {
 			try {
 				setDataState({ ...dataState });
 				const response = await axios.request({
@@ -20,7 +20,6 @@ const useDataApi = ({ url, method = 'get', data }) => {
 					method,
 					data,
 				});
-				console.log('run api call', baseURL);
 				setDataState({
 					...dataState,
 					data: response.data,
@@ -31,7 +30,7 @@ const useDataApi = ({ url, method = 'get', data }) => {
 				setDataState({ ...dataState, isFetching: false, success: false, error: e });
 			}
 		};
-		fetchDataFromApi();
+		API();
 	}, []); // Runs once
 
 	return [dataState];

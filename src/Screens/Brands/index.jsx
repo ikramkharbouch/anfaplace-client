@@ -5,15 +5,11 @@ import BrandsGrid from 'src/Components/BrandsGrid';
 import './Shops.less';
 
 const Shops = () => {
-
 	const [promo, setPromo] = useState(false);
-	console.log(promo, setPromo);
-
 
 	const handleClick = (e, data) => {
-		console.log(data);
 		setPromo(data.checked);
-	}
+	};
 
 	return (
 		<div className="shops-screen-container">
@@ -30,6 +26,5 @@ const Shops = () => {
 			</div>
 		</div>
 	);
-
-}
+};
 export default Shops;

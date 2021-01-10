@@ -1,5 +1,5 @@
 import { call, put, select } from 'redux-saga/effects';
-import { fetchDataFromAPI } from 'src/utils/utilsFunctions';
+import { API } from 'src/utils/utilsFunctions';
 import firebase from '';
 
 import { addEventToFav, setMyEventsSuccess } from './index';
@@ -9,7 +9,7 @@ export function* fetchMyEvents() {
 	try {
 		const { uid } = firebase.auth().currentUser;
 		const result = yield call(() =>
-			fetchDataFromAPI({ url: 'getlistFavories', method: 'post', data: { id: uid } })
+			API({ url: 'getlistFavories', method: 'post', data: { id: uid } })
 		);
 		yield put(setMyEventsSuccess(result.data.lists));
 	} catch (e) {
@@ -25,7 +25,7 @@ export function* addToFavorite({ payload }) {
 
 	try {
 		yield call(() =>
-			fetchDataFromAPI({
+			API({
 				url: 'addToFavories',
 				method: 'post',
 				data: { idUser: uid, newFavorie: payload },

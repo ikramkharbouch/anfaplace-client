@@ -44,7 +44,6 @@ const Interests = () => {
 	const user = useSelector((state) => state.user.currentUser);
 
 	const handleCheck = (event, data) => {
-		console.log(data);
 		if (data.checked) {
 			const timeSpentOnSelectingInterest = new KafkaTimeSpentOnSelectingInterest(
 				'123456',

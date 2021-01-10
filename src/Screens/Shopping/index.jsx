@@ -9,12 +9,7 @@ const Shopping = () => {
 	const brands = useSelector((state) => state.brand.all);
 	return (
 		<div className="shopping-screen">
-			<Slider
-				className="shopping-slider"
-				timeOnSliderEvent={(value) => console.log(value)}
-				timeToReachEndOfSlider={(value) => console.log(value)}
-				id="shopping"
-			>
+			<Slider className="shopping-slider" id="shopping">
 				<ShoppingSlide />
 				<ShoppingSlide />
 				<ShoppingSlide />

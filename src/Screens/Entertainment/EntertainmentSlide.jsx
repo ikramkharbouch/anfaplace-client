@@ -18,11 +18,9 @@ const EntertainmentSlide = ({ count, event, image }) => {
 			<img src={arrayBufferToBase64(image)} alt="slide" />
 			<div className="details">
 				<div className="tags">
-					{
-						Tags.map(Tag => (
-							<Label key={Tag}> {Tag.toLowerCase()} </Label>
-						))
-					}
+					{Tags.map((Tag) => (
+						<Label key={Tag}> {Tag.toLowerCase()} </Label>
+					))}
 				</div>
 				<ClampLines
 					id={id}
@@ -34,18 +32,23 @@ const EntertainmentSlide = ({ count, event, image }) => {
 					buttons={false}
 				/>
 				<div className="actions">
-					<Button inverted onClick={() => history.push({
-						pathname: `/events/${id}`,
-						state: {
-							debutTime: event.debut_time,
-							finTime: event.fin_time,
-							tags: event.tag,
-							image: arrayBufferToBase64(image),
-							contenuBoody: event.contenu_body,
-							titre: event.titre,
-							slider_elements: event.slider_elements
+					<Button
+						inverted
+						onClick={() =>
+							history.push({
+								pathname: `/events/${id}`,
+								state: {
+									debutTime: event.debut_time,
+									finTime: event.fin_time,
+									tags: event.tag,
+									image: arrayBufferToBase64(image),
+									contenuBoody: event.contenu_body,
+									titre: event.titre,
+									slider_elements: event.slider_elements,
+								},
+							})
 						}
-					})}>
+					>
 						En savoir plus <ArrowIcon />
 					</Button>
 				</div>
@@ -68,12 +71,11 @@ EntertainmentSlide.propTypes = {
 			id_element: PropTypes.string,
 			content: PropTypes.arrayOf({
 				data: PropTypes.number,
-			})
-		})
+			}),
+		}),
 	}),
 	image: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
-
 
 EntertainmentSlide.defaultProps = {
 	count: 0,

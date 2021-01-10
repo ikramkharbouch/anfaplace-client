@@ -13,7 +13,6 @@ const TrendyEvents = ({ sliderLoaded }) => {
 	const history = useHistory();
 	const events = useSelector((state) => state.event.list);
 
-	console.log(events)
 	return (
 		<div className="trendy-events">
 			<Header as="h3">ÉVÉNEMENTS TENDANCE</Header>

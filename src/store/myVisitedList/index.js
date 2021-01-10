@@ -3,13 +3,20 @@ import { createSlice } from '@reduxjs/toolkit';
 const brandSlice = createSlice({
 	name: 'myVisitedList',
 	initialState: {
-		all: [],
+		list: [],
+		loadingAdd: false,
+		loadingList: true,
 	},
 	reducers: {
-		setMyVisitedListSuccess: (state, action) => ({ all: action.payload }),
+		setMyVisitedListSuccess: (state, action) => ({
+			...state,
+			list: action.payload,
+			loadingList: false,
+		}),
 		addToMyListOfVisits: (state, action) => ({ ...state, all: [...state.all, action.payload] }),
 	},
 });
-export const { setAllBrandsSuccess } = brandSlice.actions;
+
+export const { setMyVisitedListSuccess, addToMyListOfVisits } = brandSlice.actions;
 
 export default brandSlice.reducer;

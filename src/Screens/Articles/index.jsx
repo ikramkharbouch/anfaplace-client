@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { Label, Icon, Button, Header, Divider } from 'semantic-ui-react';
 import { arrayBufferToBase64 } from 'src/utils/utilsFunctions';
 import Slider from 'src/Components/Slider';
-// import BackButton from 'src/Components/BackButton/BackButton';
+import BackButton from 'src/Components/BackButton/BackButton';
 import SocialSharing from 'src/Components/SocialSharing';
 import './Articles.less';
 import Modal from 'src/Components/Modal';
@@ -22,8 +22,8 @@ const Articles = () => {
     // eslint-disable-next-line camelcase
     const { contenuBoody, debutTime, finTime, image, tags, titre, slider_elements } = history.location.state;
 
-
-
+    console.log({ contenuBoody, debutTime, finTime, image, tags, titre }, history.location.state);
+    console.log('acrticles')
 
     const Tags = typeof tags === 'string' ? JSON.parse(tags) : tags;
 
@@ -129,10 +129,13 @@ const Articles = () => {
                 </Slider>
 
                 <div className="offer-details-header">
-
+                    <BackButton text={titre} />
                     <Divider hidden />
-                    <Header as='h3'>{titre}</Header>
-                    <p> {dayjs(debutTime, 'DD/MM/YYYY').format('D MMM')} -{' '} {dayjs(finTime, 'DD/MM/YYYY').format('D MMM')}</p>
+                    <Divider hidden />
+                    <p>
+                        {dayjs(debutTime, 'DD/MM/YYYY').format('D MMM')} -{' '}
+                        {dayjs(finTime, 'DD/MM/YYYY').format('D MMM')}
+                    </p>
                     <div className="offer-details-tags">
                         {Tags && Tags.map((tag) => (
                             <Link to="/">

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const brandSlice = createSlice({
 	name: 'user',
-	initialState: { currentUser: undefined, loadingUser: true, loginIn: false },
+	initialState: { currentUser: undefined, point: 0, loadingUser: true, loginIn: false },
 	reducers: {
 		setUser: (state, action) => ({ ...state, currentUser: action.payload }),
 	},

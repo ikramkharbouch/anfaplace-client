@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { openPhoneAuth, setNotification } from 'src/store/app';
 import Modal from 'src/Components/Modal';
 import './VerificationModal.less';
+import { API } from 'src/utils/utilsFunctions';
 
 const CustomInputNumber = ({ id, width, autoFocus, onChange, onBackSpace, value, format }) => (
 	<Form.Field
@@ -22,7 +23,6 @@ const CustomInputNumber = ({ id, width, autoFocus, onChange, onBackSpace, value,
 		onKeyDown={(event) => {
 			const { keyCode, target } = event;
 			if (keyCode === 8 && !target.value) {
-				console.log('key down pin===>', keyCode);
 				event.preventDefault();
 				onBackSpace();
 			}
@@ -58,7 +58,7 @@ CustomInputNumber.defaultProps = {
 	value: undefined,
 };
 
-const AuthTel = ({ confirm, verifying }) => {
+const AuthTel = ({ confirm, verifying, validateBySmsEvent, validateBySmsValue }) => {
 	const [phoneNumber, setPhoneNumber] = useState({ countryCode: '212', number: undefined });
 	const formatCountryCode = [{ exactly: '+' }, { char: /\d/, repeat: 3 }];
 	const formatNumber = [{ char: /\d/, repeat: 9 }];
@@ -102,7 +102,11 @@ const AuthTel = ({ confirm, verifying }) => {
 				{/*
 				<Form.Checkbox checked label="Opt-in whatsapp +200 points" />
 */}
-				<Form.Checkbox checked label="Validation par SMS +100 points" />
+				<Form.Checkbox
+					onChange={validateBySmsEvent}
+					checked={validateBySmsValue}
+					label="Validation par SMS +100 points"
+				/>
 				<Form.Button
 					type="submit"
 					loading={verifying}
@@ -119,6 +123,8 @@ const AuthTel = ({ confirm, verifying }) => {
 AuthTel.propTypes = {
 	confirm: PropTypes.func.isRequired,
 	verifying: PropTypes.bool.isRequired,
+	validateBySmsEvent: PropTypes.func.isRequired,
+	validateBySmsValue: PropTypes.bool.isRequired,
 };
 const PinVerification = ({ loading, verifyPin }) => {
 	const [pin, setPin] = useState({
@@ -277,6 +283,7 @@ const PhoneAuthModal = () => {
 	const [recaptchaVerifier, setRecaptchaVerifier] = useState();
 	const [confirmation, setConfirmation] = useState();
 	const [loadingPinConf, setLoadingPinConf] = useState(false);
+	const [validateBySms, setValidateBySms] = useState(true);
 
 	const open = useSelector(phoneAuthOpenModalSelector);
 	const dispatch = useDispatch();
@@ -310,9 +317,23 @@ const PhoneAuthModal = () => {
 			.confirm(verificationCode)
 			.then((result) => {
 				setLoadingPinConf(false);
-				console.log('user', result);
 				if (result.additionalUserInfo.isNewUser) {
-					dispatch(setNotification({ show: true, type: 'wonPoints' }));
+					API({
+						url: 'user/register',
+						method: 'post',
+						data: {
+							uid: result.user.uid,
+							phoneNumber: result.user.phoneNumber,
+							interests: JSON.parse(localStorage.getItem('interests') || []),
+							validateBySms,
+						},
+					})
+						.then(() => {
+							dispatch(setNotification({ show: true, type: 'wonPoints' }));
+						})
+						.catch(() => {
+							dispatch(setNotification({ show: true, type: 'error', message: 'une erreur est survenue' }));
+						});
 				}
 			})
 			.catch((error) => {
@@ -330,7 +351,14 @@ const PhoneAuthModal = () => {
 
 	return (
 		<Modal className="pin" onMount={handleModalMount} open={open} setOpen={setOpen}>
-			{!verifyPin && <AuthTel verifying={verifyLoading} confirm={handleNumberConfirmation} />}
+			{!verifyPin && (
+				<AuthTel
+					validateBySmsEvent={(_, data) => setValidateBySms(data.checked)}
+					validateBySmsValue={validateBySms}
+					verifying={verifyLoading}
+					confirm={handleNumberConfirmation}
+				/>
+			)}
 			{verifyPin && <PinVerification loading={loadingPinConf} verifyPin={verifyPinHandeler} />}
 		</Modal>
 	);

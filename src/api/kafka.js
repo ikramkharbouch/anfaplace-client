@@ -2,8 +2,6 @@
 
 const deviceUID = localStorage.getItem('device-uid'); */
 
-console.log(process.env.REACT_APP_KAFKA_REST_API);
-
 // eslint-disable-next-line import/prefer-default-export
 export const sendMessage = async () => {
 	/* axios
