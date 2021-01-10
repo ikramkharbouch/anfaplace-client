@@ -1,24 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Header, Icon } from 'semantic-ui-react';
 import './QRcode.less';
 import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
 
-const PhoneValidated = () => (
-	<div className="qrcode-section">
-		<div className="qrcode-section-header" />
-		<div className="qrcode-section-title">
-			<h3> Votre QR Code est activé </h3>
-		</div>
-		<div className="qrcode-section-body">
-			<div className="qrcode-section-img">
-				<Icon className="big" name="qrcode" />
+const PhoneValidated = () => {
+	const points = useSelector((state) => state.user.currentUser.points);
+	return (
+		<div className="qrcode-section">
+			<div className="qrcode-section-header" />
+			<div className="qrcode-section-title">
+				<h3> Votre QR Code est activé </h3>
 			</div>
+			<div className="qrcode-section-body">
+				<div className="qrcode-section-img">
+					<Icon className="big" name="qrcode" />
+				</div>
 
-			<span className="qrcode-points"> 350 points </span>
+				<span className="qrcode-points"> {points} points </span>
+			</div>
 		</div>
-	</div>
-);
+	);
+};
 
 const PhoneNotValidated = () => {
 	const user = useSelector((state) => state.user.currentUser);
@@ -60,13 +63,8 @@ const PhoneNotValidated = () => {
 };
 
 const QRcode = () => {
-	const [phoneNumberValidated, setValidatePhoneNumber] = useState(false);
-
-	return phoneNumberValidated ? (
-		<PhoneValidated />
-	) : (
-		<PhoneNotValidated phoneValidatedEvent={setValidatePhoneNumber} />
-	);
+	const user = useSelector((state) => state.user.currentUser);
+	return user ? <PhoneValidated /> : <PhoneNotValidated />;
 };
 
 export default QRcode;

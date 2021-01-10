@@ -3,10 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 const brandSlice = createSlice({
 	name: 'myEvents',
 	initialState: {
-		all: [],
+		list: [],
+		loadingList: true,
 	},
 	reducers: {
-		setMyEventsSuccess: (state, action) => ({ all: action.payload }),
+		setMyEventsSuccess: (state, action) => ({ ...state, list: action.payload, loading: false }),
 		addEventToFav: (state, action) => ({ ...state, all: [...state.all, action.payload] }),
 	},
 });

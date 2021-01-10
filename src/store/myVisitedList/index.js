@@ -13,7 +13,7 @@ const brandSlice = createSlice({
 			list: action.payload,
 			loadingList: false,
 		}),
-		addToMyListOfVisits: (state, action) => ({ ...state, all: [...state.all, action.payload] }),
+		addToMyListOfVisits: (state, action) => ({ ...state, list: [...state.list, action.payload] }),
 	},
 });
 

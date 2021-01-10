@@ -5,7 +5,7 @@ const brandSlice = createSlice({
 	initialState: {
 		socialAuth: { open: false, withEmail: false },
 		numberVerificationModal: { open: false },
-		phoneAuth: { open: true },
+		phoneAuth: { open: false },
 		notification: { show: false, type: 'wonPoints' },
 	},
 

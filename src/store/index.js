@@ -11,10 +11,22 @@ import brand from './brand';
 import event from './event';
 import articles from './articles';
 import questionnaires from './survey';
+import myVisitedList from './myVisitedList';
+import myEventsList from './myEvents';
 
 const devMode = process.env.NODE_ENV === 'development';
 
-const reducer = combineReducers({ app, user, brand, interests, event, articles, questionnaires });
+const reducer = combineReducers({
+	app,
+	user,
+	brand,
+	interests,
+	event,
+	articles,
+	questionnaires,
+	myVisitedList,
+	myEventsList,
+});
 
 const sagaMiddleware = createSagaMiddleware();
 

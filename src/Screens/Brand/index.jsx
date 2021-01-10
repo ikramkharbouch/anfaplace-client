@@ -1,5 +1,8 @@
-import React from 'react';
+/* eslint-disable */
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import brandActions from 'src/store/brand/actions';
+
 import { Button, Tab, Icon, Grid, Header, Divider } from 'semantic-ui-react';
 import Slider from 'src/Components/Slider';
 import { arrayBufferToBase64 } from 'src/utils/utilsFunctions';
@@ -25,7 +28,7 @@ const initialState = [
 
 const OfferDetails = () => {
 	const { id } = useParams();
-	const marque = useSelector((state) => state.brand.all.find((item) => item.index === id));
+	const marque = useSelector((state) => state.brand.brand);
 	const user = useSelector((state) => state.user.currentUser);
 	const dispatch = useDispatch();
 
@@ -101,45 +104,53 @@ const OfferDetails = () => {
 		},
 	];
 
+	useEffect(() => {
+		console.log('=====>', id);
+
+		if (id) {
+			dispatch({ type: brandActions.FETCH_BRAND_BY_NAME, id });
+		}
+	}, [id]);
+
 	return (
 		<div className="brand-details">
-			<div className="brand-slider-container">
-				<Slider pagination={false} id="brand-details">
-					{marque &&
-						marque?.data?.slider_elements
-							.filter((slider) => slider.show)
-							.map((slider) => (
-								<div id={slider.id_element} key={slider.id_element} className="slide-brand">
-									<img
-										alt={slider.titre}
-										className="slider-image"
-										src={arrayBufferToBase64(slider.content.data)}
-									/>
-								</div>
-							))}
-				</Slider>
-				<div className="brand-image">
-					<img src={arrayBufferToBase64(marque.data.logo.data)} alt="brand" />
-				</div>
-			</div>
+			{/*<div className="brand-slider-container">*/}
+			{/*	<Slider pagination={false} id="brand-details">*/}
+			{/*		/!* {marque && *!/*/}
+			{/*		/!*	marque?.data?.slider_elements *!/*/}
+			{/*		/!*		.filter((slider) => slider.show) *!/*/}
+			{/*		/!*		.map((slider) => ( *!/*/}
+			{/*		/!*			<div id={slider.id_element} key={slider.id_element} className="slide-brand"> *!/*/}
+			{/*		/!*				<img *!/*/}
+			{/*		/!*					alt={slider.titre} *!/*/}
+			{/*		/!*					className="slider-image" *!/*/}
+			{/*		/!*					src={arrayBufferToBase64(slider.content.data)} *!/*/}
+			{/*		/!*				/> *!/*/}
+			{/*		/!*			</div> *!/*/}
+			{/*		/!*		))} *!/*/}
+			{/*	</Slider>*/}
+			{/*	<div className="brand-image">*/}
+			{/*		<img src={arrayBufferToBase64(marque.data.logo.data)} alt="brand" />*/}
+			{/*	</div>*/}
+			{/*</div>*/}
 
-			<div className="content description">
-				<Tab
-					className="toggle"
-					menu={{ secondary: true, pointing: true, size: 'large', widths: 2 }}
-					panes={panes}
-				/>
-			</div>
+			{/*<div className="content description">*/}
+			{/*	<Tab*/}
+			{/*		className="toggle"*/}
+			{/*		menu={{ secondary: true, pointing: true, size: 'large', widths: 2 }}*/}
+			{/*		panes={panes}*/}
+			{/*	/>*/}
+			{/*</div>*/}
 
-			<Divider hidden />
+			{/*<Divider hidden />*/}
 
-			<div className="content description coupons">
-				<Tab
-					className="toggle"
-					menu={{ secondary: true, pointing: true, size: 'large', widths: 2 }}
-					panes={couponsPanes}
-				/>
-			</div>
+			{/*<div className="content description coupons">*/}
+			{/*	<Tab*/}
+			{/*		className="toggle"*/}
+			{/*		menu={{ secondary: true, pointing: true, size: 'large', widths: 2 }}*/}
+			{/*		panes={couponsPanes}*/}
+			{/*	/>*/}
+			{/*</div>*/}
 		</div>
 	);
 };

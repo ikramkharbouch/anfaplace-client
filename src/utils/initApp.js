@@ -49,19 +49,26 @@ firebase.auth().onAuthStateChanged((user) => {
 		// https://firebase.google.com/docs/reference/js/firebase.User
 		// ...
 
-		API({ url: '/getUser', method: 'get', data: {} });
+		user.getIdToken(/* forceRefresh */ true).then((token) => {
+			API({ url: '/getUser', method: 'post', data: {}, token })
+				.then((result) => {
+					console.log(result);
+					store.dispatch(
+						setUser({
+							displayName: user.displayName,
+							isAnonymous: user.isAnonymous,
+							points: result.data.user.points,
+							multiFactor: { enrolledFactors: user.multiFactor.enrolledFactors },
+						})
+					);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 
-		store.dispatch(
-			setUser({
-				displayName: user.displayName,
-				isAnonymous: user.isAnonymous,
-				multiFactor: { enrolledFactors: user.multiFactor.enrolledFactors },
-			})
-		);
-		user.getIdToken(/* forceRefresh */ true).then((idToken) => {
 			// Send token to your backend via HTTPS
 			// ...
-			console.log(idToken);
+			console.log(token);
 		});
 	} else {
 		// User is signed out

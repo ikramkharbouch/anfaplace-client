@@ -1,19 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import myVisitedListActions from 'src/store/myVisitedList/actions';
 import BrandsGrid from 'src/Components/BrandsGrid';
-import swatch from 'src/assets/images/brands/swatch-logo.svg';
-import handM from 'src/assets/images/brands/h&m.svg';
+import { Dimmer, Loader } from 'semantic-ui-react';
 
-const tempBrands = [
-	{ index: '1', data: { Tags: [], logo: { type: 'url', data: swatch }, titre: 'swatch' } },
-	{ index: '2', data: { Tags: [], logo: { type: 'url', data: handM }, titre: 'h&m' } },
-	{ index: '3', data: { Tags: [], logo: { type: 'url', data: swatch }, titre: 'swatch' } },
-	{ index: '4', data: { Tags: [], logo: { type: 'url', data: handM }, titre: 'h&m' } },
-];
+const MyVisitedList = () => {
+	const dispatch = useDispatch();
+	const { list: visitedList, loadingList } = useSelector((state) => state.myVisitedList);
+	const user = useSelector((state) => state.user.currentUser);
 
-const MyVisitedList = () => (
-	<div style={{ paddingTop: 70 }}>
-		<BrandsGrid brands={tempBrands} />
-	</div>
-);
+	useEffect(() => {
+		console.log(myVisitedListActions.FETCH_MY_VISITED_LIST);
+		if (user && loadingList) {
+			dispatch({ type: myVisitedListActions.FETCH_MY_VISITED_LIST });
+		}
+	}, [user, loadingList]);
+	return (
+		<div style={{ paddingTop: 70 }}>
+			<Dimmer active={loadingList}>
+				<Loader />
+			</Dimmer>
+			{visitedList.length ? (
+				<BrandsGrid brands={visitedList} />
+			) : (
+				<p style={{ textAlign: 'center' }}> Pas de marque visiter</p>
+			)}
+		</div>
+	);
+};
 
 export default MyVisitedList;

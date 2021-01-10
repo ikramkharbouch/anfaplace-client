@@ -318,22 +318,27 @@ const PhoneAuthModal = () => {
 			.then((result) => {
 				setLoadingPinConf(false);
 				if (result.additionalUserInfo.isNewUser) {
-					API({
-						url: 'user/register',
-						method: 'post',
-						data: {
-							uid: result.user.uid,
-							phoneNumber: result.user.phoneNumber,
-							interests: JSON.parse(localStorage.getItem('interests') || []),
-							validateBySms,
-						},
-					})
-						.then(() => {
-							dispatch(setNotification({ show: true, type: 'wonPoints' }));
+					result.user.getIdToken(true).then((token) => {
+						API({
+							url: 'user/register',
+							method: 'post',
+							data: {
+								uid: result.user.uid,
+								phoneNumber: result.user.phoneNumber,
+								interests: JSON.parse(localStorage.getItem('interests') || []),
+								validateBySms,
+							},
+							token,
 						})
-						.catch(() => {
-							dispatch(setNotification({ show: true, type: 'error', message: 'une erreur est survenue' }));
-						});
+							.then(() => {
+								dispatch(setNotification({ show: true, type: 'wonPoints' }));
+							})
+							.catch(() => {
+								dispatch(
+									setNotification({ show: true, type: 'error', message: 'une erreur est survenue' })
+								);
+							});
+					});
 				}
 			})
 			.catch((error) => {
