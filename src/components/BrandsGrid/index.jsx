@@ -4,17 +4,14 @@ import Brand from '../Brand';
 import './BrandsGrid.less';
 
 const BrandsGrid = ({ brands, promo }) => {
-
 	const [brandList, setBrandList] = useState([]);
-	console.log(brands)
 
 	useEffect(() => {
 		if (!promo) {
 			setBrandList(brands);
 		} else {
-			setBrandList(brands.filter(brd => brd?.data?.enPromotion))
+			setBrandList(brands.filter((brd) => brd?.data?.enPromotion));
 		}
-
 	}, [brands, promo]);
 
 	return (
@@ -32,7 +29,7 @@ const BrandsGrid = ({ brands, promo }) => {
 			))}
 		</div>
 	);
-}
+};
 BrandsGrid.propTypes = {
 	brands: PropTypes.arrayOf(
 		PropTypes.shape({
@@ -48,7 +45,7 @@ BrandsGrid.propTypes = {
 };
 BrandsGrid.defaultProps = {
 	brands: [],
-	promo: false
+	promo: false,
 };
 
 export default BrandsGrid;

@@ -109,7 +109,7 @@ const OfferDetails = () => {
 						marque.data.slider_elements
 							.filter((slider) => slider.show)
 							.map((slider) => (
-								<div id={slider.id_element} key={slider.id_element} strength={60} className="slide-brand">
+								<div id={slider.id_element} key={slider.id_element} className="slide-brand">
 									<img
 										alt={slider.titre}
 										className="slider-image"

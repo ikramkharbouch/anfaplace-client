@@ -9,6 +9,7 @@ import Menu from 'src/Components/Menu';
 import { Header } from 'semantic-ui-react';
 import BackButton from 'src/Components/BackButton/BackButton';
 
+import { useSelector } from 'react-redux';
 import MenuIcon from '../MenuIcon';
 import './NavBar.less';
 
@@ -54,6 +55,7 @@ const NavBar = () => {
 	const [zIndex, setZindex] = useState(930);
 	const { pathname } = useLocation();
 	const history = useHistory();
+	const point = useSelector((state) => state.user.points);
 	const handleButtonClick = () => {
 		if (!(history.location.pathname === '/coupon-list')) {
 			history.push('/coupon-list');
@@ -103,12 +105,10 @@ const NavBar = () => {
 				{showMenu && (
 					<>
 						{!currentURL.includes('/coupon-list') && <Logo height={33} />}
-						<Points clicked={handleButtonClick} />
+						<Points point={point} clicked={handleButtonClick} />
 					</>
 				)}
-				{(pathname === '/' && showMenu) && <HomeNavigation />}
-
-
+				{pathname === '/' && showMenu && <HomeNavigation />}
 			</header>
 			{dontShowBackButton && (
 				<BackButton className={pathname.split('/')[1]} path={pathname.split('/')[1]} />
@@ -120,7 +120,10 @@ const NavBar = () => {
 				onAnimationStart={() =>
 					isMenuOpen
 						? (setZindex(980), setShowMenu(false))
-						: setTimeout(() => { setZindex(-1); setShowMenu(true) }, 700)
+						: setTimeout(() => {
+								setZindex(-1);
+								setShowMenu(true);
+						  }, 700)
 				}
 			/>
 

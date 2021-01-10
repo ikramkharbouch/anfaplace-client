@@ -16,10 +16,8 @@ dayjs.extend(customParseFormat);
 
 const EventCard = ({ event }) => {
 	const history = useHistory();
-	console.log('event', event)
 	const { tag } = event.data;
 	const Tags = typeof tag === 'string' ? JSON.parse(tag) : tag;
-
 
 	const handleClick = () => {
 		history.push({
@@ -31,11 +29,10 @@ const EventCard = ({ event }) => {
 				image: arrayBufferToBase64(event.data.slider_elements[0]?.content.data),
 				contenuBoody: event.data.contenu_body,
 				titre: event.data.titre,
-				slider_elements: event.data.slider_elements
-			}
-		})
-	}
-
+				slider_elements: event.data.slider_elements,
+			},
+		});
+	};
 
 	return (
 		// eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
@@ -44,11 +41,11 @@ const EventCard = ({ event }) => {
 			{event.data.slider_elements[0]?.content.data ? (
 				<img src={arrayBufferToBase64(event.data.slider_elements[0]?.content.data)} alt="event" />
 			) : (
-					<Header as="h1" icon="image">
-						No image
+				<Header as="h1" icon="image">
+					No image
 					<Icon icon="image" />
-					</Header>
-				)}
+				</Header>
+			)}
 			<div className="details">
 				<Label className="point">
 					<Icon name="gift" size="small" />
@@ -56,7 +53,7 @@ const EventCard = ({ event }) => {
 				</Label>
 				<div className="d-flex flex-column justify-content-between">
 					<div className="tags">
-						{Tags.filter((_, index) => index < 2).map(Tag => (
+						{Tags.filter((_, index) => index < 2).map((Tag) => (
 							<Label key={Tag}> {Tag.toLowerCase()} </Label>
 						))}
 					</div>
@@ -74,7 +71,6 @@ const EventCard = ({ event }) => {
 						{dayjs(event.data.fin_time, 'DD/MM/YYYY').format('D MMM')}
 					</span>
 				</div>
-
 			</div>
 		</div>
 	);
@@ -91,7 +87,6 @@ EventCard.propTypes = {
 			image: PropTypes.string,
 		}),
 	}),
-
 };
 EventCard.defaultProps = {
 	event: {

@@ -22,7 +22,6 @@ const CustomInputNumber = ({ id, width, autoFocus, onChange, onBackSpace, value,
 		onKeyDown={(event) => {
 			const { keyCode, target } = event;
 			if (keyCode === 8 && !target.value) {
-				console.log('key down pin===>', keyCode);
 				event.preventDefault();
 				onBackSpace();
 			}
@@ -264,8 +263,7 @@ const VerificationModal = ({ validatedEvent }) => {
 		const cred = firebase.auth.PhoneAuthProvider.credential(verificationId, verificationCode);
 		const multiFactorAssertion = firebase.auth.PhoneMultiFactorGenerator.assertion(cred);
 		// Complete enrollment.
-		user.multiFactor.enroll(multiFactorAssertion, 'SMS-VERIFICATION').then((result) => {
-			console.log(result);
+		user.multiFactor.enroll(multiFactorAssertion, 'SMS-VERIFICATION').then(() => {
 			validatedEvent();
 		});
 	};

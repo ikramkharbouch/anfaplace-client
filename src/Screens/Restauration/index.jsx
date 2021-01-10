@@ -15,12 +15,7 @@ const Restauration = () => {
 	const brandsRestauration = useSelector(selectBrandsRestauration);
 	return (
 		<div className="restauration-screen">
-			<Slider
-				className="restauration-slider"
-				timeOnSliderEvent={(value) => console.log(value)}
-				timeToReachEndOfSlider={(value) => console.log(value)}
-				id="offers"
-			>
+			<Slider className="restauration-slider" id="offers">
 				<RestaurationSlide />
 				<RestaurationSlide />
 				<RestaurationSlide />

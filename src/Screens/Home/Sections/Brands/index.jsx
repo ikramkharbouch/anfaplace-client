@@ -8,7 +8,6 @@ import './Brands.less';
 
 const Brands = () => {
 	const brands = useSelector((state) => state.brand.all);
-	console.log(brands);
 	const history = useHistory();
 	return (
 		<div className="brands">

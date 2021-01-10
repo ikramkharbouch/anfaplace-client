@@ -6,7 +6,6 @@ import './BottomNav.less';
 
 const BottomNav = () => {
 	const pathName = useLocation().pathname;
-	console.log(pathName);
 	return (
 		['/', '/tour', '/entertainment', '/qrcode', '/events'].includes(pathName) && (
 			<nav className="bottom-nav">

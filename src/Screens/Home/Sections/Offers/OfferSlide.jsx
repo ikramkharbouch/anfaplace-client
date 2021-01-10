@@ -10,8 +10,6 @@ import Image from 'src/Components/Image/index';
 const OfferSlide = ({ image, description, date, article }) => {
 	const history = useHistory();
 	const offerSlide = createRef();
-	console.log(history)
-	console.log('article', article)
 	useEffect(() => {
 		offerSlide.current.style.height = `${window.innerHeight}px`;
 	});
@@ -21,18 +19,23 @@ const OfferSlide = ({ image, description, date, article }) => {
 			<div className="offer-details">
 				<p className="offer-description">{description}</p>
 				<span className="offer-date">{date}</span>
-				<Button inverted onClick={() => history.push({
-					pathname: `/article/${article.id}`,
-					state: {
-						debutTime: article.debut_time,
-						finTime: article.fin_time,
-						tags: article.tags,
-						image: article.banniere,
-						contenuBoody: article.contenu_body,
-						titre: article.titre,
-						slider_elements: article.slider_elements
+				<Button
+					inverted
+					onClick={() =>
+						history.push({
+							pathname: `/article/${article.id}`,
+							state: {
+								debutTime: article.debut_time,
+								finTime: article.fin_time,
+								tags: article.tags,
+								image: article.banniere,
+								contenuBoody: article.contenu_body,
+								titre: article.titre,
+								slider_elements: article.slider_elements,
+							},
+						})
 					}
-				})} >
+				>
 					En savoir plus <ArrowIcon />
 				</Button>
 			</div>
@@ -58,7 +61,7 @@ OfferSlide.propTypes = {
 			id_element: PropTypes.string,
 			content: PropTypes.arrayOf({
 				data: PropTypes.number,
-			})
+			}),
 		}),
 		tags: PropTypes.string,
 	}),
@@ -73,7 +76,7 @@ OfferSlide.defaultProps = {
 			debut_time: '20 Oct',
 			fin_time: ' 25 Nov',
 			id: '',
-			tags: ''
+			tags: '',
 		},
 	},
 };

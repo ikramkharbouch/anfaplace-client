@@ -125,7 +125,6 @@ const Slider = ({
 			onReachEnd={handleReachEnd}
 			onTouchStart={handleTouch}
 			onTouchEnd={handleTouch}
-			onSliderMove={() => console.log('ok')}
 			// onSlideChangeTransitionStart={() =>
 			//   document.getElementsByClassName('slider-bullet current')[0].classList.remove('progress')
 			// }

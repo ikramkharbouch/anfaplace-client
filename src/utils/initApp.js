@@ -8,6 +8,7 @@ import {
 } from 'src/utils/kafka/KafkaEvents';
 import store from 'src/store';
 import { openPhoneAuth } from 'src/store/app';
+import { API } from 'src/utils/utilsFunctions';
 import { setUser } from '../store/user/index';
 
 let deviceUID = localStorage.getItem('device-uid');
@@ -47,6 +48,9 @@ firebase.auth().onAuthStateChanged((user) => {
 		// User is signed in, see docs for a list of available properties
 		// https://firebase.google.com/docs/reference/js/firebase.User
 		// ...
+
+		API({ url: '/getUser', method: 'get', data: {} });
+
 		store.dispatch(
 			setUser({
 				displayName: user.displayName,
@@ -54,6 +58,11 @@ firebase.auth().onAuthStateChanged((user) => {
 				multiFactor: { enrolledFactors: user.multiFactor.enrolledFactors },
 			})
 		);
+		user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+			// Send token to your backend via HTTPS
+			// ...
+			console.log(idToken);
+		});
 	} else {
 		// User is signed out
 		// ...

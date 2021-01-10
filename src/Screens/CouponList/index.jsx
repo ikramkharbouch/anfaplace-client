@@ -3,7 +3,7 @@ import CouponCard from 'src/Components/CouponCard';
 import brandSrc from 'src/assets/images/brands/GO_Sport_logo.svg';
 import swatchSrc from 'src/assets/images/brands/swatch-logo.svg';
 
-import('./CouponList.less').then(() => console.log('css imported'));
+import('./CouponList.less');
 
 const initialState = [
 	{

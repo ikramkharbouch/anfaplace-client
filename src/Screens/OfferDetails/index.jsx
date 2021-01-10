@@ -14,16 +14,20 @@ import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
 // import img from './1.jpg';
 // import defaultImage from './1.jpg';
 
-
 const Articles = () => {
 	const history = useHistory();
 
 	// eslint-disable-next-line prettier/prettier
 	// eslint-disable-next-line camelcase
-	const { contenuBoody, debutTime, finTime, image, tags, titre, slider_elements } = history.location.state;
-
-	console.log({ contenuBoody, debutTime, finTime, image, tags, titre }, history.location.state);
-
+	const {
+		contenuBoody,
+		debutTime,
+		finTime,
+		image,
+		tags,
+		titre,
+		slider_elements,
+	} = history.location.state;
 
 	const [openConfirm, setOpenConfirm] = useState(false);
 	const [confirmationProgress, setConfirmationInProgress] = useState(false);
@@ -80,46 +84,43 @@ const Articles = () => {
 							</div>
 						</>
 					) : (
-							<>
-								<Header as="h1">Confirmer votre participation à cet évènement et gagner</Header>
-								<div className="points"> +500p</div>
-
-								<div className="action">
-									{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-									<span className="cancel" onClick={() => setOpenConfirm(false)}>
-										Annuler
-								</span>
-									<Button onClick={handleConfirmParticipation} circular>
-										Confirmer
-								</Button>
-								</div>
-							</>
-						)
-				) : (
 						<>
-							<Header as="h1">Merci pour votre participation Vous avez gagné</Header>
+							<Header as="h1">Confirmer votre participation à cet évènement et gagner</Header>
 							<div className="points"> +500p</div>
 
 							<div className="action">
 								{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-								<Header as="h1">à très bientôt </Header>
+								<span className="cancel" onClick={() => setOpenConfirm(false)}>
+									Annuler
+								</span>
+								<Button onClick={handleConfirmParticipation} circular>
+									Confirmer
+								</Button>
 							</div>
 						</>
-					)}
+					)
+				) : (
+					<>
+						<Header as="h1">Merci pour votre participation Vous avez gagné</Header>
+						<div className="points"> +500p</div>
+
+						<div className="action">
+							{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
+							<Header as="h1">à très bientôt </Header>
+						</div>
+					</>
+				)}
 			</Modal>
 			<SocialSharing open={shareModalIsOpen} setOpen={openShareModal} />
 			<Parallax strength={200}>
-
-				<Slider
-					className="slider"
-					timeOnSliderEvent={(value) => console.log(value)}
-					timeToReachEndOfSlider={(value) => console.log(value)}
-					id="offers"
-				>
-					{
-						slider_elements.map(x => <img src={arrayBufferToBase64(x.content.data)} alt="" style={{ height: '60vh', objectFit: 'cover', width: '100%' }} />)
-					}
-
+				<Slider className="slider" id="offers">
+					{slider_elements.map((x) => (
+						<img
+							src={arrayBufferToBase64(x.content.data)}
+							alt=""
+							style={{ height: '60vh', objectFit: 'cover', width: '100%' }}
+						/>
+					))}
 				</Slider>
 
 				<div className="offer-details-header">
@@ -130,9 +131,7 @@ const Articles = () => {
 						{dayjs(debutTime, 'DD/MM/YYYY').format('D MMM')} -{' '}
 						{dayjs(finTime, 'DD/MM/YYYY').format('D MMM')}
 					</p>
-					<div className="offer-details-tags">
-						hello
-					</div>
+					<div className="offer-details-tags">hello</div>
 					<div className="share-button">
 						<Label onClick={() => openShareModal(true)} icon color="blue">
 							<Icon name="share" />
