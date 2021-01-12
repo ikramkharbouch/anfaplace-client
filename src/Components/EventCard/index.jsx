@@ -30,6 +30,7 @@ const EventCard = ({ event }) => {
 				contenuBoody: event.data.contenu_body,
 				titre: event.data.titre,
 				slider_elements: event.data.slider_elements,
+				points: event.data.points
 			},
 		});
 	};

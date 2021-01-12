@@ -16,6 +16,7 @@ import { fetchInterests, setInterests } from 'src/store/interests/saga';
 import { fetchAllArticles } from 'src/store/articles/saga';
 // import { fetchAllQuestions } from 'src/store/survey/saga';
 
+
 import { setInterestsConfirmed } from 'src/store/interests';
 import {
 	fetchQuestionnaire,
@@ -24,6 +25,11 @@ import {
 } from 'src/store/survey/saga';
 import { fetchMyVisitedList, addBrandToVisited } from 'src/store/myVisitedList/saga';
 import { fetchMyEvents } from 'src/store/myEvents/saga';
+
+import { addEventToParticipated } from './participatedEvent/saga';
+import myParticipatedEventsAction from './participatedEvent/actions';
+
+
 
 function* rootSaga() {
 	yield all([
@@ -41,6 +47,7 @@ function* rootSaga() {
 		takeEvery(myEventsActions.FETCH_MY_EVENTS, fetchMyEvents),
 		takeEvery(myVisitedListActions.ADD_BRAND_TO_VISITED, addBrandToVisited),
 		takeEvery(surveyAction.FETCH_USER_QUESTIONNAIRE, fetchUserQuestionnaire),
+		takeEvery(myParticipatedEventsAction.ADD_EVENT_TO_MY_PARTICIPATED_LIST , addEventToParticipated)
 	]);
 }
 

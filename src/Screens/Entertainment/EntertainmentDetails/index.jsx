@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
+import { addToMyParticipatedEvents } from 'src/store/participatedEvent';
+
 
 import { Parallax } from 'react-parallax';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory , useParams  } from 'react-router-dom';
 import { Label, Icon, Button, Header, Divider } from 'semantic-ui-react';
-import { arrayBufferToBase64 } from 'src/utils/utilsFunctions';
+import { arrayBufferToBase64  } from 'src/utils/utilsFunctions';
 
 import Slider from 'src/Components/Slider';
 
@@ -20,30 +22,56 @@ import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
 // import img from './1.jpg';
 // import defaultImage from './1.jpg';
 
-
-const EntertainmentDetails = () => {
+/* const TOKEN = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjVmOTcxMmEwODczMTcyMGQ2NmZkNGEyYTU5MmU0ZGZjMmI1ZGU1OTUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYXBhZGV2LWFmMmYzIiwiYXVkIjoiYXBhZGV2LWFmMmYzIiwiYXV0aF90aW1lIjoxNjEwMjc1MDM3LCJ1c2VyX2lkIjoibkJ5SWFiV25GT1NPNHpLekhtenYyNWp0MVRWMiIsInN1YiI6Im5CeUlhYlduRk9TTzR6S3pIbXp2MjVqdDFUVjIiLCJpYXQiOjE2MTAzNzQ3ODYsImV4cCI6MTYxMDM3ODM4NiwicGhvbmVfbnVtYmVyIjoiKzIxMjYxODI2NDQ5MyIsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsicGhvbmUiOlsiKzIxMjYxODI2NDQ5MyJdfSwic2lnbl9pbl9wcm92aWRlciI6InBob25lIn19.cfQs5Q0sNfES5hpv8e1WTNdL8TDDtVQajWvw4mAb-J8nE-uEkqNt6UPBAn7WsS2ZFji5OXH1thCSSEw2IVV4BUkuweDYej91nDYQr26TEt1y_cBQhM04eb_6pH31q6M879OrtBR5eqC6e8NgWQS3BHcWpZ-xqnePKJt7GYQG-vGt47uhhvPCs1EaNUdSpVZC0O_luKuXKQiBWhtH2skRATMKYJ1CMK3i62mh05r2hVqSaZgYMlb2ZOpW_W4kpy_Jp34nJLn8X1NpTOnbdLbULeYJ2BKGfeJOSwXbMSdMWPDVWjL2szHC5VhUT4LhjoRThE2m9R413smYWV4FA6k2PQ"
+ */const EntertainmentDetails = () => {
     const history = useHistory();
+
+    const { id : eventID } = useParams();
+
 
     // eslint-disable-next-line prettier/prettier
     // eslint-disable-next-line camelcase
-    const { contenuBoody, debutTime, finTime, image, tags, titre, slider_elements } = history.location.state;
+    const { contenuBoody, debutTime, finTime, tags, titre, slider_elements , points  } = history.location.state;
 
-    console.log({ contenuBoody, debutTime, finTime, image, tags, titre }, history.location.state);
 
     const Tags = typeof tags === 'string' ? JSON.parse(tags) : tags;
 
     const [openConfirm, setOpenConfirm] = useState(false);
     const [confirmationProgress, setConfirmationInProgress] = useState(false);
-    const [successParticipate, setSuccessParticipate] = useState();
+    const [successParticipate, ] = useState();
     const [shareModalIsOpen, openShareModal] = useState(false);
     const user = useSelector((state) => state.user.currentUser);
     const dispatch = useDispatch();
     const isEligibleToActivate = !!user && !user.isAnonymous;
     // const handleParticipateConfirm = () => {};
-    const handleConfirmParticipation = () => {
-        setSuccessParticipate(true);
-    };
+    const handleConfirmParticipation = async () => {
+
+      /*   axios.post(`${process.env.REACT_APP_API_URL}participeToEvent` , { idEvent: eventID , points   } , {
+            headers: {
+                'Authorization' : `Bearer ${TOKEN}`
+            }
+        }); */
+       /*  console.log(TOKEN)
+        const response = axios.post(`${process.env.REACT_APP_API_URL}participeToEvent` , { idEvent: eventID , points   } , {
+            headers: {
+                'Authorization' : `Bearer ${TOKEN}`
+            }
+        }) */
+
+        dispatch(addToMyParticipatedEvents({ idEvent: eventID , points  }))
+/*         setSuccessParticipate(tr);
+ */    };
+
+   /*  const handleParticipate = () => {
+        axios.post(`${process.env.REACT_APP_API_URL}participeToEvent` , { idEvent: eventID , points   } , {
+            headers: {
+                'Authorization' : `Bearer ${TOKEN}`
+            }
+        });
+    } */
+
     useEffect(() => {
+        console.log('user' , points)
         if (user && confirmationProgress) {
             setOpenConfirm(true);
         }
@@ -54,6 +82,7 @@ const EntertainmentDetails = () => {
                 circular
                 color="blue"
                 onClick={() => setOpenConfirm(true)}
+                // onClick = {handleParticipate}
                 className="participate"
                 icon="plus"
                 content="PARTICIPER"
@@ -87,7 +116,7 @@ const EntertainmentDetails = () => {
                     ) : (
                             <>
                                 <Header as="h1">Confirmer votre participation à cet évènement et gagner</Header>
-                                <div className="points"> +500p</div>
+                                <div className="points"> +{points}p</div>
 
                                 <div className="action">
                                     {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
@@ -103,7 +132,7 @@ const EntertainmentDetails = () => {
                 ) : (
                         <>
                             <Header as="h1">Merci pour votre participation Vous avez gagné</Header>
-                            <div className="points"> +500p</div>
+                            <div className="points"> +{points}p </div>
 
                             <div className="action">
                                 {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
