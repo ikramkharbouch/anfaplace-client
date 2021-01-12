@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Parallax } from 'react-parallax';
 import { Link, useHistory , useParams  } from 'react-router-dom';
 import { Label, Icon, Button, Header, Divider } from 'semantic-ui-react';
-import { arrayBufferToBase64  } from 'src/utils/utilsFunctions';
 
 import Slider from 'src/Components/Slider';
 
@@ -49,6 +48,7 @@ import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
 
     const user = useSelector((state) => state.user.currentUser);
     const participateToEventState = useSelector((state) => state.participateToEvent);
+    const participatedEvents = useSelector((state) => state.userEventsList.events);
     const dispatch = useDispatch();
     const isEligibleToActivate = !!user && !user.isAnonymous;
     // const handleParticipateConfirm = () => {};
@@ -106,11 +106,15 @@ import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
 
         handleParticipateRequest(participateToEventState);
 
+        console.log('participatedEvents' , participatedEvents.some( event => event.id === eventID ))
+
+        setShowParticipateBtn(participatedEvents.some( event => event.id === eventID ));
+
     }, [user, participateToEventState]);
     return (
         <div className="offer-details">
             {
-                showParticipateBtn && <Button
+                !showParticipateBtn && <Button
                 circular
                 color="blue"
                 onClick={() => setOpenConfirm(true)}
@@ -184,8 +188,9 @@ import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
                     timeToReachEndOfSlider={(value) => console.log(value)}
                     id="offers"
                 >
+                    { console.log(slider_elements) }
                     {
-                        slider_elements.map(x => <img src={arrayBufferToBase64(x.content.data)} alt="" style={{ height: '60vh', objectFit: 'cover', width: '100%' }} />)
+                        slider_elements.map(x => <img src={x.content} alt="" style={{ height: '60vh', objectFit: 'cover', width: '100%' }} />)
                     }
 
                 </Slider>

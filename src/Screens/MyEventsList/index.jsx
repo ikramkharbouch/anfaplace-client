@@ -32,7 +32,7 @@ const MyEventsList = () => {
 	) : (
 		<div id="my-events-screen">
 			{eventList.events.length ? (
-				eventList.events.map((event) => <EventCard event={{ data : { ...event } }} />)
+				eventList.events.map((event) => <EventCard key = { event.id } event={event} hasParticipated />)
 			) : (
 				<p style={{ textAlign: 'center' }}> aucun evenement </p>
 			)}

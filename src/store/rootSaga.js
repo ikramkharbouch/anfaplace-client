@@ -10,7 +10,7 @@ import myVisitedListActions from 'src/store/myVisitedList/actions';
 import myEventsActions from 'src/store/myEvents/actions';
 
 import { fetchAllBrandSaga, fetchBrandById } from 'src/store/brand/saga';
-import { logInWithProvider, watchForFirebaseAuth , updateUserPoints  } from 'src/store/user/saga';
+import { logInWithProvider, watchForFirebaseAuth , updateUserPoints   } from 'src/store/user/saga';
 import { fetchAllEvent } from 'src/store/event/saga';
 import { fetchInterests, setInterests } from 'src/store/interests/saga';
 import { fetchAllArticles } from 'src/store/articles/saga';
@@ -28,8 +28,10 @@ import { fetchMyEvents } from 'src/store/myEvents/saga';
 
 import addEventToParticiapted from './participatedEvent/saga';
 import getUserEvent from './userEvents/saga';
+import addUserInterests from './userInterests/saga';
 import { ADD_EVENT_TO_PARTICIPATED } from './participatedEvent/actions';
 import { GET_USER_EVENTS } from './userEvents/actions';
+import { ADD_USER_INTERESTS } from './userInterests/actions';
 
 
 
@@ -51,7 +53,8 @@ function* rootSaga() {
 		takeEvery(myVisitedListActions.ADD_BRAND_TO_VISITED, addBrandToVisited),
 		takeEvery(surveyAction.FETCH_USER_QUESTIONNAIRE, fetchUserQuestionnaire),
 		takeEvery(ADD_EVENT_TO_PARTICIPATED , addEventToParticiapted),
-		takeEvery(GET_USER_EVENTS , getUserEvent)
+		takeEvery(GET_USER_EVENTS , getUserEvent),
+		takeEvery(ADD_USER_INTERESTS , addUserInterests)
 	]);
 }
 

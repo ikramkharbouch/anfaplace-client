@@ -3,7 +3,7 @@ import firebaseApp from 'src/utils/initApp';
 import { openPhoneAuth, setNotification } from 'src/store/app';
 import { eventChannel } from 'redux-saga';
 import { API, getUserToken } from 'src/utils/utilsFunctions';
-import { setUser , setUserPoints } from 'src/store/user/index';
+import { setUser , setUserPoints  } from 'src/store/user/index';
 import surveyAction from 'src/store/survey/actions';
 
 const getAuthChannel = () =>
@@ -83,5 +83,8 @@ export function* logInWithProvider({ payload: authProvider }) {
 export function* updateUserPoints({ points }){
 	yield put(setUserPoints({ points }));
 }
+
+
+
 
 

@@ -7,7 +7,7 @@ import { ReactComponent as ArrowIcon } from 'src/assets/icons/arrow.svg';
 import { Button, Label } from 'semantic-ui-react';
 import ClampLines from 'react-clamp-lines';
 
-import { removeTags, arrayBufferToBase64 } from 'src/utils/utilsFunctions';
+import { removeTags } from 'src/utils/utilsFunctions';
 
 const EntertainmentSlide = ({ count, event, image }) => {
 	const history = useHistory();
@@ -15,7 +15,7 @@ const EntertainmentSlide = ({ count, event, image }) => {
 	const Tags = typeof tag === 'string' ? JSON.parse(tag) : tag;
 	return (
 		<div className={`entertainment-slide ${count === 1 ? 'first-slide' : ''}`}>
-			<img src={arrayBufferToBase64(image)} alt="slide" />
+			<img src={image} alt="slide" />
 			<div className="details">
 				<div className="tags">
 					{Tags.map((Tag) => (
@@ -41,7 +41,7 @@ const EntertainmentSlide = ({ count, event, image }) => {
 									debutTime: event.debut_time,
 									finTime: event.fin_time,
 									tags: event.tag,
-									image: arrayBufferToBase64(image),
+									 image,
 									contenuBoody: event.contenu_body,
 									titre: event.titre,
 									slider_elements: event.slider_elements,

@@ -36,10 +36,9 @@ const Entertainment = () => {
 							<Slider autoplay={inView} id="slider-entertainment-4">
 								{
 									evt.slider_elements.length > 0 && evt.slider_elements.map((x) => (
-										<EntertainmentSlide event={evt} image={x.content.data} />
+										<EntertainmentSlide event={evt} image={x.content} />
 									))
 								}
-
 							</Slider>
 						</div>
 					)}
