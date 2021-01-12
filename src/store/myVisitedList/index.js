@@ -6,6 +6,7 @@ const brandSlice = createSlice({
 		list: [],
 		loadingAdd: false,
 		loadingList: true,
+		openAddedNotif: false,
 	},
 	reducers: {
 		setMyVisitedListSuccess: (state, action) => ({
@@ -19,6 +20,7 @@ const brandSlice = createSlice({
 			list: [...state.list, action.payload],
 			loadingAdd: false,
 		}),
+		openAddedNotification: (state, action) => ({ ...state, openAddedNotif: action.payload }),
 	},
 });
 
@@ -26,6 +28,7 @@ export const {
 	setMyVisitedListSuccess,
 	addToMyListOfVisits,
 	setLoadingVisitedList,
+	openAddedNotification,
 } = brandSlice.actions;
 
 export default brandSlice.reducer;

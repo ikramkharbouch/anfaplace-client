@@ -55,7 +55,7 @@ const Routes = () => {
 				<div
 					className={`screen ${stickToTop ? 'stick-to-top' : ''}  ${
 						getPathDepth(pathname) - prevDepth >= 0 ? 'left' : 'right'
-						}`}
+					}`}
 				>
 					<ScrollToTop />
 

@@ -21,6 +21,7 @@ import {
 	fetchQuestionnaire,
 	answerQuestionnaire,
 	fetchUserQuestionnaire,
+	participateToQuestionnaire,
 } from 'src/store/survey/saga';
 import { fetchMyVisitedList, addBrandToVisited } from 'src/store/myVisitedList/saga';
 import { fetchMyEvents } from 'src/store/myEvents/saga';
@@ -29,15 +30,17 @@ function* rootSaga() {
 	yield all([
 		fork(watchForFirebaseAuth),
 		takeEvery(brandActions.FETCH_ALL_BRANDS, fetchAllBrandSaga),
+		takeEvery(brandActions.FETCH_BRAND_BY_ID, fetchBrandById),
+		takeEvery(myVisitedListActions.FETCH_MY_VISITED_LIST, fetchMyVisitedList),
+
 		takeEvery(userActions.LOG_IN_WITH_PROVIDER, logInWithProvider),
 		takeEvery(setInterestsConfirmed, setInterests),
 		takeEvery(eventActions.FETCH_ALL_EVENTS, fetchAllEvent),
 		takeEvery(articlesActions.FETCH_ALL_ARTICLES, fetchAllArticles),
 		takeEvery(interestsAction.FETCH_INTERESTS, fetchInterests),
 		takeEvery(surveyAction.FETCH_ALL_QUESTIONNAIRES, fetchQuestionnaire),
-		takeEvery(surveyAction.ANSWER_QUESTIONNAIRE, answerQuestionnaire),
-		takeEvery(myVisitedListActions.FETCH_MY_VISITED_LIST, fetchMyVisitedList),
-		takeEvery(brandActions.FETCH_BRAND_BY_ID, fetchBrandById),
+		takeEvery(surveyAction.ANSWER_QUESTION, answerQuestionnaire),
+		takeEvery(surveyAction.PARTICIPATE_TO_QUESTIONNAIRE, participateToQuestionnaire),
 		takeEvery(myEventsActions.FETCH_MY_EVENTS, fetchMyEvents),
 		takeEvery(myVisitedListActions.ADD_BRAND_TO_VISITED, addBrandToVisited),
 		takeEvery(surveyAction.FETCH_USER_QUESTIONNAIRE, fetchUserQuestionnaire),

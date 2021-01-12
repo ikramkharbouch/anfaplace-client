@@ -19,7 +19,7 @@ export function* fetchBrandById({ id }) {
 		const result = yield call(() =>
 			API({ url: 'getMarqueByID', method: 'post', data: { idMarque: id } })
 		);
-		yield put(setBrandSuccess(result.data));
+		yield put(setBrandSuccess(result.data.data));
 	} catch (e) {
 		console.log(e);
 		yield put({ type: 'FETCH_FAILED' });

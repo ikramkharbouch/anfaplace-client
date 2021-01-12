@@ -8,7 +8,11 @@ import { API } from 'src/utils/utilsFunctions';
 import { Dimmer, Loader } from 'semantic-ui-react';
 
 const Shopping = () => {
-	const brands = useSelector((state) => state.brand.all.filter((brand) => brand.data.categorie));
+	const brands = useSelector((state) =>
+		state.brand.all.filter(
+			(brand) => !['RESTAURATION', 'DIVERTISSEMENT'].includes(brand.data.categorie)
+		)
+	);
 	const [sliders, setSliders] = useState();
 	const [loading, setLoading] = useState(true);
 	useEffect(() => {

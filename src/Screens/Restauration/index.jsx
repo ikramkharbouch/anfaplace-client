@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import Slider from 'src/Components/Slider';
+import { Dimmer, Loader } from 'semantic-ui-react';
+import { API } from 'src/utils/utilsFunctions';
+
 import BrandsGrid from 'src/Components/BrandsGrid';
 import RestaurationSlide from './ReastaurationSlide';
 import './Restauration.less';
@@ -13,12 +16,30 @@ const selectBrandsRestauration = createSelector(
 
 const Restauration = () => {
 	const brandsRestauration = useSelector(selectBrandsRestauration);
-	return (
+	const [sliders, setSliders] = useState();
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		if (!sliders) {
+			API({ url: 'getSliderRestauration' })
+				.then((result) => {
+					setSliders(result.data.lists);
+					setLoading(false);
+				})
+				.catch((error) => console.error(error));
+		}
+	}, [sliders]);
+
+	return loading ? (
+		<Dimmer active>
+			<Loader />
+		</Dimmer>
+	) : (
 		<div className="restauration-screen">
-			<Slider className="restauration-slider" id="offers">
-				<RestaurationSlide />
-				<RestaurationSlide />
-				<RestaurationSlide />
+			<Slider className="shopping-slider" id="shopping">
+				{sliders.map((slider) => (
+					<RestaurationSlide image={slider.data.banniere} description={slider.data.titre} />
+				))}
 			</Slider>
 			<BrandsGrid brands={brandsRestauration} />
 		</div>

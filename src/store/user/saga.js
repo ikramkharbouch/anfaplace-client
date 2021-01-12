@@ -23,11 +23,13 @@ export function* watchForFirebaseAuth() {
 		if (user !== 'null') {
 			const token = yield getUserToken();
 			const userAPi = yield call(() => API({ url: '/getUser', method: 'post', data: {}, token }));
+			console.log('==========>', userAPi);
 			yield put(
 				setUser({
 					displayName: user.displayName,
 					isAnonymous: user.isAnonymous,
 					points: userAPi.data.user.points,
+					list_visite: userAPi.data.user.list_visite,
 					multiFactor: { enrolledFactors: user.multiFactor.enrolledFactors },
 				})
 			);

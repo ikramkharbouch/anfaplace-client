@@ -38,8 +38,8 @@ const EventCard = ({ event }) => {
 		// eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
 		<div className="event-card" onClick={handleClick}>
 			{/* eslint-disable-next-line react/prop-types */}
-			{event.data.slider_elements[0]?.content.data ? (
-				<img src={arrayBufferToBase64(event.data.slider_elements[0]?.content.data)} alt="event" />
+			{event.data.slider_elements[0]?.content ? (
+				<img src={event.data.slider_elements[0]?.content} alt="event" />
 			) : (
 				<Header as="h1" icon="image">
 					No image

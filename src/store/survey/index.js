@@ -4,12 +4,12 @@ const questionsSlice = createSlice({
 	name: 'questions',
 	initialState: {
 		list: [],
-		userQuestionnaire: null,
+		userQuestionnaire: { questionnaires: null },
 		loadingUserQuestionnaire: true,
 		questionnaireAnswers: [],
 	},
 	reducers: {
-		setAllQuestionsSuccess: (state, action) => ({ list: action.payload }),
+		setAllQuestionsSuccess: (state, action) => ({ ...state, list: action.payload }),
 		setUserQuestionnaire: (state, action) => ({
 			...state,
 			userQuestionnaire: action.payload,

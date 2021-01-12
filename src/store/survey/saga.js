@@ -26,8 +26,17 @@ export function* fetchQuestionnaire() {
 export function* fetchUserQuestionnaire({ payload }) {
 	try {
 		const token = yield getUserToken();
+		const participateResult = yield call(() =>
+			API({
+				url: 'participateToQuestionnaire',
+				method: 'post',
+				data: { idQuestionnaire: payload },
+				token,
+			})
+		);
+		console.log(participateResult);
 		const result = yield call(() =>
-			API({ url: 'getQuestionnaireByUser', method: 'post', data: { idMarque: payload }, token })
+			API({ url: 'getQuestionnaireByUser', method: 'post', data: { idQuestionnaire: payload }, token })
 		);
 
 		yield put(setUserQuestionnaire(result.data));
@@ -37,14 +46,32 @@ export function* fetchUserQuestionnaire({ payload }) {
 	}
 }
 
-export function* answerQuestionnaire(payload) {
+export function* answerQuestionnaire({ payload }) {
 	try {
 		const token = yield getUserToken();
 		const result = yield call(() =>
-			API({ url: 'answerQuestion', method: 'post', data: { payload }, token })
+			API({ url: 'answerQuestion', method: 'post', data: { ...payload }, token })
 		);
 
 		yield put(setAllQuestionsSuccess(result.data.lists));
+	} catch (e) {
+		console.log(e);
+		yield put({ type: 'FETCH_FAILED' });
+	}
+}
+
+export function* participateToQuestionnaire({ payload }) {
+	try {
+		const token = yield getUserToken();
+		const result = yield call(() =>
+			API({
+				url: 'participateToQuestionnaire',
+				method: 'post',
+				data: { idQuestionnaire: payload },
+				token,
+			})
+		);
+		console.log(result);
 	} catch (e) {
 		console.log(e);
 		yield put({ type: 'FETCH_FAILED' });

@@ -18,6 +18,7 @@ const BrandsGrid = ({ brands, promo }) => {
 		<div className="brands__grid">
 			{brandList.map((brand) => (
 				<Brand
+					key={brand.index}
 					withBadge={brand.data.Tags && !!brand.data.Tags[0]?.title}
 					badgeColor={brand.data.Tags && brand.data.Tags[0]?.color}
 					badgeText={brand.data.Tags && brand.data.Tags[0]?.title}
