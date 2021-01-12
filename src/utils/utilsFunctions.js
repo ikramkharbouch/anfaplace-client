@@ -29,3 +29,5 @@ export function* getUserToken() {
 }
 
 export const removeTags = (html) => html.replace(/<[^>]+>/g, '');
+
+

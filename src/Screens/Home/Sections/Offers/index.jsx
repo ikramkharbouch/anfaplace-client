@@ -4,8 +4,8 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
-import { removeTags } from 'src/utils/utilsFunctions';
-import './Offers.less';
+/* import { removeTags } from 'src/utils/utilsFunctions';
+ */import './Offers.less';
 import Slider from 'src/Components/Slider';
 import OfferSlide from './OfferSlide';
 
@@ -33,7 +33,7 @@ const Offers = () => {
 							).format('D MMM')}`}
 							key={article.id}
 							image={article.banniere}
-							description={removeTags(article.contenu_body)}
+							description={article.titre}
 							article={article}
 						/>
 					))}

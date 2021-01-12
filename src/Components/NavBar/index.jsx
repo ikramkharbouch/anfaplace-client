@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useLayoutEffect, useRef } from 'react';
+import React, { useState, useCallback, useLayoutEffect, useRef , useEffect } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
 import proptypes from 'prop-types';
 import { motion } from 'framer-motion';
@@ -29,19 +29,15 @@ const HomeNavigation = () => (
 	</nav>
 );
 
-const Points = ({ points, clicked }) => (
-	<button type="button" className="points" onClick={clicked}>
-		{points}p
-	</button>
-);
+const Points = ({ points, clicked }) => <button type="button" className="points" onClick={clicked}>
+			{`${points}`}p
+		</button>
 
 Points.propTypes = {
-	points: proptypes.number,
+	points: proptypes.number.isRequired,
 	clicked: proptypes.func.isRequired,
 };
-Points.defaultProps = {
-	points: 50,
-};
+
 
 const variants = {
 	start: { scale: 3000, transition: { duration: 0.8 } },
@@ -55,7 +51,8 @@ const NavBar = () => {
 	const [zIndex, setZindex] = useState(930);
 	const { pathname } = useLocation();
 	const history = useHistory();
-	const point = useSelector((state) => state.user.points);
+	const [userPoints , setUserPoints] = useState(0);
+  	const user = useSelector((state) => state.user);
 	const handleButtonClick = () => {
 		if (!(history.location.pathname === '/coupon-list')) {
 			history.push('/coupon-list');
@@ -85,6 +82,23 @@ const NavBar = () => {
 		}
 	};
 
+	useEffect(() => {
+		console.log(user?.currentUser?.points)
+		console.log(user?.points)
+
+		if(user?.points){
+			setUserPoints(user?.points);
+		}
+
+		if(!user?.points && user?.currentUser?.points){
+			setUserPoints( user?.currentUser?.points);
+		}
+
+
+		
+		
+	} ,  [user])
+
 	useLayoutEffect(() => {
 		window.addEventListener('scroll', onScroll);
 		return () => window.removeEventListener('scroll', onScroll);
@@ -105,7 +119,7 @@ const NavBar = () => {
 				{showMenu && (
 					<>
 						{!currentURL.includes('/coupon-list') && <Logo height={33} />}
-						<Points point={point} clicked={handleButtonClick} />
+						<Points points={userPoints} clicked={handleButtonClick} />
 					</>
 				)}
 				{pathname === '/' && showMenu && <HomeNavigation />}

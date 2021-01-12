@@ -13,9 +13,11 @@ import Modal from 'src/Components/Modal';
 import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
 // import img from './1.jpg';
 // import defaultImage from './1.jpg';
+const TOKEN = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjVmOTcxMmEwODczMTcyMGQ2NmZkNGEyYTU5MmU0ZGZjMmI1ZGU1OTUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYXBhZGV2LWFmMmYzIiwiYXVkIjoiYXBhZGV2LWFmMmYzIiwiYXV0aF90aW1lIjoxNjEwMjc1MDM3LCJ1c2VyX2lkIjoibkJ5SWFiV25GT1NPNHpLekhtenYyNWp0MVRWMiIsInN1YiI6Im5CeUlhYlduRk9TTzR6S3pIbXp2MjVqdDFUVjIiLCJpYXQiOjE2MTAzNjQ0MzcsImV4cCI6MTYxMDM2ODAzNywicGhvbmVfbnVtYmVyIjoiKzIxMjYxODI2NDQ5MyIsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsicGhvbmUiOlsiKzIxMjYxODI2NDQ5MyJdfSwic2lnbl9pbl9wcm92aWRlciI6InBob25lIn19.TIEUmrzZjS-ZA0SMGXJ3SRUwaaVUsNk6O6HC3eIEEnBrCQigeuMphGWwcdLh0d8OIyJvLSU1QsYLcd8f1n6KD4IIcNv8Yikp6ui9fTG03pMaAaRy6BwXMVGedjBoY_MEDHd0lKEfs9y28T7QUvHIFWeDr4d-W5G7G8KcNK9pYv9bRbj6rPJiBUOue4T3t6cu6Hq6ZvvO6USIg5Vvov44_j6ctnP0SNDwfX4rpFSbcBCh72fY6qPKdk1vmpi917KFgbgl_AAzkmq8BcKbQfchOMZ2fnn80XBhmWuUar3vlip4wnh0uygzeKE2xaVJrtP57mt_ITFowptiNdACy1cNhw"
 
 
 const Articles = () => {
+
     const history = useHistory();
 
     // eslint-disable-next-line prettier/prettier
@@ -28,7 +30,7 @@ const Articles = () => {
     const Tags = typeof tags === 'string' ? JSON.parse(tags) : tags;
 
     const [openConfirm, setOpenConfirm] = useState(false);
-    const [confirmationProgress, setConfirmationInProgress] = useState(false);
+    const [, setConfirmationInProgress] = useState(false);
     const [successParticipate, setSuccessParticipate] = useState();
     const [shareModalIsOpen, openShareModal] = useState(false);
     const user = useSelector((state) => state.user.currentUser);
@@ -39,10 +41,19 @@ const Articles = () => {
         setSuccessParticipate(true);
     };
 
+    const handleParticipate = () => {
+        console.log('participate');
+
+        
+    }
+
+
     useEffect(() => {
-        if (user && confirmationProgress) {
+        /* if (user && confirmationProgress) {
             setOpenConfirm(true);
-        }
+        } */
+
+        console.log(TOKEN, 'token')
     }, [user]);
 
     return (
@@ -50,7 +61,8 @@ const Articles = () => {
             <Button
                 circular
                 color="blue"
-                onClick={() => setOpenConfirm(true)}
+                // onClick={() => setOpenConfirm(true)}
+                onClick = { handleParticipate }
                 className="participate"
                 icon="plus"
                 content="PARTICIPER"
