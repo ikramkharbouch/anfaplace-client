@@ -13,10 +13,19 @@ const brandSlice = createSlice({
 			list: action.payload,
 			loadingList: false,
 		}),
-		addToMyListOfVisits: (state, action) => ({ ...state, list: [...state.list, action.payload] }),
+		setLoadingVisitedList: (state) => ({ ...state, loadingAdd: true }),
+		addToMyListOfVisits: (state, action) => ({
+			...state,
+			list: [...state.list, action.payload],
+			loadingAdd: false,
+		}),
 	},
 });
 
-export const { setMyVisitedListSuccess, addToMyListOfVisits } = brandSlice.actions;
+export const {
+	setMyVisitedListSuccess,
+	addToMyListOfVisits,
+	setLoadingVisitedList,
+} = brandSlice.actions;
 
 export default brandSlice.reducer;

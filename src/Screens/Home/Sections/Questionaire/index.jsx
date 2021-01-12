@@ -9,36 +9,6 @@ import QuestionnaireSlide from './QuestionnaireSlide';
 import './Questionnaire.less';
 
 const Questionnaire = React.forwardRef((props, ref) => {
-
-	/* 	const [questions, setQuestions] = useState([]);
-		// const [ loading , setLoading ] = useState(false);
-		// const [ error , setError ] = useState(''); 
-	
-		const getAllQuestions = useCallback(async () => {
-			try {
-				const response = await fetchDataFromAPI({ url: 'getListQuestionnaire' });
-				const { data } = response;
-				console.log(data)
-				if (data.success) {
-					setQuestions(data.lists.map(x => ({
-						id: x.index,
-						...x.data
-					})));
-				} else {
-					throw new Error('Something went wrong')
-				}
-				console.log(response)
-			} catch (error) {
-				alert(error.message);
-			}
-	
-		})
-	
-		useEffect(() => {
-			getAllQuestions();
-		}, []);
-	 */
-
 	const Questionnaires = useSelector((state) => state.questionnaires.list);
 	return (
 		<div className="questionnaire" ref={ref}>
@@ -53,17 +23,6 @@ const Questionnaire = React.forwardRef((props, ref) => {
 				pagination={false}
 				slidersPerView={1.42}
 			>
-				{/* {
-					questions.map(({ id, points, description, marque, visuel }) => <QuestionnaireSlide
-						key={id}
-						points={points}
-						description={description}
-						brands={[marque]}
-						image={arrayBufferToBase64(visuel.data) === 'data:image/jpeg;base64,' ? visuel : arrayBufferToBase64(visuel.data)}
-					/>)
-				} */}
-
-
 				{Questionnaires.map(({ index, data: { points, description, marque, visuel } }) => (
 					<QuestionnaireSlide
 						id={index}
@@ -71,7 +30,11 @@ const Questionnaire = React.forwardRef((props, ref) => {
 						points={points}
 						description={description}
 						brands={[marque]}
-						image={arrayBufferToBase64(visuel.data) === 'data:image/jpeg;base64,' ? visuel : arrayBufferToBase64(visuel.data)}
+						image={
+							arrayBufferToBase64(visuel.data) === 'data:image/jpeg;base64,'
+								? visuel
+								: arrayBufferToBase64(visuel.data)
+						}
 					/>
 				))}
 			</Slider>

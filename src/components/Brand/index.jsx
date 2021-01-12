@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { arrayBufferToBase64 } from 'src/utils/utilsFunctions';
 
 import Badgbe from '../Badge';
 
@@ -10,10 +9,7 @@ import './brand.less';
 const Brand = ({ badgeColor, badgeText, brandImg, brandName, withBadge, brandId }) => (
 	<Link to={`/brand/${brandId}`} className="brand-container">
 		{withBadge && <Badgbe color={badgeColor} title={badgeText} />}
-		<img
-			src={`${arrayBufferToBase64(brandImg) === "data:image/jpeg;base64," ? brandImg : arrayBufferToBase64(brandImg)}`}
-			alt={brandName}
-		/>
+		<img src={brandImg} alt={brandName} />
 	</Link>
 );
 
@@ -24,10 +20,7 @@ Brand.propTypes = {
 	brandImg: PropTypes.string.isRequired,
 	withBadge: PropTypes.bool.isRequired,
 	brandId: PropTypes.string.isRequired,
-	// imageType: PropTypes.string,
 };
-Brand.defaultProps = {
-	// imageType: 'Buffer',
-};
+Brand.defaultProps = {};
 
 export default Brand;

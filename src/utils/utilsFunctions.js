@@ -1,5 +1,5 @@
 import axios from 'axios';
-import firebase from 'firebase/app';
+import firebase from 'src/utils/initApp';
 import { call } from 'redux-saga/effects';
 
 export const arrayBufferToBase64 = (buffer) => {

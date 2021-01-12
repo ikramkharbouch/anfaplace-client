@@ -10,18 +10,18 @@ export function* fetchAllBrandSaga() {
 		yield put(setAllBrandsSuccess(result.data.lists));
 	} catch (e) {
 		console.log(e);
-		yield put({ type: 'TODO_FETCH_FAILED' });
+		yield put({ type: 'FETCH_FAILED' });
 	}
 }
 
-export function* fetchBrandByName({ id }) {
+export function* fetchBrandById({ id }) {
 	try {
 		const result = yield call(() =>
-			API({ url: 'getContenusByMarque', method: 'post', data: { marque: id } })
+			API({ url: 'getMarqueByID', method: 'post', data: { idMarque: id } })
 		);
 		yield put(setBrandSuccess(result.data));
 	} catch (e) {
 		console.log(e);
-		yield put({ type: 'TODO_FETCH_FAILED' });
+		yield put({ type: 'FETCH_FAILED' });
 	}
 }

@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import { API, getUserToken } from 'src/utils/utilsFunctions';
 
-import { addToMyListOfVisits, setMyVisitedListSuccess } from './index';
+import { addToMyListOfVisits, setLoadingVisitedList, setMyVisitedListSuccess } from './index';
 
 export function* fetchMyVisitedList() {
 	try {
@@ -12,17 +12,21 @@ export function* fetchMyVisitedList() {
 		yield put(setMyVisitedListSuccess(result.data.list));
 	} catch (e) {
 		console.log(e);
-		yield put({ type: 'TODO_FETCH_FAILED' });
+		yield put({ type: 'FETCH_FAILED' });
 	}
 }
+
 export function* addBrandToVisited({ payload }) {
 	try {
+		yield put(setLoadingVisitedList(payload));
 		const token = yield getUserToken();
 
-		yield call(() => API({ url: 'addToVisited', method: 'post', data: { payload }, token }));
+		yield call(() =>
+			API({ url: 'addToVisited', method: 'post', data: { marqueVisited: payload.data.nom }, token })
+		);
 		yield put(addToMyListOfVisits(payload));
 	} catch (e) {
 		console.log(e);
-		yield put({ type: 'TODO_FETCH_FAILED' });
+		yield put({ type: 'FETCH_FAILED' });
 	}
 }

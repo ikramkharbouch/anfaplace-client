@@ -6,10 +6,6 @@ import {
 	// KafkaGPSEnabled,
 	KafkaPhoneModel,
 } from 'src/utils/kafka/KafkaEvents';
-import store from 'src/store';
-import { openPhoneAuth } from 'src/store/app';
-import { API } from 'src/utils/utilsFunctions';
-import { setUser } from '../store/user/index';
 
 let deviceUID = localStorage.getItem('device-uid');
 
@@ -43,40 +39,39 @@ const firebaseConfig = {
 };
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-firebase.auth().onAuthStateChanged((user) => {
-	if (user) {
-		// User is signed in, see docs for a list of available properties
-		// https://firebase.google.com/docs/reference/js/firebase.User
-		// ...
-
-		user.getIdToken(/* forceRefresh */ true).then((token) => {
-			API({ url: '/getUser', method: 'post', data: {}, token })
-				.then((result) => {
-					console.log(result);
-					store.dispatch(
-						setUser({
-							displayName: user.displayName,
-							isAnonymous: user.isAnonymous,
-							points: result.data.user.points,
-							multiFactor: { enrolledFactors: user.multiFactor.enrolledFactors },
-						})
-					);
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-
-			// Send token to your backend via HTTPS
-			// ...
-			console.log(token);
-		});
-	} else {
-		// User is signed out
-		// ...
-		store.dispatch(setUser(user));
-		store.dispatch(openPhoneAuth({ open: true }));
-	}
-});
+// firebase.auth().onAuthStateChanged((user) => {
+// 	if (user) {
+// 		// User is signed in, see docs for a list of available properties
+// 		// https://firebase.google.com/docs/reference/js/firebase.User
+// 		// ...
+//
+// 		user.getIdToken(/* forceRefresh */ true).then((token) => {
+// 			API({ url: '/getUser', method: 'post', data: {}, token })
+// 				.then((result) => {
+// 					store.dispatch(
+// 						setUser({
+// 							displayName: user.displayName,
+// 							isAnonymous: user.isAnonymous,
+// 							points: result.data.user.points,
+// 							multiFactor: { enrolledFactors: user.multiFactor.enrolledFactors },
+// 						})
+// 					);
+// 				})
+// 				.catch((error) => {
+// 					console.log(error);
+// 				});
+//
+// 			// Send token to your backend via HTTPS
+// 			// ...
+// 			console.log(token);
+// 		});
+// 	} else {
+// 		// User is signed out
+// 		// ...
+// 		store.dispatch(setUser(user));
+// 		store.dispatch(openPhoneAuth({ open: true }));
+// 	}
+// });
 // Initialize Firebase
 // eslint-disable-next-line import/prefer-default-export
 export default firebaseApp;

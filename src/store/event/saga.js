@@ -10,6 +10,6 @@ export function* fetchAllEvent() {
 		yield put(setAllEventsSuccess(result.data.lists));
 	} catch (e) {
 		console.log(e);
-		yield put({ type: 'TODO_FETCH_FAILED' });
+		yield put({ type: 'FETCH_FAILED' });
 	}
 }

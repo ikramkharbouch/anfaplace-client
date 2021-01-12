@@ -1,6 +1,45 @@
-import { put } from 'redux-saga/effects';
-import firebase from 'firebase';
-import { setNotification } from 'src/store/app';
+import { put, call, take } from 'redux-saga/effects';
+import firebaseApp from 'src/utils/initApp';
+import { openPhoneAuth, setNotification } from 'src/store/app';
+import { eventChannel } from 'redux-saga';
+import { API, getUserToken } from 'src/utils/utilsFunctions';
+import { setUser } from 'src/store/user/index';
+import surveyAction from 'src/store/survey/actions';
+
+const getAuthChannel = () =>
+	eventChannel((emit) =>
+		firebaseApp.auth().onAuthStateChanged((user) => {
+			emit(user || 'null');
+		})
+	);
+
+export function* watchForFirebaseAuth() {
+	console.log('userWatcher');
+
+	// This is where you wait for a callback from firebase
+	const channel = yield call(getAuthChannel);
+	while (true) {
+		const user = yield take(channel);
+		if (user !== 'null') {
+			const token = yield getUserToken();
+			const userAPi = yield call(() => API({ url: '/getUser', method: 'post', data: {}, token }));
+			yield put(
+				setUser({
+					displayName: user.displayName,
+					isAnonymous: user.isAnonymous,
+					points: userAPi.data.user.points,
+					multiFactor: { enrolledFactors: user.multiFactor.enrolledFactors },
+				})
+			);
+		} else {
+			yield put(setUser(null));
+			yield put(openPhoneAuth({ open: true }));
+		}
+
+		yield put({ type: surveyAction.FETCH_ALL_QUESTIONNAIRES });
+	}
+	// result is what you pass to the emit function. In this case, it's an object like { user: { name: 'xyz' } }
+}
 
 // eslint-disable-next-line import/prefer-default-export
 export function* logInWithProvider({ payload: authProvider }) {
@@ -8,12 +47,12 @@ export function* logInWithProvider({ payload: authProvider }) {
 		if (authProvider) {
 			let provider;
 			if (authProvider === 'facebook') {
-				provider = new firebase.auth.FacebookAuthProvider();
+				provider = new firebaseApp.auth.FacebookAuthProvider();
 			}
 			if (authProvider === 'google') {
-				provider = new firebase.auth.GoogleAuthProvider();
+				provider = new firebaseApp.auth.GoogleAuthProvider();
 			}
-			firebase
+			firebaseApp
 				.auth()
 				.signInWithPopup(provider)
 				.then((result) => {
@@ -25,7 +64,7 @@ export function* logInWithProvider({ payload: authProvider }) {
 					put(setNotification({ show: true, type: 'error', message: authError.message }));
 				});
 		} else {
-			firebase
+			firebaseApp
 				.auth()
 				.signInAnonymously()
 				.then(() => {
@@ -37,6 +76,6 @@ export function* logInWithProvider({ payload: authProvider }) {
 		}
 	} catch (e) {
 		console.log(e);
-		yield put({ type: 'TODO_FETCH_FAILED' });
+		yield put({ type: 'FETCH_FAILED' });
 	}
 }

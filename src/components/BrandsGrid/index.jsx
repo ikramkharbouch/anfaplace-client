@@ -18,13 +18,12 @@ const BrandsGrid = ({ brands, promo }) => {
 		<div className="brands__grid">
 			{brandList.map((brand) => (
 				<Brand
-					withBadge={!!brand.data.Tags[0]?.title}
-					badgeColor={brand.data.Tags[0]?.color}
-					badgeText={brand.data.Tags[0]?.title}
-					brandImg={brand.data.logo.data}
-					brandName={brand.data.titre}
-					brandId={brand.index}
-					imageType={brand.data.logo.type}
+					withBadge={brand.data.Tags && !!brand.data.Tags[0]?.title}
+					badgeColor={brand.data.Tags && brand.data.Tags[0]?.color}
+					badgeText={brand.data.Tags && brand.data.Tags[0]?.title}
+					brandImg={brand.data.Tags && brand.data.logo}
+					brandName={brand.data.Tags && brand.data.titre}
+					brandId={brand.data.Tags && brand.index}
 				/>
 			))}
 		</div>

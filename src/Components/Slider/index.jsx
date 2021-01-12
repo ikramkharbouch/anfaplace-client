@@ -19,7 +19,7 @@ SwiperCore.use([Autoplay]);
 const customBulletPagination = (swiper, current, total, autoplay) => {
 	const bullet = (index) =>
 		`<span ${total === 1 ? 'style="background-color: #ffffff"' : ''} class="slider-bullet  ${
-		index === current ? 'current' : ''
+			index === current ? 'current' : ''
 		}${index < current ? 'prev' : ''} ${!autoplay ? 'static' : ''}"></span>`;
 	let paginationHtml = '';
 
@@ -136,9 +136,9 @@ const Slider = ({
 			autoplay={
 				autoplay && React.Children.count(children) > 1
 					? {
-						delay: autoplayDelay,
-						disableOnInteraction: false,
-					}
+							delay: autoplayDelay,
+							disableOnInteraction: false,
+					  }
 					: false
 			}
 			pagination={
@@ -154,13 +154,13 @@ const Slider = ({
 			))}
 		</Swiper>
 	) : (
-			<div className="empty-slider">
-				{/* <Header as="h1" icon>
+		<div className="empty-slider">
+			{/* <Header as="h1" icon>
 				<Icon name="image" /> No sliders
 			</Header> */}
-				<img src={logoAnfa} className='rotate-img' alt="Anfa logo" />
-			</div>
-		);
+			<img src={logoAnfa} className="rotate-img" alt="Anfa logo" />
+		</div>
+	);
 };
 export default Slider;
 Slider.propTypes = {
@@ -190,7 +190,7 @@ Slider.defaultProps = {
 	children: [],
 	autoplay: true,
 	autoplayDelay: 2000,
-	onInit() { },
+	onInit() {},
 	timeOnSliderEvent() {
 		return { timeOnSlider: 0, sliderIndex: 0 };
 	},

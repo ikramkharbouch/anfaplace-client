@@ -1,18 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Slider from 'src/Components/Slider';
 import BrandsGrid from 'src/Components/BrandsGrid';
 import ShoppingSlide from 'src/Screens/Shopping/ShoppingSlide';
 import './Shopping.less';
+import { API } from 'src/utils/utilsFunctions';
+import { Dimmer, Loader } from 'semantic-ui-react';
 
 const Shopping = () => {
-	const brands = useSelector((state) => state.brand.all);
-	return (
+	const brands = useSelector((state) => state.brand.all.filter((brand) => brand.data.categorie));
+	const [sliders, setSliders] = useState();
+	const [loading, setLoading] = useState(true);
+	useEffect(() => {
+		if (!sliders) {
+			API({ url: 'getSliderShopping' })
+				.then((result) => {
+					setSliders(result.data.lists);
+					setLoading(false);
+				})
+				.catch((error) => console.error(error));
+		}
+	}, [sliders]);
+	return loading ? (
+		<Dimmer active>
+			<Loader />
+		</Dimmer>
+	) : (
 		<div className="shopping-screen">
 			<Slider className="shopping-slider" id="shopping">
-				<ShoppingSlide />
-				<ShoppingSlide />
-				<ShoppingSlide />
+				{sliders.map((slider) => (
+					<ShoppingSlide image={slider.data.banniere} description={slider.data.titre} />
+				))}
 			</Slider>
 			<BrandsGrid brands={brands} />
 		</div>
