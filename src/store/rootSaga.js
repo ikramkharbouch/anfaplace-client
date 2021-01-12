@@ -27,7 +27,9 @@ import { fetchMyVisitedList, addBrandToVisited } from 'src/store/myVisitedList/s
 import { fetchMyEvents } from 'src/store/myEvents/saga';
 
 import addEventToParticiapted from './participatedEvent/saga';
+import getUserEvent from './userEvents/saga';
 import { ADD_EVENT_TO_PARTICIPATED } from './participatedEvent/actions';
+import { GET_USER_EVENTS } from './userEvents/actions';
 
 
 
@@ -48,7 +50,8 @@ function* rootSaga() {
 		takeEvery(myEventsActions.FETCH_MY_EVENTS, fetchMyEvents),
 		takeEvery(myVisitedListActions.ADD_BRAND_TO_VISITED, addBrandToVisited),
 		takeEvery(surveyAction.FETCH_USER_QUESTIONNAIRE, fetchUserQuestionnaire),
-		takeEvery(ADD_EVENT_TO_PARTICIPATED , addEventToParticiapted)
+		takeEvery(ADD_EVENT_TO_PARTICIPATED , addEventToParticiapted),
+		takeEvery(GET_USER_EVENTS , getUserEvent)
 	]);
 }
 

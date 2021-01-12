@@ -20,6 +20,7 @@ store.dispatch({ type: brandAction.FETCH_ALL_BRANDS });
 store.dispatch({ type: eventAction.FETCH_ALL_EVENTS });
 store.dispatch({ type: acticlesAction.FETCH_ALL_ARTICLES });
 store.dispatch({ type: interestsAction.FETCH_INTERESTS });
+
 // store.dispatch({ type: questionsAction.FETCH_ALL_QUESTIONS });
 
 ReactDOM.render(
