@@ -13,7 +13,7 @@ import articles from './articles';
 import questionnaires from './survey';
 import myVisitedList from './myVisitedList';
 import myEventsList from './myEvents';
-import myParticipatedEvent from './participatedEvent';
+import participateToEvent from './participatedEvent';
 
 const devMode = process.env.NODE_ENV === 'development';
 
@@ -27,7 +27,7 @@ const reducer = combineReducers({
 	questionnaires,
 	myVisitedList,
 	myEventsList,
-	myParticipatedEvent
+	participateToEvent
 });
 
 const sagaMiddleware = createSagaMiddleware();

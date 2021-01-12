@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToMyParticipatedEvents } from 'src/store/participatedEvent';
-
+/* import { addToMyParticipatedEvents } from 'src/store/participatedEvent';
+ */
 
 import { Parallax } from 'react-parallax';
 import { Link, useHistory , useParams  } from 'react-router-dom';
@@ -38,9 +38,17 @@ import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
 
     const [openConfirm, setOpenConfirm] = useState(false);
     const [confirmationProgress, setConfirmationInProgress] = useState(false);
-    const [successParticipate, ] = useState();
+    const [successParticipate, setSuccessParticipate ] = useState();
     const [shareModalIsOpen, openShareModal] = useState(false);
+
+
+    const [ loading , setLoading ] = useState(false);
+    const [ showParticipateBtn , setShowParticipateBtn ] = useState(true);
+
+
+
     const user = useSelector((state) => state.user.currentUser);
+    const participateToEventState = useSelector((state) => state.participateToEvent);
     const dispatch = useDispatch();
     const isEligibleToActivate = !!user && !user.isAnonymous;
     // const handleParticipateConfirm = () => {};
@@ -58,7 +66,8 @@ import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
             }
         }) */
 
-        dispatch(addToMyParticipatedEvents({ idEvent: eventID , points  }))
+        dispatch( { type : 'ADD_EVENT_TO_PARTICIPATED' , payload : {idEvent: eventID }  } );
+        setLoading(true);
 /*         setSuccessParticipate(tr);
  */    };
 
@@ -70,15 +79,38 @@ import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
         });
     } */
 
+    const handleParticipateRequest = (state) => {
+        if(state.success && !state.loading){
+            console.log(state)
+            setSuccessParticipate(true);
+            setLoading(state.loading);
+            setShowParticipateBtn(false);
+            dispatch( { type : 'UPDATE_USER_POINTS' , points: state.totalPoints  } );
+            
+        }
+
+        if(!state.success && !state.loading){
+            alert('error');
+            setLoading(state.loading);
+
+        }
+
+        
+    }
+
     useEffect(() => {
         console.log('user' , points)
         if (user && confirmationProgress) {
             setOpenConfirm(true);
         }
-    }, [user]);
+
+        handleParticipateRequest(participateToEventState);
+
+    }, [user, participateToEventState]);
     return (
         <div className="offer-details">
-            <Button
+            {
+                showParticipateBtn && <Button
                 circular
                 color="blue"
                 onClick={() => setOpenConfirm(true)}
@@ -88,6 +120,8 @@ import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
                 content="PARTICIPER"
             />
 
+            }
+            
             <Modal className="participate-confirmation" open={openConfirm} setOpen={setOpenConfirm}>
                 {/* eslint-disable-next-line no-nested-ternary */}
                 {!successParticipate ? (
@@ -123,7 +157,7 @@ import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
                                     <span className="cancel" onClick={() => setOpenConfirm(false)}>
                                         Annuler
 								</span>
-                                    <Button onClick={handleConfirmParticipation} circular>
+                                    <Button onClick={handleConfirmParticipation} circular loading = {loading}>
                                         Confirmer
 								</Button>
                                 </div>
