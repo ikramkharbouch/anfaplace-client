@@ -18,7 +18,7 @@
   top: 0;
   z-index: 1;
   opacity: 0;
-  transition:left 0.8s ease,opacity 2s ease;
+  transition:left 0.8s ease,opacity 1s ease;
 
 }
 //LEFT transition transform -100% to the left
@@ -33,12 +33,12 @@
   opacity: 0;
 }
 .pageSlider-enter.right.screen {
-  transition:left 0.8s ease,opacity 2s ease;
+  transition:left 0.8s ease,opacity 1s ease;
   left: -100%;
   opacity: 0;
 }
 .pageSlider-exit.right.screen {
-  transition:left 0.8s ease,opacity 2s ease;
+  transition:left 0.8s ease,opacity 1s ease;
 
   left: 0;
   opacity: 0;
@@ -49,7 +49,7 @@
 
 //Enter is active (Page has finished transitioning) make it settle down
 .pageSlider-enter-active.left.screen {
-  transition:right 0.8s ease,opacity 2s ease;
+  transition:right 0.8s ease,opacity 1s ease;
 
   right: 0;
   opacity: 1;
@@ -60,7 +60,7 @@
 
 
 .pageSlider-enter-active.right.screen {
-  transition:left 0.8s ease,opacity 2s ease;
+  transition:left 0.8s ease,opacity 1s ease;
 
   left: 0;
   opacity: 1;
@@ -68,14 +68,14 @@
 
 
 .pageSlider-exit-active.right.screen {
-  transition:left 0.8s ease,opacity 2s ease;
+  transition:left 0.8s ease,opacity 1s ease;
   left: -100%;
   opacity: 0;
 
 
 }
 .pageSlider-exit-active.left.screen {
-  transition:right 0.8s ease,opacity 2s ease;
+  transition:right 0.8s ease,opacity 1s ease;
   right: -100%;
   opacity: 0;
 

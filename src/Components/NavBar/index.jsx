@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useLayoutEffect, useRef , useEffect } from 'react';
+import React, { useState, useCallback, useLayoutEffect, useRef, useEffect } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
 import proptypes from 'prop-types';
 import { motion } from 'framer-motion';
@@ -29,15 +29,16 @@ const HomeNavigation = () => (
 	</nav>
 );
 
-const Points = ({ points, clicked }) => <button type="button" className="points" onClick={clicked}>
-			{`${points}`}p
-		</button>
+const Points = ({ points, clicked }) => (
+	<button type="button" className="points" onClick={clicked}>
+		{`${points}`}p
+	</button>
+);
 
 Points.propTypes = {
 	points: proptypes.number.isRequired,
 	clicked: proptypes.func.isRequired,
 };
-
 
 const variants = {
 	start: { scale: 3000, transition: { duration: 0.8 } },
@@ -51,8 +52,8 @@ const NavBar = () => {
 	const [zIndex, setZindex] = useState(930);
 	const { pathname } = useLocation();
 	const history = useHistory();
-	const [userPoints , setUserPoints] = useState(0);
-  	const user = useSelector((state) => state.user);
+	const [userPoints, setUserPoints] = useState(0);
+	const user = useSelector((state) => state.user);
 	const handleButtonClick = () => {
 		if (!(history.location.pathname === '/coupon-list')) {
 			history.push('/coupon-list');
@@ -83,21 +84,14 @@ const NavBar = () => {
 	};
 
 	useEffect(() => {
-		console.log(user?.currentUser?.points)
-		console.log(user?.points)
-
-		if(user?.points){
+		if (user?.points) {
 			setUserPoints(user?.points);
 		}
 
-		if(!user?.points && user?.currentUser?.points){
-			setUserPoints( user?.currentUser?.points);
+		if (!user?.points && user?.currentUser?.points) {
+			setUserPoints(user?.currentUser?.points);
 		}
-
-
-		
-		
-	} ,  [user])
+	}, [user]);
 
 	useLayoutEffect(() => {
 		window.addEventListener('scroll', onScroll);
@@ -118,7 +112,9 @@ const NavBar = () => {
 				</div>
 				{showMenu && (
 					<>
-						{!currentURL.includes('/coupon-list') && <Logo height={33} />}
+						{!currentURL.includes('/coupon-list') && (
+							<Logo onClick={() => history.push('/')} height={33} />
+						)}
 						<Points points={userPoints} clicked={handleButtonClick} />
 					</>
 				)}

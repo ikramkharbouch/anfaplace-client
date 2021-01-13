@@ -1,7 +1,14 @@
 import { call, put, select } from 'redux-saga/effects';
 import { API, getUserToken } from 'src/utils/utilsFunctions';
 
-import { setAllQuestionsSuccess, setUserQuestionnaire } from './index';
+import { setUserPoints } from 'src/store/user';
+
+import {
+	openCongratulation,
+	setAllQuestionsSuccess,
+	setCompleted,
+	setUserQuestionnaire,
+} from './index';
 
 // eslint-disable-next-line import/prefer-default-export
 export function* fetchQuestionnaire() {
@@ -52,8 +59,14 @@ export function* answerQuestionnaire({ payload }) {
 		const result = yield call(() =>
 			API({ url: 'answerQuestion', method: 'post', data: { ...payload }, token })
 		);
-
-		yield put(setAllQuestionsSuccess(result.data.lists));
+		if (!payload.isLast) {
+			yield put(setCompleted(payload));
+		}
+		if (payload.isLast) {
+			console.log(result);
+			yield put(setUserPoints(result.data.points_user));
+			yield put(openCongratulation(true));
+		}
 	} catch (e) {
 		console.log(e);
 		yield put({ type: 'FETCH_FAILED' });

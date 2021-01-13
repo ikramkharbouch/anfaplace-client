@@ -27,7 +27,7 @@ const EntertainmentDetails = lazy(() => import('src/Screens/Entertainment/Entert
 const Routes = () => {
 	const location = useLocation();
 	const { pathname } = location;
-	const timeout = 2000;
+	const timeout = 1000;
 	const currentKey = pathname.split('/')[1] || '/';
 	const getPathDepth = (pathName) => {
 		let pathArr = pathName.split('/');

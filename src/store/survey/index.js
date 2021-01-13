@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import update from 'immutability-helper';
 
 const questionsSlice = createSlice({
 	name: 'questions',
@@ -7,6 +8,8 @@ const questionsSlice = createSlice({
 		userQuestionnaire: { questionnaires: null },
 		loadingUserQuestionnaire: true,
 		questionnaireAnswers: [],
+		loadingAnswer: false,
+		openCongratulation: false,
 	},
 	reducers: {
 		setAllQuestionsSuccess: (state, action) => ({ ...state, list: action.payload }),
@@ -15,17 +18,32 @@ const questionsSlice = createSlice({
 			userQuestionnaire: action.payload,
 			loadingUserQuestionnaire: false,
 		}),
-		answerQuestionnaire: (state, action) => ({
-			...state,
-			questionnaireAnswers: [state.questionnaireAnswers, action.payload],
-		}),
+		setCompleted: (state, action) => {
+			const indexOfQuestion = state.userQuestionnaire.questionnaires.Questions.findIndex(
+				(question) => {
+					console.log(question);
+					console.log(action.payload);
+					return question.question === action.payload.questionResponses.question;
+				}
+			);
+			console.log('------>', indexOfQuestion);
+			return update(state, {
+				userQuestionnaire: {
+					questionnaires: {
+						Questions: { [indexOfQuestion]: { status: { $set: 'complet' } } },
+					},
+				},
+			});
+		},
+		openCongratulation: (state, action) => ({ ...state, openCongratulation: action.payload }),
 	},
 });
 
 export const {
 	setAllQuestionsSuccess,
-	answerQuestionnaire,
+	setCompleted,
 	setUserQuestionnaire,
+	openCongratulation,
 } = questionsSlice.actions;
 
 export default questionsSlice.reducer;

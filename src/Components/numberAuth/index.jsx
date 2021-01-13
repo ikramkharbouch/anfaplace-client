@@ -10,6 +10,7 @@ import { openPhoneAuth, setNotification } from 'src/store/app';
 import Modal from 'src/Components/Modal';
 import './VerificationModal.less';
 import { API } from 'src/utils/utilsFunctions';
+import { setUserPoints } from 'src/store/user';
 
 const CustomInputNumber = ({ id, width, autoFocus, onChange, onBackSpace, value, format }) => (
 	<Form.Field
@@ -319,6 +320,7 @@ const PhoneAuthModal = () => {
 				setLoadingPinConf(false);
 				if (result.additionalUserInfo.isNewUser) {
 					result.user.getIdToken(true).then((token) => {
+						console.log(token);
 						API({
 							url: 'user/register',
 							method: 'post',
@@ -330,8 +332,10 @@ const PhoneAuthModal = () => {
 							},
 							token,
 						})
-							.then(() => {
+							.then((user) => {
 								dispatch(setNotification({ show: true, type: 'wonPoints' }));
+								dispatch(openPhoneAuth(false));
+								dispatch(setUserPoints(user.data.points_user));
 							})
 							.catch(() => {
 								dispatch(
