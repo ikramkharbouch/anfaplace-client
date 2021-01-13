@@ -50,7 +50,7 @@ import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
 	const user = useSelector((state) => state.user.currentUser);
 	const participateToEventState = useSelector((state) => state.participateToEvent);
 	const participatedEvents = useSelector((state) => state.userEventsList.events);
-    const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	const isEligibleToActivate = !!user && !user.isAnonymous;
 	// const handleParticipateConfirm = () => {};
 	const handleConfirmParticipation = async () => {
@@ -79,25 +79,28 @@ import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
 			setOpenConfirm(true);
 		}
 
-        handleParticipateRequest(participateToEventState);
+		handleParticipateRequest(participateToEventState);
 
-        console.log('participatedEvents' , participatedEvents.some( event => event.id === eventID ))
+		console.log(
+			'participatedEvents',
+			participatedEvents.some((event) => event.id === eventID)
+		);
 
-        setShowParticipateBtn(participatedEvents.some( event => event.id === eventID ));
-
-    }, [user, participateToEventState]);
-    return (
-        <div className="offer-details">
-            {
-                !showParticipateBtn && <Button
-                circular
-                color="blue"
-                onClick={() => setOpenConfirm(true)}
-                // onClick = {handleParticipate}
-                className="participate"
-                icon="plus"
-                content="PARTICIPER"
-            />
+		setShowParticipateBtn(participatedEvents.some((event) => event.id === eventID));
+	}, [user, participateToEventState]);
+	return (
+		<div className="offer-details">
+			{!showParticipateBtn && (
+				<Button
+					circular
+					color="blue"
+					onClick={() => setOpenConfirm(true)}
+					// onClick = {handleParticipate}
+					className="participate"
+					icon="plus"
+					content="PARTICIPER"
+				/>
+			)}
 
 			<Modal className="participate-confirmation" open={openConfirm} setOpen={setOpenConfirm}>
 				{/* eslint-disable-next-line no-nested-ternary */}
@@ -145,28 +148,26 @@ import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
 						<Header as="h1">Merci pour votre participation Vous avez gagné</Header>
 						<div className="points"> +{points}p </div>
 
-                            <div className="action">
-                                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-                                <Header as="h1">à très bientôt </Header>
-                            </div>
-                        </>
-                    )}
-            </Modal>
-            <SocialSharing open={shareModalIsOpen} setOpen={openShareModal} />
-            <Parallax strength={200}>
-
-                <Slider
-                    className="slider"
-                    timeOnSliderEvent={(value) => console.log(value)}
-                    timeToReachEndOfSlider={(value) => console.log(value)}
-                    id="offers"
-                >
-                    { console.log(slider_elements) }
-                    {
-                        slider_elements.map(x => <img src={x.content} alt="" style={{ height: '60vh', objectFit: 'cover', width: '100%' }} />)
-                    }
-
-                </Slider>
+						<div className="action">
+							{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
+							<Header as="h1">à très bientôt </Header>
+						</div>
+					</>
+				)}
+			</Modal>
+			<SocialSharing open={shareModalIsOpen} setOpen={openShareModal} />
+			<Parallax strength={200}>
+				<Slider
+					className="slider"
+					timeOnSliderEvent={(value) => console.log(value)}
+					timeToReachEndOfSlider={(value) => console.log(value)}
+					id="offers"
+				>
+					{console.log(slider_elements)}
+					{slider_elements.map((x) => (
+						<img src={x.content} alt="" style={{ height: '60vh', objectFit: 'cover', width: '100%' }} />
+					))}
+				</Slider>
 
 				<div className="offer-details-header">
 					<Divider hidden />
