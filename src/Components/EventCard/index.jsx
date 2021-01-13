@@ -7,14 +7,14 @@ import './EventCard.less';
 import ClampLines from 'react-clamp-lines';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { arrayBufferToBase64, removeTags } from 'src/utils/utilsFunctions';
+import {  removeTags } from 'src/utils/utilsFunctions';
 import 'dayjs/locale/fr';
 
 dayjs.locale('fr');
 
 dayjs.extend(customParseFormat);
 
-const EventCard = ({ event }) => {
+const EventCard = ({ event , hasParticipated }) => {
 	const history = useHistory();
 	const { tag } = event.data;
 	const Tags = typeof tag === 'string' ? JSON.parse(tag) : tag;
@@ -26,11 +26,12 @@ const EventCard = ({ event }) => {
 				debutTime: event.data.debut_time,
 				finTime: event.data.fin_time,
 				tags: event.data.tag,
-				image: arrayBufferToBase64(event.data.slider_elements[0]?.content.data),
+				image: event.data.slider_elements[0]?.contents,
 				contenuBoody: event.data.contenu_body,
 				titre: event.data.titre,
 				slider_elements: event.data.slider_elements,
-				points: event.data.points
+				points: event.data.points,
+				hasParticipated 
 			},
 		});
 	};
@@ -88,6 +89,8 @@ EventCard.propTypes = {
 			image: PropTypes.string,
 		}),
 	}),
+
+	hasParticipated: PropTypes.bool,
 };
 EventCard.defaultProps = {
 	event: {
@@ -98,5 +101,6 @@ EventCard.defaultProps = {
 			image: '',
 		},
 	},
+	hasParticipated: false
 };
 export default EventCard;

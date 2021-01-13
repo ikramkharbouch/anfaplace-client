@@ -9,7 +9,8 @@ import Menu from 'src/Components/Menu';
 import { Header } from 'semantic-ui-react';
 import BackButton from 'src/Components/BackButton/BackButton';
 
-import { useSelector } from 'react-redux';
+import { useSelector , useDispatch } from 'react-redux';
+import { ADD_USER_INTERESTS } from 'src/store/userInterests/actions';
 import MenuIcon from '../MenuIcon';
 import './NavBar.less';
 
@@ -46,6 +47,9 @@ const variants = {
 };
 
 const NavBar = () => {
+
+	const dispatch = useDispatch();
+
 	const [currentURL, setCurrentURL] = useState('');
 	const [isMenuOpen, setOpen] = useState(false);
 	const [showMenu, setShowMenu] = useState(false);
@@ -85,13 +89,20 @@ const NavBar = () => {
 
 	useEffect(() => {
 		if (user?.points) {
+
+		dispatch({ type: ADD_USER_INTERESTS });
+
+		if(user?.points){
 			setUserPoints(user?.points);
 		}
 
 		if (!user?.points && user?.currentUser?.points) {
 			setUserPoints(user?.currentUser?.points);
 		}
-	}, [user]);
+	}}, [user]);
+
+
+
 
 	useLayoutEffect(() => {
 		window.addEventListener('scroll', onScroll);

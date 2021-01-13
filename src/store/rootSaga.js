@@ -28,8 +28,10 @@ import { fetchMyEvents } from 'src/store/myEvents/saga';
 
 import addEventToParticiapted from './participatedEvent/saga';
 import getUserEvent from './userEvents/saga';
+import addUserInterests from './userInterests/saga';
 import { ADD_EVENT_TO_PARTICIPATED } from './participatedEvent/actions';
 import { GET_USER_EVENTS } from './userEvents/actions';
+import { ADD_USER_INTERESTS } from './userInterests/actions';
 
 const devMode = process.env.NODE_ENV === 'development';
 // eslint-disable-next-line import/no-mutable-exports
@@ -81,7 +83,7 @@ if (devMode) {
 			takeEvery(surveyAction.FETCH_USER_QUESTIONNAIRE, fetchUserQuestionnaire),
 			takeEvery(ADD_EVENT_TO_PARTICIPATED, addEventToParticiapted),
 			takeEvery(GET_USER_EVENTS, getUserEvent),
-		]);
+		takeEvery(ADD_USER_INTERESTS , addUserInterests)]);
 	};
 }
 
