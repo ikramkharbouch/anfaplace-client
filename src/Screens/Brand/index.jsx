@@ -164,7 +164,7 @@ const OfferDetails = () => {
 					/>
 				</div>
 			</>
-			)
+			
 		</div>
 	);
 };

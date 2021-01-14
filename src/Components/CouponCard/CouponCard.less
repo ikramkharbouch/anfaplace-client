@@ -1,7 +1,8 @@
 @import '../../config/styles/variables.less';
 .coupon-card{
 
-    display: flex;
+    display: grid;
+    grid-template-columns: 100px 1fr;
     align-items: center;
 
     &__img{
@@ -29,7 +30,6 @@
         display: flex;
         align-items: center;
         padding-bottom: 8px;
-        padding-top: 20%;
 
         h4{
             margin: 0;
