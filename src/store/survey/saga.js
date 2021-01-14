@@ -7,6 +7,7 @@ import {
 	openCongratulation,
 	setAllQuestionsSuccess,
 	setCompleted,
+	setQuestionnaireCompletelyAnswered,
 	setUserQuestionnaire,
 } from './index';
 
@@ -66,6 +67,7 @@ export function* answerQuestionnaire({ payload }) {
 			console.log(result);
 			yield put(setUserPoints(result.data.points_user));
 			yield put(openCongratulation(true));
+			yield put(setQuestionnaireCompletelyAnswered(payload.id));
 		}
 	} catch (e) {
 		console.log(e);

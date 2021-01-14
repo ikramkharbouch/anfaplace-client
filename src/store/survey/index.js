@@ -40,6 +40,13 @@ const questionsSlice = createSlice({
 			...state,
 			loadingUserQuestionnaire: action.payload,
 		}),
+		setQuestionnaireCompletelyAnswered: (state, action) => {
+			const indexOfQuestionnaire = state.list.findIndex(
+				(quetionnaire) => quetionnaire.index === action.payload
+			);
+			console.log(indexOfQuestionnaire);
+			return update(state, { list: { [indexOfQuestionnaire]: { complet: { $set: true } } } });
+		},
 	},
 });
 
@@ -49,6 +56,7 @@ export const {
 	setUserQuestionnaire,
 	openCongratulation,
 	setLoadingUserQuestionnaire,
+	setQuestionnaireCompletelyAnswered,
 } = questionsSlice.actions;
 
 export default questionsSlice.reducer;
