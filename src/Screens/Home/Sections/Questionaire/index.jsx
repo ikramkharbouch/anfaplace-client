@@ -23,13 +23,14 @@ const Questionnaire = React.forwardRef((props, ref) => {
 				pagination={false}
 				slidersPerView={1.42}
 			>
-				{Questionnaires.map(({ index, data: { points, description, marque, visuel } }) => (
+				{Questionnaires.map(({ index, complet, data: { points, description, marque, visuel } }) => (
 					<QuestionnaireSlide
 						id={index}
 						key={index}
 						points={points}
 						description={description}
 						brands={[marque]}
+						completed={complet}
 						image={
 							arrayBufferToBase64(visuel.data) === 'data:image/jpeg;base64,'
 								? visuel

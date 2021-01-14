@@ -36,6 +36,10 @@ const questionsSlice = createSlice({
 			});
 		},
 		openCongratulation: (state, action) => ({ ...state, openCongratulation: action.payload }),
+		setLoadingUserQuestionnaire: (state, action) => ({
+			...state,
+			loadingUserQuestionnaire: action.payload,
+		}),
 	},
 });
 
@@ -44,6 +48,7 @@ export const {
 	setCompleted,
 	setUserQuestionnaire,
 	openCongratulation,
+	setLoadingUserQuestionnaire,
 } = questionsSlice.actions;
 
 export default questionsSlice.reducer;

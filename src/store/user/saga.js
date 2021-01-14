@@ -3,7 +3,7 @@ import firebaseApp from 'src/utils/initApp';
 import { openPhoneAuth, setNotification } from 'src/store/app';
 import { eventChannel } from 'redux-saga';
 import { API, getUserToken } from 'src/utils/utilsFunctions';
-import { setUser, setUserPoints  } from 'src/store/user/index';
+import { setUser, setUserPoints } from 'src/store/user/index';
 import surveyAction from 'src/store/survey/actions';
 
 const getAuthChannel = () =>
@@ -23,13 +23,13 @@ export function* watchForFirebaseAuth() {
 		if (user !== 'null') {
 			const token = yield getUserToken();
 			const userAPi = yield call(() => API({ url: '/getUser', method: 'post', data: {}, token }));
-			console.log('==========>', userAPi);
 			yield put(
 				setUser({
 					displayName: user.displayName,
 					isAnonymous: user.isAnonymous,
 					points: userAPi.data.user.points,
 					list_visite: userAPi.data.user.list_visite,
+					mes_events: userAPi.data.user.mes_events,
 					multiFactor: { enrolledFactors: user.multiFactor.enrolledFactors },
 				})
 			);
@@ -85,5 +85,3 @@ export function* logInWithProvider({ payload: authProvider }) {
 export function* updateUserPoints({ points }) {
 	yield put(setUserPoints({ points }));
 }
-
-

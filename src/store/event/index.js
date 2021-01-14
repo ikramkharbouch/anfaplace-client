@@ -4,9 +4,14 @@ const brandSlice = createSlice({
 	name: 'event',
 	initialState: {
 		list: [],
+		loadingEvents: true,
 	},
 	reducers: {
-		setAllEventsSuccess: (state, action) => ({ list: action.payload }),
+		setAllEventsSuccess: (state, action) => ({
+			...state,
+			list: action.payload,
+			loadingEvents: false,
+		}),
 	},
 });
 export const { setAllEventsSuccess } = brandSlice.actions;

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
@@ -6,7 +5,7 @@ import { Dimmer, Form, Loader } from 'semantic-ui-react';
 import BackButton from 'src/Components/BackButton/BackButton';
 import Button from 'src/Components/Button';
 import Modal from 'src/Components/Modal';
-import questionnaires, { answerQuestionnaire, openCongratulation } from 'src/store/survey';
+import { openCongratulation, setLoadingUserQuestionnaire } from 'src/store/survey';
 import surveyActions from 'src/store/survey/actions';
 import CheckField from './Components/CheckField';
 import './Servey.less';
@@ -19,41 +18,27 @@ const Survey = () => {
 	const dispatch = useDispatch();
 	// eslint-disable-next-line no-unused-vars
 	const {
-		userQuestionnaire: { questionnaires: questionnaire },
 		loadingUserQuestionnaire,
+		userQuestionnaire: { questionnaires: questionnaire },
 	} = useSelector((state) => state.questionnaires);
-	const [questions, setQuestions] = useState();
 	const [answer, setAnswer] = useState();
-	const [loading, setLoading] = useState(false);
 	const open = useSelector((state) => state.questionnaires.openCongratulation);
 
-	const user = useSelector((state) => state.user.currentUser);
-
 	useEffect(() => {
-		if (questionnaire) {
-			setQuestions(questionnaire.Questions);
-			console.log('=========>', questionnaire.Questions);
-			let currentQ = 0;
-			questionnaire.Questions.forEach((quetion) => {
-				if (quetion.status === 'complet') {
-					currentQ += 1;
-				}
-			});
-			setCurrentQuestion(currentQ);
-		}
-		if (id && user && !questionnaire && !questions) {
+		if (id) {
+			dispatch(setLoadingUserQuestionnaire(true));
 			dispatch({ type: surveyActions.FETCH_USER_QUESTIONNAIRE, payload: id });
 		}
-	}, [id, questions, questionnaire, user]);
+	}, [id]);
 
-	const handleSubmit = (e) => {
-		if (currentQuestion + 1 === questions.length) {
+	const handleSubmit = () => {
+		if (currentQuestion + 1 === questionnaire.Questions.length) {
 			dispatch({
 				type: surveyActions.ANSWER_QUESTION,
 				payload: {
 					idQuestionnaire: id,
 					questionResponses: {
-						question: questions[currentQuestion].question,
+						question: questionnaire.Questions[currentQuestion].question,
 						reponses: [{ reponse: answer }],
 					},
 					isLast: true,
@@ -65,7 +50,7 @@ const Survey = () => {
 				payload: {
 					idQuestionnaire: id,
 					questionResponses: {
-						question: questions[currentQuestion].question,
+						question: questionnaire.Questions[currentQuestion].question,
 						reponses: [{ reponse: answer }],
 					},
 				},
@@ -73,8 +58,8 @@ const Survey = () => {
 			setCurrentQuestion(currentQuestion + 1);
 		}
 	};
-	console.log('-------->', questions);
-	return loadingUserQuestionnaire || !questions ? (
+
+	return loadingUserQuestionnaire ? (
 		<Dimmer active>
 			<Loader />
 		</Dimmer>
@@ -87,13 +72,13 @@ const Survey = () => {
 
 				<div className="survey-content">
 					<span className="survey-ratio">
-						{currentQuestion + 1}/{questions.length}
+						{currentQuestion + 1}/{questionnaire.Questions.length}
 					</span>
 
-					<h2 className="survey-questions-title">{questions[currentQuestion].question}</h2>
+					<h2 className="survey-questions-title">{questionnaire.Questions[currentQuestion].question}</h2>
 
 					<div className="survey-questions-container">
-						{questions[currentQuestion].responses.map((response) => (
+						{questionnaire.Questions[currentQuestion].responses.map((response) => (
 							<CheckField
 								title={response.response}
 								value={response.response}
@@ -108,8 +93,7 @@ const Survey = () => {
 				<div className="survey-action">
 					<Button
 						type="submit"
-						loading={loading}
-						text={currentQuestion + 1 === questions.length ? 'Confirmer' : 'Suivant'}
+						text={currentQuestion + 1 === questionnaire.Questions.length ? 'Confirmer' : 'Suivant'}
 					/>
 				</div>
 			</Form>
@@ -128,7 +112,14 @@ const Survey = () => {
 					{questionnaire.points}P
 				</button>
 				<p>à très bientot </p>
-				<Button type="button" text="Accueil" click={() => history.push('/')} />
+				<Button
+					type="button"
+					text="Accueil"
+					click={() => {
+						dispatch(openCongratulation(false));
+						history.push('/');
+					}}
+				/>
 			</Modal>
 		</>
 	);

@@ -106,7 +106,7 @@ const AuthTel = ({ confirm, verifying, validateBySmsEvent, validateBySmsValue })
 				<Form.Checkbox
 					onChange={validateBySmsEvent}
 					checked={validateBySmsValue}
-					label="Validation par SMS +100 points"
+					label="Validation par SMS +50 points"
 				/>
 				<Form.Button
 					type="submit"

@@ -27,10 +27,8 @@ import { fetchMyVisitedList, addBrandToVisited } from 'src/store/myVisitedList/s
 import { fetchMyEvents } from 'src/store/myEvents/saga';
 
 import addEventToParticiapted from './participatedEvent/saga';
-import getUserEvent from './userEvents/saga';
 import addUserInterests from './userInterests/saga';
 import { ADD_EVENT_TO_PARTICIPATED } from './participatedEvent/actions';
-import { GET_USER_EVENTS } from './userEvents/actions';
 import { ADD_USER_INTERESTS } from './userInterests/actions';
 
 const devMode = process.env.NODE_ENV === 'development';
@@ -47,18 +45,18 @@ if (devMode) {
 			// takeEvery(userActions.LOG_IN_WITH_PROVIDER, logInWithProvider),
 			// takeEvery(userActions.UPDATE_USER_POINTS, updateUserPoints),
 			// takeEvery(setInterestsConfirmed, setInterests),
-			// takeEvery(eventActions.FETCH_ALL_EVENTS, fetchAllEvent),
+			takeEvery(eventActions.FETCH_ALL_EVENTS, fetchAllEvent),
 			// takeEvery(articlesActions.FETCH_ALL_ARTICLES, fetchAllArticles),
 			// takeEvery(interestsAction.FETCH_INTERESTS, fetchInterests),
-			takeEvery(surveyAction.FETCH_ALL_QUESTIONNAIRES, fetchQuestionnaire),
-			takeEvery(surveyAction.ANSWER_QUESTION, answerQuestionnaire),
-			takeEvery(surveyAction.PARTICIPATE_TO_QUESTIONNAIRE, participateToQuestionnaire),
-			takeEvery(surveyAction.FETCH_USER_QUESTIONNAIRE, fetchUserQuestionnaire),
+			// takeEvery(surveyAction.FETCH_ALL_QUESTIONNAIRES, fetchQuestionnaire),
+			// takeEvery(surveyAction.ANSWER_QUESTION, answerQuestionnaire),
+			// takeEvery(surveyAction.PARTICIPATE_TO_QUESTIONNAIRE, participateToQuestionnaire),
+			// takeEvery(surveyAction.FETCH_USER_QUESTIONNAIRE, fetchUserQuestionnaire),
 
-			// takeEvery(myEventsActions.FETCH_MY_EVENTS, fetchMyEvents),
+			takeEvery(myEventsActions.FETCH_MY_EVENTS, fetchMyEvents),
 			// takeEvery(myVisitedListActions.ADD_BRAND_TO_VISITED, addBrandToVisited),
-			// takeEvery(ADD_EVENT_TO_PARTICIPATED, addEventToParticiapted),
-			// takeEvery(GET_USER_EVENTS, getUserEvent),
+			takeEvery(ADD_EVENT_TO_PARTICIPATED, addEventToParticiapted),
+			takeEvery(ADD_USER_INTERESTS, addUserInterests),
 		]);
 	};
 } else {
@@ -68,7 +66,6 @@ if (devMode) {
 			takeEvery(brandActions.FETCH_ALL_BRANDS, fetchAllBrandSaga),
 			takeEvery(brandActions.FETCH_BRAND_BY_ID, fetchBrandById),
 			takeEvery(myVisitedListActions.FETCH_MY_VISITED_LIST, fetchMyVisitedList),
-
 			takeEvery(userActions.LOG_IN_WITH_PROVIDER, logInWithProvider),
 			takeEvery(userActions.UPDATE_USER_POINTS, updateUserPoints),
 			takeEvery(setInterestsConfirmed, setInterests),
@@ -82,8 +79,8 @@ if (devMode) {
 			takeEvery(myVisitedListActions.ADD_BRAND_TO_VISITED, addBrandToVisited),
 			takeEvery(surveyAction.FETCH_USER_QUESTIONNAIRE, fetchUserQuestionnaire),
 			takeEvery(ADD_EVENT_TO_PARTICIPATED, addEventToParticiapted),
-			takeEvery(GET_USER_EVENTS, getUserEvent),
-		takeEvery(ADD_USER_INTERESTS , addUserInterests)]);
+			takeEvery(ADD_USER_INTERESTS, addUserInterests),
+		]);
 	};
 }
 

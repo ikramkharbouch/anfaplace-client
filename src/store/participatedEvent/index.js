@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ADD_EVENT_TO_PARTICIPATED_LOADING ,  ADD_EVENT_TO_PARTICIPATED_SUCCESS , ADD_EVENT_TO_PARTICIPATED_FAIL } from './actions';
+import {
+	ADD_EVENT_TO_PARTICIPATED_LOADING,
+	ADD_EVENT_TO_PARTICIPATED_SUCCESS,
+	ADD_EVENT_TO_PARTICIPATED_FAIL,
+} from './actions';
 
 const brandSlice = createSlice({
 	name: 'eventPraticipated',
@@ -7,46 +11,44 @@ const brandSlice = createSlice({
 		success: false,
 		message: '',
 		totalPoints: '',
-		loading: true
+		loading: false,
+		openConfirm: false,
 	},
 	reducers: {
-		addToMyParticipatedEvents: (state, action) => {
+		setOpenConfirm: (state, action) => ({ ...state, openConfirm: action.payload }),
 
+		addToMyParticipatedEvents: (state, action) => {
 			switch (action.payload.type) {
 				case ADD_EVENT_TO_PARTICIPATED_LOADING:
-					return ({
+					return {
 						...state,
-						loading: true
-					})
+						loading: true,
+					};
 
 				case ADD_EVENT_TO_PARTICIPATED_SUCCESS:
-					return ({
+					return {
 						...state,
 						success: action.payload.payload.success,
 						message: action.payload.payload.message,
 						totalPoints: action.payload.payload.totalPoints,
-						loading: false
-					})
+						loading: false,
+					};
 
 				case ADD_EVENT_TO_PARTICIPATED_FAIL:
-					return ({
+					return {
 						...state,
 						success: false,
 						message: action.payload.payload.message,
-						loading: false
-					})
-			
+						loading: false,
+					};
+
 				default:
 					return state;
 			}
-
-			
-		}
+		},
 	},
 });
 
-export const {
-	addToMyParticipatedEvents
-} = brandSlice.actions;
+export const { addToMyParticipatedEvents, setOpenConfirm } = brandSlice.actions;
 
 export default brandSlice.reducer;

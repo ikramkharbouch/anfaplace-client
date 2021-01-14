@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useLayoutEffect, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useLayoutEffect, useRef } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
 import proptypes from 'prop-types';
 import { motion } from 'framer-motion';
@@ -9,8 +9,7 @@ import Menu from 'src/Components/Menu';
 import { Header } from 'semantic-ui-react';
 import BackButton from 'src/Components/BackButton/BackButton';
 
-import { useSelector , useDispatch } from 'react-redux';
-import { ADD_USER_INTERESTS } from 'src/store/userInterests/actions';
+import { useSelector } from 'react-redux';
 import MenuIcon from '../MenuIcon';
 import './NavBar.less';
 
@@ -47,17 +46,13 @@ const variants = {
 };
 
 const NavBar = () => {
-
-	const dispatch = useDispatch();
-
 	const [currentURL, setCurrentURL] = useState('');
 	const [isMenuOpen, setOpen] = useState(false);
 	const [showMenu, setShowMenu] = useState(false);
 	const [zIndex, setZindex] = useState(930);
 	const { pathname } = useLocation();
 	const history = useHistory();
-	const [userPoints, setUserPoints] = useState(0);
-	const user = useSelector((state) => state.user);
+	const user = useSelector((state) => state.user.currentUser);
 	const handleButtonClick = () => {
 		if (!(history.location.pathname === '/coupon-list')) {
 			history.push('/coupon-list');
@@ -86,24 +81,6 @@ const NavBar = () => {
 			navBarRef.current.style.backdropFilter = `blur(${(scrollPosition * 2) / 130}px)`;
 		}
 	};
-
-	useEffect(() => {
-		if (user?.points) {
-
-		dispatch({ type: ADD_USER_INTERESTS });
-
-		if(user?.points){
-			setUserPoints(user?.points);
-		}
-
-		if (!user?.points && user?.currentUser?.points) {
-			setUserPoints(user?.currentUser?.points);
-		}
-	}}, [user]);
-
-
-
-
 	useLayoutEffect(() => {
 		window.addEventListener('scroll', onScroll);
 		return () => window.removeEventListener('scroll', onScroll);
@@ -126,7 +103,7 @@ const NavBar = () => {
 						{!currentURL.includes('/coupon-list') && (
 							<Logo onClick={() => history.push('/')} height={33} />
 						)}
-						<Points points={userPoints} clicked={handleButtonClick} />
+						<Points points={user?.points || 0} clicked={handleButtonClick} />
 					</>
 				)}
 				{pathname === '/' && showMenu && <HomeNavigation />}

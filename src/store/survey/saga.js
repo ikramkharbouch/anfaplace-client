@@ -18,7 +18,7 @@ export function* fetchQuestionnaire() {
 		console.log('curentUser', user);
 		if (user) {
 			const token = yield getUserToken();
-			result = yield call(() => API({ url: 'getListQuestionnaire', token }));
+			result = yield call(() => API({ url: 'getListQuestionnaireForUser', token }));
 			yield put(setAllQuestionsSuccess(result.data.lists));
 		} else {
 			result = yield call(() => API({ url: 'getListQuestionnaireInApp' }));
