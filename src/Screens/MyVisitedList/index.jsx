@@ -4,6 +4,7 @@ import myVisitedListActions from 'src/store/myVisitedList/actions';
 import BrandsGrid from 'src/Components/BrandsGrid';
 import { Dimmer, Loader, Button } from 'semantic-ui-react';
 import { openPhoneAuth } from 'src/store/app';
+import { setLoadingVisitedList } from 'src/store/myVisitedList';
 
 const MyVisitedList = () => {
 	const dispatch = useDispatch();
@@ -11,7 +12,8 @@ const MyVisitedList = () => {
 	const user = useSelector((state) => state.user.currentUser);
 
 	useEffect(() => {
-		if (user && loadingList) {
+		if (user && !loadingList) {
+			dispatch(setLoadingVisitedList(true));
 			dispatch({ type: myVisitedListActions.FETCH_MY_VISITED_LIST });
 		}
 	}, [user, loadingList]);
@@ -21,25 +23,28 @@ const MyVisitedList = () => {
 		</Dimmer>
 	) : (
 		<div style={{ paddingTop: 70 }}>
-			{visitedList.length && user ? (
+			{visitedList.length ? (
 				<BrandsGrid brands={visitedList} />
 			) : (
-				user?.currentUser && <p style={{ textAlign: 'center' }}> Pas de marque visiter</p>
+				user && <p style={{ textAlign: 'center' }}> Pas de marque visiter</p>
 			)}
 
 			{!user && (
-				<div className="action" style={{ display: 'flex', justifyContent: 'center' }}>
-					<Button
-						circular
-						onClick={() => {
-							if (!user) {
-								dispatch(openPhoneAuth({ open: true, withEmail: true }));
-							}
-						}}
-					>
-						Activer mon compte
-					</Button>
-				</div>
+				<>
+					<p style={{ textAlign: 'center' }}> Merci de vous connecter ! </p>
+					<div className="action" style={{ display: 'flex', justifyContent: 'center' }}>
+						<Button
+							circular
+							onClick={() => {
+								if (!user) {
+									dispatch(openPhoneAuth({ open: true, withEmail: true }));
+								}
+							}}
+						>
+							Activer mon compte
+						</Button>
+					</div>
+				</>
 			)}
 		</div>
 	);

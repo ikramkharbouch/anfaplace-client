@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
+import { openPhoneAuth } from 'src/store/app';
+
 import { Dimmer, Form, Loader } from 'semantic-ui-react';
 import BackButton from 'src/Components/BackButton/BackButton';
 import Button from 'src/Components/Button';
@@ -41,6 +43,9 @@ const Survey = () => {
 		if (id && user) {
 			dispatch(setLoadingUserQuestionnaire(true));
 			dispatch({ type: surveyActions.FETCH_USER_QUESTIONNAIRE, payload: id });
+		}
+		if (!user) {
+			dispatch(openPhoneAuth(true));
 		}
 	}, [id, user]);
 

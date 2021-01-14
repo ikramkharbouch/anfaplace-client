@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { openPhoneAuth, setNotification } from 'src/store/app';
 import Modal from 'src/Components/Modal';
 import './VerificationModal.less';
+import { setConfirmPinLoading } from 'src/store/user';
 
 const CustomInputNumber = ({ id, width, autoFocus, onChange, onBackSpace, value, format }) => (
 	<Form.Field
@@ -281,7 +282,7 @@ const PhoneAuthModal = () => {
 	const [verifyLoading, setVerifyLoading] = useState();
 	const [recaptchaVerifier, setRecaptchaVerifier] = useState();
 	const [confirmation, setConfirmation] = useState();
-	const [loadingPinConf, setLoadingPinConf] = useState(false);
+	const loadingPinConf = useSelector((state) => state.user.confirmPinLoading);
 	const [validateBySms, setValidateBySms] = useState(true);
 
 	const open = useSelector(phoneAuthOpenModalSelector);
@@ -310,16 +311,15 @@ const PhoneAuthModal = () => {
 			});
 	};
 	const verifyPinHandeler = (verificationCode) => {
-		setLoadingPinConf(true);
+		dispatch(setConfirmPinLoading(true));
 
 		confirmation
 			.confirm(verificationCode)
 			.then((result) => {
-				setLoadingPinConf(false);
 				localStorage.setItem('isNewUser', JSON.stringify(result.additionalUserInfo.isNewUser));
 			})
 			.catch((error) => {
-				setLoadingPinConf(false);
+				dispatch(setConfirmPinLoading(false));
 				console.log(error);
 				dispatch(
 					setNotification({ show: true, type: 'error', message: 'Le code de confirmation est invalide' })
@@ -330,7 +330,11 @@ const PhoneAuthModal = () => {
 				// handle errors
 			});
 	};
-
+	useEffect(() => {
+		if (!open) {
+			setVerifyPin(false);
+		}
+	}, [open]);
 	return (
 		<Modal className="pin" onMount={handleModalMount} open={open} setOpen={setOpen}>
 			{!verifyPin && (

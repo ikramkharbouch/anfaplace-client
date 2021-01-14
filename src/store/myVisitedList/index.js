@@ -5,7 +5,7 @@ const brandSlice = createSlice({
 	initialState: {
 		list: [],
 		loadingAdd: false,
-		loadingList: true,
+		loadingList: false,
 		openAddedNotif: false,
 	},
 	reducers: {

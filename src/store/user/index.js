@@ -7,7 +7,7 @@ const brandSlice = createSlice({
 		points: 0,
 		loadingUser: true,
 		loginIn: false,
-		verifyLoading: false,
+		confirmPinLoading: false,
 	},
 	reducers: {
 		setUser: (state, action) => ({ ...state, currentUser: action.payload, loadingUser: false }),
@@ -26,7 +26,7 @@ const brandSlice = createSlice({
 				mes_events: [...state.currentUser.mes_events, action.payload],
 			},
 		}),
-		setVerifyLoading: (state, action) => ({ ...state, verifyLoading: action.payload }),
+		setConfirmPinLoading: (state, action) => ({ ...state, confirmPinLoading: action.payload }),
 	},
 });
 
@@ -35,6 +35,7 @@ export const {
 	setUserPoints,
 	addBrandToVisitedList,
 	setParticipatedEvent,
+	setConfirmPinLoading,
 } = brandSlice.actions;
 
 export default brandSlice.reducer;

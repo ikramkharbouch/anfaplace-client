@@ -5,7 +5,10 @@ import { createSelector } from 'reselect';
 
 import { Parallax } from 'react-parallax';
 import { Link, useParams } from 'react-router-dom';
-import { RESET_EVENT_TO_PARTICIPATED_STATE , ADD_EVENT_TO_PARTICIPATED } from 'src/store/participatedEvent/actions';
+import {
+	RESET_EVENT_TO_PARTICIPATED_STATE,
+	ADD_EVENT_TO_PARTICIPATED,
+} from 'src/store/participatedEvent/actions';
 import { Label, Icon, Button, Header, Divider } from 'semantic-ui-react';
 
 import Slider from 'src/Components/Slider';
@@ -35,7 +38,6 @@ const EntertainmentDetails = () => {
 
 	const openConfirm = useSelector((state) => state.participateToEvent.openConfirm);
 	const [confirmationProgress, setConfirmationInProgress] = useState(false);
-	const [successParticipate, setSuccessParticipate] = useState();
 	const [shareModalIsOpen, openShareModal] = useState(false);
 
 	const loading = useSelector((state) => state.participateToEvent.loading);
@@ -45,39 +47,28 @@ const EntertainmentDetails = () => {
 	const participateToEventState = useSelector((state) => state.participateToEvent);
 	const participatedEvents = useSelector((state) => state.user?.currentUser?.mes_events);
 	const dispatch = useDispatch();
-	const isEligibleToActivate = !!user && !user.isAnonymous;
+	const isEligibleToActivate = !!user;
 	// const handleParticipateConfirm = () => {};
 	const handleConfirmParticipation = () => {
-		dispatch({ type: ADD_EVENT_TO_PARTICIPATED , payload: { idEvent: eventID } });
-	};
-
-	const handleParticipateRequest = (state) => {
-		if (state.success && !state.loading) {
-			setSuccessParticipate(true);
-			setShowParticipateBtn(false);
-		}
+		dispatch({ type: ADD_EVENT_TO_PARTICIPATED, payload: { idEvent: eventID } });
 	};
 
 	useEffect(() => {
 		if (user && confirmationProgress) {
 			setOpenConfirm(true);
 		}
-		
-		handleParticipateRequest(participateToEventState);
 
 		if (participatedEvents) {
-			setShowParticipateBtn(participatedEvents.includes(eventID));
+			setShowParticipateBtn(!participatedEvents.includes(eventID));
 		}
 
 		return () => {
-			dispatch({ type: RESET_EVENT_TO_PARTICIPATED_STATE })
-		}
-
-
+			dispatch({ type: RESET_EVENT_TO_PARTICIPATED_STATE });
+		};
 	}, [user, participateToEventState.success]);
 	return (
 		<div className="offer-details">
-			{!showParticipateBtn && (
+			{showParticipateBtn && (
 				<Button
 					circular
 					color="blue"
@@ -89,66 +80,65 @@ const EntertainmentDetails = () => {
 				/>
 			)}
 
-{ console.log('successParticipate' , successParticipate) }
-
-
 			<Modal
 				className="participate-confirmation"
 				open={openConfirm}
 				setOpen={(value) => dispatch(setOpenConfirm(value))}
 			>
 				{/* eslint-disable-next-line no-nested-ternary */}
-				{!successParticipate ? (
-					!isEligibleToActivate ? (
-						<>
-							<Header as="h1">
-								Activer votre compte <br /> et gagner 50 points en participant à cet évènement
-							</Header>
-							<div className="action">
-								<Button
-									circular
-									onClick={() => {
-										setConfirmationInProgress(true);
-										dispatch(setOpenConfirm(false));
-										if (!user) {
-											dispatch(openPhoneAuth(true));
-										}
-										// if (user) {
-										// 	dispatch(openNumberVerificationModal(true));
-										// } else {
-										// 	dispatch(openPhoneAuth({ open: true, withEmail: true }));
-										// }
-									}}
-								>
-									Activer mon compte
-								</Button>
-							</div>
-						</>
-					) : (
-						<>
-							<Header as="h1">Confirmer votre participation à cet évènement et gagner</Header>
-							<div className="points"> +{event.points}p</div>
-
-							<div className="action">
-								{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-								<span className="cancel" onClick={() => dispatch(setOpenConfirm(false))}>
-									Annuler
-								</span>
-								<Button onClick={handleConfirmParticipation} circular loading={loading}>
-									Confirmer
-								</Button>
-							</div>
-						</>
-					)
+				{!isEligibleToActivate ? (
+					<>
+						<Header as="h1">
+							Activer votre compte <br /> et gagner {event.points}points en participant à cet évènement
+						</Header>
+						<div className="action">
+							<Button
+								circular
+								onClick={() => {
+									setConfirmationInProgress(true);
+									dispatch(setOpenConfirm(false));
+									if (!user) {
+										dispatch(openPhoneAuth(true));
+									}
+									// if (user) {
+									// 	dispatch(openNumberVerificationModal(true));
+									// } else {
+									// 	dispatch(openPhoneAuth({ open: true, withEmail: true }));
+									// }
+								}}
+							>
+								Activer mon compte
+							</Button>
+						</div>
+					</>
 				) : (
 					<>
-						<Header as="h1">Merci pour votre participation Vous avez gagné</Header>
-						<div className="points"> +{event.points}p </div>
+						{!participateToEventState.success ? (
+							<>
+								<Header as="h1">Confirmer votre participation à cet évènement et gagner</Header>
+								<div className="points"> +{event.points}p</div>
 
-						<div className="action">
-							{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-							<Header as="h1">à très bientôt </Header>
-						</div>
+								<div className="action">
+									{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
+									<span className="cancel" onClick={() => dispatch(setOpenConfirm(false))}>
+										Annuler
+									</span>
+									<Button onClick={handleConfirmParticipation} circular loading={loading}>
+										Confirmer
+									</Button>
+								</div>
+							</>
+						) : (
+							<>
+								<Header as="h1">Merci pour votre participation Vous avez gagné</Header>
+								<div className="points"> +{event.points}p </div>
+
+								<div className="action">
+									{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
+									<Header as="h1">à très bientôt </Header>
+								</div>
+							</>
+						)}
 					</>
 				)}
 			</Modal>
