@@ -40,16 +40,16 @@ if (!devMode) {
 	rootSaga = function* () {
 		yield all([
 			fork(watchForFirebaseAuth),
-			// takeEvery(brandActions.FETCH_ALL_BRANDS, fetchAllBrandSaga),
-			// takeEvery(brandActions.FETCH_BRAND_BY_ID, fetchBrandById),
-			// takeEvery(myVisitedListActions.FETCH_MY_VISITED_LIST, fetchMyVisitedList),
+			takeEvery(brandActions.FETCH_ALL_BRANDS, fetchAllBrandSaga),
+			takeEvery(brandActions.FETCH_BRAND_BY_ID, fetchBrandById),
+			takeEvery(myVisitedListActions.FETCH_MY_VISITED_LIST, fetchMyVisitedList),
 
-			// takeEvery(userActions.LOG_IN_WITH_PROVIDER, logInWithProvider),
-			// takeEvery(userActions.UPDATE_USER_POINTS, updateUserPoints),
-			// takeEvery(setInterestsConfirmed, setInterests),
+			takeEvery(userActions.LOG_IN_WITH_PROVIDER, logInWithProvider),
+			takeEvery(userActions.UPDATE_USER_POINTS, updateUserPoints),
+			takeEvery(setInterestsConfirmed, setInterests),
 			takeEvery(eventActions.FETCH_ALL_EVENTS, fetchAllEvent),
-			// takeEvery(articlesActions.FETCH_ALL_ARTICLES, fetchAllArticles),
-			// takeEvery(interestsAction.FETCH_INTERESTS, fetchInterests),
+			takeEvery(articlesActions.FETCH_ALL_ARTICLES, fetchAllArticles),
+			takeEvery(interestsAction.FETCH_INTERESTS, fetchInterests),
 
 			takeEvery(surveyAction.FETCH_ALL_QUESTIONNAIRES, fetchQuestionnaire),
 			takeEvery(surveyAction.ANSWER_QUESTION, answerQuestionnaire),
@@ -57,7 +57,7 @@ if (!devMode) {
 			takeEvery(surveyAction.FETCH_USER_QUESTIONNAIRE, fetchUserQuestionnaire),
 
 			takeEvery(myEventsActions.FETCH_MY_EVENTS, fetchMyEvents),
-			// takeEvery(myVisitedListActions.ADD_BRAND_TO_VISITED, addBrandToVisited),
+			takeEvery(myVisitedListActions.ADD_BRAND_TO_VISITED, addBrandToVisited),
 			takeEvery(ADD_EVENT_TO_PARTICIPATED, addEventToParticiapted),
 			takeEvery(GET_USER_EVENTS, getUserEvent),
 			takeEvery(ADD_USER_INTERESTS, addUserInterests),

@@ -11,24 +11,23 @@ const MyVisitedList = () => {
 	const user = useSelector((state) => state.user.currentUser);
 
 	useEffect(() => {
-		console.log(myVisitedListActions.FETCH_MY_VISITED_LIST);
 		if (user && loadingList) {
 			dispatch({ type: myVisitedListActions.FETCH_MY_VISITED_LIST });
 		}
 	}, [user, loadingList]);
-	return (
+	return loadingList ? (
+		<Dimmer active>
+			<Loader />
+		</Dimmer>
+	) : (
 		<div style={{ paddingTop: 70 }}>
-			<Dimmer active={false}>
-				<Loader />
-			</Dimmer>
-
-			{visitedList.length && user?.currentUser ? (
+			{visitedList.length && user ? (
 				<BrandsGrid brands={visitedList} />
 			) : (
 				user?.currentUser && <p style={{ textAlign: 'center' }}> Pas de marque visiter</p>
 			)}
 
-			{!user?.currentUser && (
+			{!user && (
 				<div className="action" style={{ display: 'flex', justifyContent: 'center' }}>
 					<Button
 						circular

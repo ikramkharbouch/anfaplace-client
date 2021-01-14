@@ -39,8 +39,18 @@ export function* watchForFirebaseAuth() {
 					yield put(setUserPoints(apiUser.data.points_user));
 					yield put(setNotification({ show: true, type: 'wonPoints' }));
 					yield put(openPhoneAuth(false));
-					localStorage.setItem('isNewUser', 'false');
+					yield localStorage.setItem('isNewUser', 'false');
+					yield localStorage.removeItem('interests');
 				}
+				const interests = yield localStorage.getItem('interests') || null;
+				console.log('------->', interests);
+				if (interests) {
+					yield call(() =>
+						API({ url: 'AffecterInterets', method: 'post', data: { listInterets: interests }, token })
+					);
+					yield localStorage.removeItem('interests');
+				}
+
 				const userAPi = yield call(() => API({ url: '/getUser', method: 'post', data: {}, token }));
 
 				yield put(

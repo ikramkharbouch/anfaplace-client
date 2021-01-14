@@ -38,11 +38,11 @@ const Survey = () => {
 		}
 	}, [questionnaire, user]);
 	useEffect(() => {
-		if (id) {
+		if (id && user) {
 			dispatch(setLoadingUserQuestionnaire(true));
 			dispatch({ type: surveyActions.FETCH_USER_QUESTIONNAIRE, payload: id });
 		}
-	}, [id]);
+	}, [id, user]);
 
 	const handleSubmit = () => {
 		if (currentQuestion + 1 === questionnaire.Questions.length) {
