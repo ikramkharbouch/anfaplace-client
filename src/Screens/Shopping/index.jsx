@@ -19,6 +19,7 @@ const Shopping = () => {
 		if (!sliders) {
 			API({ url: 'getSliderShopping' })
 				.then((result) => {
+					console.log(result.data)
 					setSliders(result.data.lists);
 					setLoading(false);
 				})

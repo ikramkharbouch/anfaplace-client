@@ -3,6 +3,7 @@ import {
 	ADD_EVENT_TO_PARTICIPATED_LOADING,
 	ADD_EVENT_TO_PARTICIPATED_SUCCESS,
 	ADD_EVENT_TO_PARTICIPATED_FAIL,
+	RESET_EVENT_TO_PARTICIPATED_STATE
 } from './actions';
 
 const brandSlice = createSlice({
@@ -46,9 +47,24 @@ const brandSlice = createSlice({
 					return state;
 			}
 		},
+		resetAddEventToParticipateState : (state, action) => {
+			switch (action.payload.type) {
+				case RESET_EVENT_TO_PARTICIPATED_STATE:
+					return({ 
+						...state, 
+						success: false,
+						message: '',
+						totalPoints: '',
+						loading: false,
+					});
+				default:
+					return state;
+			}
+			
+		},
 	},
 });
 
-export const { addToMyParticipatedEvents, setOpenConfirm } = brandSlice.actions;
+export const { addToMyParticipatedEvents, setOpenConfirm , resetAddEventToParticipateState } = brandSlice.actions;
 
 export default brandSlice.reducer;

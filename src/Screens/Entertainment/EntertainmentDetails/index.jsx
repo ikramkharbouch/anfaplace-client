@@ -5,6 +5,7 @@ import { createSelector } from 'reselect';
 
 import { Parallax } from 'react-parallax';
 import { Link, useParams } from 'react-router-dom';
+import { RESET_EVENT_TO_PARTICIPATED_STATE , ADD_EVENT_TO_PARTICIPATED } from 'src/store/participatedEvent/actions';
 import { Label, Icon, Button, Header, Divider } from 'semantic-ui-react';
 
 import Slider from 'src/Components/Slider';
@@ -47,7 +48,7 @@ const EntertainmentDetails = () => {
 	const isEligibleToActivate = !!user && !user.isAnonymous;
 	// const handleParticipateConfirm = () => {};
 	const handleConfirmParticipation = () => {
-		dispatch({ type: 'ADD_EVENT_TO_PARTICIPATED', payload: { idEvent: eventID } });
+		dispatch({ type: ADD_EVENT_TO_PARTICIPATED , payload: { idEvent: eventID } });
 	};
 
 	const handleParticipateRequest = (state) => {
@@ -61,12 +62,19 @@ const EntertainmentDetails = () => {
 		if (user && confirmationProgress) {
 			setOpenConfirm(true);
 		}
-
+		
 		handleParticipateRequest(participateToEventState);
+
 		if (participatedEvents) {
 			setShowParticipateBtn(participatedEvents.includes(eventID));
 		}
-	}, [user, participateToEventState]);
+
+		return () => {
+			dispatch({ type: RESET_EVENT_TO_PARTICIPATED_STATE })
+		}
+
+
+	}, [user, participateToEventState.success]);
 	return (
 		<div className="offer-details">
 			{!showParticipateBtn && (
@@ -80,6 +88,9 @@ const EntertainmentDetails = () => {
 					content="PARTICIPER"
 				/>
 			)}
+
+{ console.log('successParticipate' , successParticipate) }
+
 
 			<Modal
 				className="participate-confirmation"

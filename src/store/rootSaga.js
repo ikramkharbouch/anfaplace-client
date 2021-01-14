@@ -26,10 +26,10 @@ import {
 import { fetchMyVisitedList, addBrandToVisited } from 'src/store/myVisitedList/saga';
 import { fetchMyEvents } from 'src/store/myEvents/saga';
 
-import addEventToParticiapted from './participatedEvent/saga';
+import { addEventToParticiapted , resetEventToParticipateState } from './participatedEvent/saga';
 import getUserEvent from './userEvents/saga';
 import addUserInterests from './userInterests/saga';
-import { ADD_EVENT_TO_PARTICIPATED } from './participatedEvent/actions';
+import { ADD_EVENT_TO_PARTICIPATED , RESET_EVENT_TO_PARTICIPATED_STATE } from './participatedEvent/actions';
 import { GET_USER_EVENTS } from './userEvents/actions';
 import { ADD_USER_INTERESTS } from './userInterests/actions';
 
@@ -83,6 +83,7 @@ if (!devMode) {
 			takeEvery(myVisitedListActions.ADD_BRAND_TO_VISITED, addBrandToVisited),
 			takeEvery(surveyAction.FETCH_USER_QUESTIONNAIRE, fetchUserQuestionnaire),
 			takeEvery(ADD_EVENT_TO_PARTICIPATED, addEventToParticiapted),
+			takeEvery(RESET_EVENT_TO_PARTICIPATED_STATE, resetEventToParticipateState),
 			takeEvery(GET_USER_EVENTS, getUserEvent),
 			takeEvery(ADD_USER_INTERESTS, addUserInterests),
 		]);

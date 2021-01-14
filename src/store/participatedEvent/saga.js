@@ -2,15 +2,16 @@ import { call, put } from 'redux-saga/effects';
 import { API, getUserToken } from 'src/utils/utilsFunctions';
 import { setParticipatedEvent, setUserPoints } from 'src/store/user';
 
-import { addToMyParticipatedEvents } from './index';
+import { addToMyParticipatedEvents , resetAddEventToParticipateState } from './index';
 
 import {
 	ADD_EVENT_TO_PARTICIPATED_SUCCESS,
 	ADD_EVENT_TO_PARTICIPATED_FAIL,
 	ADD_EVENT_TO_PARTICIPATED_LOADING,
+	RESET_EVENT_TO_PARTICIPATED_STATE
 } from './actions';
 
-export default function* addEventToParticiapted({ payload }) {
+export function* addEventToParticiapted({ payload }) {
 	try {
 		yield put(addToMyParticipatedEvents({ type: ADD_EVENT_TO_PARTICIPATED_LOADING }));
 		const token = yield getUserToken();
@@ -37,6 +38,12 @@ export default function* addEventToParticiapted({ payload }) {
 			})
 		);
 	}
+}
+
+export function* resetEventToParticipateState(){
+	yield put(
+		resetAddEventToParticipateState({ type: RESET_EVENT_TO_PARTICIPATED_STATE})
+	);
 }
 
 // export function* fetchMyVisitedList() {

@@ -70,7 +70,7 @@ const Slider = ({
 					.classList.add('reset-progress');
 			}
 			if (autoplay) {
-				swiper.autoplay.stop();
+				swiper?.autoplay?.stop();
 			}
 		}
 		if (event.type === 'touchend') {
@@ -91,7 +91,7 @@ const Slider = ({
 					.classList.remove('reset-progress');
 			}
 			if (autoplay) {
-				swiper.autoplay.start();
+				swiper?.autoplay?.start();
 			}
 		}
 	};
@@ -103,9 +103,9 @@ const Slider = ({
 	useEffect(() => {
 		if (swiperElement) {
 			if (autoplay) {
-				swiperElement.autoplay.start();
+				swiperElement?.autoplay?.start();
 			} else {
-				swiperElement.autoplay.stop();
+				swiperElement?.autoplay?.stop();
 			}
 			swiperElement.update();
 		}
