@@ -9,8 +9,6 @@ import { Link } from 'react-router-dom';
 import { openPhoneAuth, setNotification } from 'src/store/app';
 import Modal from 'src/Components/Modal';
 import './VerificationModal.less';
-import { API } from 'src/utils/utilsFunctions';
-import { setUserPoints } from 'src/store/user';
 
 const CustomInputNumber = ({ id, width, autoFocus, onChange, onBackSpace, value, format }) => (
 	<Form.Field
@@ -318,32 +316,7 @@ const PhoneAuthModal = () => {
 			.confirm(verificationCode)
 			.then((result) => {
 				setLoadingPinConf(false);
-				if (result.additionalUserInfo.isNewUser) {
-					result.user.getIdToken(true).then((token) => {
-						console.log(token);
-						API({
-							url: 'user/register',
-							method: 'post',
-							data: {
-								uid: result.user.uid,
-								phoneNumber: result.user.phoneNumber,
-								interests: JSON.parse(localStorage.getItem('interests')) || [],
-								validateBySms,
-							},
-							token,
-						})
-							.then((user) => {
-								dispatch(setNotification({ show: true, type: 'wonPoints' }));
-								dispatch(openPhoneAuth(false));
-								dispatch(setUserPoints(user.data.points_user));
-							})
-							.catch(() => {
-								dispatch(
-									setNotification({ show: true, type: 'error', message: 'une erreur est survenue' })
-								);
-							});
-					});
-				}
+				localStorage.setItem('isNewUser', JSON.stringify(result.additionalUserInfo.isNewUser));
 			})
 			.catch((error) => {
 				setLoadingPinConf(false);

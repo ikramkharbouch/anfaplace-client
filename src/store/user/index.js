@@ -2,7 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const brandSlice = createSlice({
 	name: 'user',
-	initialState: { currentUser: undefined, points: 0, loadingUser: true, loginIn: false },
+	initialState: {
+		currentUser: undefined,
+		points: 0,
+		loadingUser: true,
+		loginIn: false,
+		verifyLoading: false,
+	},
 	reducers: {
 		setUser: (state, action) => ({ ...state, currentUser: action.payload, loadingUser: false }),
 		setUserPoints: (state, action) => ({
@@ -20,6 +26,7 @@ const brandSlice = createSlice({
 				mes_events: [...state.currentUser.mes_events, action.payload],
 			},
 		}),
+		setVerifyLoading: (state, action) => ({ ...state, verifyLoading: action.payload }),
 	},
 });
 
