@@ -8,6 +8,7 @@ const brandSlice = createSlice({
 	reducers: {
 		setMyEventsSuccess: (state, action) => ({ ...state, list: action.payload, loading: false }),
 		addEventToFav: (state, action) => ({ ...state, all: [...state.all, action.payload] }),
+		resetMyEvents: () => initialState,
 	},
 });
 export const { setMyEventsSuccess, addEventToFav } = brandSlice.actions;

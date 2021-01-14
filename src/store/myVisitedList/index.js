@@ -1,13 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = { list: [], loadingAdd: false, loadingList: false, openAddedNotif: false };
+
 const brandSlice = createSlice({
 	name: 'myVisitedList',
-	initialState: {
-		list: [],
-		loadingAdd: false,
-		loadingList: false,
-		openAddedNotif: false,
-	},
+	initialState,
 	reducers: {
 		setMyVisitedListSuccess: (state, action) => ({
 			...state,
@@ -21,6 +18,7 @@ const brandSlice = createSlice({
 			loadingAdd: false,
 		}),
 		openAddedNotification: (state, action) => ({ ...state, openAddedNotif: action.payload }),
+		resetVisitedList: () => initialState,
 	},
 });
 
@@ -29,6 +27,7 @@ export const {
 	addToMyListOfVisits,
 	setLoadingVisitedList,
 	openAddedNotification,
+	resetVisitedList,
 } = brandSlice.actions;
 
 export default brandSlice.reducer;

@@ -5,6 +5,8 @@ import { eventChannel } from 'redux-saga';
 import { API, getUserToken } from 'src/utils/utilsFunctions';
 import { setConfirmPinLoading, setUser, setUserPoints } from 'src/store/user/index';
 import surveyAction from 'src/store/survey/actions';
+import { resetSurvey } from 'src/store/survey';
+import { resetVisitedList } from 'src/store/myVisitedList';
 
 const getAuthChannel = () =>
 	eventChannel((emit) =>
@@ -14,8 +16,6 @@ const getAuthChannel = () =>
 	);
 
 export function* watchForFirebaseAuth() {
-	console.log('userWatcher');
-
 	// This is where you wait for a callback from firebase
 	const channel = yield call(getAuthChannel);
 	while (true) {
@@ -43,7 +43,6 @@ export function* watchForFirebaseAuth() {
 					yield localStorage.removeItem('interests');
 				}
 				const interests = yield localStorage.getItem('interests') || null;
-				console.log('------->', interests);
 				if (interests) {
 					yield call(() =>
 						API({ url: 'AffecterInterets', method: 'post', data: { listInterets: interests }, token })
@@ -65,6 +64,8 @@ export function* watchForFirebaseAuth() {
 				);
 				yield put(setConfirmPinLoading(false));
 			} else {
+				yield put(resetVisitedList());
+				yield put(resetSurvey());
 				yield put(setUser(null));
 				yield put(openPhoneAuth({ open: true }));
 			}
@@ -113,7 +114,7 @@ export function* logInWithProvider({ payload: authProvider }) {
 				});
 		}
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 		yield put({ type: 'FETCH_FAILED' });
 	}
 }

@@ -1,16 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import update from 'immutability-helper';
 
+const initialState = {
+	list: [],
+	userQuestionnaire: { questionnaires: null },
+	loadingUserQuestionnaire: true,
+	questionnaireAnswers: [],
+	loadingAnswer: false,
+	openCongratulation: false,
+};
+
 const questionsSlice = createSlice({
 	name: 'questions',
-	initialState: {
-		list: [],
-		userQuestionnaire: { questionnaires: null },
-		loadingUserQuestionnaire: true,
-		questionnaireAnswers: [],
-		loadingAnswer: false,
-		openCongratulation: false,
-	},
+	initialState,
 	reducers: {
 		setAllQuestionsSuccess: (state, action) => ({ ...state, list: action.payload }),
 		setUserQuestionnaire: (state, action) => ({
@@ -20,13 +22,8 @@ const questionsSlice = createSlice({
 		}),
 		setCompleted: (state, action) => {
 			const indexOfQuestion = state.userQuestionnaire.questionnaires.Questions.findIndex(
-				(question) => {
-					console.log(question);
-					console.log(action.payload);
-					return question.question === action.payload.questionResponses.question;
-				}
+				(question) => question.question === action.payload.questionResponses.question
 			);
-			console.log('------>', indexOfQuestion);
 			return update(state, {
 				userQuestionnaire: {
 					questionnaires: {
@@ -44,9 +41,10 @@ const questionsSlice = createSlice({
 			const indexOfQuestionnaire = state.list.findIndex(
 				(quetionnaire) => quetionnaire.index === action.payload
 			);
-			console.log(indexOfQuestionnaire);
 			return update(state, { list: { [indexOfQuestionnaire]: { complet: { $set: true } } } });
 		},
+
+		resetSurvey: () => initialState,
 	},
 });
 
@@ -57,6 +55,7 @@ export const {
 	openCongratulation,
 	setLoadingUserQuestionnaire,
 	setQuestionnaireCompletelyAnswered,
+	resetSurvey,
 } = questionsSlice.actions;
 
 export default questionsSlice.reducer;

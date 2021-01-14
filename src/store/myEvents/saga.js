@@ -9,7 +9,7 @@ export function* fetchMyEvents() {
 		const result = yield call(() => API({ url: 'getlistFavories', method: 'post', data: {}, token }));
 		yield put(setMyEventsSuccess(result.data.lists));
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 		yield put({ type: 'FETCH_FAILED' });
 	}
 }
@@ -28,7 +28,7 @@ export function* addToFavorite({ payload }) {
 		const event = select((state) => eventSelector(state, payload));
 		yield put(addEventToFav(event));
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 		yield put({ type: 'FETCH_FAILED' });
 	}
 }

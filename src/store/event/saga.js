@@ -9,7 +9,7 @@ export function* fetchAllEvent() {
 		const result = yield call(() => API({ url: 'getAllEvents' }));
 		yield put(setAllEventsSuccess(result.data.lists));
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 		yield put({ type: 'FETCH_FAILED' });
 	}
 }

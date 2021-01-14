@@ -16,7 +16,6 @@ export function* fetchQuestionnaire() {
 	try {
 		let result;
 		const user = yield select((state) => state.user.currentUser);
-		console.log('curentUser', user);
 		if (user) {
 			const token = yield getUserToken();
 			result = yield call(() => API({ url: 'getListQuestionnaireForUser', token }));
@@ -26,7 +25,7 @@ export function* fetchQuestionnaire() {
 			yield put(setAllQuestionsSuccess(result.data.questionnaires));
 		}
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 		yield put({ type: 'FETCH_FAILED' });
 	}
 }
@@ -42,14 +41,13 @@ export function* fetchUserQuestionnaire({ payload }) {
 				token,
 			})
 		);
-		console.log(participateResult);
 		const result = yield call(() =>
 			API({ url: 'getQuestionnaireByUser', method: 'post', data: { idQuestionnaire: payload }, token })
 		);
 
 		yield put(setUserQuestionnaire(result.data));
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 		yield put({ type: 'FETCH_FAILED' });
 	}
 }
@@ -64,13 +62,12 @@ export function* answerQuestionnaire({ payload }) {
 			yield put(setCompleted(payload));
 		}
 		if (payload.isLast) {
-			console.log(result);
 			yield put(setUserPoints(result.data.points_user));
 			yield put(openCongratulation(true));
 			yield put(setQuestionnaireCompletelyAnswered(payload.id));
 		}
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 		yield put({ type: 'FETCH_FAILED' });
 	}
 }
@@ -86,9 +83,8 @@ export function* participateToQuestionnaire({ payload }) {
 				token,
 			})
 		);
-		console.log(result);
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 		yield put({ type: 'FETCH_FAILED' });
 	}
 }

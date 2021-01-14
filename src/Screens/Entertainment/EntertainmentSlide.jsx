@@ -12,7 +12,6 @@ import { removeTags } from 'src/utils/utilsFunctions';
 const EntertainmentSlide = ({ count, event, image }) => {
 	const history = useHistory();
 	const { id, tag } = event;
-	console.log('------------> image', image);
 	const Tags = typeof tag === 'string' ? JSON.parse(tag) : tag;
 	return (
 		<div className={`entertainment-slide ${count === 1 ? 'first-slide' : ''}`}>

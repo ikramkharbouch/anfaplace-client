@@ -320,7 +320,7 @@ const PhoneAuthModal = () => {
 			})
 			.catch((error) => {
 				dispatch(setConfirmPinLoading(false));
-				console.log(error);
+				console.error(error);
 				dispatch(
 					setNotification({ show: true, type: 'error', message: 'Le code de confirmation est invalide' })
 				);

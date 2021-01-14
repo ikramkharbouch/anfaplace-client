@@ -144,13 +144,7 @@ const EntertainmentDetails = () => {
 			</Modal>
 			<SocialSharing open={shareModalIsOpen} setOpen={openShareModal} />
 			<Parallax strength={200}>
-				<Slider
-					className="slider"
-					timeOnSliderEvent={(value) => console.log(value)}
-					timeToReachEndOfSlider={(value) => console.log(value)}
-					id="offers"
-				>
-					{console.log(event.slider_elements)}
+				<Slider className="slider" id="offers">
 					{event.slider_elements.map((x) => (
 						<img src={x.content} alt="" style={{ height: '60vh', objectFit: 'cover', width: '100%' }} />
 					))}

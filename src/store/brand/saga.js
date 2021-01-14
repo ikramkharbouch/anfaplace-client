@@ -9,7 +9,7 @@ export function* fetchAllBrandSaga() {
 		const result = yield call(() => API({ url: 'getListMagasins' }));
 		yield put(setAllBrandsSuccess(result.data.lists));
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 		yield put({ type: 'FETCH_FAILED' });
 	}
 }
@@ -21,7 +21,7 @@ export function* fetchBrandById({ id }) {
 		);
 		yield put(setBrandSuccess(result.data.data));
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 		yield put({ type: 'FETCH_FAILED' });
 	}
 }
