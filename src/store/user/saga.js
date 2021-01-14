@@ -25,11 +25,11 @@ export function* watchForFirebaseAuth() {
 			const userAPi = yield call(() => API({ url: '/getUser', method: 'post', data: {}, token }));
 			yield put(
 				setUser({
-					displayName: user.displayName,
-					isAnonymous: user.isAnonymous,
-					points: userAPi.data.user.points,
-					list_visite: userAPi.data.user.list_visite,
-					mes_events: userAPi.data.user.mes_events,
+					displayName: user?.displayName,
+					isAnonymous: user?.isAnonymous,
+					points: userAPi?.data?.user?.points,
+					list_visite: userAPi?.data?.user?.list_visite,
+					mes_events: userAPi?.data?.user?.mes_events,
 					multiFactor: { enrolledFactors: user.multiFactor.enrolledFactors },
 				})
 			);
