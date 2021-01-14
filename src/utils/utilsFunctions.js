@@ -31,3 +31,19 @@ export function* getUserToken() {
 export const removeTags = (html) => html.replace(/<[^>]+>/g, '');
 
 
+export const shuffle = (array) => {
+	let currentIndex = array.length;
+	let temporaryValue;
+	let randomIndex;
+	const newArray = array.slice();
+	// While there remains elements to shuffle...
+	while (currentIndex) {
+	  randomIndex = Math.floor(Math.random() * currentIndex);
+	  currentIndex -= 1;
+	  // Swap it with the current element.
+	  temporaryValue = newArray[currentIndex];
+	  newArray[currentIndex] = newArray[randomIndex];
+	  newArray[randomIndex] = temporaryValue;
+	}
+	return newArray;
+  };

@@ -42,7 +42,7 @@ const EntertainmentDetails = () => {
 
 	const user = useSelector((state) => state.user.currentUser);
 	const participateToEventState = useSelector((state) => state.participateToEvent);
-	const participatedEvents = useSelector((state) => state.user.currentUser.mes_events);
+	const participatedEvents = useSelector((state) => state.user?.currentUser?.mes_events);
 	const dispatch = useDispatch();
 	const isEligibleToActivate = !!user && !user.isAnonymous;
 	// const handleParticipateConfirm = () => {};

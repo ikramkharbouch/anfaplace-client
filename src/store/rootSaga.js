@@ -36,7 +36,7 @@ import { ADD_USER_INTERESTS } from './userInterests/actions';
 const devMode = process.env.NODE_ENV === 'development';
 // eslint-disable-next-line import/no-mutable-exports
 let rootSaga;
-if (devMode) {
+if (!devMode) {
 	rootSaga = function* () {
 		yield all([
 			fork(watchForFirebaseAuth),
