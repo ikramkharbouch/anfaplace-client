@@ -22,6 +22,7 @@ const brandSlice = createSlice({
 		}),
 	},
 });
+
 export const {
 	setUser,
 	setUserPoints,

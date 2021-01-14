@@ -24,6 +24,19 @@ const Survey = () => {
 	const [answer, setAnswer] = useState();
 	const open = useSelector((state) => state.questionnaires.openCongratulation);
 
+	const user = useSelector((state) => state.user.currentUser);
+
+	useEffect(() => {
+		if (questionnaire && questionnaire.Questions) {
+			let currentQ = 0;
+			questionnaire.Questions.forEach((quetion) => {
+				if (quetion.status === 'complet') {
+					currentQ += 1;
+				}
+			});
+			setCurrentQuestion(currentQ);
+		}
+	}, [questionnaire, user]);
 	useEffect(() => {
 		if (id) {
 			dispatch(setLoadingUserQuestionnaire(true));
@@ -42,6 +55,7 @@ const Survey = () => {
 						reponses: [{ reponse: answer }],
 					},
 					isLast: true,
+					id,
 				},
 			});
 		} else {

@@ -33,7 +33,7 @@ import { ADD_EVENT_TO_PARTICIPATED } from './participatedEvent/actions';
 import { GET_USER_EVENTS } from './userEvents/actions';
 import { ADD_USER_INTERESTS } from './userInterests/actions';
 
-const devMode = false;
+const devMode = process.env.NODE_ENV === 'development';
 // eslint-disable-next-line import/no-mutable-exports
 let rootSaga;
 if (devMode) {
@@ -50,10 +50,11 @@ if (devMode) {
 			takeEvery(eventActions.FETCH_ALL_EVENTS, fetchAllEvent),
 			// takeEvery(articlesActions.FETCH_ALL_ARTICLES, fetchAllArticles),
 			// takeEvery(interestsAction.FETCH_INTERESTS, fetchInterests),
-			// takeEvery(surveyAction.FETCH_ALL_QUESTIONNAIRES, fetchQuestionnaire),
-			// takeEvery(surveyAction.ANSWER_QUESTION, answerQuestionnaire),
-			// takeEvery(surveyAction.PARTICIPATE_TO_QUESTIONNAIRE, participateToQuestionnaire),
-			// takeEvery(surveyAction.FETCH_USER_QUESTIONNAIRE, fetchUserQuestionnaire),
+
+			takeEvery(surveyAction.FETCH_ALL_QUESTIONNAIRES, fetchQuestionnaire),
+			takeEvery(surveyAction.ANSWER_QUESTION, answerQuestionnaire),
+			takeEvery(surveyAction.PARTICIPATE_TO_QUESTIONNAIRE, participateToQuestionnaire),
+			takeEvery(surveyAction.FETCH_USER_QUESTIONNAIRE, fetchUserQuestionnaire),
 
 			takeEvery(myEventsActions.FETCH_MY_EVENTS, fetchMyEvents),
 			// takeEvery(myVisitedListActions.ADD_BRAND_TO_VISITED, addBrandToVisited),

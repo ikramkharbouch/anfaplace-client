@@ -327,7 +327,7 @@ const PhoneAuthModal = () => {
 							data: {
 								uid: result.user.uid,
 								phoneNumber: result.user.phoneNumber,
-								interests: JSON.parse(localStorage.getItem('interests') || []),
+								interests: JSON.parse(localStorage.getItem('interests')) || [],
 								validateBySms,
 							},
 							token,
