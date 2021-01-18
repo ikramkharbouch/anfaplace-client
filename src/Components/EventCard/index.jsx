@@ -17,7 +17,7 @@ dayjs.extend(customParseFormat);
 const EventCard = ({ event, hasParticipated }) => {
 	const history = useHistory();
 	const { tag } = event.data;
-	const Tags = typeof tag === 'string' ? JSON.parse(tag) : tag;
+	const Tags = typeof tag === 'string' ? [] : tag;
 
 	const handleClick = () => {
 		history.push({
@@ -44,7 +44,7 @@ const EventCard = ({ event, hasParticipated }) => {
 				</Label>
 				<div className="d-flex flex-column justify-content-between">
 					<div className="tags">
-						{Tags.filter((_, index) => index < 2).map((Tag) => (
+						{Tags.map((Tag) => (
 							<Label key={Tag}> {Tag.toLowerCase()} </Label>
 						))}
 					</div>

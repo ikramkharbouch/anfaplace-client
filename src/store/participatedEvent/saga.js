@@ -1,35 +1,52 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import { API, getUserToken } from 'src/utils/utilsFunctions';
-import { setParticipatedEvent, setUserPoints } from 'src/store/user';
-
-import { addToMyParticipatedEvents , resetAddEventToParticipateState } from './index';
+import { setParticipatedEvent, setUserInfo, setUserPoints } from 'src/store/user';
 
 import {
-	ADD_EVENT_TO_PARTICIPATED_SUCCESS,
+	addToMyParticipatedEvents,
+	resetAddEventToParticipateState,
+	setOpenConfirm,
+	setParticipatedSuccess,
+} from './index';
+
+import {
 	ADD_EVENT_TO_PARTICIPATED_FAIL,
 	ADD_EVENT_TO_PARTICIPATED_LOADING,
-	RESET_EVENT_TO_PARTICIPATED_STATE
+	RESET_EVENT_TO_PARTICIPATED_STATE,
 } from './actions';
 
 export function* addEventToParticiapted({ payload }) {
 	try {
 		yield put(addToMyParticipatedEvents({ type: ADD_EVENT_TO_PARTICIPATED_LOADING }));
 		const token = yield getUserToken();
+		const userInfos = yield select((state) => state.user.userInfo);
+		let userInfoToBeSent;
+		console.log(userInfos);
+		if (!userInfos.nom && !userInfos.email) {
+			userInfoToBeSent = JSON.parse(localStorage.getItem('user-info')) || {};
+			localStorage.removeItem('user-info');
+		} else {
+			userInfoToBeSent = userInfos;
+		}
 		const result = yield call(() =>
-			API({ url: 'participeToEvent', method: 'post', data: { idEvent: payload.idEvent }, token })
+			API({
+				url: 'participeToEvent',
+				method: 'post',
+				data: { idEvent: payload.idEvent, ...userInfoToBeSent },
+				token,
+			})
 		);
 		yield put(
-			addToMyParticipatedEvents({
-				type: ADD_EVENT_TO_PARTICIPATED_SUCCESS,
-				payload: {
-					success: result.data.success,
-					message: result.data.message,
-					totalPoints: result.data.total_points_gagne,
-				},
+			setParticipatedSuccess({
+				success: result.data.success,
+				message: result.data.message,
+				totalPoints: result.data.total_points_gagne,
 			})
 		);
 		yield put(setUserPoints(result.data.total_points_gagne));
 		yield put(setParticipatedEvent(payload.idEvent));
+		yield put(setUserInfo(userInfoToBeSent));
+		yield put(setOpenConfirm(false));
 	} catch (e) {
 		yield put(
 			addToMyParticipatedEvents({
@@ -40,10 +57,8 @@ export function* addEventToParticiapted({ payload }) {
 	}
 }
 
-export function* resetEventToParticipateState(){
-	yield put(
-		resetAddEventToParticipateState({ type: RESET_EVENT_TO_PARTICIPATED_STATE})
-	);
+export function* resetEventToParticipateState() {
+	yield put(resetAddEventToParticipateState({ type: RESET_EVENT_TO_PARTICIPATED_STATE }));
 }
 
 // export function* fetchMyVisitedList() {

@@ -1,76 +1,73 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CouponCard from 'src/Components/CouponCard';
-import brandSrc from 'src/assets/images/brands/GO_Sport_logo.svg';
-import swatchSrc from 'src/assets/images/brands/swatch-logo.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Dimmer, Loader } from 'semantic-ui-react';
+import couponActions from 'src/store/coupon/actions';
+import { openPhoneAuth } from 'src/store/app';
 
 import('./CouponList.less');
 
-const initialState = [
-	{
-		id: 1,
-		url: `/coupon-list/1`,
-		img: brandSrc,
-		amount: '50dh',
-		date: `03/04/2021`,
-		points: '50 points',
-		title: 'Go sport',
-		available: true,
-		active: true,
-	},
-	{
-		id: 2,
-		url: `/coupon-list/2`,
-		img: brandSrc,
-		amount: '200dh',
-		date: `03/04/2021`,
-		points: 'Conpon gratuit',
-		title: 'Go sport',
-		available: true,
-		active: false,
-	},
-	{
-		id: 3,
-		url: `/coupon-list/3`,
-		img: swatchSrc,
-		amount: '500dh',
-		date: `03/04/2021`,
-		points: '500 points',
-		title: 'Go sport',
-		available: false,
-		active: true,
-	},
-];
+const CouponList = () => {
+	const coupons = useSelector((state) => state.coupon);
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.user.currentUser);
 
-const CouponList = () => (
-	<div className="coupon-list__screen">
-		<h2 className="coupon-list__title"> Vous avez 50 points </h2>
-		<div className="coupon-list__cards">
-			{initialState.map((el) => (
-				<CouponCard
-					key={el.id}
-					url={el.url}
-					img={el.img}
-					amount={el.amount}
-					date={el.date}
-					points={el.points}
-					available={el.available}
-					title={el.title}
-					active={el.active}
-					couponInfos={el}
-				/>
-			))}
+	useEffect(() => {
+		if (!coupons.list) {
+			dispatch({ type: couponActions.GET_USER_COUPONS });
+		}
+	}, [coupons]);
+
+	// eslint-disable-next-line no-nested-ternary
+	return !user ? (
+		<>
+			<p style={{ textAlign: 'center', marginTop: 44 }}> Merci de vous connecter ! </p>
+			<div className="action" style={{ display: 'flex', justifyContent: 'center' }}>
+				<Button
+					circular
+					onClick={() => {
+						if (!user) {
+							dispatch(openPhoneAuth(true));
+						}
+					}}
+				>
+					Activer mon compte
+				</Button>
+			</div>
+		</>
+	) : coupons.loading ? (
+		<Dimmer active>
+			<Loader />
+		</Dimmer>
+	) : (
+		<div className="coupon-list__screen">
+			<h2 className="coupon-list__title"> Vous avez {user.points} points </h2>
+			<div className="coupon-list__cards">
+				{coupons.list.map((coupon) => (
+					<CouponCard
+						key={coupon.id}
+						url={`/coupon/${coupon.id}`}
+						img={coupon.logo}
+						amount={`${coupon.data.point}dh`}
+						date={coupon.data.fin_time}
+						points={coupon.data.point}
+						title={coupon.data.brand}
+						active={coupon.data.active}
+					/>
+				))}
+			</div>
+			<div className="coupon-list__footer">
+				<p className="coupon-list__footer-text">
+					<span className="red circle dot" />
+					<span>Coupon bloqué</span>
+				</p>
+				<p className="coupon-list__footer-text">
+					<span className="green circle dot" />
+					<span>Coupon disponible</span>
+				</p>
+			</div>
 		</div>
-		<div className="coupon-list__footer">
-			<p className="coupon-list__footer-text">
-				<span className="red circle dot" />
-				<span>Coupon bloqué</span>
-			</p>
-			<p className="coupon-list__footer-text">
-				<span className="green circle dot" />
-				<span>Coupon disponible</span>
-			</p>
-		</div>
-	</div>
-);
+	);
+};
 
 export default CouponList;

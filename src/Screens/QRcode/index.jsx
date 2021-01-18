@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Header, Icon } from 'semantic-ui-react';
 import './QRcode.less';
 import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
+import QrCodeComponent from 'src/Components/qrCode';
 
 const PhoneValidated = () => {
-	const points = useSelector((state) => state.user.currentUser.points);
+	const { points, qrCode } = useSelector((state) => state.user.currentUser);
+
 	return (
 		<div className="qrcode-section">
 			<div className="qrcode-section-header" />
@@ -14,7 +16,7 @@ const PhoneValidated = () => {
 			</div>
 			<div className="qrcode-section-body">
 				<div className="qrcode-section-img">
-					<Icon className="big" name="qrcode" />
+					<QrCodeComponent qrCodeImg={qrCode} />
 				</div>
 
 				<span className="qrcode-points"> {points} points </span>

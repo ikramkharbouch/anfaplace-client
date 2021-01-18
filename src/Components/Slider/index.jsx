@@ -10,7 +10,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import './Slider.less';
 // import { Header, Icon } from 'semantic-ui-react';
 
-import logoAnfa from 'src/assets/images/logo-small.png';
+import { Header, Icon } from 'semantic-ui-react';
 
 SwiperCore.use([Pagination]);
 
@@ -155,10 +155,9 @@ const Slider = ({
 		</Swiper>
 	) : (
 		<div className="empty-slider">
-			{/* <Header as="h1" icon>
-				<Icon name="image" /> No sliders
-			</Header> */}
-			<img src={logoAnfa} className="rotate-img" alt="Anfa logo" />
+			<Header as="h1" icon>
+				<Icon name="image" /> Prochainement.
+			</Header>
 		</div>
 	);
 };

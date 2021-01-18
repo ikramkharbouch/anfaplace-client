@@ -5,7 +5,7 @@ import 'dayjs/locale/fr';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 /* import { removeTags } from 'src/utils/utilsFunctions';
- */import './Offers.less';
+ */ import './Offers.less';
 import Slider from 'src/Components/Slider';
 import OfferSlide from './OfferSlide';
 
@@ -24,7 +24,7 @@ const Offers = () => {
 	return (
 		<>
 			{offers.length > 0 && (
-				<Slider className="slider" id="offers">
+				<Slider className="slider" id="offers" autoplayDelay={3000}>
 					{offers.map((article) => (
 						<OfferSlide
 							date={`${dayjs(article.debut_time, 'DD/MM/YYYY').format('D MMM')} - ${dayjs(

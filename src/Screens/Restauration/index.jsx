@@ -36,12 +36,16 @@ const Restauration = () => {
 		</Dimmer>
 	) : (
 		<div className="restauration-screen">
-			<Slider className="shopping-slider" id="shopping">
-				{sliders.map((slider) => (
-					<RestaurationSlide image={slider.data.banniere} description={slider.data.titre} />
-				))}
-			</Slider>
-			<BrandsGrid brands={brandsRestauration} />
+			{!!sliders.length && (
+				<Slider className="shopping-slider" id="shopping">
+					{sliders.map((slider) => (
+						<RestaurationSlide image={slider.data.banniere} description={slider.data.titre} />
+					))}
+				</Slider>
+			)}
+			<div style={{ marginTop: 44 }}>
+				<BrandsGrid brands={brandsRestauration} />
+			</div>
 		</div>
 	);
 };

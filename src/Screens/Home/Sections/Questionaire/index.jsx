@@ -23,21 +23,24 @@ const Questionnaire = React.forwardRef((props, ref) => {
 				pagination={false}
 				slidersPerView={1.42}
 			>
-				{Questionnaires.map(({ index, complet, data: { points, description, marque, visuel } }) => (
-					<QuestionnaireSlide
-						id={index}
-						key={index}
-						points={points}
-						description={description}
-						brands={[marque]}
-						completed={complet}
-						image={
-							arrayBufferToBase64(visuel.data) === 'data:image/jpeg;base64,'
-								? visuel
-								: arrayBufferToBase64(visuel.data)
-						}
-					/>
-				))}
+				{Questionnaires.map(
+					({ index, complet, data: { titre, points, description, marque, visuel } }) => (
+						<QuestionnaireSlide
+							id={index}
+							key={index}
+							points={points}
+							description={description}
+							brands={[marque]}
+							title={titre}
+							completed={complet}
+							image={
+								arrayBufferToBase64(visuel.data) === 'data:image/jpeg;base64,'
+									? visuel
+									: arrayBufferToBase64(visuel.data)
+							}
+						/>
+					)
+				)}
 			</Slider>
 		</div>
 	);

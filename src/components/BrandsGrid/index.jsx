@@ -25,6 +25,7 @@ const BrandsGrid = ({ brands, promo }) => {
 					brandImg={brand.data.Tags && brand.data.logo}
 					brandName={brand.data.Tags && brand.data.titre}
 					brandId={brand.data.Tags && brand.index}
+					isPromo={brand.data.enPromotion}
 				/>
 			))}
 		</div>

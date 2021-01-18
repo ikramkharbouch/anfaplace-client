@@ -7,7 +7,7 @@ import { ReactComponent as ArrowIcon } from 'src/assets/icons/arrow.svg';
 import sliderImage from 'src/assets/images/temp/slider.jpg';
 import Image from 'src/Components/Image/index';
 
-const OfferSlide = ({ image, description, date, article }) => {
+const OfferSlide = ({ image, description, article }) => {
 	const history = useHistory();
 	const offerSlide = createRef();
 	useEffect(() => {
@@ -18,7 +18,6 @@ const OfferSlide = ({ image, description, date, article }) => {
 			<Image src={image} />
 			<div className="offer-details">
 				<p className="offer-description">{description}</p>
-				<span className="offer-date">{date}</span>
 				<Button
 					inverted
 					onClick={() =>
@@ -46,7 +45,6 @@ const OfferSlide = ({ image, description, date, article }) => {
 OfferSlide.propTypes = {
 	image: PropTypes.string,
 	description: PropTypes.string,
-	date: PropTypes.string,
 	article: PropTypes.shape({
 		id: PropTypes.string.isRequired,
 		contenu_body: PropTypes.string.isRequired,
@@ -69,7 +67,6 @@ OfferSlide.propTypes = {
 OfferSlide.defaultProps = {
 	image: sliderImage,
 	description: 'LA nouvelle plateforme anfa place ipsum  LOREM',
-	date: '08 déc - 12 déc',
 	article: {
 		data: {
 			titre: 'Titre de l’evenement sur 2 lignes et coupe la ligne ici IPSUM LOREM 3ELE …',

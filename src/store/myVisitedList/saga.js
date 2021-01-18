@@ -22,7 +22,7 @@ export function* fetchMyVisitedList() {
 
 export function* addBrandToVisited({ payload }) {
 	try {
-		yield put(setLoadingVisitedList(payload));
+		yield put(setLoadingVisitedList(true));
 		const token = yield getUserToken();
 		yield call(() =>
 			API({ url: 'addToVisited', method: 'post', data: { marqueVisited: payload.data.nom }, token })

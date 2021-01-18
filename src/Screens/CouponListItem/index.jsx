@@ -1,12 +1,16 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import CouponCard from 'src/Components/CouponCard';
 import { ReactComponent as QrcodeIcon } from 'src/assets/icons/qrcode.svg';
 import Button from 'src/Components/Button';
 import './CouponListItem.less';
+import { openPhoneAuth } from 'src/store/app';
 
 const CouponListItem = () => {
 	const history = useHistory();
+	const user = useSelector((state) => state.user.currentUser);
+	const dispatch = useDispatch();
 
 	const {
 		active,
@@ -34,7 +38,7 @@ const CouponListItem = () => {
 				/>
 			</div>
 
-			{available && active && (
+			{available && user && (
 				<>
 					<div className="coupon-list-item__qrcodeIcon active">
 						<QrcodeIcon />
@@ -43,7 +47,7 @@ const CouponListItem = () => {
 				</>
 			)}
 
-			{available && !active && (
+			{available && !user && (
 				<>
 					<h2 className="coupon-list-item__title">Votre QR Code n’est pas actif</h2>
 					<p className="coupon-list-item__text">
@@ -52,11 +56,11 @@ const CouponListItem = () => {
 					<div className="coupon-list-item__qrcodeIcon">
 						<QrcodeIcon />
 					</div>
-					<Button type="button" text="activer" />
+					<Button type="button" click={() => dispatch(openPhoneAuth(true))} text="activer" />
 				</>
 			)}
 
-			{!available && (
+			{user && user.points > points && (
 				<>
 					<h2 className="coupon-list-item__title not-available">
 						Oups !! vous n’avez pas assez de points

@@ -14,20 +14,6 @@ import myEventsActions from 'src/store/myVisitedList/actions';
 import Modal from 'src/Components/Modal';
 import { openAddedNotification } from 'src/store/myVisitedList';
 
-const initialState = [
-	{
-		id: 1,
-		url: `/coupon-list/1`,
-		img: brandSrc,
-		amount: '50dh',
-		date: `03/04/2021`,
-		points: '50 points',
-		title: 'Go sport',
-		available: true,
-		active: true,
-	},
-];
-
 const panes = [
 	{
 		menuItem: 'Détails du magasin',
@@ -93,22 +79,16 @@ const OfferDetails = () => {
 	const couponsPanes = [
 		{
 			menuItem: 'Coupon actif',
-			render: () => (
+			render: ({ coupon }) => (
 				<div className="coupon-list__cards">
-					{initialState.map((el) => (
-						<CouponCard
-							key={el.id}
-							url={el.url}
-							img={el.img}
-							amount={el.amount}
-							date={el.date}
-							points={el.points}
-							available={el.available}
-							title={el.title}
-							active={el.active}
-							couponInfos={el}
-						/>
-					))}
+					<CouponCard
+						url={'/coupon/' + coupon.index}
+						img={coupon.logo}
+						amount={coupon.point}
+						date={coupon.fin_time}
+						points={coupon.point}
+						title={coupon.title}
+					/>
 				</div>
 			),
 		},
@@ -154,17 +134,24 @@ const OfferDetails = () => {
 						panes={panes}
 					/>
 				</div>
-
-				<Divider hidden />
-				<div className="content description coupons">
-					<Tab
-						className="toggle"
-						menu={{ secondary: true, pointing: true, size: 'large', widths: 2 }}
-						panes={couponsPanes}
-					/>
-				</div>
+				{Object.keys(marque.coupon).length > 0 && (
+					<>
+						<Divider hidden />
+						<div className="content description coupons">
+							<Tab
+								className="toggle"
+								menu={{ secondary: true, pointing: true, size: 'large', widths: 2 }}
+								coupon={{
+									...marque.coupon.coupon_infos,
+									index: marque.coupon.index,
+									logo: marque.data.logo,
+								}}
+								panes={couponsPanes}
+							/>
+						</div>
+					</>
+				)}
 			</>
-			
 		</div>
 	);
 };

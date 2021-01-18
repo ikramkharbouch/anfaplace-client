@@ -33,16 +33,23 @@ export function* fetchQuestionnaire() {
 export function* fetchUserQuestionnaire({ payload }) {
 	try {
 		const token = yield getUserToken();
-		const participateResult = yield call(() =>
+		if (!payload.participe) {
+			yield call(() =>
+				API({
+					url: 'participateToQuestionnaire',
+					method: 'post',
+					data: { idQuestionnaire: payload.id },
+					token,
+				})
+			);
+		}
+		const result = yield call(() =>
 			API({
-				url: 'participateToQuestionnaire',
+				url: 'getQuestionnaireByUser',
 				method: 'post',
-				data: { idQuestionnaire: payload },
+				data: { idQuestionnaire: payload.id },
 				token,
 			})
-		);
-		const result = yield call(() =>
-			API({ url: 'getQuestionnaireByUser', method: 'post', data: { idQuestionnaire: payload }, token })
 		);
 
 		yield put(setUserQuestionnaire(result.data));
@@ -62,9 +69,9 @@ export function* answerQuestionnaire({ payload }) {
 			yield put(setCompleted(payload));
 		}
 		if (payload.isLast) {
+			yield put(setQuestionnaireCompletelyAnswered(payload.id));
 			yield put(setUserPoints(result.data.points_user));
 			yield put(openCongratulation(true));
-			yield put(setQuestionnaireCompletelyAnswered(payload.id));
 		}
 	} catch (e) {
 		console.error(e);
@@ -75,7 +82,7 @@ export function* answerQuestionnaire({ payload }) {
 export function* participateToQuestionnaire({ payload }) {
 	try {
 		const token = yield getUserToken();
-		const result = yield call(() =>
+		yield call(() =>
 			API({
 				url: 'participateToQuestionnaire',
 				method: 'post',

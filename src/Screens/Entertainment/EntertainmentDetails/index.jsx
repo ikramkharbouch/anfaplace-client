@@ -5,10 +5,7 @@ import { createSelector } from 'reselect';
 
 import { Parallax } from 'react-parallax';
 import { Link, useParams } from 'react-router-dom';
-import {
-	RESET_EVENT_TO_PARTICIPATED_STATE,
-	ADD_EVENT_TO_PARTICIPATED,
-} from 'src/store/participatedEvent/actions';
+import { ADD_EVENT_TO_PARTICIPATED } from 'src/store/participatedEvent/actions';
 import { Label, Icon, Button, Header, Divider } from 'semantic-ui-react';
 
 import Slider from 'src/Components/Slider';
@@ -20,6 +17,7 @@ import './EntertainmentDetails.less';
 import Modal from 'src/Components/Modal';
 import { openPhoneAuth } from 'src/store/app';
 import { setOpenConfirm } from 'src/store/participatedEvent';
+import UserInfoModal from 'src/Components/userInfoModal';
 
 const selectEvent = createSelector(
 	(state) => state.event.list,
@@ -37,48 +35,60 @@ const EntertainmentDetails = () => {
 	const Tags = event.tag;
 
 	const openConfirm = useSelector((state) => state.participateToEvent.openConfirm);
+	// eslint-disable-next-line no-unused-vars
 	const [confirmationProgress, setConfirmationInProgress] = useState(false);
 	const [shareModalIsOpen, openShareModal] = useState(false);
 
 	const loading = useSelector((state) => state.participateToEvent.loading);
 	const [showParticipateBtn, setShowParticipateBtn] = useState(true);
-
+	const [openUserInfo, setUserOpenInfo] = useState(false);
 	const user = useSelector((state) => state.user.currentUser);
-	const participateToEventState = useSelector((state) => state.participateToEvent);
+	const userInfo = useSelector((state) => state.user.userInfo);
 	const participatedEvents = useSelector((state) => state.user?.currentUser?.mes_events);
 	const dispatch = useDispatch();
-	const isEligibleToActivate = !!user;
 	// const handleParticipateConfirm = () => {};
 	const handleConfirmParticipation = () => {
+		setConfirmationInProgress(true);
 		dispatch({ type: ADD_EVENT_TO_PARTICIPATED, payload: { idEvent: eventID } });
 	};
 
 	useEffect(() => {
-		if (user && confirmationProgress) {
-			setOpenConfirm(true);
-		}
-
 		if (participatedEvents) {
-			setShowParticipateBtn(!participatedEvents.includes(eventID));
+			setShowParticipateBtn(!participatedEvents.includes(eventID) && event.points);
 		}
-
-		return () => {
-			dispatch({ type: RESET_EVENT_TO_PARTICIPATED_STATE });
-		};
-	}, [user, participateToEventState.success]);
+	}, [user]);
 	return (
 		<div className="offer-details">
 			{showParticipateBtn && (
 				<Button
 					circular
 					color="blue"
-					onClick={() => dispatch(setOpenConfirm(true))}
+					onClick={() => {
+						setConfirmationInProgress(true);
+						if (user) {
+							if (!userInfo.email && !userInfo.nom) {
+								setUserOpenInfo(true);
+							} else {
+								dispatch(setOpenConfirm(true));
+							}
+						} else {
+							dispatch(openPhoneAuth(true));
+						}
+					}}
 					// onClick = {handleParticipate}
 					className="participate"
 					icon="plus"
-					content="PARTICIPER"
+					content="Je m'inscris"
 				/>
 			)}
+			<UserInfoModal
+				open={openUserInfo}
+				confirmUserInfo={() => {
+					setUserOpenInfo(false);
+					dispatch(setOpenConfirm(true));
+				}}
+				setOpen={setUserOpenInfo}
+			/>
 
 			<Modal
 				className="participate-confirmation"
@@ -86,61 +96,19 @@ const EntertainmentDetails = () => {
 				setOpen={(value) => dispatch(setOpenConfirm(value))}
 			>
 				{/* eslint-disable-next-line no-nested-ternary */}
-				{!isEligibleToActivate ? (
+				{
 					<>
-						<Header as="h1">
-							Activer votre compte <br /> et gagner {event.points}points en participant à cet évènement
-						</Header>
+						<Header as="h1">Merci pour votre inscription , Vous avez gagner</Header>
+						<div className="points"> +{event.points}p</div>
+
 						<div className="action">
-							<Button
-								circular
-								onClick={() => {
-									setConfirmationInProgress(true);
-									dispatch(setOpenConfirm(false));
-									if (!user) {
-										dispatch(openPhoneAuth(true));
-									}
-									// if (user) {
-									// 	dispatch(openNumberVerificationModal(true));
-									// } else {
-									// 	dispatch(openPhoneAuth({ open: true, withEmail: true }));
-									// }
-								}}
-							>
-								Activer mon compte
+							<Button onClick={handleConfirmParticipation} circular loading={loading}>
+								Fermer
 							</Button>
+							{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
 						</div>
 					</>
-				) : (
-					<>
-						{!participateToEventState.success ? (
-							<>
-								<Header as="h1">Confirmer votre participation à cet évènement et gagner</Header>
-								<div className="points"> +{event.points}p</div>
-
-								<div className="action">
-									{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-									<span className="cancel" onClick={() => dispatch(setOpenConfirm(false))}>
-										Annuler
-									</span>
-									<Button onClick={handleConfirmParticipation} circular loading={loading}>
-										Confirmer
-									</Button>
-								</div>
-							</>
-						) : (
-							<>
-								<Header as="h1">Merci pour votre participation Vous avez gagné</Header>
-								<div className="points"> +{event.points}p </div>
-
-								<div className="action">
-									{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-									<Header as="h1">à très bientôt </Header>
-								</div>
-							</>
-						)}
-					</>
-				)}
+				}
 			</Modal>
 			<SocialSharing open={shareModalIsOpen} setOpen={openShareModal} />
 			<Parallax strength={200}>

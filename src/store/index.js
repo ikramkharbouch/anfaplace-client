@@ -16,6 +16,7 @@ import myEventsList from './myEvents';
 import participateToEvent from './participatedEvent';
 import userEventsList from './userEvents';
 import userInterests from './userInterests';
+import coupon from './coupon';
 
 const devMode = process.env.NODE_ENV === 'development';
 
@@ -32,6 +33,7 @@ const reducer = combineReducers({
 	participateToEvent,
 	userEventsList,
 	userInterests,
+	coupon,
 });
 
 const sagaMiddleware = createSagaMiddleware();

@@ -12,7 +12,7 @@ import { removeTags } from 'src/utils/utilsFunctions';
 const EntertainmentSlide = ({ count, event, image }) => {
 	const history = useHistory();
 	const { id, tag } = event;
-	const Tags = typeof tag === 'string' ? JSON.parse(tag) : tag;
+	const Tags = typeof tag === 'string' ? [] : tag;
 	return (
 		<div className={`entertainment-slide ${count === 1 ? 'first-slide' : ''}`}>
 			<img src={image} alt="slide" />

@@ -10,7 +10,10 @@ import { Dimmer, Loader } from 'semantic-ui-react';
 const Shopping = () => {
 	const brands = useSelector((state) =>
 		state.brand.all.filter(
-			(brand) => !['RESTAURATION', 'DIVERTISSEMENT'].includes(brand.data.categorie)
+			(brand) =>
+				!['RESTAURATION', 'DIVERTISSEMENT', 'SERVICES', 'CHOCOLATERIE ET FRIANDISE'].includes(
+					brand.data.categorie
+				)
 		)
 	);
 	const [sliders, setSliders] = useState();

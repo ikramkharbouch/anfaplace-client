@@ -3,7 +3,13 @@ import firebaseApp from 'src/utils/initApp';
 import { openPhoneAuth, setNotification } from 'src/store/app';
 import { eventChannel } from 'redux-saga';
 import { API, getUserToken } from 'src/utils/utilsFunctions';
-import { setConfirmPinLoading, setUser, setUserPoints } from 'src/store/user/index';
+import {
+	setConfirmPinLoading,
+	setQrcode,
+	setUser,
+	setUserInfo,
+	setUserPoints,
+} from 'src/store/user/index';
 import surveyAction from 'src/store/survey/actions';
 import { resetSurvey } from 'src/store/survey';
 import { resetVisitedList } from 'src/store/myVisitedList';
@@ -23,7 +29,8 @@ export function* watchForFirebaseAuth() {
 			const user = yield take(channel);
 			if (user !== 'null') {
 				const token = yield getUserToken();
-				if (JSON.parse(localStorage.getItem('isNewUser'))) {
+				const isNewUser = JSON.parse(localStorage.getItem('isNewUser'));
+				if (isNewUser) {
 					const apiUser = yield call(() =>
 						API({
 							url: 'user/register',
@@ -36,6 +43,8 @@ export function* watchForFirebaseAuth() {
 							token,
 						})
 					);
+					yield call(() => API({ url: 'QRCodeUser', method: 'post', token }));
+
 					yield put(setUserPoints(apiUser.data.points_user));
 					yield put(setNotification({ show: true, type: 'wonPoints' }));
 					yield put(openPhoneAuth(false));
@@ -60,14 +69,17 @@ export function* watchForFirebaseAuth() {
 						list_visite: userAPi.data.user.list_visite,
 						mes_events: userAPi.data.user.mes_events,
 						multiFactor: { enrolledFactors: user.multiFactor.enrolledFactors },
+						qrCode: userAPi.data.user.qrcode,
 					})
 				);
+				if (!isNewUser) {
+					yield put(setUserInfo({ nom: userAPi.data.user.nom, email: userAPi.data.user.email }));
+				}
 				yield put(setConfirmPinLoading(false));
 			} else {
 				yield put(resetVisitedList());
 				yield put(resetSurvey());
 				yield put(setUser(null));
-				yield put(openPhoneAuth({ open: true }));
 			}
 
 			yield put({ type: surveyAction.FETCH_ALL_QUESTIONNAIRES });
@@ -121,4 +133,15 @@ export function* logInWithProvider({ payload: authProvider }) {
 
 export function* updateUserPoints({ points }) {
 	yield put(setUserPoints({ points }));
+}
+
+export function* getQrcode() {
+	try {
+		const token = yield getUserToken();
+
+		const result = yield call(() => API({ url: '/getQRCode', method: 'post', token }));
+		yield put(setQrcode(result.data));
+	} catch (e) {
+		console.error(e);
+	}
 }

@@ -3,6 +3,7 @@ import update from 'immutability-helper';
 
 const initialState = {
 	list: [],
+	loadingList: true,
 	userQuestionnaire: { questionnaires: null },
 	loadingUserQuestionnaire: true,
 	questionnaireAnswers: [],
@@ -14,7 +15,11 @@ const questionsSlice = createSlice({
 	name: 'questions',
 	initialState,
 	reducers: {
-		setAllQuestionsSuccess: (state, action) => ({ ...state, list: action.payload }),
+		setAllQuestionsSuccess: (state, action) => ({
+			...state,
+			list: action.payload,
+			loadingList: false,
+		}),
 		setUserQuestionnaire: (state, action) => ({
 			...state,
 			userQuestionnaire: action.payload,

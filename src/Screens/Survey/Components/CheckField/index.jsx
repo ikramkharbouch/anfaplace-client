@@ -5,7 +5,7 @@ import './CheckField.less';
 
 const CheckField = ({ title, value, clicked, answer }) => {
 	const handleClick = (e, data) => {
-		clicked(data.value);
+		clicked(`${data.value}`);
 	};
 
 	return (
@@ -14,7 +14,7 @@ const CheckField = ({ title, value, clicked, answer }) => {
 			label={{ children: title }}
 			value={value}
 			onClick={(e, data) => handleClick(e, data)}
-			checked={answer === value}
+			checked={answer === `${value}`}
 		/>
 	);
 };

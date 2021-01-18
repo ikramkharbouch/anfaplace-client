@@ -4,6 +4,7 @@
 .qrcode-screen {
 	padding: 20px;
 	text-align: center;
+	height: 100vh;
 	.content{
 		position: absolute;
 		top: calc(~"50% - " 62px);
@@ -51,11 +52,18 @@ i.icons.big {
 		max-width: 250px;
 		height: 250px;
 		overflow: hidden;
-
+		position: relative;
 		svg{
+			position: absolute;
 			width: 100%;
 			height: 100%;
-			transform: scale(2);
+			transform: scale(.8);
+		}
+		.qrcode{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%,-50%);
 		}
 	}
 

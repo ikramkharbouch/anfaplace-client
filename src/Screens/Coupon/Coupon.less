@@ -7,6 +7,8 @@
 	justify-content: center;
 	img {
 		margin-top: 14px;
+		height: 140px;
+		width: 140px;
 	}
 	h4.ui.header {
 		font-weight: 300;
@@ -25,5 +27,24 @@
 	h5.ui.header.which-shop{
 		font-weight: 400;
 		margin-top: 0;
+	}
+	.qrcode-container{
+		position: absolute;
+		top:62%;
+		svg{
+			left: 50%;
+			top:50%;
+			transform: scale(.8) translate(0%,-35%);
+		}
+		.qrcode{
+			position: absolute;
+			left: 50%;
+			top: 22%;
+			transform: translate(-50%,-50%);
+		}
+	}
+	.which-shop{
+		position: absolute;
+		bottom: 24px;
 	}
 }

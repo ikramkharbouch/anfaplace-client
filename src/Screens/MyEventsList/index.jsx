@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import EventCard from 'src/Components/EventCard';
 import './MyEventsList.less';
@@ -8,7 +8,6 @@ import { openPhoneAuth } from 'src/store/app';
 
 const MyEventsList = () => {
 	const dispatch = useDispatch();
-	const [loading, setLoading] = useState(true);
 	// eslint-disable-next-line no-unused-vars
 	/* 	//const { list: myEventsList,  } = useSelector((state) => state.myEventsList);
 	 */ const user = useSelector((state) => state.user.currentUser);
@@ -18,14 +17,9 @@ const MyEventsList = () => {
 		if (user && !eventList.success) {
 			dispatch({ type: 'GET_USER_EVENTS' });
 		}
-
-		if (eventList.success && !eventList.loading) {
-			setLoading(false);
-		}
-		setLoading(false);
 	}, [user, eventList.events]);
 
-	return loading ? (
+	return eventList.loading && user ? (
 		<Dimmer active>
 			<Loader />
 		</Dimmer>

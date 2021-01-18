@@ -1,14 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { AuthProvider } from 'src/utils/AuthContext';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 import Interests from 'src/Components/Interests';
 import InAppNotification from 'src/Components/InAppNotification';
-import { AuthProvider } from 'src/utils/AuthContext';
-import PhoneAuthModal from 'src/Components/numberAuth';
-import Loader from 'src/Components/Image/Loader';
-
+import AuthModal from 'src/Components/numberAuth';
 import VerificationModal from 'src/Components/NumVerificationModal';
+import { Dimmer, Loader } from 'semantic-ui-react';
 import Routes from './Routes';
 
 import NavBar from './Components/NavBar';
@@ -22,23 +21,20 @@ const App = () => {
 	return (
 		// move this to context later
 		<AuthProvider>
-			<div className="app-container">
-				{userLoading ? (
-					<div>
-						<Loader />
-					</div>
-				) : (
-					<Router>
-						<InAppNotification />
-						<PhoneAuthModal />
-						<NavBar />
-						<Interests />
-						<VerificationModal />
-						<Routes />
-						<BottomNav />
-					</Router>
-				)}
-			</div>
+			<Dimmer.Dimmable as="div" dimmed={userLoading} className="app-container">
+				<Dimmer active={userLoading}>
+					<Loader />
+				</Dimmer>
+				<Router>
+					<InAppNotification />
+					<AuthModal />
+					<NavBar />
+					<Interests />
+					<VerificationModal />
+					<Routes />
+					<BottomNav />
+				</Router>
+			</Dimmer.Dimmable>
 		</AuthProvider>
 	);
 };

@@ -9,7 +9,6 @@ import Menu from 'src/Components/Menu';
 import { Header } from 'semantic-ui-react';
 import BackButton from 'src/Components/BackButton/BackButton';
 
-import { useSelector } from 'react-redux';
 import MenuIcon from '../MenuIcon';
 import './NavBar.less';
 
@@ -52,7 +51,6 @@ const NavBar = () => {
 	const [zIndex, setZindex] = useState(930);
 	const { pathname } = useLocation();
 	const history = useHistory();
-	const user = useSelector((state) => state.user.currentUser);
 	const handleButtonClick = () => {
 		if (!(history.location.pathname === '/coupon-list')) {
 			history.push('/coupon-list');
@@ -86,7 +84,7 @@ const NavBar = () => {
 		return () => window.removeEventListener('scroll', onScroll);
 	}, []);
 	setOverflowHidden('body');
-	const dontShowBackButton = !['/', '/tour', '/all-brands'].includes(pathname);
+	const dontShowBackButton = !['/', '/tour', '/all-brands', '/survey'].includes(pathname);
 	return (
 		<>
 			<header ref={navBarRef} className={`navBar ${isMenuOpen ? 'open' : ''} `}>
@@ -103,7 +101,14 @@ const NavBar = () => {
 						{!currentURL.includes('/coupon-list') && (
 							<Logo onClick={() => history.push('/')} height={33} />
 						)}
-						<Points points={user?.points || 0} clicked={handleButtonClick} />
+
+						{
+							// eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+							<div className="user-coupons" onClick={handleButtonClick}>
+								{' '}
+								Mes coupons
+							</div>
+						}
 					</>
 				)}
 				{pathname === '/' && showMenu && <HomeNavigation />}

@@ -15,25 +15,29 @@ const TrendyEvents = ({ sliderLoaded }) => {
 
 	return (
 		<div className="trendy-events">
-			<Header as="h3">ÉVÉNEMENTS TENDANCE</Header>
+			<Header as="h3">Évènements & Actualités</Header>
 			<Slider
 				onInit={sliderLoaded}
 				id="trendy-events"
 				slidesOffsetBefore={20}
 				pagination={false}
 				slidersPerView={1.42}
+				autoplay={false}
 			>
 				{events.slice(0, 5).map((event) => (
 					<EventCard event={event} />
 				))}
 			</Slider>
 			<Button onClick={() => history.push('/events')} className="more" circular>
-				Voir tous les événements
+				Les Évènements du centre
 			</Button>
 		</div>
 	);
 };
 TrendyEvents.propTypes = {
-	sliderLoaded: PropTypes.func.isRequired,
+	sliderLoaded: PropTypes.func,
+};
+TrendyEvents.defaultProps = {
+	sliderLoaded: () => {},
 };
 export default TrendyEvents;

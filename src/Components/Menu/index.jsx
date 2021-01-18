@@ -46,9 +46,15 @@ const Menu = ({ menuOpen, closeMenu }) => {
 				<img src={bg} alt="menu-bg" />
 			</div>
 			{user && (
-				<Header className="greetings" as="h1">
-					Hello {user.displayName} !
-				</Header>
+				<>
+					<Header className="greetings" as="h1">
+						Bienvenue {user.displayName} !
+						<p style={{ fontSize: '1.2rem', width: '80%', margin: '0 auto' }}>
+							Votre centre Anfa Place est ouvert aujourd’hui de 10:00 à 20:00{' '}
+							<a href="mailto:info@myanfaplace.com">info@myanfaplace.com</a>
+						</p>
+					</Header>
+				</>
 			)}
 			<nav>
 				<motion.ul variants={listVariant} animate={menuOpen ? 'start' : 'reverse'}>
@@ -71,11 +77,19 @@ const Menu = ({ menuOpen, closeMenu }) => {
 						</NavLink>
 					</motion.li>
 					<motion.li variants={item} animate={menuOpen ? 'start' : 'reverse'}>
-						<a href="tel:00000000000">
+						<a href="tel:0668194101">
 							<Header as="h1">
 								<Header.Content>Appeler Anfa place Mall</Header.Content>
 
 								<Icon name="phone-outline" />
+							</Header>
+						</a>
+					</motion.li>
+					<motion.li variants={item} animate={menuOpen ? 'start' : 'reverse'}>
+						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+						<a href="#">
+							<Header as="h1">
+								<Header.Content>Contactez-nous</Header.Content>
 							</Header>
 						</a>
 					</motion.li>

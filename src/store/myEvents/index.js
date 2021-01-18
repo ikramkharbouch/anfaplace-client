@@ -6,7 +6,7 @@ const brandSlice = createSlice({
 	name: 'myEvents',
 	initialState,
 	reducers: {
-		setMyEventsSuccess: (state, action) => ({ ...state, list: action.payload, loading: false }),
+		setMyEventsSuccess: (state, action) => ({ ...state, list: action.payload, loadingList: false }),
 		addEventToFav: (state, action) => ({ ...state, all: [...state.all, action.payload] }),
 		resetMyEvents: () => initialState,
 	},

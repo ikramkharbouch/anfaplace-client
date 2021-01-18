@@ -12,12 +12,14 @@ const MyVisitedList = () => {
 	const user = useSelector((state) => state.user.currentUser);
 
 	useEffect(() => {
-		if (user && !loadingList) {
+		if (user) {
 			dispatch(setLoadingVisitedList(true));
 			dispatch({ type: myVisitedListActions.FETCH_MY_VISITED_LIST });
 		}
-	}, [user, loadingList]);
-	return loadingList ? (
+	}, [user]);
+
+	console.log('------>', loadingList);
+	return loadingList && user ? (
 		<Dimmer active>
 			<Loader />
 		</Dimmer>
@@ -37,7 +39,7 @@ const MyVisitedList = () => {
 							circular
 							onClick={() => {
 								if (!user) {
-									dispatch(openPhoneAuth({ open: true, withEmail: true }));
+									dispatch(openPhoneAuth(true));
 								}
 							}}
 						>
