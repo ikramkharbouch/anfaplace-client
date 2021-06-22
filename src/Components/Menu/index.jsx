@@ -89,7 +89,7 @@ const Menu = ({ menuOpen, closeMenu }) => {
 					</motion.li>
 					<motion.li variants={item} animate={menuOpen ? 'start' : 'reverse'} >
 						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-						<a href="#">
+						<a href="mailto:info@anfaplacemall.com">
 							<Header as="h1">
 								<Header.Content>Contactez-nous</Header.Content>
 							</Header>
