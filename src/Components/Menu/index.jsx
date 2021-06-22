@@ -11,6 +11,8 @@ import { openPhoneAuth } from 'src/store/app';
 
 const auth = firebaseApp.auth();
 
+const eventText = `Ma liste d'évènements`;
+
 const Menu = ({ menuOpen, closeMenu }) => {
 	const variants = {
 		start: {
@@ -50,7 +52,7 @@ const Menu = ({ menuOpen, closeMenu }) => {
 					<Header className="greetings" as="h1">
 						Bienvenue {user.displayName} !
 						<p style={{ fontSize: '1.2rem', width: '80%', margin: '0 auto' }}>
-							Votre centre Anfa Place est ouvert aujourd’hui de 10:00 à 20:00{' '}
+							Votre centre Anfa Place est ouvert aujourd’hui de 10:00 à 23:00{' '}
 							<a href="mailto:info@myanfaplace.com">info@myanfaplace.com</a>
 						</p>
 					</Header>
@@ -70,7 +72,7 @@ const Menu = ({ menuOpen, closeMenu }) => {
 					<motion.li variants={item} animate={menuOpen ? 'start' : 'reverse'}>
 						<NavLink onClick={closeMenu} exact to="/my-events-list">
 							<Header as="h1">
-								<Header.Content>Ma liste évènements</Header.Content>
+								<Header.Content>{eventText}</Header.Content>
 
 								<Icon name="calendar-outline" />
 							</Header>
@@ -85,14 +87,14 @@ const Menu = ({ menuOpen, closeMenu }) => {
 							</Header>
 						</a>
 					</motion.li>
-					<motion.li variants={item} animate={menuOpen ? 'start' : 'reverse'}>
+					<motion.li variants={item} animate={menuOpen ? 'start' : 'reverse'} >
 						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
 						<a href="#">
 							<Header as="h1">
 								<Header.Content>Contactez-nous</Header.Content>
 							</Header>
 						</a>
-					</motion.li>
+					</motion.li>						
 					{user && (
 						// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/click-events-have-key-events
 						<motion.li className="action-button" variants={item} animate={menuOpen ? 'start' : 'reverse'}>
