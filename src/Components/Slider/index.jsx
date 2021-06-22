@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import SwiperCore, { Pagination, Autoplay } from 'swiper';
-import { KafkaTimeSpentOnSlide, KafkaHeldSlide } from 'src/utils/kafka/KafkaEvents';
+// import { KafkaTimeSpentOnSlide, KafkaHeldSlide } from 'src/utils/kafka/KafkaEvents';
 
 // Import Swiper styles
 import 'swiper/swiper.less';
@@ -39,79 +39,11 @@ const Slider = ({
 	pagination,
 	autoplay,
 	autoplayDelay,
-	onInit,
-	timeOnSliderEvent,
-	timeToReachEndOfSlider,
+	// timeOnSliderEvent,
+	// timeToReachEndOfSlider,
 	children,
-}) => {
-	const [t0InitSlider, setT0InitSlider] = useState(0);
-	const [t0SliderTouch, setT0SliderTouch] = useState(0);
-	const [swiperElement, setSwiper] = useState();
-
-	const handleInitSlide = (swiper) => {
-		setT0InitSlider(performance.now());
-		onInit();
-		setSwiper(swiper);
-	};
-
-	const handleTouch = (swiper, event) => {
-		if (event.type === 'touchstart') {
-			setT0SliderTouch(performance.now());
-			const heldSlide = new KafkaHeldSlide(
-				'123456',
-				id,
-				swiper.slides[swiper.activeIndex].firstElementChild.id
-			);
-			heldSlide.emitEvent();
-
-			if (pagination) {
-				document
-					.querySelector(`#${id} .swiper-pagination .slider-bullet.current`)
-					.classList.add('reset-progress');
-			}
-			if (autoplay) {
-				swiper?.autoplay?.stop();
-			}
-		}
-		if (event.type === 'touchend') {
-			timeOnSliderEvent({
-				time: performance.now() - t0SliderTouch,
-				sliderIndex: swiper.activeIndex,
-			});
-			const timeSpentOnSlide = new KafkaTimeSpentOnSlide(
-				'123456',
-				performance.now() - t0SliderTouch,
-				id,
-				swiper.slides[swiper.activeIndex].firstElementChild.id
-			);
-			timeSpentOnSlide.emitEvent();
-			if (pagination) {
-				document
-					.querySelector(`#${id} .swiper-pagination .slider-bullet.current`)
-					.classList.remove('reset-progress');
-			}
-			if (autoplay) {
-				swiper?.autoplay?.start();
-			}
-		}
-	};
-
-	const handleReachEnd = () => {
-		timeToReachEndOfSlider({ time: performance.now() - t0InitSlider });
-	};
-
-	useEffect(() => {
-		if (swiperElement) {
-			if (autoplay) {
-				swiperElement?.autoplay?.start();
-			} else {
-				swiperElement?.autoplay?.stop();
-			}
-			swiperElement.update();
-		}
-	}, [children, autoplay]);
-
-	return React.Children.count(children) ? (
+}) => (
+	React.Children.count(children) ? (
 		<Swiper
 			id={id}
 			watchSlidesProgress
@@ -123,16 +55,6 @@ const Slider = ({
 			slidesPerGroup={slidesPerGroup}
 			preventClicks
 			slidesPerView={slidersPerView}
-			onInit={handleInitSlide}
-			onReachEnd={handleReachEnd}
-			onTouchStart={handleTouch}
-			onTouchEnd={handleTouch}
-			// onSlideChangeTransitionStart={() =>
-			//   document.getElementsByClassName('slider-bullet current')[0].classList.remove('progress')
-			// }
-			// onTransitionEnd={() =>
-			//   document.getElementsByClassName('slider-bullet current')[0].classList.add('progress')
-			// }
 			autoplay={
 				autoplay && React.Children.count(children) > 1
 					? {
@@ -159,8 +81,11 @@ const Slider = ({
 				<Icon name="image" /> Prochainement.
 			</Header>
 		</div>
-	);
-};
+	)
+)
+
+
+
 export default Slider;
 Slider.propTypes = {
 	id: PropTypes.string,
@@ -174,9 +99,9 @@ Slider.propTypes = {
 	children: PropTypes.node,
 	autoplay: PropTypes.bool,
 	autoplayDelay: PropTypes.number,
-	onInit: PropTypes.func,
-	timeOnSliderEvent: PropTypes.func,
-	timeToReachEndOfSlider: PropTypes.func,
+	// onInit: PropTypes.func,
+	// timeOnSliderEvent: PropTypes.func,
+	// timeToReachEndOfSlider: PropTypes.func,
 };
 Slider.defaultProps = {
 	id: '',
@@ -189,11 +114,4 @@ Slider.defaultProps = {
 	children: [],
 	autoplay: true,
 	autoplayDelay: 2000,
-	onInit() {},
-	timeOnSliderEvent() {
-		return { timeOnSlider: 0, sliderIndex: 0 };
-	},
-	timeToReachEndOfSlider() {
-		return { time: 0 };
-	},
 };
