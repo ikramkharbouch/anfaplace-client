@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector } from 'reselect';
+import { openAuthModal } from 'src/store/shared/index';
 import { Button, Input, Checkbox, Dimmer, Loader } from 'semantic-ui-react';
 import { KafkaTimeSpentOnSelectingInterest } from 'src/utils/kafka/KafkaEvents';
 import ScrollArea from 'react-scrollbar';
@@ -74,12 +75,13 @@ const Interests = () => {
 			open={open}
 			setOpen={(isOpen) => {
 				setOpen(isOpen);
+				if(!user) dispatch(openAuthModal(true));
 			}}
 		>
 			<Dimmer active={loading}>
 				<Loader />
 			</Dimmer>
-			<p>Pour une meilleure expérience client, créer votre liste d’intérêt.</p>
+			<p>Pour une meilleure expérience client, créez votre liste d’intérêt.</p>
 			<h4>Vous pouvez configurer votre liste plus tard.</h4>
 
 			<Input

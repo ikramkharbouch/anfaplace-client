@@ -3,13 +3,14 @@ import { useLocation } from 'react-router-dom';
 import Slider from 'src/Components/Slider';
 import EntertainmentSlide from 'src/Screens/Entertainment/EntertainmentSlide';
 import { InView } from 'react-intersection-observer';
-import logoAnfa from 'src/assets/images/logo-small.png';
+// import logoAnfa from 'src/assets/images/logo-small.png';
 import firebaseApp from 'src/utils/initApp';
 import './Entertainment.less';
 import { Dimmer } from 'semantic-ui-react';
 import Loader from 'src/Components/Image/Loader';
 import { API } from 'src/utils/utilsFunctions';
 import { useSelector } from 'react-redux';
+import Empty from 'src/Components/Empty/index';
 
 const Entertainment = () => {
 	const [eventData, setEventData] = useState([]);
@@ -82,11 +83,12 @@ const Entertainment = () => {
 			))}
 
 			{eventData.length < 1 && (
-				<>
-					{' '}
-					<img src={logoAnfa} className="rotate-img" alt="Anfa logo" />{' '}
-					<p> En cours de chargement... </p>{' '}
-				</>
+				<Empty text	= 'Cette section est vide' />
+				// <>
+				// 	{' '}
+				// 	<img src={logoAnfa} className="rotate-img" alt="Anfa logo" />{' '}
+				// 	<p> Divertissement vide pour le moment... </p>{' '}
+				// </>
 			)}
 		</div>
 	);

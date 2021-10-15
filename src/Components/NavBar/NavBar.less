@@ -11,7 +11,13 @@
 	flex-wrap: wrap;
 	padding: 15px;
 	width: 100%;
-	z-index: 1000;
+	z-index: 900;
+	min-height: 80px;
+
+	.back-btn {
+		position: static !important;
+	}
+
 	&.open{
 		background-color: transparent;
 		backdrop-filter: none;
@@ -34,7 +40,7 @@
 	width: 100%;
     display: flex;
 	justify-content: space-around;
-	padding-top: 3%;
+	padding-top: 5%;
 	 ul {
 		 display: flex;
 		 align-items: center;
@@ -51,6 +57,7 @@
 				 width: 100%;
 				 padding: 8px;
 				 border-radius: 80px;
+				 font-size: 15px;
 				 &:active,&:hover{
 					 background: rgba(30,30,72,0.6);
 

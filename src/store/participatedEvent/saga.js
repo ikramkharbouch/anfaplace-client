@@ -16,6 +16,7 @@ import {
 } from './actions';
 
 export function* addEventToParticiapted({ payload }) {
+	console.log(payload)
 	try {
 		yield put(addToMyParticipatedEvents({ type: ADD_EVENT_TO_PARTICIPATED_LOADING }));
 		const token = yield getUserToken();

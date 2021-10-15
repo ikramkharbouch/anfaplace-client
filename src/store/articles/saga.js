@@ -1,11 +1,15 @@
 import { call, put } from 'redux-saga/effects';
 import { API, arrayBufferToBase64 } from 'src/utils/utilsFunctions';
 
-import { setAllArticlesSuccess } from './index';
+import { setAllArticlesSuccess , articlesLoading } from './index';
 
 // eslint-disable-next-line import/prefer-default-export
 export function* fetchAllArticles() {
 	try {
+
+		yield put(articlesLoading());
+
+
 		const result = yield call(() => API({ url: 'getAllArticles' }));
 
 		/* yield put(setAllArticlesSuccess(result.data.lists.map(x => ({
@@ -31,6 +35,10 @@ export function* fetchAllArticles() {
 	} catch (e) {
 		yield put({ type: 'FETCH_FAILED' });
 	}
+}
+
+export function* fetchAllArticlesLoad(){
+	yield(put(articlesLoading()))
 }
 
 /* // eslint-disable-next-line import/prefer-default-export

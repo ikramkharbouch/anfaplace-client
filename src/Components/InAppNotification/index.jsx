@@ -12,12 +12,24 @@ export const InAppNotificationContext = React.createContext({
 const WonPoints = () => (
 	<Header as="h4" icon>
 		<Icon name="gift" size="mini" />
-		Vous avez gagner 50points à l’inscription
+		Vous avez gagné 50 points à l’inscription
 	</Header>
 );
 const DidNotWinPoints = () => (
-	<Header as="h4">compléter votre profil et gagner des points convertible en bons d’achat !</Header>
+	<Header as="h4">compléter votre profil et gagner des points convertibles en bons d’achat !</Header>
 );
+
+const Success = ({ message }) => (
+	<Header as="h4">{message}</Header>
+);
+
+Success.propTypes = {
+	message: Proptypes.string,
+}
+
+Success.defaultProps = {
+	message : 'Action effectuée avec succès'
+}
 
 const NotificationSelector = ({ type, message }) => {
 	switch (type) {
@@ -25,8 +37,10 @@ const NotificationSelector = ({ type, message }) => {
 			return <WonPoints />;
 		case 'didNotWinPoints':
 			return <DidNotWinPoints />;
+		case 'success' :
+			return <Success message = {message} />
 		case 'error':
-			return <Header as="h4">Une erreur est servenu :{message} </Header>;
+			return <Header as="h4">Une erreur est survenue :{message} </Header>;
 		default:
 			return <span> default notification </span>;
 	}

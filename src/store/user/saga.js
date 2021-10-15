@@ -9,10 +9,12 @@ import {
 	setUser,
 	setUserInfo,
 	setUserPoints,
+	updateUser,
 } from 'src/store/user/index';
 import surveyAction from 'src/store/survey/actions';
 import { resetSurvey } from 'src/store/survey';
 import { resetVisitedList } from 'src/store/myVisitedList';
+import { openAuthTelModal } from '../shared/index';
 
 const getAuthChannel = () =>
 	eventChannel((emit) =>
@@ -27,16 +29,25 @@ export function* watchForFirebaseAuth() {
 	while (true) {
 		try {
 			const user = yield take(channel);
+			console.log(user);
+
 			if (user !== 'null') {
+				// console.log('user', user);
+
+				if(!user?.phoneNumber){
+					yield(put( openAuthTelModal(true) ));
+				}
+
 				const token = yield getUserToken();
-				const isNewUser = JSON.parse(localStorage.getItem('isNewUser'));
+				// const isNewUser = JSON.parse(localStorage.getItem('isNewUser'));
+				const isNewUser = user.metadata.creationTime === user.metadata.lastSignInTime ;
 				if (isNewUser) {
 					const apiUser = yield call(() =>
 						API({
 							url: 'user/register',
 							method: 'post',
 							data: {
-								phoneNumber: user.phoneNumber,
+								phoneNumber: user.phoneNumber || '00 00 00 00 00',
 								interests: JSON.parse(localStorage.getItem('interests')) || [],
 								validateBySms: true,
 							},
@@ -46,7 +57,10 @@ export function* watchForFirebaseAuth() {
 					yield call(() => API({ url: 'QRCodeUser', method: 'post', token }));
 
 					yield put(setUserPoints(apiUser.data.points_user));
-					yield put(setNotification({ show: true, type: 'wonPoints' }));
+					if(localStorage.getItem('isNewUser') !== 'false'){
+
+						yield put(setNotification({ show: true, type: 'wonPoints' }));
+					}
 					yield put(openPhoneAuth(false));
 					yield localStorage.setItem('isNewUser', 'false');
 					yield localStorage.removeItem('interests');
@@ -62,18 +76,21 @@ export function* watchForFirebaseAuth() {
 				const userAPi = yield call(() => API({ url: '/getUser', method: 'post', data: {}, token }));
 
 				yield put(
-					setUser({
-						displayName: user.displayName,
-						isAnonymous: user.isAnonymous,
-						points: userAPi.data.user.points,
-						list_visite: userAPi.data.user.list_visite,
-						mes_events: userAPi.data.user.mes_events,
-						multiFactor: { enrolledFactors: user.multiFactor.enrolledFactors },
-						qrCode: userAPi.data.user.qrcode,
+					updateUser({
+						...userAPi?.data?.user,
+						displayName: user?.displayName,
+						isAnonymous: user?.isAnonymous,
+						points: userAPi?.data?.user?.points || 50,
+						list_visite: userAPi?.data?.user?.list_visite || [],
+						mes_events: userAPi?.data?.user?.mes_events,
+						multiFactor: { enrolledFactors: user?.multiFactor.enrolledFactors },
+						qrCode: userAPi?.data?.user?.qrcode,
+						providerId: user?.providerData?.map((x) => x?.providerId),
+						phoneNumber: user?.phoneNumber,
 					})
 				);
 				if (!isNewUser) {
-					yield put(setUserInfo({ nom: userAPi.data.user.nom, email: userAPi.data.user.email }));
+					yield put(setUserInfo({ nom: userAPi?.data?.user?.nom || '', email: userAPi?.data?.user?.email }));
 				}
 				yield put(setConfirmPinLoading(false));
 			} else {
@@ -85,7 +102,7 @@ export function* watchForFirebaseAuth() {
 			yield put({ type: surveyAction.FETCH_ALL_QUESTIONNAIRES });
 		} catch (error) {
 			console.error(error);
-			yield put(setNotification({ show: true, type: 'error', message: 'une erreur est survenue' }));
+			// yield put(setNotification({ show: true, type: 'error', message: 'une erreur est survenue' }));
 		}
 	}
 

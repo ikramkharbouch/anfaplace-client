@@ -21,7 +21,7 @@ RestaurationSlide.propTypes = {
 };
 RestaurationSlide.defaultProps = {
 	image: sliderImage,
-	description: 'LA nouvelle plateforme anfa place ipsum  LOREM',
+	description: 'LA nouvelle plateforme Anfaplace Mall ipsum  LOREM',
 	date: '08 déc - 12 déc',
 };
 

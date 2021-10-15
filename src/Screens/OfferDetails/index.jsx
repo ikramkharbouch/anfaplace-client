@@ -101,7 +101,7 @@ const Articles = () => {
 					)
 				) : (
 					<>
-						<Header as="h1">Merci pour votre participation Vous avez gagné</Header>
+						<Header as="h1">Merci pour votre participation, vous avez gagné</Header>
 						<div className="points"> +500p</div>
 
 						<div className="action">

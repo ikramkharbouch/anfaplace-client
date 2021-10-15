@@ -10,39 +10,39 @@ const BrandsGrid = ({ brands, promo }) => {
 		if (!promo) {
 			setBrandList(brands);
 		} else {
-			setBrandList(brands.filter((brd) => brd?.data?.enPromotion));
+			setBrandList(brands?.filter((brd) => brd?.data?.enPromotion));
 		}
 	}, [brands, promo]);
 
 	return (
 		<div className="brands__grid">
-			{brandList.map((brand) => (
+			{brandList?.map((brand) => (
 				<Brand
-					key={brand.index}
-					withBadge={brand.data.Tags && !!brand.data.Tags[0]?.title}
-					badgeColor={brand.data.Tags && brand.data.Tags[0]?.color}
-					badgeText={brand.data.Tags && brand.data.Tags[0]?.title}
-					brandImg={brand.data.Tags && brand.data.logo}
-					brandName={brand.data.Tags && brand.data.titre}
-					brandId={brand.data.Tags && brand.index}
-					isPromo={brand.data.enPromotion}
+					key={brand?.index}
+					withBadge={brand?.data?.Tags && !!brand?.data?.Tags[0]?.title}
+					badgeColor={brand?.data?.Tags && brand?.data?.Tags[0]?.color}
+					badgeText={brand?.data?.Tags && brand?.data?.Tags[0]?.title}
+					brandImg={brand?.data?.Tags && brand?.data?.logo}
+					brandName={brand?.data?.Tags && brand?.data?.titre}
+					brandId={brand?.data?.Tags && brand?.index}
+					isPromo={brand?.data?.enPromotion}
 				/>
 			))}
 		</div>
 	);
 };
 BrandsGrid.propTypes = {
-	brands: PropTypes.arrayOf(
-		PropTypes.shape({
-			brandName: PropTypes.string.isRequired,
-			brandId: PropTypes.string.isRequired,
-			brandImg: PropTypes.string.isRequired,
-			badgeText: PropTypes.string,
-			badgeColor: PropTypes.string,
-			imageType: PropTypes.string,
+	brands: PropTypes?.arrayOf(
+		PropTypes?.shape({
+			brandName: PropTypes?.string?.isRequired,
+			brandId: PropTypes?.string?.isRequired,
+			brandImg: PropTypes?.string?.isRequired,
+			badgeText: PropTypes?.string,
+			badgeColor: PropTypes?.string,
+			imageType: PropTypes?.string,
 		})
 	),
-	promo: PropTypes.bool,
+	promo: PropTypes?.bool,
 };
 BrandsGrid.defaultProps = {
 	brands: [],

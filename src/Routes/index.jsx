@@ -24,6 +24,13 @@ const Shops = lazy(() => import('src/Screens/Brands'));
 const CouponList = lazy(() => import('src/Screens/CouponList'));
 const CouponListItem = lazy(() => import('src/Screens/CouponListItem'));
 const EntertainmentDetails = lazy(() => import('src/Screens/Entertainment/EntertainmentDetails'));
+const Divertissement = lazy(() => import('src/Screens/Divertissement'));
+const Account = lazy(() => import('src/Screens/Account'));
+const Profile = lazy(() => import('src/Screens/Profile'));
+const EditPhoneNumber = lazy(() => import('src/Screens/EditPhoneNumber'));
+const EditEmailPassword = lazy(() => import('src/Screens/EditEmailPassword'));
+
+
 
 const Routes = () => {
 	const location = useLocation();
@@ -67,6 +74,50 @@ const Routes = () => {
 						<Route path="/tour" component={Tour} />
 						<Route path="/all-brands" component={Tour} />
 						<Route exact path="/brand/:id" component={Brand} />
+						<Route exact path="/account">
+							<Suspense
+								fallback={
+									<Dimmer active>
+										<Loader />
+									</Dimmer>
+								}
+							>
+								<Account />
+							</Suspense>
+						</Route>
+						<Route exact path="/profile">
+							<Suspense
+								fallback={
+									<Dimmer active>
+										<Loader />
+									</Dimmer>
+								}
+							>
+								<Profile />
+							</Suspense>
+						</Route>
+						<Route exact path="/edit/phone">
+							<Suspense
+								fallback={
+									<Dimmer active>
+										<Loader />
+									</Dimmer>
+								}
+							>
+								<EditPhoneNumber />
+							</Suspense>
+						</Route>
+						<Route exact path="/edit/email-password">
+							<Suspense
+								fallback={
+									<Dimmer active>
+										<Loader />
+									</Dimmer>
+								}
+							>
+								<EditEmailPassword />
+							</Suspense>
+						</Route>
 						<Route exact path="/survey/:id">
 							<Suspense
 								fallback={
@@ -125,6 +176,18 @@ const Routes = () => {
 						<Route exact path="/shopping" component={Shopping} />
 						<Route exact path="/restauration" component={Restauration} />
 						<Route exact path="/entertainment" component={Entertainment} />
+						<Route exact path="/divertissement">
+							<Suspense
+								fallback={
+									<Dimmer active>
+										<Loader />
+									</Dimmer>
+								}
+							>
+								<Divertissement />
+							</Suspense>
+						</Route>
+
 						<Route exact path="/events" component={Entertainment} />
 						<Route exact path="/events/:id">
 							<Suspense

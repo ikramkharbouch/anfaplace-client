@@ -21,7 +21,8 @@ const BackButton = ({ path, className, text }) => {
 
 	return (
 		<button type="button" onClick={handleClick} className={`back-btn ${className}`}>
-			<Icon name="arrow left" /> <span className="text"> {backButtonText[path] || text} </span>
+			<Icon name="arrow left" /> 
+			<span className="text"> {backButtonText[path] || text} </span>
 		</button>
 	);
 };

@@ -5,6 +5,8 @@ import createSagaMiddleware from 'redux-saga';
 import rootSaga from 'src/store/rootSaga';
 
 import app from './app';
+import shared from './shared';
+
 import user from './user';
 import interests from './interests';
 import brand from './brand';
@@ -21,6 +23,7 @@ import coupon from './coupon';
 const devMode = process.env.NODE_ENV === 'development';
 
 const reducer = combineReducers({
+	shared,
 	app,
 	user,
 	brand,

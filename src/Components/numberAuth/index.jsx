@@ -11,11 +11,23 @@ import Modal from 'src/Components/Modal';
 import './VerificationModal.less';
 import { setConfirmPinLoading, setUserInfo as setUserInfoAction } from 'src/store/user';
 
+import LoginForm from 'src/Components/LoginForm';
+
 export const UserInfos = ({ confirm }) => {
+	const { currentUser } = useSelector((state) => state.user);
+
 	const [userInfo, setUserInfo] = useState({ nom: '', prenom: '', age: undefined, email: '' });
 	const handleOnChange = (name, value) => {
 		setUserInfo({ ...userInfo, [name]: value });
 	};
+
+	useEffect(() => {
+		setUserInfo({
+			nom: currentUser?.name || '',
+			prenom: currentUser?.firstname || '',
+			email: currentUser?.email || '',
+		});
+	}, [currentUser]);
 
 	return (
 		<>
@@ -345,6 +357,10 @@ const phoneAuthOpenModalSelector = createSelector(
 );
 
 const AuthModal = () => {
+	// const [ showAuthTel ,  ] = useState(false);
+
+	// const hideAuthTel = () => setShowAuthTel(false);
+
 	const [verifyPin, setVerifyPin] = useState(false);
 	const [verifyLoading, setVerifyLoading] = useState();
 	const [recaptchaVerifier, setRecaptchaVerifier] = useState();
@@ -357,6 +373,7 @@ const AuthModal = () => {
 	const open = useSelector(phoneAuthOpenModalSelector);
 	const dispatch = useDispatch();
 	const setOpen = (value) => dispatch(openPhoneAuth(value));
+
 	const handleNumberConfirmation = (Number) => {
 		setVerifyLoading(true);
 		firebase
@@ -391,21 +408,23 @@ const AuthModal = () => {
 				// handle errors
 			});
 	};
+
 	useEffect(() => {
 		if (!open) {
 			setVerifyPin(false);
 			setShowUserInfo(withUserInfos);
 		}
 	}, [open, withUserInfos]);
+
 	useEffect(() => {
-		if (open && !verifyPin && !showUserInfo) {
+		if (open && !verifyPin && !showUserInfo && !recaptchaVerifier) {
 			setRecaptchaVerifier(
 				new firebase.auth.RecaptchaVerifier('verify-number', {
 					size: 'invisible',
 				})
 			);
 		}
-	}, [open, verifyPin, showUserInfo]);
+	}, [open, verifyPin, showUserInfo, recaptchaVerifier]);
 
 	return (
 		<Modal className="pin" open={open} setOpen={setOpen}>
@@ -420,12 +439,16 @@ const AuthModal = () => {
 			)}
 
 			{!showUserInfo && !verifyPin && (
-				<AuthTel
-					validateBySmsEvent={(_, data) => setValidateBySms(data.checked)}
-					validateBySmsValue={validateBySms}
-					verifying={verifyLoading}
-					confirm={handleNumberConfirmation}
-				/>
+				<>
+					<AuthTel
+						validateBySmsEvent={(_, data) => setValidateBySms(data.checked)}
+						validateBySmsValue={validateBySms}
+						verifying={verifyLoading}
+						confirm={handleNumberConfirmation}
+					/>
+
+					<LoginForm />
+				</>
 			)}
 			{!showUserInfo && verifyPin && (
 				<PinVerification loading={loadingPinConf} verifyPin={verifyPinHandeler} />

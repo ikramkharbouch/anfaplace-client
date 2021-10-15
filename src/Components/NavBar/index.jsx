@@ -1,16 +1,20 @@
-import React, { useState, useCallback, useLayoutEffect, useRef } from 'react';
+import React, { useState, useCallback, useLayoutEffect, useRef, useEffect } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
 import proptypes from 'prop-types';
 import { motion } from 'framer-motion';
 
-import { ReactComponent as Logo } from 'src/assets/images/logo.svg';
+// import { ReactComponent as Logo } from 'src/assets/images/logo.svg';
+import { ReactComponent as NewLogo } from 'src/assets/images/newLogo.svg';
+
+// import logo from 'src/assets/images/new-logo.png'
 
 import Menu from 'src/Components/Menu';
-import { Header } from 'semantic-ui-react';
-import BackButton from 'src/Components/BackButton/BackButton';
+import { Icon } from 'semantic-ui-react';
+// import BackButton from 'src/Components/BackButton/BackButton';
 
-import MenuIcon from '../MenuIcon';
+// import MenuIcon from '../MenuIcon';
 import './NavBar.less';
+// import Example from '../MenuV2/Example';
 
 const HomeNavigation = () => (
 	<nav className="navigation">
@@ -21,8 +25,11 @@ const HomeNavigation = () => (
 			<li>
 				<Link to="/restauration">Restauration</Link>
 			</li>
-			<li>
+			{/* <li>
 				<Link to="/entertainment">Divertissement</Link>
+			</li> */}
+			<li>
+				<Link to="/divertissement">Divertissement</Link>
 			</li>
 		</ul>
 	</nav>
@@ -51,11 +58,16 @@ const NavBar = () => {
 	const [zIndex, setZindex] = useState(930);
 	const { pathname } = useLocation();
 	const history = useHistory();
+
 	const handleButtonClick = () => {
-		if (!(history.location.pathname === '/coupon-list')) {
-			history.push('/coupon-list');
+		if (!(history.location.pathname === '/account')) {
+			history.push('/account');
 		}
 	};
+
+	useEffect(() => {
+		setCurrentURL(history.location.pathname);
+	}, [history.location.pathname]);
 
 	history.listen((data) => {
 		setCurrentURL(data.pathname);
@@ -65,7 +77,6 @@ const NavBar = () => {
 		(selector) => {
 			if (isMenuOpen) {
 				document.querySelector(selector).style.overflow = 'hidden';
-				return;
 			}
 			document.querySelector(selector).style.overflow = 'unset';
 		},
@@ -76,46 +87,48 @@ const NavBar = () => {
 		const scrollPosition = window.scrollY;
 		if (scrollPosition < 120) {
 			navBarRef.current.style.backgroundColor = `rgba(0,0,52,${(scrollPosition * 0.4) / 130})`;
-			navBarRef.current.style.backdropFilter = `blur(${(scrollPosition * 2) / 130}px)`;
+			navBarRef.current.style.backdropFilter = `blur(${(scrollPosition * 3) / 130}px)`;
+		}
+
+		if(history.location.pathname !== '/' && scrollPosition < 120){
+			navBarRef.current.style.backgroundColor = '#000034';
 		}
 	};
 	useLayoutEffect(() => {
 		window.addEventListener('scroll', onScroll);
 		return () => window.removeEventListener('scroll', onScroll);
 	}, []);
+
 	setOverflowHidden('body');
-	const dontShowBackButton = !['/', '/tour', '/all-brands', '/survey'].includes(pathname);
+	// const dontShowBackButton = !['/', '/tour', '/all-brands', '/survey'].includes(pathname);
 	return (
 		<>
 			<header ref={navBarRef} className={`navBar ${isMenuOpen ? 'open' : ''} `}>
 				<div className="nave-bar-menu" style={{ display: 'flex' }}>
-					{!currentURL.includes('/coupon-list') && (
-						<>
-							<MenuIcon openMenu={setOpen} isMenuOpen={isMenuOpen} />
-							{isMenuOpen && <Header as="h3">MENU</Header>}
-						</>
+					{currentURL === '/' && (
+						<div />
+						// <>
+						// 	<MenuIcon openMenu={setOpen} isMenuOpen={isMenuOpen} />
+						// 	{isMenuOpen && <Header as="h3">MENU</Header>}
+						// </>
 					)}
+					{currentURL !== '/' && !isMenuOpen && <div /> }
 				</div>
 				{showMenu && (
 					<>
-						{!currentURL.includes('/coupon-list') && (
-							<Logo onClick={() => history.push('/')} height={33} />
-						)}
+						{/* {!currentURL.includes('/coupon-list') && !currentURL.includes('/account')  && (
+							<NewLogo onClick={() => history.push('/')} height={33} />
+							// <img src = {} alt = '' />
+						)} */}
 
-						{
-							// eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-							<div className="user-coupons" onClick={handleButtonClick}>
-								{' '}
-								Mes coupons
-							</div>
-						}
+						<NewLogo style = {{ marginLeft : 25 }} onClick={() => history.push('/')} height={33} />
+
+						<Icon size="large" name="user outline" onClick={handleButtonClick} />
 					</>
 				)}
 				{pathname === '/' && showMenu && <HomeNavigation />}
 			</header>
-			{dontShowBackButton && (
-				<BackButton className={pathname.split('/')[1]} path={pathname.split('/')[1]} />
-			)}
+
 			<motion.div
 				className="bg-light-blue"
 				variants={variants}

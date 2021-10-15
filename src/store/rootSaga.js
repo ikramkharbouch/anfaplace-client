@@ -18,7 +18,7 @@ import {
 } from 'src/store/user/saga';
 import { fetchAllEvent } from 'src/store/event/saga';
 import { fetchInterests, setInterests } from 'src/store/interests/saga';
-import { fetchAllArticles } from 'src/store/articles/saga';
+import { fetchAllArticles, fetchAllArticlesLoad } from 'src/store/articles/saga';
 // import { fetchAllQuestions } from 'src/store/survey/saga';
 
 import { setInterestsConfirmed } from 'src/store/interests';
@@ -56,6 +56,7 @@ const rootSaga = function* () {
 		takeEvery(setInterestsConfirmed, setInterests),
 		takeEvery(eventActions.FETCH_ALL_EVENTS, fetchAllEvent),
 		takeEvery(articlesActions.FETCH_ALL_ARTICLES, fetchAllArticles),
+		// takeEvery(articlesActions.FETCH_ALL_ARTICLES_LOADING, fetchAllArticlesLoad),
 		takeEvery(interestsAction.FETCH_INTERESTS, fetchInterests),
 		/* takeEvery(surveyAction.FETCH_ALL_QUESTIONNAIRES, fetchQuestionnaire),
 		takeEvery(surveyAction.ANSWER_QUESTION, answerQuestionnaire),

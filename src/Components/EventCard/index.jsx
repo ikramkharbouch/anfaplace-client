@@ -20,8 +20,11 @@ const EventCard = ({ event, hasParticipated }) => {
 	const Tags = typeof tag === 'string' ? [] : tag;
 
 	const handleClick = () => {
+		
+		if(event?.expired) return;
+
 		history.push({
-			pathname: `/events/${event.id}`,
+			pathname:  `/events/${event.id}`,
 		});
 	};
 
@@ -38,10 +41,23 @@ const EventCard = ({ event, hasParticipated }) => {
 				</Header>
 			)}
 			<div className="details">
-				<Label className="point">
-					<Icon name="gift" size="small" />
-					{event.data.points}p
-				</Label>
+				<div style = {{ display : 'flex'  }}>
+					{
+						event?.expired && <div style = {{ marginRight : 'auto' }}>
+							<Label color='red' className="point" >
+								<Icon name="gift" size="small"  name = 'trash alternate outline' />
+								expiré
+							</Label>
+						</div>
+					}
+					
+					<div style = {{ marginLeft : 'auto' }}>
+						<Label className="point">
+							<Icon name="gift" size="small" />
+							{event.data.points}p
+						</Label>
+					</div>
+				</div>
 				<div className="d-flex flex-column justify-content-between">
 					<div className="tags">
 						{Tags.map((Tag) => (

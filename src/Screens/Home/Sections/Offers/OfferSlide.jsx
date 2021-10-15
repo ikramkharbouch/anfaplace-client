@@ -66,7 +66,7 @@ OfferSlide.propTypes = {
 };
 OfferSlide.defaultProps = {
 	image: sliderImage,
-	description: 'LA nouvelle plateforme anfa place ipsum  LOREM',
+	description: 'LA nouvelle plateforme Anfaplace Mall ipsum  LOREM',
 	article: {
 		data: {
 			titre: 'Titre de l’evenement sur 2 lignes et coupe la ligne ici IPSUM LOREM 3ELE …',

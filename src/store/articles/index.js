@@ -4,11 +4,13 @@ const articlesSlice = createSlice({
 	name: 'articles',
 	initialState: {
 		list: [],
+		loading: false,
 	},
 	reducers: {
-		setAllArticlesSuccess: (state, action) => ({ list: action.payload }),
+		articlesLoading: (state , ) => ({ ...state , loading : true }),
+		setAllArticlesSuccess: (state, action) => ({ list: action.payload , loading : false }),
 	},
 });
-export const { setAllArticlesSuccess } = articlesSlice.actions;
+export const { setAllArticlesSuccess , articlesLoading } = articlesSlice.actions;
 
 export default articlesSlice.reducer;

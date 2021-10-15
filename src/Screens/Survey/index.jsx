@@ -112,7 +112,7 @@ const Survey = () => {
 			}}
 		>
 			{' '}
-			Vous avez deja répondu a ce questionnaires{' '}
+			Vous avez deja répondu à ce questionnaire{' '}
 		</Header>
 	) : // eslint-disable-next-line no-nested-ternary
 	loadingUserQuestionnaire ? (
@@ -161,7 +161,7 @@ const Survey = () => {
 				}}
 				className="survey-modal"
 			>
-				<p>Merci pour votre participation Vous avez gagné </p>
+				<p>Merci pour votre participation, vous avez gagné </p>
 				<button type="button" className="points">
 					{questionnaire.points}P
 				</button>

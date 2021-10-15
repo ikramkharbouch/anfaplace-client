@@ -17,6 +17,11 @@ const userSlice = createSlice({
 	initialState,
 	reducers: {
 		setUser: (state, action) => ({ ...state, currentUser: action.payload, loadingUser: false }),
+		updateUser: (state, action) => ({
+			...state,
+			loadingUser: false,
+			currentUser: { ...state.currentUser , ...(action?.payload || {}) },
+		}),
 		setUserPoints: (state, action) => ({
 			...state,
 			currentUser: { ...state.currentUser, points: action.payload },
@@ -27,7 +32,7 @@ const userSlice = createSlice({
 			...state,
 			currentUser: {
 				...state.currentUser,
-				mes_events: [...state.currentUser.mes_events, action.payload],
+				mes_events: [...(state?.currentUser?.mes_events || []), action.payload],
 			},
 		}),
 		resetUser: () => initialState,
@@ -47,6 +52,7 @@ export const {
 	setConfirmPinLoading,
 	setQrcode,
 	resetUser,
+	updateUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -78,7 +78,7 @@ const Slider = ({
 	) : (
 		<div className="empty-slider">
 			<Header as="h1" icon>
-				<Icon name="image" /> Prochainement.
+				<Icon name="image" /> Prochainement
 			</Header>
 		</div>
 	)

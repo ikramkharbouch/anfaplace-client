@@ -15,6 +15,7 @@ import acticlesAction from 'src/store/articles/actions';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import AppLoading from './Components/AppLoading/index';
 
 store.dispatch({ type: brandAction.FETCH_ALL_BRANDS });
 store.dispatch({ type: eventAction.FETCH_ALL_EVENTS });
@@ -26,7 +27,9 @@ store.dispatch({ type: interestsAction.FETCH_INTERESTS });
 ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
-			<App />
+			<AppLoading>
+				<App />
+			</AppLoading>
 		</Provider>
 	</React.StrictMode>,
 	document.getElementById('root')

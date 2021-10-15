@@ -38,7 +38,9 @@ const Articles = () => {
 				</Slider>
 
 				<div className="offer-details-header">
+					{/* <BackButton text={titre} /> */}
 					<BackButton text={titre} />
+
 					<Divider hidden />
 					<Divider hidden />
 					<p>
