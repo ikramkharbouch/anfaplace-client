@@ -30,8 +30,6 @@ const Profile = lazy(() => import('src/Screens/Profile'));
 const EditPhoneNumber = lazy(() => import('src/Screens/EditPhoneNumber'));
 const EditEmailPassword = lazy(() => import('src/Screens/EditEmailPassword'));
 
-
-
 const Routes = () => {
 	const location = useLocation();
 	const { pathname } = location;

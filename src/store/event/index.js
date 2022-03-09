@@ -5,27 +5,27 @@ const brandSlice = createSlice({
 	initialState: {
 		list: [],
 		loadingEvents: true,
-		loading : false,
-		error : ''
+		loading: false,
+		error: '',
 	},
 	reducers: {
 		setAllEventsSuccess: (state, action) => ({
 			...state,
 			list: action.payload,
 			loadingEvents: false,
-			loading : false
+			loading: false,
 		}),
-		AllEventsLoading : (state, ) => ({
+		AllEventsLoading: (state) => ({
 			...state,
-			loading : true
+			loading: true,
 		}),
-		AllEventsError : (state, action) => ({
+		AllEventsError: (state, action) => ({
 			...state,
-			loading : false,
-			error : action.payload
-		})
+			loading: false,
+			error: action.payload,
+		}),
 	},
 });
-export const { setAllEventsSuccess , AllEventsLoading , AllEventsError } = brandSlice.actions;
+export const { setAllEventsSuccess, AllEventsLoading, AllEventsError } = brandSlice.actions;
 
 export default brandSlice.reducer;

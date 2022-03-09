@@ -8,22 +8,15 @@ import Brand from 'src/Components/Brand';
 import './Brands.less';
 
 const chunk = (arr, size) =>
-  arr
-    .reduce((acc, _, i) =>
-      (i % size)
-        ? acc
-        : [...acc, arr.slice(i, i + size)]
-    , [])
-
+	arr.reduce((acc, _, i) => (i % size ? acc : [...acc, arr.slice(i, i + size)]), []);
 
 const Brands = () => {
 	const brands = useSelector((state) => state.brand.all);
 	const history = useHistory();
 	const [allBrands, setAllBrands] = useState([]);
 
-
-
 	useEffect(() => {
+		console.log('debugging brands', brands);
 		setAllBrands(shuffle(brands));
 	}, [brands]);
 
@@ -32,24 +25,34 @@ const Brands = () => {
 	return (
 		<div className="brands">
 			<Header as="h3">Marques</Header>
-			<Slider id="brands" autoplay={false} >
+			<Slider id="brands" autoplay={false}>
 				{
-					// allBrands.filter((_, index) => index < 20)				
-					chunk(allBrands.filter((_, index) => index < 20) , 4)
-					.map((item) => (
-						<div style = {{ display : 'grid' , gridTemplateColumns : '1fr 1fr' , justifyContent : 'center' , marginBottom : 20 }}>
-							{
-								item?.map( marque => <div key={marque.index} id={marque.data.nom} className="brand-slider-container">
-								<Brand
-									brandImg={marque?.data?.logo?.data || marque?.data?.logo}
-									brandName="swatch"
-									brandId={marque.index}
-									isPromo={marque.data.enPromotion}
-								/>
-							</div> )
-							}
+					// allBrands.filter((_, index) => index < 20)
+					chunk(
+						allBrands.filter((_, index) => index < 20),
+						4
+					).map((item) => (
+						<div
+							style={{
+								display: 'grid',
+								gridTemplateColumns: '1fr 1fr',
+								justifyContent: 'center',
+								marginBottom: 20,
+							}}
+						>
+							{item?.map((marque) => (
+								<div key={marque.index} id={marque.data.nom} className="brand-slider-container">
+									<Brand
+										brandImg={marque?.data?.logo?.data || marque?.data?.logo}
+										brandName="swatch"
+										brandId={marque.index}
+										isPromo={marque.data.enPromotion}
+									/>
+								</div>
+							))}
 						</div>
-					))}
+					))
+				}
 			</Slider>
 			<Button onClick={() => history.push('/all-brands')} className="more" circular>
 				Découvrez toutes les marques

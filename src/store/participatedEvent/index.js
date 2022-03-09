@@ -68,7 +68,7 @@ const brandSlice = createSlice({
 				success: { $set: success },
 				message: { $set: message },
 				totalPoints: { $set: totalPoints },
-				loading : { $set : false }
+				loading: { $set: false },
 			}),
 	},
 });

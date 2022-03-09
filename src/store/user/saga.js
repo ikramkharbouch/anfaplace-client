@@ -34,13 +34,13 @@ export function* watchForFirebaseAuth() {
 			if (user !== 'null') {
 				// console.log('user', user);
 
-				if(!user?.phoneNumber){
-					yield(put( openAuthTelModal(true) ));
+				if (!user?.phoneNumber) {
+					yield put(openAuthTelModal(true));
 				}
 
 				const token = yield getUserToken();
 				// const isNewUser = JSON.parse(localStorage.getItem('isNewUser'));
-				const isNewUser = user.metadata.creationTime === user.metadata.lastSignInTime ;
+				const isNewUser = user.metadata.creationTime === user.metadata.lastSignInTime;
 				if (isNewUser) {
 					const apiUser = yield call(() =>
 						API({
@@ -57,8 +57,7 @@ export function* watchForFirebaseAuth() {
 					yield call(() => API({ url: 'QRCodeUser', method: 'post', token }));
 
 					yield put(setUserPoints(apiUser.data.points_user));
-					if(localStorage.getItem('isNewUser') !== 'false'){
-
+					if (localStorage.getItem('isNewUser') !== 'false') {
 						yield put(setNotification({ show: true, type: 'wonPoints' }));
 					}
 					yield put(openPhoneAuth(false));
@@ -90,7 +89,9 @@ export function* watchForFirebaseAuth() {
 					})
 				);
 				if (!isNewUser) {
-					yield put(setUserInfo({ nom: userAPi?.data?.user?.nom || '', email: userAPi?.data?.user?.email }));
+					yield put(
+						setUserInfo({ nom: userAPi?.data?.user?.nom || '', email: userAPi?.data?.user?.email })
+					);
 				}
 				yield put(setConfirmPinLoading(false));
 			} else {

@@ -34,6 +34,6 @@ const brandSlice = createSlice({
 		}),
 	},
 });
-export const { openAuthModal, openAuthTelModal , openUpdateTelModal } = brandSlice.actions;
+export const { openAuthModal, openAuthTelModal, openUpdateTelModal } = brandSlice.actions;
 
 export default brandSlice.reducer;

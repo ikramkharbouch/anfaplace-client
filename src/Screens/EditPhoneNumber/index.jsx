@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react';
-import { Form, Button , Header , Divider } from 'semantic-ui-react';
+import { Form, Button, Header, Divider } from 'semantic-ui-react';
 import './style.less';
 
 const EditPhoneNumber = () => {
@@ -16,8 +16,10 @@ const EditPhoneNumber = () => {
 
 	return (
 		<div className="page-content account-page">
-            <Header as = 'h2' className = 'page-title' size='large'>Mon compte</Header>
-            <Divider />
+			<Header as="h2" className="page-title" size="large">
+				Mon compte
+			</Header>
+			<Divider />
 			<Form>
 				<Form.Field>
 					<input
@@ -69,14 +71,19 @@ const EditPhoneNumber = () => {
 					/>
 				</Form.Field>
 
-				<Button fluid size = 'large' type="submit">Mettre à jour</Button>
+				<Button fluid size="large" type="submit">
+					Mettre à jour
+				</Button>
 			</Form>
 
-            <Divider />
+			<Divider />
 
-            <Button className = 'mb-20' fluid size = 'large' type="submit">Modifier son numéro de téléphone</Button>
-            <Button fluid size = 'large' type="submit">Modifier son email ou mot de passe</Button>
-
+			<Button className="mb-20" fluid size="large" type="submit">
+				Modifier son numéro de téléphone
+			</Button>
+			<Button fluid size="large" type="submit">
+				Modifier son email ou mot de passe
+			</Button>
 		</div>
 	);
 };

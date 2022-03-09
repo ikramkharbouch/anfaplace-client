@@ -5,22 +5,22 @@ import SplashScreen from '../SplashScreen/index';
 
 const AppLoading = ({ children }) => {
 	const { loading: articlesLoading } = useSelector((state) => state.articles);
-	const { loadingUser }  = useSelector( state => state.user )
+	const { loadingUser } = useSelector((state) => state.user);
 	// const { loading: branbdsLoading } = useSelector((state) => state.brand);
 	// const { loading: EventsLoading } = useSelector((state) => state.brand);
 	// const { loading: interestsLoading } = useSelector((state) => state.interests);
 
 	useEffect(() => {
-		if (articlesLoading || loadingUser ) {
+		if (loadingUser) {
 			document.querySelector('body').classList.add('overflow-hidden');
 		} else {
 			document.querySelector('body').classList.remove('overflow-hidden');
 		}
-	}, [articlesLoading , loadingUser ]);
+	}, [articlesLoading, loadingUser]);
 
 	return (
 		<>
-			{(articlesLoading  || loadingUser) && <SplashScreen />}
+			{loadingUser && <SplashScreen />}
 			{children}
 		</>
 	);

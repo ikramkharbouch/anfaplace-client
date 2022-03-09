@@ -20,7 +20,7 @@ const CouponList = () => {
 	}, [coupons, user]);
 
 	// eslint-disable-next-line no-nested-ternary
-	return !user  ? (
+	return !user ? (
 		<>
 			<p style={{ textAlign: 'center', marginTop: 44 }}> Merci de vous connecter ! </p>
 			<div className="action" style={{ display: 'flex', justifyContent: 'center' }}>

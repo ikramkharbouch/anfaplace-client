@@ -33,15 +33,14 @@ const Shopping = () => {
 			<Loader />
 		</Dimmer>
 	) : (
-		<div className="shopping-screen page-content" >
-			{
-				sliders?.length  > 0 && 
+		<div className="shopping-screen page-content">
+			{sliders?.length > 0 && (
 				<Slider className="shopping-slider" id="shopping">
 					{sliders.map((slider) => (
 						<ShoppingSlide image={slider.data.banniere} description={slider.data.titre} />
 					))}
 				</Slider>
-			}
+			)}
 			<BrandsGrid brands={brands} />
 		</div>
 	);

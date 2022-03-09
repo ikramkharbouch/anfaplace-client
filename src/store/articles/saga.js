@@ -1,14 +1,12 @@
 import { call, put } from 'redux-saga/effects';
 import { API, arrayBufferToBase64 } from 'src/utils/utilsFunctions';
 
-import { setAllArticlesSuccess , articlesLoading } from './index';
+import { setAllArticlesSuccess, articlesLoading } from './index';
 
 // eslint-disable-next-line import/prefer-default-export
 export function* fetchAllArticles() {
 	try {
-
 		yield put(articlesLoading());
-
 
 		const result = yield call(() => API({ url: 'getAllArticles' }));
 
@@ -37,8 +35,8 @@ export function* fetchAllArticles() {
 	}
 }
 
-export function* fetchAllArticlesLoad(){
-	yield(put(articlesLoading()))
+export function* fetchAllArticlesLoad() {
+	yield put(articlesLoading());
 }
 
 /* // eslint-disable-next-line import/prefer-default-export

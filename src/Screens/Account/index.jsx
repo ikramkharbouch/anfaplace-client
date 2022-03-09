@@ -5,7 +5,7 @@ import Modal from 'src/Components/Modal';
 
 import './style.less';
 import { useDispatch, useSelector } from 'react-redux';
-import { openAuthModal , openUpdateTelModal , openAuthTelModal } from 'src/store/shared/index';
+import { openAuthModal, openUpdateTelModal, openAuthTelModal } from 'src/store/shared/index';
 import firebaseApp from 'src/utils/initApp';
 
 const Account = () => {

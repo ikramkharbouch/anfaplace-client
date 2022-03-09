@@ -19,14 +19,24 @@ const AuthModal = () => {
 
 	return (
 		<Modal open={authModalOpen} setOpen={(isOpen) => displayModal(isOpen)}>
-			{!showRegisterForm && <LoginForm onSuccess = { () => displayModal(false) } />}
-			{showRegisterForm && <RegisterForm onSuccess = { () => displayModal(false) } />}
+			{!showRegisterForm && <LoginForm onSuccess={() => displayModal(false)} />}
+			{showRegisterForm && <RegisterForm onSuccess={() => displayModal(false)} />}
 
 			{/* <Divider /> */}
 
-			<p className="activate" onClick={() => setShowRegisterForm( prev => !prev )}>
-                { !showRegisterForm && <> Pas de compte ? <span style={{ textDecoration: 'underline' }}>créez-en un</span> </>}
-				{ showRegisterForm && <> Déjà un compte , <span style={{ textDecoration: 'underline' }}>connectez-vous</span> </> }
+			<p className="activate" onClick={() => setShowRegisterForm((prev) => !prev)}>
+				{!showRegisterForm && (
+					<>
+						{' '}
+						Pas de compte ? <span style={{ textDecoration: 'underline' }}>créez-en un</span>{' '}
+					</>
+				)}
+				{showRegisterForm && (
+					<>
+						{' '}
+						Déjà un compte , <span style={{ textDecoration: 'underline' }}>connectez-vous</span>{' '}
+					</>
+				)}
 			</p>
 		</Modal>
 	);

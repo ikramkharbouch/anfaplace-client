@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { useRef  } from 'react';
-import {  Icon  } from 'semantic-ui-react';
+import { useRef } from 'react';
+import { Icon } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
 
 import { motion, useCycle } from 'framer-motion';
@@ -32,10 +32,9 @@ const Example = () => {
 	const [isOpen, toggleOpen] = useCycle(false, true);
 	const containerRef = useRef(null);
 	const { height } = useDimensions(containerRef);
-    const [currentURL , setCurrentURL] = React.useState(null)
+	const [currentURL, setCurrentURL] = React.useState(null);
 
-    const history = useHistory();
-
+	const history = useHistory();
 
 	React.useEffect(() => {
 		// console.log(isOpen)
@@ -46,8 +45,7 @@ const Example = () => {
 		}
 	}, [isOpen]);
 
-
-    React.useEffect(() => {
+	React.useEffect(() => {
 		setCurrentURL(history.location.pathname);
 	}, [history.location.pathname]);
 
@@ -63,13 +61,12 @@ const Example = () => {
 			ref={containerRef}
 			className="test"
 		>
-			<motion.div className="background" variants={sidebar}  />
+			<motion.div className="background" variants={sidebar} />
 			<Navigation toggle={() => toggleOpen()} />
-            { currentURL !== '/' && <Icon className = 'back-icon ' onClick = { () => history.goBack() } name = 'arrow left' /> }
-            { currentURL === '/' && <MenuToggle toggle={() => toggleOpen()} />  }
-             
-
-			
+			{currentURL !== '/' && (
+				<Icon className="back-icon " onClick={() => history.goBack()} name="arrow left" />
+			)}
+			{currentURL === '/' && <MenuToggle toggle={() => toggleOpen()} />}
 		</motion.nav>
 	);
 };

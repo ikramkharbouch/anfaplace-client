@@ -3,26 +3,37 @@ import { API, getUserToken } from 'src/utils/utilsFunctions';
 
 import { addUserInterests } from './index';
 
-import { ADD_USER_INTERESTS_SUCCESS , ADD_USER_INTERESTS_LOADING , ADD_USER_INTERESTS_FAIL} from './actions';
+import {
+	ADD_USER_INTERESTS_SUCCESS,
+	ADD_USER_INTERESTS_LOADING,
+	ADD_USER_INTERESTS_FAIL,
+} from './actions';
 
 export default function* getUserEvent() {
 	try {
-		yield put(addUserInterests({type: ADD_USER_INTERESTS_LOADING }));
+		yield put(addUserInterests({ type: ADD_USER_INTERESTS_LOADING }));
 		const token = yield getUserToken();
-		if(token && localStorage.getItem('interests')){
-			const result = yield call( ()=> API({ url: 'AffecterInterets', method: 'post', data : { listInterets: localStorage.getItem('interests') } , token }));
+		if (token && localStorage.getItem('interests')) {
+			const result = yield call(() =>
+				API({
+					url: 'AffecterInterets',
+					method: 'post',
+					data: { listInterets: localStorage.getItem('interests') },
+					token,
+				})
+			);
 			localStorage.removeItem('interests');
-			yield put(addUserInterests({type: ADD_USER_INTERESTS_SUCCESS, payload : { added: result.data.success }}));
+			yield put(
+				addUserInterests({ type: ADD_USER_INTERESTS_SUCCESS, payload: { added: result.data.success } })
+			);
 		}
 
-		if(token && !localStorage.getItem('interests') ){
-			yield put(addUserInterests({type: ADD_USER_INTERESTS_SUCCESS, payload : { added: true}}));
-
+		if (token && !localStorage.getItem('interests')) {
+			yield put(addUserInterests({ type: ADD_USER_INTERESTS_SUCCESS, payload: { added: true } }));
 		}
-		
-	 } catch (e) {
-		yield put(addUserInterests({type: ADD_USER_INTERESTS_FAIL , payload: { message : e.message }}));
-	 }
+	} catch (e) {
+		yield put(addUserInterests({ type: ADD_USER_INTERESTS_FAIL, payload: { message: e.message } }));
+	}
 }
 
 // export function* fetchMyVisitedList() {
@@ -43,7 +54,6 @@ export default function* getUserEvent() {
 // 		yield put(setLoadingParticipatedList(payload));
 // 		const token = yield getUserToken();
 // 		console.log(payload)
-		
 
 // 		const result = yield call(() =>
 // 			API({ url: 'participateToEvent', method: 'post', data: { idEvent: payload.idEvent , points: payload.points }, token })

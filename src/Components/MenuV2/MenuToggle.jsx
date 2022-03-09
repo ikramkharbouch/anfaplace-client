@@ -15,7 +15,7 @@ const Path = (props) => (
 
 const MenuToggle = ({ toggle }) => (
 	// eslint-disable-next-line react/button-has-type
-	<button className = 'menu-btn' onClick={toggle}>
+	<button className="menu-btn" onClick={toggle}>
 		<svg width="23" height="23" viewBox="0 0 23 23">
 			<Path
 				variants={{

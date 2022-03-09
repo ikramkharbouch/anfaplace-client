@@ -22,11 +22,7 @@ const brandSlice = createSlice({
 		setNotification: (state, action) => ({ ...state, notification: action.payload }),
 	},
 });
-export const {
-	openSocialAuth,
-	openNumberVerificationModal,
-	setNotification,
-	openPhoneAuth,
-} = brandSlice.actions;
+export const { openSocialAuth, openNumberVerificationModal, setNotification, openPhoneAuth } =
+	brandSlice.actions;
 
 export default brandSlice.reducer;

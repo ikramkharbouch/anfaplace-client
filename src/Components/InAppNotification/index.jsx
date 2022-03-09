@@ -19,17 +19,15 @@ const DidNotWinPoints = () => (
 	<Header as="h4">compléter votre profil et gagner des points convertibles en bons d’achat !</Header>
 );
 
-const Success = ({ message }) => (
-	<Header as="h4">{message}</Header>
-);
+const Success = ({ message }) => <Header as="h4">{message}</Header>;
 
 Success.propTypes = {
 	message: Proptypes.string,
-}
+};
 
 Success.defaultProps = {
-	message : 'Action effectuée avec succès'
-}
+	message: 'Action effectuée avec succès',
+};
 
 const NotificationSelector = ({ type, message }) => {
 	switch (type) {
@@ -37,8 +35,8 @@ const NotificationSelector = ({ type, message }) => {
 			return <WonPoints />;
 		case 'didNotWinPoints':
 			return <DidNotWinPoints />;
-		case 'success' :
-			return <Success message = {message} />
+		case 'success':
+			return <Success message={message} />;
 		case 'error':
 			return <Header as="h4">Une erreur est survenue :{message} </Header>;
 		default:
@@ -100,11 +98,12 @@ InAppNotification.propTypes = {
 	}).isRequired,
 };
 
-export const withContext = (Component) => (props) => (
-	<InAppNotificationContext.Consumer>
-		{/* eslint-disable-next-line react/jsx-props-no-spreading */}
-		{(context) => <Component {...props} context={context} />}
-	</InAppNotificationContext.Consumer>
-);
+export const withContext = (Component) => (props) =>
+	(
+		<InAppNotificationContext.Consumer>
+			{/* eslint-disable-next-line react/jsx-props-no-spreading */}
+			{(context) => <Component {...props} context={context} />}
+		</InAppNotificationContext.Consumer>
+	);
 
 export default withContext(InAppNotification);

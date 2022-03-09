@@ -12,16 +12,8 @@ const CouponListItem = () => {
 	const user = useSelector((state) => state.user.currentUser);
 	const dispatch = useDispatch();
 
-	const {
-		active,
-		amount,
-		available,
-		date,
-		img,
-		points,
-		title,
-		url,
-	} = history.location.coupon.couponInfos;
+	const { active, amount, available, date, img, points, title, url } =
+		history.location.coupon.couponInfos;
 
 	return (
 		<div className="coupon-list-item__screen">

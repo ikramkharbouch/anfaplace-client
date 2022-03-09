@@ -3,15 +3,21 @@
 .brand-container{
 
    
-    width: 150px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: @blue;
     border-radius: 50%;
     position: relative;
+
+        img{
+            height: 100%;
+            width: 100%;
+        }
+
+
 
     .badge {
         position: absolute;
@@ -22,14 +28,5 @@
 
     &:nth-child(odd){
         justify-self: flex-end;
-    }
-
-
-
-    
-
-
-    img{
-        max-width: 100px;
     }
 }

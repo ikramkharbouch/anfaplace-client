@@ -20,7 +20,7 @@ const userSlice = createSlice({
 		updateUser: (state, action) => ({
 			...state,
 			loadingUser: false,
-			currentUser: { ...state.currentUser , ...(action?.payload || {}) },
+			currentUser: { ...state.currentUser, ...(action?.payload || {}) },
 		}),
 		setUserPoints: (state, action) => ({
 			...state,

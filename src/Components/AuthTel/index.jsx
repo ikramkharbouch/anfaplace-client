@@ -343,14 +343,15 @@ const AuthTel = () => {
 			}
 
 			setIsVerifying(false);
-            setValidationModalOpen(false);
-            dispatch(openAuthTelModal(false));
-            dispatch(setNotification({ show: true, type: 'success' , message : 'Vous avez gagné +50 points' }))
+			setValidationModalOpen(false);
+			dispatch(openAuthTelModal(false));
+			dispatch(
+				setNotification({ show: true, type: 'success', message: 'Vous avez gagné +50 points' })
+			);
 		} catch (err) {
 			console.log(err);
 			setIsVerifying(false);
-			dispatch(setNotification({ show: true, type: 'error' , message : err?.message }))
-
+			dispatch(setNotification({ show: true, type: 'error', message: err?.message }));
 		}
 	};
 

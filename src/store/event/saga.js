@@ -16,11 +16,11 @@ export function* fetchAllEvent() {
 				return d2.diff(d1);
 			})
 			?.map((item) => {
-				console.log(dayjs(item.data.fin_time, 'DD/MM/YYYY').isBefore(dayjs().format()) )
-				return ({
+				console.log(dayjs(item.data.fin_time, 'DD/MM/YYYY').isBefore(dayjs().format()));
+				return {
 					...item,
-					expired: dayjs(item.data.fin_time, 'DD/MM/YYYY').isBefore(dayjs().format()) ,
-				})
+					expired: dayjs(item.data.fin_time, 'DD/MM/YYYY').isBefore(dayjs().format()),
+				};
 			});
 		yield put(setAllEventsSuccess(sorteEvents));
 	} catch (e) {

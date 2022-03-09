@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { GET_USER_EVENTS_LOADING , GET_USER_EVENTS_SUCCESS , GET_USER_EVENTS_FAIL } from './actions';
+import { GET_USER_EVENTS_LOADING, GET_USER_EVENTS_SUCCESS, GET_USER_EVENTS_FAIL } from './actions';
 
 const brandSlice = createSlice({
 	name: 'userEvents',
@@ -7,43 +7,41 @@ const brandSlice = createSlice({
 		success: false,
 		events: [],
 		loading: true,
-		message: ''
+		message: '',
 	},
 	reducers: {
 		getUserEvents: (state, action) => {
 			switch (action.payload.type) {
 				case GET_USER_EVENTS_LOADING:
-					return ({
+					return {
 						...state,
-						loading: true
-					});
+						loading: true,
+					};
 
 				case GET_USER_EVENTS_SUCCESS:
-					return ({
+					return {
 						...state,
 						success: action.payload.payload.success,
 						events: action.payload.payload.events,
-						loading: false
-					});
+						loading: false,
+					};
 
 				case GET_USER_EVENTS_FAIL:
-					return ({
+					return {
 						...state,
 						success: false,
 						events: [],
 						loading: false,
-						message: action.payload.payload.message
-					});
-			
+						message: action.payload.payload.message,
+					};
+
 				default:
 					return state;
 			}
-		}
+		},
 	},
 });
 
-export const {
-	getUserEvents
-} = brandSlice.actions;
+export const { getUserEvents } = brandSlice.actions;
 
 export default brandSlice.reducer;

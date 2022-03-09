@@ -83,7 +83,7 @@ const Entertainment = () => {
 			))}
 
 			{eventData.length < 1 && (
-				<Empty text	= 'Cette section est vide' />
+				<Empty text="Cette section est vide" />
 				// <>
 				// 	{' '}
 				// 	<img src={logoAnfa} className="rotate-img" alt="Anfa logo" />{' '}

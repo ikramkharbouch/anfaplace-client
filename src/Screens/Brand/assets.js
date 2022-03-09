@@ -9,8 +9,7 @@ import resto2Img4 from 'src/assets/images/restaurantsMenu/Carte-Menu_La-cantinet
 import resto2Img5 from 'src/assets/images/restaurantsMenu/Carte-Menu_La-cantinetta_Print_2020/Carte-Menu_La-cantinetta_Print_2020_page-0005.jpg';
 import resto2Img6 from 'src/assets/images/restaurantsMenu/Carte-Menu_La-cantinetta_Print_2020/Carte-Menu_La-cantinetta_Print_2020_page-0006.jpg';
 import resto2Img7 from 'src/assets/images/restaurantsMenu/Carte-Menu_La-cantinetta_Print_2020/Carte-Menu_La-cantinetta_Print_2020_page-0007.jpg';
-import resto2Img8 from 'src/assets/images/restaurantsMenu/Carte-Menu_La-cantinetta_Print_2020/Carte-Menu_La-cantinetta_Print_2020_page-0008.jpg'
-
+import resto2Img8 from 'src/assets/images/restaurantsMenu/Carte-Menu_La-cantinetta_Print_2020/Carte-Menu_La-cantinetta_Print_2020_page-0008.jpg';
 
 import resto3Img1 from 'src/assets/images/restaurantsMenu/DominosMenu_Anfa_QRCode-compressed/DominosMenu_Anfa_QRCode-compressed_page-0001.jpg';
 
@@ -49,13 +48,9 @@ import resto7Img24 from 'src/assets/images/restaurantsMenu/Menu-2020-compressed/
 
 import resto8Img1 from 'src/assets/images/restaurantsMenu/Menu-QR-Code-compressed/Menu-QR-Code-compressed_page-0001.jpg';
 
-import resto9Img1 from 'src/assets/images/restaurantsMenu/dépliant02-compressed/dépliant02-compressed_page-0001.jpg';
-import resto9Img2 from 'src/assets/images/restaurantsMenu/dépliant02-compressed/dépliant02-compressed_page-0002.jpg';
-
 import resto10Img1 from 'src/assets/images/restaurantsMenu/menu-HUITRES-KANDY-A9-compressed/menu-HUITRES-KANDY-A9-compressed_page-0001.jpg';
 import resto10Img2 from 'src/assets/images/restaurantsMenu/menu-HUITRES-KANDY-A9-compressed/menu-HUITRES-KANDY-A9-compressed_page-0002.jpg';
 import resto10Img3 from 'src/assets/images/restaurantsMenu/menu-HUITRES-KANDY-A9-compressed/menu-HUITRES-KANDY-A9-compressed_page-0003.jpg';
-
 
 import resto11Img1 from 'src/assets/images/restaurantsMenu/menu-compressed/menu-compressed_page-0001.jpg';
 
@@ -71,16 +66,51 @@ import resto12Img9 from 'src/assets/images/restaurantsMenu/menu-le-coin-marocain
 import resto12Img10 from 'src/assets/images/restaurantsMenu/menu-le-coin-marocain-07.08.2020-vector-compressed/menu-le-coin-marocain-07.08.2020-vector-compressed_page-0010.jpg';
 
 export default [
-    [resto1Img1 , resto1Img2 , resto1Img3] , 
-    [resto2Img1 , resto2Img2 ,  resto2Img3 , resto2Img4 , resto2Img5 , resto2Img6 , resto2Img7 , resto2Img8],
-    [resto3Img1],
-    [resto4Img1],
-    [resto5Img1 , resto5Img2],
-    [resto6Img1 , resto6Img2],
-    [resto7Img1 , resto7Img2 , resto7Img3 , resto7Img4 , resto7Img5 , resto7Img6 , resto7Img7 , resto7Img8 , resto7Img9 , resto7Img10 , resto7Img11 , resto7Img12 , resto7Img13 , resto7Img14 , resto7Img15 , resto7Img16 , resto7Img17 , resto7Img18 , resto7Img19 , resto7Img20 , resto7Img21 , resto7Img22 , resto7Img23 , resto7Img24],
-    [resto8Img1],
-    [resto9Img1 , resto9Img2],
-    [resto10Img1 , resto10Img2 , resto10Img3],
-    [resto11Img1],
-    [resto12Img1 , resto12Img2 , resto12Img3 , resto12Img4 , resto12Img5 , resto12Img6 , resto12Img7 , resto12Img8 , resto12Img9 , resto12Img10 ]
-]
+	[resto1Img1, resto1Img2, resto1Img3],
+	[resto2Img1, resto2Img2, resto2Img3, resto2Img4, resto2Img5, resto2Img6, resto2Img7, resto2Img8],
+	[resto3Img1],
+	[resto4Img1],
+	[resto5Img1, resto5Img2],
+	[resto6Img1, resto6Img2],
+	[
+		resto7Img1,
+		resto7Img2,
+		resto7Img3,
+		resto7Img4,
+		resto7Img5,
+		resto7Img6,
+		resto7Img7,
+		resto7Img8,
+		resto7Img9,
+		resto7Img10,
+		resto7Img11,
+		resto7Img12,
+		resto7Img13,
+		resto7Img14,
+		resto7Img15,
+		resto7Img16,
+		resto7Img17,
+		resto7Img18,
+		resto7Img19,
+		resto7Img20,
+		resto7Img21,
+		resto7Img22,
+		resto7Img23,
+		resto7Img24,
+	],
+	[resto8Img1],
+	[resto10Img1, resto10Img2, resto10Img3],
+	[resto11Img1],
+	[
+		resto12Img1,
+		resto12Img2,
+		resto12Img3,
+		resto12Img4,
+		resto12Img5,
+		resto12Img6,
+		resto12Img7,
+		resto12Img8,
+		resto12Img9,
+		resto12Img10,
+	],
+];

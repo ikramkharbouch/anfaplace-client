@@ -7,7 +7,7 @@ import {
 	openAddedNotification,
 	setLoadingVisitedList,
 	setMyVisitedListSuccess,
-	setAddedSuccessNotification
+	setAddedSuccessNotification,
 } from './index';
 
 export function* fetchMyVisitedList() {
@@ -32,14 +32,14 @@ export function* addBrandToVisited({ payload }) {
 		yield put(addBrandToVisitedList(payload.data.nom));
 		yield put(setLoadingVisitedList(false));
 		yield put(openAddedNotification(false));
-		yield(put(setAddedSuccessNotification(true)));
+		yield put(setAddedSuccessNotification(true));
 	} catch (e) {
 		console.error(e);
 		yield put({ type: 'FETCH_FAILED' });
 	}
 }
 
-export function* updateAddedSuccessNotification({ payload }){
+export function* updateAddedSuccessNotification({ payload }) {
 	// console.log(status)
 	yield put(setAddedSuccessNotification(payload));
 }

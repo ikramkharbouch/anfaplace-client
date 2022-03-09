@@ -34,7 +34,6 @@ const Menu = ({ menuOpen, closeMenu }) => {
 	const [modalContactOpen, setModalContactOpen] = useState(false);
 	const [modalRegisterOpen, setModalRegisterOpen] = useState(false);
 
-
 	const variants = {
 		start: {
 			opacity: 1,
@@ -71,8 +70,7 @@ const Menu = ({ menuOpen, closeMenu }) => {
 			{user && (
 				<>
 					<Header className="greetings" as="h1">
-						<div style = {{ padding : '0 15px' }}>
-
+						<div style={{ padding: '0 15px' }}>
 							Bienvenue, {user.displayName} !
 							<p style={{ fontSize: '1.2rem', width: '90%', margin: '0 auto' }}>
 								Votre centre Anfaplace Mall est ouvert aujourd’hui de 10:00 à 23:00{' '}
@@ -190,7 +188,7 @@ const Menu = ({ menuOpen, closeMenu }) => {
 			</Modal>
 
 			<Modal open={modalRegisterOpen} setOpen={(isOpen) => setModalRegisterOpen(isOpen)}>
-				<RegisterForm onSuccess = { () => setModalRegisterOpen(false) } />
+				<RegisterForm onSuccess={() => setModalRegisterOpen(false)} />
 			</Modal>
 		</motion.div>
 	);

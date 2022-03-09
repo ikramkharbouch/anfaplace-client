@@ -3,11 +3,10 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
-import {
-	// KafkaAppOpenedTimeEvent,
-	// KafkaGPSEnabled,
-	// KafkaPhoneModel,
-} from 'src/utils/kafka/KafkaEvents';
+import // KafkaAppOpenedTimeEvent,
+// KafkaGPSEnabled,
+// KafkaPhoneModel,
+'src/utils/kafka/KafkaEvents';
 
 let deviceUID = localStorage.getItem('device-uid');
 

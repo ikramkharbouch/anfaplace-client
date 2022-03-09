@@ -28,7 +28,7 @@ const Divertissement = () => {
 			<Loader />
 		</Dimmer>
 	) : (
-		<div className="shopping-screen page-content" >
+		<div className="shopping-screen page-content">
 			{sliders?.length > 0 && (
 				<Slider className="shopping-slider" id="shopping">
 					{sliders.map((slider) => (

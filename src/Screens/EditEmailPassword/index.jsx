@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react';
-import { Form, Button , Header , Divider } from 'semantic-ui-react';
+import { Form, Button, Header, Divider } from 'semantic-ui-react';
 import './style.less';
 
 const EditEmailPassword = () => {
@@ -16,10 +16,11 @@ const EditEmailPassword = () => {
 
 	return (
 		<div className="page-content account-page">
-            <Header as = 'h2' className = 'page-title' size='large'>Modifier </Header>
-            <Divider />
+			<Header as="h2" className="page-title" size="large">
+				Modifier{' '}
+			</Header>
+			<Divider />
 			<Form>
-				
 				<Form.Field>
 					<input
 						value={values?.email || ''}
@@ -51,7 +52,9 @@ const EditEmailPassword = () => {
 					/>
 				</Form.Field>
 
-				<Button fluid size = 'large' type="submit">Mettre à jour</Button>
+				<Button fluid size="large" type="submit">
+					Mettre à jour
+				</Button>
 			</Form>
 		</div>
 	);

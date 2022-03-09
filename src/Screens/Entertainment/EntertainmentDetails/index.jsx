@@ -102,7 +102,7 @@ const EntertainmentDetails = () => {
 
 	useEffect(() => {
 		if (participatedEvents) {
-			setShowParticipateBtn(!participatedEvents.includes(eventID) && event.points );
+			setShowParticipateBtn(!participatedEvents.includes(eventID) && event.points);
 		}
 	}, [user]);
 	return (
@@ -126,10 +126,10 @@ const EntertainmentDetails = () => {
 					// onClick = {handleParticipate}
 					className="participate"
 					icon="plus"
-					content={ !user ? "S'inscrire pour participer" : "Je participe" }
+					content={!user ? "S'inscrire pour participer" : 'Je participe'}
 				/>
 			)}
-			
+
 			<UserInfoModal
 				open={openUserInfo}
 				confirmUserInfo={() => {

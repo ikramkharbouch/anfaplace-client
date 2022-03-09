@@ -13,23 +13,23 @@ const brandsSelector = createSelector(
 		brands.filter((brand) =>
 			filter
 				? brand.data.nom
-					.toLowerCase()
-					.split(' ')
-					.join('')
-					.includes(filter.split(' ').join('').toLowerCase())
+						.toLowerCase()
+						.split(' ')
+						.join('')
+						.includes(filter.split(' ').join('').toLowerCase())
 				: true
 		)
 );
 
 const Tour = () => {
 	const [filterValue, setFilterValue] = useState();
-	const [promo, setPromo] = useState(false)
+	const [promo, setPromo] = useState(false);
 
 	const brands = useSelector((state) => brandsSelector(state, filterValue));
 
 	const handleClick = (e, data) => {
 		setPromo(data.checked);
-	}
+	};
 
 	return (
 		<div className="tour">

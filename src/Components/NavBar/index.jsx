@@ -90,7 +90,7 @@ const NavBar = () => {
 			navBarRef.current.style.backdropFilter = `blur(${(scrollPosition * 3) / 130}px)`;
 		}
 
-		if(history.location.pathname !== '/' && scrollPosition < 120){
+		if (history.location.pathname !== '/' && scrollPosition < 120) {
 			navBarRef.current.style.backgroundColor = '#000034';
 		}
 	};
@@ -112,7 +112,7 @@ const NavBar = () => {
 						// 	{isMenuOpen && <Header as="h3">MENU</Header>}
 						// </>
 					)}
-					{currentURL !== '/' && !isMenuOpen && <div /> }
+					{currentURL !== '/' && !isMenuOpen && <div />}
 				</div>
 				{showMenu && (
 					<>
@@ -121,7 +121,7 @@ const NavBar = () => {
 							// <img src = {} alt = '' />
 						)} */}
 
-						<NewLogo style = {{ marginLeft : 25 }} onClick={() => history.push('/')} height={33} />
+						<NewLogo style={{ marginLeft: 25 }} onClick={() => history.push('/')} height={33} />
 
 						<Icon size="large" name="user outline" onClick={handleButtonClick} />
 					</>

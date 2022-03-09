@@ -75,7 +75,7 @@ const Interests = () => {
 			open={open}
 			setOpen={(isOpen) => {
 				setOpen(isOpen);
-				if(!user) dispatch(openAuthModal(true));
+				if (!user) dispatch(openAuthModal(true));
 			}}
 		>
 			<Dimmer active={loading}>

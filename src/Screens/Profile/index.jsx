@@ -21,7 +21,7 @@ const Profile = () => {
 
 	// const history = useHistory();
 	const dispatch = useDispatch();
-    const {  currentUser }  = useSelector( state => state.user )
+	const { currentUser } = useSelector((state) => state.user);
 
 	const handleChange = (event) => {
 		// console.log(event  )
@@ -77,20 +77,19 @@ const Profile = () => {
 		}
 	}, [userInfos]);
 
-
-
-    if(!currentUser){
-        return (
-            <div className = 'page-content'>
-                 <Header as = 'h2' className = 'page-title text-center' size='large'>Merci de vous connecter</Header>
-                <Divider />
-                <Button onClick = { () => dispatch(openAuthModal(true)) }  fluid circular className = 'mb-20' >
-                    Se connecter
-                </Button>
-            </div>
-        )
-    }
-
+	if (!currentUser) {
+		return (
+			<div className="page-content">
+				<Header as="h2" className="page-title text-center" size="large">
+					Merci de vous connecter
+				</Header>
+				<Divider />
+				<Button onClick={() => dispatch(openAuthModal(true))} fluid circular className="mb-20">
+					Se connecter
+				</Button>
+			</div>
+		);
+	}
 
 	return (
 		<div className="page-content account-page">

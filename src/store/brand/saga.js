@@ -1,19 +1,24 @@
 import { call, put } from 'redux-saga/effects';
 import { API } from 'src/utils/utilsFunctions';
 
-import { setAllBrandsSuccess, setBrandSuccess , setAllBrandsLoading , setAllBrandsError } from './index';
+import {
+	setAllBrandsSuccess,
+	setBrandSuccess,
+	setAllBrandsLoading,
+	setAllBrandsError,
+} from './index';
 
 // eslint-disable-next-line import/prefer-default-export
 export function* fetchAllBrandSaga() {
 	try {
-		yield(put(setAllBrandsLoading()))
+		yield put(setAllBrandsLoading());
 		const result = yield call(() => API({ url: 'getListMagasins' }));
+		console.log('Debugging brands', result.data.lists);
 		yield put(setAllBrandsSuccess(result.data.lists));
 	} catch (e) {
 		console.error(e);
 		yield put({ type: 'FETCH_FAILED' });
-		yield(put(setAllBrandsError(e?.message || 'Erreur ')))
-
+		yield put(setAllBrandsError(e?.message || 'Erreur '));
 	}
 }
 

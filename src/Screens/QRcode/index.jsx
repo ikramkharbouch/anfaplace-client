@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Header , Divider } from 'semantic-ui-react';
+import { Button, Header, Divider } from 'semantic-ui-react';
 import './QRcode.less';
 // import { openNumberVerificationModal, openPhoneAuth } from 'src/store/app';
 import QrCodeComponent from 'src/Components/qrCode';
@@ -68,14 +68,18 @@ const PhoneValidated = () => {
 const QRcode = () => {
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.user.currentUser);
-	return user ? <PhoneValidated /> : (
-		<div className = 'page-content'>
-		<Header as = 'h2' className = 'page-title' size='large'>Merci de vous connecter</Header>
-		<Divider />
-		<Button onClick = { () => dispatch(openAuthModal(true)) }  fluid circular className = 'mb-20' >
-			Se connecter
-		</Button>
-	</div>
+	return user ? (
+		<PhoneValidated />
+	) : (
+		<div className="page-content">
+			<Header as="h2" className="page-title" size="large">
+				Merci de vous connecter
+			</Header>
+			<Divider />
+			<Button onClick={() => dispatch(openAuthModal(true))} fluid circular className="mb-20">
+				Se connecter
+			</Button>
+		</div>
 	);
 };
 

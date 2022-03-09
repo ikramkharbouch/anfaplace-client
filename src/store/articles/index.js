@@ -7,10 +7,10 @@ const articlesSlice = createSlice({
 		loading: false,
 	},
 	reducers: {
-		articlesLoading: (state , ) => ({ ...state , loading : true }),
-		setAllArticlesSuccess: (state, action) => ({ list: action.payload , loading : false }),
+		articlesLoading: (state) => ({ ...state, loading: true }),
+		setAllArticlesSuccess: (state, action) => ({ list: action.payload, loading: false }),
 	},
 });
-export const { setAllArticlesSuccess , articlesLoading } = articlesSlice.actions;
+export const { setAllArticlesSuccess, articlesLoading } = articlesSlice.actions;
 
 export default articlesSlice.reducer;

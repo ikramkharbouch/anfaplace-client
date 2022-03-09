@@ -19,15 +19,8 @@ const Articles = () => {
 
 	// eslint-disable-next-line prettier/prettier
 	// eslint-disable-next-line camelcase
-	const {
-		contenuBoody,
-		debutTime,
-		finTime,
-		image,
-		tags,
-		titre,
-		slider_elements,
-	} = history.location.state;
+	const { contenuBoody, debutTime, finTime, image, tags, titre, slider_elements } =
+		history.location.state;
 
 	const [openConfirm, setOpenConfirm] = useState(false);
 	const [confirmationProgress, setConfirmationInProgress] = useState(false);

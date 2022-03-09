@@ -8,7 +8,7 @@ import { Button, Form } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from 'src/store/user/index';
 import firebaseApp from 'src/utils/initApp';
-import {  openUpdateTelModal } from 'src/store/shared/index';
+import { openUpdateTelModal } from 'src/store/shared/index';
 import { setNotification } from 'src/store/app/index';
 
 const CustomInputNumber = ({
@@ -298,8 +298,7 @@ const UpdateTel = () => {
 		} catch (err) {
 			console.log(err);
 			setLoading(false);
-			dispatch(setNotification({ show: true, type: 'error' , message : err?.message }))
-
+			dispatch(setNotification({ show: true, type: 'error', message: err?.message }));
 		}
 	};
 

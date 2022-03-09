@@ -42,7 +42,7 @@ const Slider = ({
 	// timeOnSliderEvent,
 	// timeToReachEndOfSlider,
 	children,
-}) => (
+}) =>
 	React.Children.count(children) ? (
 		<Swiper
 			id={id}
@@ -81,10 +81,7 @@ const Slider = ({
 				<Icon name="image" /> Prochainement
 			</Header>
 		</div>
-	)
-)
-
-
+	);
 
 export default Slider;
 Slider.propTypes = {

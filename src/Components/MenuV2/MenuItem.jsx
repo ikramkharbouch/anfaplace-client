@@ -6,20 +6,20 @@ const variants = {
 	open: {
 		y: 0,
 		opacity: 1,
-        transformOrigin : '0% 0%',
-        scale : 1,
+		transformOrigin: '0% 0%',
+		scale: 1,
 		transition: {
 			y: { stiffness: 1000, velocity: -100 },
 		},
 	},
 	closed: {
 		y: 50,
-        scale : 0,
+		scale: 0,
 		opacity: 0,
 		transition: {
 			y: { stiffness: 1000 },
 		},
-        transformOrigin : '0% 0%'
+		transformOrigin: '0% 0%',
 	},
 };
 
@@ -38,5 +38,5 @@ export const MenuItem = ({ children }) => (
 );
 
 MenuItem.propTypes = {
-    children : PropTypes.node.isRequired
+	children: PropTypes.node.isRequired,
 };

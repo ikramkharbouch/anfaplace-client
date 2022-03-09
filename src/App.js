@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimmer } from 'semantic-ui-react';
 
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { AuthProvider } from 'src/utils/AuthContext';
 import Example from 'src/Components/MenuV2/Example';
 
@@ -20,7 +20,9 @@ import './App.less';
 import UpdateTel from './Components/UpdateTel/index';
 
 const App = () => {
-	const userLoading = useSelector((state) => state.user.loadingUser);
+	// const userLoading = useSelector((state) => state.user.loadingUser);
+
+	const userLoading = 'Some User';
 
 	return (
 		<>
