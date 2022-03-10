@@ -115,8 +115,13 @@ const ConfirmationTel = ({ confirm, verifying }) => {
 };
 ConfirmationTel.propTypes = {
 	confirm: PropTypes.func.isRequired,
-	verifying: PropTypes.bool.isRequired,
+	verifying: PropTypes.bool,
 };
+
+ConfirmationTel.defaultProps = {
+	verifying: false,
+};
+
 const PinVerification = ({ verifyPin }) => {
 	const [pin, setPin] = useState({
 		'digit-1': undefined,
@@ -307,7 +312,11 @@ const VerificationModal = ({ validatedEvent }) => {
 	);
 };
 VerificationModal.propTypes = {
-	validatedEvent: PropTypes.func.isRequired,
+	validatedEvent: PropTypes.func,
+};
+
+VerificationModal.defaultProps = {
+	validatedEvent: (f) => f,
 };
 
 export default VerificationModal;

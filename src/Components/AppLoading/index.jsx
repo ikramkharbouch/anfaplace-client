@@ -11,7 +11,6 @@ const AppLoading = ({ children }) => {
 	// const { loading: interestsLoading } = useSelector((state) => state.interests);
 
 	useEffect(() => {
-		console.log('Articles Loading', articlesLoading);
 		if (articlesLoading || loadingUser) {
 			document.querySelector('body').classList.add('overflow-hidden');
 		} else {

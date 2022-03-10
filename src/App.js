@@ -10,6 +10,7 @@ import Interests from 'src/Components/Interests';
 import InAppNotification from 'src/Components/InAppNotification';
 import AuthModal from 'src/Components/AuthModal';
 import VerificationModal from 'src/Components/NumVerificationModal';
+import { useSelector } from 'react-redux';
 import AuthTel from './Components/AuthTel/index';
 import Routes from './Routes';
 
@@ -20,16 +21,14 @@ import './App.less';
 import UpdateTel from './Components/UpdateTel/index';
 
 const App = () => {
-	// const userLoading = useSelector((state) => state.user.loadingUser);
-
-	const userLoading = 'Some User';
+	const { loadingUser } = useSelector((state) => state.user);
 
 	return (
 		<>
 			<div id="recaptcha-container" style={{ display: 'none' }} />
 
 			<AuthProvider>
-				<Dimmer.Dimmable as="div" dimmed={userLoading} className="app-container">
+				<Dimmer.Dimmable as="div" dimmed={loadingUser} className="app-container">
 					{/* <Dimmer active={userLoading}>
 					<Loader />
 				</Dimmer> */}

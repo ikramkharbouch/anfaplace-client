@@ -40,6 +40,5 @@ export function* addBrandToVisited({ payload }) {
 }
 
 export function* updateAddedSuccessNotification({ payload }) {
-	// console.log(status)
 	yield put(setAddedSuccessNotification(payload));
 }

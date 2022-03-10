@@ -34,9 +34,9 @@ const BrandsGrid = ({ brands, promo }) => {
 BrandsGrid.propTypes = {
 	brands: PropTypes?.arrayOf(
 		PropTypes?.shape({
-			brandName: PropTypes?.string?.isRequired,
-			brandId: PropTypes?.string?.isRequired,
-			brandImg: PropTypes?.string?.isRequired,
+			brandName: PropTypes?.string,
+			brandId: PropTypes?.string,
+			brandImg: PropTypes?.string,
 			badgeText: PropTypes?.string,
 			badgeColor: PropTypes?.string,
 			imageType: PropTypes?.string,

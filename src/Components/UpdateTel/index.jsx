@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 import Modal from 'src/Components/Modal';
 import { FormattedInput } from '@buttercup/react-formatted-input';
@@ -135,7 +135,11 @@ const PhoneAuth = ({ confirm, verifying, validateBySmsEvent }) => {
 PhoneAuth.propTypes = {
 	confirm: PropTypes.func.isRequired,
 	verifying: PropTypes.bool.isRequired,
-	validateBySmsEvent: PropTypes.func.isRequired,
+	validateBySmsEvent: PropTypes.func,
+};
+
+PhoneAuth.defaultProps = {
+	validateBySmsEvent: (f) => f,
 };
 
 const PinVerification = ({ loading, verifyPin }) => {

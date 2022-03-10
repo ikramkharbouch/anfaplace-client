@@ -18,7 +18,6 @@ export function* getUserCouponById({ payload }) {
 		const result = yield call(() =>
 			API({ url: '/getCouponForUser ', method: 'post', data: { idCoupon: payload }, token })
 		);
-		console.log(result);
 		yield put(setCurrentCoupon(result.data.object));
 	} catch (e) {
 		console.error(e);

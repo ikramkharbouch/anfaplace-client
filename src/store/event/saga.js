@@ -15,13 +15,10 @@ export function* fetchAllEvent() {
 				const d2 = dayjs(date2.data.fin_time, 'DD/MM/YYYY');
 				return d2.diff(d1);
 			})
-			?.map((item) => {
-				console.log(dayjs(item.data.fin_time, 'DD/MM/YYYY').isBefore(dayjs().format()));
-				return {
-					...item,
-					expired: dayjs(item.data.fin_time, 'DD/MM/YYYY').isBefore(dayjs().format()),
-				};
-			});
+			?.map((item) => ({
+				...item,
+				expired: dayjs(item.data.fin_time, 'DD/MM/YYYY').isBefore(dayjs().format()),
+			}));
 		yield put(setAllEventsSuccess(sorteEvents));
 	} catch (e) {
 		console.error(e);

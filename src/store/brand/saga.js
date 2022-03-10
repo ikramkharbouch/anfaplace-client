@@ -13,7 +13,6 @@ export function* fetchAllBrandSaga() {
 	try {
 		yield put(setAllBrandsLoading());
 		const result = yield call(() => API({ url: 'getListMagasins' }));
-		console.log('Debugging brands', result.data.lists);
 		yield put(setAllBrandsSuccess(result.data.lists));
 	} catch (e) {
 		console.error(e);

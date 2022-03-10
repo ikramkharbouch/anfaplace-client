@@ -15,7 +15,7 @@ const OfferSlide = ({ image, description, article }) => {
 	});
 	return (
 		<div ref={offerSlide} className="offerSlide">
-			<Image src={image} />
+			<Image src={image} loader="" />
 			<div className="offer-details">
 				<p className="offer-description">{description}</p>
 				<Button
@@ -42,25 +42,27 @@ const OfferSlide = ({ image, description, article }) => {
 	);
 };
 
+const SliderElement = PropTypes.shape({
+	titre: PropTypes.string,
+	show: PropTypes.bool,
+	id_element: PropTypes.string,
+	content: PropTypes.arrayOf({
+		data: PropTypes.number,
+	}),
+});
+
 OfferSlide.propTypes = {
 	image: PropTypes.string,
 	description: PropTypes.string,
 	article: PropTypes.shape({
-		id: PropTypes.string.isRequired,
-		contenu_body: PropTypes.string.isRequired,
+		id: PropTypes.string,
+		contenu_body: PropTypes.string,
 		tag: PropTypes.arrayOf(PropTypes.string),
 		banniere: PropTypes.string,
-		debut_time: PropTypes.string.isRequired,
-		fin_time: PropTypes.string.isRequired,
-		titre: PropTypes.string.isRequired,
-		slider_elements: PropTypes.arrayOf({
-			titre: PropTypes.string,
-			show: PropTypes.bool,
-			id_element: PropTypes.string,
-			content: PropTypes.arrayOf({
-				data: PropTypes.number,
-			}),
-		}),
+		debut_time: PropTypes.string,
+		fin_time: PropTypes.string,
+		titre: PropTypes.string,
+		slider_elements: PropTypes.arrayOf(SliderElement),
 		tags: PropTypes.string,
 	}),
 };

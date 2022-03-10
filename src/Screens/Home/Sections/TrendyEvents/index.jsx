@@ -13,8 +13,6 @@ const TrendyEvents = ({ sliderLoaded }) => {
 	const history = useHistory();
 	const events = useSelector((state) => state.event.list);
 
-	console.log(events);
-
 	return (
 		<div className="trendy-events">
 			<Header as="h3">Évènements & Actualités</Header>
@@ -27,7 +25,7 @@ const TrendyEvents = ({ sliderLoaded }) => {
 				autoplay={false}
 			>
 				{events.slice(0, 5).map((event) => (
-					<EventCard event={event} />
+					<EventCard event={event} key={event.id} />
 				))}
 			</Slider>
 			<Button onClick={() => history.push('/events')} className="more" circular>

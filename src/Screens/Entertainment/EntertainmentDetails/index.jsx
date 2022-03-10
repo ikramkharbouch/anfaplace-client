@@ -193,6 +193,7 @@ const EntertainmentDetails = () => {
 				</div>
 				<div className="parallax-content" />
 			</Parallax>
+			{/* eslint-disable-next-line react/no-danger */}
 			<div className="description" dangerouslySetInnerHTML={{ __html: event.contenu_body }} />
 		</div>
 	);

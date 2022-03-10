@@ -45,6 +45,7 @@ import { ADD_USER_INTERESTS } from './userInterests/actions';
 
 // eslint-disable-next-line import/no-mutable-exports
 
+// eslint-disable-next-line func-names
 const rootSaga = function* () {
 	yield all([
 		fork(watchForFirebaseAuth),

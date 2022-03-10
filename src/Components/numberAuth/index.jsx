@@ -202,9 +202,14 @@ const AuthTel = ({ confirm, verifying, validateBySmsEvent, validateBySmsValue })
 AuthTel.propTypes = {
 	confirm: PropTypes.func.isRequired,
 	verifying: PropTypes.bool.isRequired,
-	validateBySmsEvent: PropTypes.func.isRequired,
+	validateBySmsEvent: PropTypes.func,
 	validateBySmsValue: PropTypes.bool.isRequired,
 };
+
+AuthTel.defaultProps = {
+	validateBySmsEvent: (f) => f,
+};
+
 const PinVerification = ({ loading, verifyPin }) => {
 	const [pin, setPin] = useState({
 		'digit-1': undefined,
@@ -431,7 +436,6 @@ const AuthModal = () => {
 			{showUserInfo && (
 				<UserInfos
 					confirm={(values) => {
-						console.log(values);
 						dispatch(setUserInfoAction(values));
 						setShowUserInfo(false);
 					}}

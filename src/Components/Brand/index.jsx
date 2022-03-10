@@ -15,14 +15,22 @@ const Brand = ({ badgeColor, badgeText, brandImg, brandName, withBadge, brandId,
 );
 
 Brand.propTypes = {
-	isPromo: PropTypes.bool.isRequired,
-	badgeColor: PropTypes.string.isRequired,
-	badgeText: PropTypes.string.isRequired,
-	brandName: PropTypes.string.isRequired,
-	brandImg: PropTypes.string.isRequired,
-	withBadge: PropTypes.bool.isRequired,
-	brandId: PropTypes.string.isRequired,
+	isPromo: PropTypes.bool,
+	badgeColor: PropTypes.string,
+	badgeText: PropTypes.string,
+	brandName: PropTypes.string,
+	brandImg: PropTypes.string,
+	withBadge: PropTypes.bool,
+	brandId: PropTypes.string,
 };
-Brand.defaultProps = {};
+Brand.defaultProps = {
+	brandName: '',
+	badgeText: '',
+	badgeColor: '',
+	brandImg: '',
+	brandId: '',
+	withBadge: false,
+	isPromo: false,
+};
 
 export default Brand;

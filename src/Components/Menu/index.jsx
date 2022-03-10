@@ -87,7 +87,7 @@ const Menu = ({ menuOpen, closeMenu }) => {
 							<Header as="h1">
 								<Header.Content>Ma liste de visite</Header.Content>
 
-								<Icon name="verification-calendar-outline" />
+								<Icon name="calendar" />
 							</Header>
 						</NavLink>
 					</motion.li>
@@ -96,7 +96,7 @@ const Menu = ({ menuOpen, closeMenu }) => {
 							<Header as="h1">
 								<Header.Content>{eventText}</Header.Content>
 
-								<Icon name="calendar-outline" />
+								<Icon name="calendar" />
 							</Header>
 						</NavLink>
 					</motion.li>
@@ -104,7 +104,7 @@ const Menu = ({ menuOpen, closeMenu }) => {
 						<a href="tel:0668194101">
 							<Header as="h1">
 								<Header.Content>Appeler Anfaplace Mall</Header.Content>
-								<Icon name="phone-outline" />
+								<Icon name="phone" />
 							</Header>
 						</a>
 					</motion.li>

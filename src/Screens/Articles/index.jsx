@@ -66,6 +66,8 @@ const Articles = () => {
 				</div>
 				<div className="parallax-content" />
 			</Parallax>
+
+			{/* eslint-disable-next-line react/no-danger */}
 			<div className="description" dangerouslySetInnerHTML={{ __html: contenuBoody }} />
 		</div>
 	);

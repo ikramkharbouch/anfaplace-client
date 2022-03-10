@@ -6,6 +6,7 @@ import { shuffle } from 'src/utils/utilsFunctions';
 import Slider from 'src/Components/Slider';
 import Brand from 'src/Components/Brand';
 import './Brands.less';
+import { v1 as uuidv1 } from 'uuid';
 
 const chunk = (arr, size) =>
 	arr.reduce((acc, _, i) => (i % size ? acc : [...acc, arr.slice(i, i + size)]), []);
@@ -29,6 +30,7 @@ const Brands = () => {
 						4
 					).map((item) => (
 						<div
+							key={uuidv1()}
 							style={{
 								display: 'grid',
 								gridTemplateColumns: '1fr 1fr',
@@ -42,6 +44,7 @@ const Brands = () => {
 										brandImg={marque?.data?.logo?.data || marque?.data?.logo}
 										brandName="swatch"
 										brandId={marque.index}
+										key={marque.index}
 										isPromo={marque.data.enPromotion}
 									/>
 								</div>

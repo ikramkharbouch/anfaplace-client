@@ -29,11 +29,8 @@ export function* watchForFirebaseAuth() {
 	while (true) {
 		try {
 			const user = yield take(channel);
-			console.log(user);
 
 			if (user !== 'null') {
-				// console.log('user', user);
-
 				if (!user?.phoneNumber) {
 					yield put(openAuthTelModal(true));
 				}

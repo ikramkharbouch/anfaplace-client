@@ -7,7 +7,6 @@ const EditPhoneNumber = () => {
 	const [values, setValues] = useState({});
 
 	const handleChange = (event) => {
-		// console.log(event  )
 		setValues((prev) => ({
 			...prev,
 			[event?.target?.name]: event?.target?.value,

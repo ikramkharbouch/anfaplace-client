@@ -25,13 +25,11 @@ store.dispatch({ type: interestsAction.FETCH_INTERESTS });
 // store.dispatch({ type: questionsAction.FETCH_ALL_QUESTIONS });
 
 ReactDOM.render(
-	<React.StrictMode>
-		<Provider store={store}>
-			<AppLoading>
-				<App />
-			</AppLoading>
-		</Provider>
-	</React.StrictMode>,
+	<Provider store={store}>
+		<AppLoading>
+			<App />
+		</AppLoading>
+	</Provider>,
 	document.getElementById('root')
 );
 

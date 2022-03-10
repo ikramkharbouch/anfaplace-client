@@ -141,8 +141,12 @@ const PhoneAuth = ({ confirm, verifying, validateBySmsEvent, validateBySmsValue 
 PhoneAuth.propTypes = {
 	confirm: PropTypes.func.isRequired,
 	verifying: PropTypes.bool.isRequired,
-	validateBySmsEvent: PropTypes.func.isRequired,
+	validateBySmsEvent: PropTypes.func,
 	validateBySmsValue: PropTypes.bool.isRequired,
+};
+
+PhoneAuth.defaultProps = {
+	validateBySmsEvent: (f) => f,
 };
 
 const PinVerification = ({ loading, verifyPin }) => {

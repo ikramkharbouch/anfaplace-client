@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Message, Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { setNotification } from 'src/store/app/index';
 import { useDispatch } from 'react-redux';
 import firebaseApp from 'src/utils/initApp';
@@ -116,7 +116,6 @@ const LoginForm = ({ onSuccess, onFailed }) => {
 
 				const isNewUser =
 					userCredential?.user?.metadata.creationTime === userCredential?.user?.metadata.lastSignInTime;
-				// console.log('userCredential' , userCredential)
 				if (isNewUser) {
 					const finalUser = {
 						uid: userCredential?.user?.uid,

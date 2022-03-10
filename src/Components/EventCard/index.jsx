@@ -34,7 +34,7 @@ const EventCard = ({ event, hasParticipated }) => {
 			{event.data.slider_elements[0]?.content ? (
 				<img src={event.data.slider_elements[0]?.content} alt="event" />
 			) : (
-				<Header as="h1" icon="image">
+				<Header as="h1">
 					No image
 					<Icon icon="image" />
 				</Header>
@@ -44,7 +44,7 @@ const EventCard = ({ event, hasParticipated }) => {
 					{event?.expired && (
 						<div style={{ marginRight: 'auto' }}>
 							<Label color="red" className="point">
-								<Icon name="gift" size="small" name="trash alternate outline" />
+								<Icon name="gift" size="small" />
 								expiré
 							</Label>
 						</div>

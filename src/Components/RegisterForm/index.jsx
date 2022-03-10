@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Message, Divider } from 'semantic-ui-react';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 // import firebaseApp from 'src/utils/initApp';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
