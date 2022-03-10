@@ -291,7 +291,6 @@ const AuthTel = () => {
 	} = useSelector((state) => state.shared);
 
 	const confirmSubscription = async (phone) => {
-		// console.log(phone);
 		setLoading(true);
 		const appVerifier = window.recaptchaVerifier;
 		const phoneProvider = new firebase.auth.PhoneAuthProvider();

@@ -16,12 +16,8 @@ const Brands = () => {
 	const [allBrands, setAllBrands] = useState([]);
 
 	useEffect(() => {
-		console.log('debugging brands', brands);
 		setAllBrands(shuffle(brands));
 	}, [brands]);
-
-	// console.log(allBrands?.filter( x => x?.data?.categorie?.toLowerCase() === 'divertissement' ))
-
 	return (
 		<div className="brands">
 			<Header as="h3">Marques</Header>
