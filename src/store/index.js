@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import logger from 'redux-logger';
 import { combineReducers } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from 'src/store/rootSaga';
@@ -42,10 +41,6 @@ const reducer = combineReducers({
 const sagaMiddleware = createSagaMiddleware();
 
 const middleware = [sagaMiddleware];
-
-if (devMode) {
-	middleware.push(logger);
-}
 
 const store = configureStore({
 	reducer,

@@ -11,7 +11,8 @@ const AppLoading = ({ children }) => {
 	// const { loading: interestsLoading } = useSelector((state) => state.interests);
 
 	useEffect(() => {
-		if (loadingUser) {
+		console.log('Articles Loading', articlesLoading);
+		if (articlesLoading || loadingUser) {
 			document.querySelector('body').classList.add('overflow-hidden');
 		} else {
 			document.querySelector('body').classList.remove('overflow-hidden');
@@ -20,7 +21,7 @@ const AppLoading = ({ children }) => {
 
 	return (
 		<>
-			{loadingUser && <SplashScreen />}
+			{(articlesLoading || loadingUser) && <SplashScreen />}
 			{children}
 		</>
 	);
