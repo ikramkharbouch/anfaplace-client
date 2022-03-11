@@ -43,7 +43,11 @@ CouponCard.propTypes = {
 	amount: PropTypes.string.isRequired,
 	date: PropTypes.string.isRequired,
 	points: PropTypes.string.isRequired,
-	title: PropTypes.string.isRequired,
+	title: PropTypes.string,
+};
+
+CouponCard.defaultProps = {
+	title: '',
 };
 
 export default CouponCard;

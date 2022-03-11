@@ -107,9 +107,9 @@ const CustomInputNumber = ({
 		}}
 		value={value}
 		inline
-		decimalSeparator={null}
-		allowNegative={false}
-		thousandSeparator={false}
+		decimalseparator={null}
+		allownegative="false"
+		thousandSeparator="false"
 		control={FormattedInput}
 	/>
 );

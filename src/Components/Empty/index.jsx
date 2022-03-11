@@ -15,5 +15,9 @@ const Empty = ({ text = 'Aucune visite prévue' }) => (
 export default Empty;
 
 Empty.propTypes = {
-	text: PropTypes.string.isRequired,
+	text: PropTypes.string,
+};
+
+Empty.defaultProps = {
+	text: '',
 };

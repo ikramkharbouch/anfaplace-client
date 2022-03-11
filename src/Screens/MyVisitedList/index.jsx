@@ -41,7 +41,6 @@ const MyVisitedList = () => {
 		}
 	}, [user, allBrands]);
 
-	console.log('------>', loadingList);
 	return loadingList && user ? (
 		<Dimmer active>
 			<Loader />

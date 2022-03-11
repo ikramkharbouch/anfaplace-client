@@ -31,9 +31,9 @@ const CustomInputNumber = ({ id, width, autoFocus, onChange, onBackSpace, value,
 		}}
 		value={value}
 		inline
-		decimalSeparator={null}
-		allowNegative={false}
-		thousandSeparator={false}
+		decimalseparator={null}
+		allownegative="false"
+		thousandseparator="false"
 		control={FormattedInput}
 	/>
 );

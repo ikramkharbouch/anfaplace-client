@@ -115,8 +115,8 @@ const panes = [
 			isOpenLightBox,
 			setIsOpenLightbox,
 			images,
-			onMovePrevRequest,
-			onMoveNextRequest,
+			MovePrevRequest,
+			MoveNextRequest,
 			onCloseRequest,
 			photoIndex,
 			handleOpenModal,
@@ -336,9 +336,9 @@ const OfferDetails = () => {
 
 	const onCloseRequest = () => setIsOpenLightbox(false);
 
-	const onMovePrevRequest = () => setPhotoIndex((photoIndex + images.length - 1) % images.length);
+	const MovePrevRequest = () => setPhotoIndex((photoIndex + images.length - 1) % images.length);
 
-	const onMoveNextRequest = () => setPhotoIndex((photoIndex + 1) % images.length);
+	const MoveNextRequest = () => setPhotoIndex((photoIndex + 1) % images.length);
 
 	const handleCloseModal = () => {
 		if (addedSuccess) {
@@ -382,20 +382,8 @@ const OfferDetails = () => {
 				</div>
 				<div className="content description">
 					<Tab
-						isOpenLightbox={isOpenLightbox}
-						setIsOpenLightbox={setIsOpenLightbox}
-						onCloseRequest={onCloseRequest}
-						onMovePrevRequest={onMovePrevRequest}
-						onMoveNextRequest={onMoveNextRequest}
 						brand={marque}
 						user={user}
-						loadingAdd={loadingAdd}
-						pdfModalOpen={pdfModalOpen}
-						setPdfModalOpen={setPdfModalOpen}
-						planModalOpen={planModalOpen}
-						setPlanModalOpen={setPlanModalOpen}
-						handleAddToVisited={handleAddToVisited}
-						handleOpenModal={handleOpenModal}
 						className="toggle"
 						menu={{ secondary: true, pointing: true, size: 'large', widths: 2 }}
 						panes={panes}
