@@ -172,6 +172,7 @@ const panes = [
 			<Tab.Pane attached={false}>
 				<Header as="h3">{brand.data.nom}</Header>
 				<Header as="p">{brand.data.description}</Header>
+
 			</Tab.Pane>
 		),
 	},
@@ -231,6 +232,7 @@ const OfferDetails = () => {
 	}, [id]);
 
 	useEffect(() => {
+		console.warn("'I'll appear as a warning")
 		if (marque) {
 			const imgs = restaurants?.find((current) =>
 				marque.data.nom
