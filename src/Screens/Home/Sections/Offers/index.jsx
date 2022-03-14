@@ -19,6 +19,9 @@ const Offers = () => {
 
 	useEffect(() => {
 		setOffers(articles.list);
+		return () => {
+			setOffers([]); // Cleanup the state
+		};
 	}, [articles]);
 
 	return (

@@ -52,6 +52,10 @@ const Navigation = ({ toggle }) => {
 		dispatch(openAuthModal(true));
 	};
 
+	React.useEffect(() => {
+		console.log('logged');
+	}, []);
+
 	return (
 		<>
 			<motion.ul variants={variants} className="menu-list">

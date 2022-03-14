@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import Badgbe from '../Badge';
+import Badge from '../Badge';
 
 import './brand.less';
 
 const Brand = ({ badgeColor, badgeText, brandImg, brandName, withBadge, brandId, isPromo }) => (
 	<Link to={`/brand/${brandId}`} className="brand-container">
-		{withBadge && <Badgbe color={badgeColor} title={badgeText} />}
-		{isPromo && <Badgbe color="yellow" title="EN PROMO" />}
+		{withBadge && <Badge color={badgeColor} title={badgeText} />}
+		{isPromo && <Badge color="yellow" title="EN PROMO" />}
 		<img src={brandImg} alt={brandName} />
 	</Link>
 );

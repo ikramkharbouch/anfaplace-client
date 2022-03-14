@@ -71,11 +71,13 @@ const Entertainment = () => {
 			{eventData.map((evt) => (
 				<InView threshold={1} key={evt.id}>
 					{({ inView, ref }) => (
-						<div ref={ref} className="slider-with-overlay">
+						<div ref={ref} className="slider-with-overlay" key={evt.id}>
 							{!inView && <div className="overlay" />}
-							<Slider autoplay={inView} id="slider-entertainment-4">
+							<Slider autoplay={inView} id={evt.id} key={evt.id}>
 								{evt.slider_elements.length > 0 &&
-									evt.slider_elements.map((x) => <EntertainmentSlide event={evt} image={x.content} />)}
+									evt.slider_elements.map((x) => (
+										<EntertainmentSlide key={evt.id} event={evt} image={x.content} />
+									))}
 							</Slider>
 						</div>
 					)}

@@ -7,7 +7,7 @@ import 'react-awesome-lightbox/build/style.css';
 import { useParams } from 'react-router-dom';
 import brandActions from 'src/store/brand/actions';
 
-import { Button, Tab, Icon, Grid, Header, Divider, Dimmer, Loader } from 'semantic-ui-react';
+import { Button, Tab, Icon, Grid, Header, Divider, Dimmer, Loader, Image } from 'semantic-ui-react';
 import Slider from 'src/Components/Slider';
 import CouponCard from 'src/Components/CouponCard';
 import brandSrc from 'src/assets/images/brands/GO_Sport_logo.svg';
@@ -33,70 +33,14 @@ import planAnfaImg3 from 'src/assets/pdf/plan-Anfaplace-Mall/plan_Anfaplace_Mall
 import planAnfaImg4 from 'src/assets/pdf/plan-Anfaplace-Mall/plan_Anfaplace_Mall_page-0004.jpg';
 import { openAuthModal } from 'src/store/shared/index';
 
-const restaurants = [
-	{
-		name: 'burger king',
-		url: 'https://www.anfaplacemall.com/wp-content/uploads/2020/07/BK-Menus-compressed.pdf',
-	},
-	{
-		name: 'la cantinetta',
-		url: 'https://www.anfaplacemall.com/wp-content/uploads/2020/07/Carte-Menu_La-cantinetta_Print_2020.pdf',
-	},
-	{
-		name: 'domino’s pizza',
-		url: 'https://www.anfaplacemall.com/wp-content/uploads/2021/05/DominosMenu_Anfa_QRCode-compressed.pdf',
-	},
-	{
-		name: 'beirut chef',
-		url: 'https://www.anfaplacemall.com/wp-content/uploads/2020/07/MENU-BEIRUT-CHEF-NEW.pdf',
-	},
+import { restaurants } from './restaurants';
 
-	{
-		name: 'luigi da gino',
-		url: 'https://www.anfaplacemall.com/wp-content/uploads/2020/07/MENU-DAGINO.pdf',
-	},
-	{
-		name: "la flamme d'istanbul",
-		url: 'https://www.anfaplacemall.com/wp-content/uploads/2020/08/MENU-LA-FLAMME-DISTANBUL-compressed.pdf',
-	},
-	{
-		name: 'sushi club',
-		url: 'https://www.anfaplacemall.com/wp-content/uploads/2020/07/Menu-2020-compressed.pdf',
-	},
-
-	{
-		name: 'mcdonald’s',
-		url: 'https://www.anfaplacemall.com/wp-content/uploads/2020/09/Menu-QR-Code-compressed.pdf',
-	},
-
-	{
-		name: 'tacos express',
-		url: 'https://www.anfaplacemall.com/wp-content/uploads/2020/10/de%CC%81pliant02-compressed.pdf',
-	},
-
-	{
-		name: 'huitres kandy',
-		url: 'https://www.anfaplacemall.com/wp-content/uploads/2020/07/menu-HUITRES-KANDY-A9-compressed.pdf',
-	},
-
-	{
-		name: 'kfc',
-		url: 'https://www.anfaplacemall.com/wp-content/uploads/2020/07/menu-compressed.pdf',
-	},
-
-	{
-		name: 'le coin marocain',
-		url: 'https://www.anfaplacemall.com/wp-content/uploads/2020/08/menu-le-coin-marocain-07.08.2020-vector-compressed.pdf',
-	},
-]?.map((item, index) => ({
+restaurants?.map((item, index) => ({
 	...item,
 	images: allMenus[index],
 }));
 
-// console.log('restaurants' , restaurants)
-
 const getPdfUrl = (stage) => {
-	// console.log(stage)
 	if (stage?.toLowerCase()?.includes('1')) return [plan2Img];
 	if (stage?.toLowerCase()?.includes('2')) return [plan3Img];
 	if (stage?.toLowerCase()?.includes('rdc')) return [plan1Img];
@@ -115,8 +59,8 @@ const panes = [
 			isOpenLightBox,
 			setIsOpenLightbox,
 			images,
-			MovePrevRequest,
-			MoveNextRequest,
+			onMovePrevRequest,
+			onMoveNextRequest,
 			onCloseRequest,
 			photoIndex,
 			handleOpenModal,
@@ -153,65 +97,34 @@ const panes = [
 										<Divider hidden />
 									</>
 								)}
-								{/* <a href = '#' className = 'outline-btn'>
-									<Icon name = 'download' />
-									Voir le plan
-								</a>*/}
+								<div style={{ display: 'flex', gap: 10 }}>
+									{!!restaurants?.find((current) =>
+										brand.data.nom
+											?.trim()
+											?.toLocaleLowerCase()
+											?.includes(current?.name?.trim()?.toLocaleLowerCase())
+									) && (
+										<>
+											<Button
+												inverted
+												style={{ display: 'flex', alignItems: 'center' }}
+												content="Menu"
+												size="mini"
+												onClick={() => setPdfModalOpen(true)}
+											/>
+										</>
+									)}
 
-								{
-									<div style={{ display: 'flex', gap: 10 }}>
-										{!!restaurants?.find((current) =>
-											brand.data.nom
-												?.trim()
-												?.toLocaleLowerCase()
-												?.includes(current?.name?.trim()?.toLocaleLowerCase())
-										) && (
-											<>
-												<Button
-													inverted
-													style={{ display: 'flex', alignItems: 'center' }}
-													// icon="download"
-													content="Menu"
-													size="mini"
-													onClick={() => setPdfModalOpen(true)}
-												/>
-												{/* <a target = '_blank' href = {restaurants?.find( current => brand.data.nom?.trim()?.toLocaleLowerCase()?.includes(current?.name?.trim()?.toLocaleLowerCase()))?.url}>
-													<Button
-														inverted
-														style = {{ display : 'flex' , alignItems : 'center'  }}
-														icon="download"
-														content="Télécharger le menu"
-														size="mini"
-													/>
-												</a> */}
-												{/* <Divider hidden /> */}
-												{/* <a target="_blank" rel="noreferrer" href = {restaurants?.find( current => brand.data.nom?.trim()?.toLocaleLowerCase()?.includes(current?.name?.trim()?.toLocaleLowerCase()))?.url}>
-													link pdf 
-												</a>
-												<Divider hidden /> */}
-											</>
-										)}
-
-										<Button
-											style={{ display: 'flex', alignItems: 'center' }}
-											// icon="eye"
-											content="Plan"
-											size="mini"
-											onClick={() => setPlanModalOpen(true)}
-										/>
-									</div>
-								}
-
-								{/* <a target = '_blank' href = {getPdfUrl(brand.data.niveau)}>
 									<Button
-										style = {{ display : 'flex' , alignItems : 'center'  }}
-										icon="download"
-										content="Télécharger le plan"
+										style={{ display: 'flex', alignItems: 'center' }}
+										// icon="eye"
+										content="Plan"
 										size="mini"
+										onClick={() => setPlanModalOpen(true)}
 									/>
-								</a> */}
-								<Divider hidden />
+								</div>
 
+								<Divider hidden />
 								<Modal open={pdfModalOpen} setOpen={(isOpen) => setPdfModalOpen(isOpen)}>
 									<Slider autoplay={false} pagination={true} id="brand-details">
 										{restaurants
@@ -231,7 +144,6 @@ const panes = [
 											))}
 									</Slider>
 								</Modal>
-
 								<Modal open={planModalOpen} setOpen={(isOpen) => setPlanModalOpen(isOpen)}>
 									{getPdfUrl(brand.data.niveau) && getPdfUrl(brand.data.niveau).length > 0 && (
 										<Slider autoplay={false} pagination={true} id="brand-details">
@@ -246,7 +158,6 @@ const panes = [
 										</Slider>
 									)}
 								</Modal>
-
 								{/* <a download target="_blank" rel="noreferrer" href = {getPdfUrl(brand.data.niveau)}>link pdf</a> */}
 							</Grid.Column>
 						</Grid.Row>
@@ -261,7 +172,6 @@ const panes = [
 			<Tab.Pane attached={false}>
 				<Header as="h3">{brand.data.nom}</Header>
 				<Header as="p">{brand.data.description}</Header>
-				{/* <p>test</p> */}
 			</Tab.Pane>
 		),
 	},
@@ -336,9 +246,9 @@ const OfferDetails = () => {
 
 	const onCloseRequest = () => setIsOpenLightbox(false);
 
-	const MovePrevRequest = () => setPhotoIndex((photoIndex + images.length - 1) % images.length);
+	const onMovePrevRequest = () => setPhotoIndex((photoIndex + images.length - 1) % images.length);
 
-	const MoveNextRequest = () => setPhotoIndex((photoIndex + 1) % images.length);
+	const onMoveNextRequest = () => setPhotoIndex((photoIndex + 1) % images.length);
 
 	const handleCloseModal = () => {
 		if (addedSuccess) {
@@ -382,8 +292,20 @@ const OfferDetails = () => {
 				</div>
 				<div className="content description">
 					<Tab
+						isOpenLightbox={isOpenLightbox}
+						setIsOpenLightbox={setIsOpenLightbox}
+						onCloseRequest={onCloseRequest}
+						onMovePrevRequest={onMovePrevRequest}
+						onMoveNextRequest={onMoveNextRequest}
 						brand={marque}
 						user={user}
+						loadingAdd={loadingAdd}
+						pdfModalOpen={pdfModalOpen}
+						setPdfModalOpen={setPdfModalOpen}
+						planModalOpen={planModalOpen}
+						setPlanModalOpen={setPlanModalOpen}
+						handleAddToVisited={handleAddToVisited}
+						handleOpenModal={handleOpenModal}
 						className="toggle"
 						menu={{ secondary: true, pointing: true, size: 'large', widths: 2 }}
 						panes={panes}

@@ -56,6 +56,19 @@ const EntertainmentSlide = ({ count, event, image }) => {
 		</div>
 	);
 };
+
+// const Content = PropTypes.shape({
+// 	data: PropTypes.number,
+// });
+
+const Slider = PropTypes.shape({
+	titre: PropTypes.string,
+	show: PropTypes.bool,
+	id_element: PropTypes.string,
+	// content: PropTypes.arrayOf(Content),
+	content: PropTypes.string,
+});
+
 EntertainmentSlide.propTypes = {
 	count: PropTypes.number,
 	event: PropTypes.shape({
@@ -65,16 +78,9 @@ EntertainmentSlide.propTypes = {
 		debut_time: PropTypes.string.isRequired,
 		fin_time: PropTypes.string.isRequired,
 		titre: PropTypes.string.isRequired,
-		slider_elements: PropTypes.arrayOf({
-			titre: PropTypes.string,
-			show: PropTypes.bool,
-			id_element: PropTypes.string,
-			content: PropTypes.arrayOf({
-				data: PropTypes.number,
-			}),
-		}),
+		slider_elements: PropTypes.arrayOf(Slider),
 	}),
-	image: PropTypes.arrayOf(PropTypes.number).isRequired,
+	image: PropTypes.string.isRequired,
 };
 
 EntertainmentSlide.defaultProps = {

@@ -51,14 +51,12 @@ const Articles = () => {
 						{Tags &&
 							Tags.map((tag) => (
 								<Link to="/">
-									<Label color="white" key={tag}>
-										{tag}
-									</Label>
+									<Label key={tag}>{tag}</Label>
 								</Link>
 							))}
 					</div>
 					<div className="share-button">
-						<Label onClick={() => openShareModal(true)} icon color="blue">
+						<Label onClick={() => openShareModal(true)} color="blue">
 							<Icon name="share" />
 							PARTAGER
 						</Label>

@@ -7,6 +7,7 @@ import { Parallax } from 'react-parallax';
 import { Link, useParams } from 'react-router-dom';
 // import { ADD_EVENT_TO_PARTICIPATED } from 'src/store/participatedEvent/actions';
 import { Label, Icon, Button, Header, Divider } from 'semantic-ui-react';
+import { v1 as uuidv1 } from 'uuid';
 
 import Slider from 'src/Components/Slider';
 
@@ -163,7 +164,12 @@ const EntertainmentDetails = () => {
 			<Parallax strength={200}>
 				<Slider className="slider" id="offers">
 					{event?.slider_elements?.map((x) => (
-						<img src={x.content} alt="" style={{ height: '60vh', objectFit: 'cover', width: '100%' }} />
+						<img
+							key={uuidv1()}
+							src={x.content}
+							alt=""
+							style={{ height: '60vh', objectFit: 'cover', width: '100%' }}
+						/>
 					))}
 				</Slider>
 
@@ -176,16 +182,13 @@ const EntertainmentDetails = () => {
 					</p>
 					<div className="offer-details-tags">
 						{Tags?.map((tag) => (
-							<Link to="/">
-								<Label color="white" key={tag}>
-									{' '}
-									{tag}{' '}
-								</Label>
+							<Link to="/" key={uuidv1()}>
+								<Label key={uuidv1()}> {tag} </Label>
 							</Link>
 						))}
 					</div>
 					<div className="share-button">
-						<Label onClick={() => openShareModal(true)} icon color="blue">
+						<Label onClick={() => openShareModal(true)} color="blue">
 							<Icon name="share" />
 							PARTAGER
 						</Label>

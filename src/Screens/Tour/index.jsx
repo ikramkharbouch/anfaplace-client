@@ -22,7 +22,7 @@ const brandsSelector = createSelector(
 );
 
 const Tour = () => {
-	const [filterValue, setFilterValue] = useState();
+	const [filterValue, setFilterValue] = useState('');
 	const [promo, setPromo] = useState(false);
 
 	const brands = useSelector((state) => brandsSelector(state, filterValue));
@@ -39,9 +39,8 @@ const Tour = () => {
 					className="filter-brands"
 					value={filterValue}
 					onChange={({ target: { value } }) => setFilterValue(value)}
-					placeHolder="Filtrer"
+					placeholder="Filtrer"
 					icon="search"
-					iconPosition="right"
 				/>
 			</div>
 
